@@ -1,0 +1,1042 @@
+[
+  {
+    "importer_path": "app/layout.tsx",
+    "specifier": "../styles/globals.css",
+    "kind": "relative-local",
+    "resolved_path": "styles/globals.css",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "app/page.tsx",
+    "specifier": "../components/icons/icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-arrow.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-audio.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-diamond.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-ellipse.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-fit.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-hand.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-icons.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-image.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-keyboard.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-line.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-math.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-move.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-panel.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-pen.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-rectangle.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-redo.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-select.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-table.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-text.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-trash.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-undo.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-video.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-zoom-in.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/icons/whiteboard-zoom-out.tsx",
+    "specifier": "./icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/arrange-panel.tsx",
+    "specifier": "../../lib/stores/whiteboard-store",
+    "kind": "relative-local",
+    "resolved_path": "lib/stores/whiteboard-store",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/arrange-panel.tsx",
+    "specifier": "../../lib/whiteboard/arrange",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/arrange",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/arrange-panel.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/arrange-panel.tsx",
+    "specifier": "./toolbar",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/toolbar",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/canvas-stage.tsx",
+    "specifier": "../../lib/whiteboard/frames",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/frames",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/canvas-stage.tsx",
+    "specifier": "../../lib/whiteboard/input/types",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/input/types",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/canvas-stage.tsx",
+    "specifier": "../../lib/whiteboard/render/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/render/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/canvas-stage.tsx",
+    "specifier": "./svg-stage-preview",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/svg-stage-preview",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/canvas-stage.tsx",
+    "specifier": "./text-editor-overlay",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/text-editor-overlay",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/connector-info.tsx",
+    "specifier": "../../lib/stores/whiteboard-store",
+    "kind": "relative-local",
+    "resolved_path": "lib/stores/whiteboard-store",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/connector-info.tsx",
+    "specifier": "../../lib/whiteboard/connector-routes",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/connector-routes",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/connector-info.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/document-panel.tsx",
+    "specifier": "../../lib/stores/whiteboard-store",
+    "kind": "relative-local",
+    "resolved_path": "lib/stores/whiteboard-store",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/document-panel.tsx",
+    "specifier": "../../lib/whiteboard/frames",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/frames",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/document-panel.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/document-panel.tsx",
+    "specifier": "./toolbar",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/toolbar",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/export-panel.tsx",
+    "specifier": "../../lib/whiteboard/export/dxdraw",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/export/dxdraw",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/export-panel.tsx",
+    "specifier": "../../lib/whiteboard/export/metadata",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/export/metadata",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/export-panel.tsx",
+    "specifier": "../../lib/whiteboard/export/png",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/export/png",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/export-panel.tsx",
+    "specifier": "../../lib/whiteboard/export/svg",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/export/svg",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/export-panel.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/export-panel.tsx",
+    "specifier": "./toolbar",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/toolbar",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/import-panel.tsx",
+    "specifier": "../../lib/stores/whiteboard-store",
+    "kind": "relative-local",
+    "resolved_path": "lib/stores/whiteboard-store",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/import-panel.tsx",
+    "specifier": "../../lib/whiteboard/export/dxdraw",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/export/dxdraw",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/import-panel.tsx",
+    "specifier": "../../lib/whiteboard/image-import",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/image-import",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/import-panel.tsx",
+    "specifier": "../../lib/whiteboard/import",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/import",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/import-panel.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/import-panel.tsx",
+    "specifier": "./toolbar",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/toolbar",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/inspector.tsx",
+    "specifier": "../../lib/stores/whiteboard-store",
+    "kind": "relative-local",
+    "resolved_path": "lib/stores/whiteboard-store",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/inspector.tsx",
+    "specifier": "../../lib/whiteboard/frames",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/frames",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/inspector.tsx",
+    "specifier": "../../lib/whiteboard/image-source",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/image-source",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/inspector.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/inspector.tsx",
+    "specifier": "./connector-info",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/connector-info",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/inspector.tsx",
+    "specifier": "./inspector-options",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/inspector-options",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/inspector.tsx",
+    "specifier": "./number-field",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/number-field",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/inspector.tsx",
+    "specifier": "./text-controls",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/text-controls",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/inspector.tsx",
+    "specifier": "./toolbar",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/toolbar",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/library-panel.tsx",
+    "specifier": "../../lib/stores/whiteboard-store",
+    "kind": "relative-local",
+    "resolved_path": "lib/stores/whiteboard-store",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/library-panel.tsx",
+    "specifier": "../../lib/whiteboard/library",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/library",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/library-panel.tsx",
+    "specifier": "./toolbar",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/toolbar",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/measurement-panel.tsx",
+    "specifier": "../../lib/stores/whiteboard-store",
+    "kind": "relative-local",
+    "resolved_path": "lib/stores/whiteboard-store",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/measurement-panel.tsx",
+    "specifier": "../../lib/whiteboard/measurements",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/measurements",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/measurement-panel.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/measurement-panel.tsx",
+    "specifier": "./toolbar",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/toolbar",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/minimap-panel.tsx",
+    "specifier": "../../lib/stores/whiteboard-store",
+    "kind": "relative-local",
+    "resolved_path": "lib/stores/whiteboard-store",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/minimap-panel.tsx",
+    "specifier": "../../lib/whiteboard/minimap",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/minimap",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/minimap-panel.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/outline-panel.tsx",
+    "specifier": "../../lib/stores/whiteboard-store",
+    "kind": "relative-local",
+    "resolved_path": "lib/stores/whiteboard-store",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/outline-panel.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/outline-panel.tsx",
+    "specifier": "../../lib/whiteboard/outline",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/outline",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/outline-panel.tsx",
+    "specifier": "./toolbar",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/toolbar",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/presentation-panel.tsx",
+    "specifier": "../../lib/stores/whiteboard-store",
+    "kind": "relative-local",
+    "resolved_path": "lib/stores/whiteboard-store",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/presentation-panel.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/presentation-panel.tsx",
+    "specifier": "../../lib/whiteboard/presentation",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/presentation",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/presentation-panel.tsx",
+    "specifier": "./toolbar",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/toolbar",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/share-panel.tsx",
+    "specifier": "../../lib/whiteboard/export/share-receipt",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/export/share-receipt",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/share-panel.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/share-panel.tsx",
+    "specifier": "./toolbar",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/toolbar",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/status-bar.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/status-bar.tsx",
+    "specifier": "../../lib/whiteboard/scene",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/scene",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/status-bar.tsx",
+    "specifier": "./toolbar",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/toolbar",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/svg-stage-preview.tsx",
+    "specifier": "../../lib/whiteboard/connector-routes",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/connector-routes",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/svg-stage-preview.tsx",
+    "specifier": "../../lib/whiteboard/frames",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/frames",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/svg-stage-preview.tsx",
+    "specifier": "../../lib/whiteboard/geometry",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/geometry",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/svg-stage-preview.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/svg-stage-preview.tsx",
+    "specifier": "../../lib/whiteboard/render/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/render/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/text-controls.tsx",
+    "specifier": "../../lib/stores/whiteboard-store",
+    "kind": "relative-local",
+    "resolved_path": "lib/stores/whiteboard-store",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/text-controls.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/text-editor-overlay.tsx",
+    "specifier": "../../lib/whiteboard/render/geometry",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/render/geometry",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/text-editor-overlay.tsx",
+    "specifier": "../../lib/whiteboard/render/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/render/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/toolbar.tsx",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/toolbar.tsx",
+    "specifier": "../icons/icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "../../lib/stores/whiteboard-input-controller",
+    "kind": "relative-local",
+    "resolved_path": "lib/stores/whiteboard-input-controller",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "../../lib/stores/whiteboard-store",
+    "kind": "relative-local",
+    "resolved_path": "lib/stores/whiteboard-store",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "../../lib/whiteboard/render/geometry",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/render/geometry",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "../../lib/whiteboard/scene",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/scene",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "./arrange-panel",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/arrange-panel",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "./canvas-stage",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/canvas-stage",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "./document-panel",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/document-panel",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "./export-panel",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/export-panel",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "./import-panel",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/import-panel",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "./inspector",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/inspector",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "./library-panel",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/library-panel",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "./measurement-panel",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/measurement-panel",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "./minimap-panel",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/minimap-panel",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "./outline-panel",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/outline-panel",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "./presentation-panel",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/presentation-panel",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "./share-panel",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/share-panel",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "./status-bar",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/status-bar",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "components/whiteboard/whiteboard-app.tsx",
+    "specifier": "./toolbar",
+    "kind": "relative-local",
+    "resolved_path": "components/whiteboard/toolbar",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "server/whiteboard/commands.ts",
+    "specifier": "../../lib/whiteboard/commands",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/commands",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "server/whiteboard/commands.ts",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "server/whiteboard/commands.ts",
+    "specifier": "../../lib/whiteboard/persistence/schema",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/persistence/schema",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "server/whiteboard/filesystem-snapshot.ts",
+    "specifier": "../../lib/whiteboard/document-summary",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/document-summary",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "server/whiteboard/filesystem-snapshot.ts",
+    "specifier": "../../lib/whiteboard/export/dxdraw",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/export/dxdraw",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "server/whiteboard/filesystem-snapshot.ts",
+    "specifier": "node:fs/promises",
+    "kind": "blocked-node-modules",
+    "resolved_path": null,
+    "package_id": null,
+    "requires_node_modules": true
+  },
+  {
+    "importer_path": "server/whiteboard/filesystem-snapshot.ts",
+    "specifier": "node:path",
+    "kind": "blocked-node-modules",
+    "resolved_path": null,
+    "package_id": null,
+    "requires_node_modules": true
+  },
+  {
+    "importer_path": "server/whiteboard/filesystem-storage.ts",
+    "specifier": "../../lib/whiteboard/export/dxdraw",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/export/dxdraw",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "server/whiteboard/filesystem-storage.ts",
+    "specifier": "../../lib/whiteboard/persistence/local-first",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/persistence/local-first",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "server/whiteboard/filesystem-storage.ts",
+    "specifier": "../../lib/whiteboard/persistence/schema",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/persistence/schema",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "server/whiteboard/filesystem-storage.ts",
+    "specifier": "node:fs/promises",
+    "kind": "blocked-node-modules",
+    "resolved_path": null,
+    "package_id": null,
+    "requires_node_modules": true
+  },
+  {
+    "importer_path": "server/whiteboard/filesystem-storage.ts",
+    "specifier": "node:path",
+    "kind": "blocked-node-modules",
+    "resolved_path": null,
+    "package_id": null,
+    "requires_node_modules": true
+  },
+  {
+    "importer_path": "server/whiteboard/geometry.ts",
+    "specifier": "../../lib/whiteboard/geometry",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/geometry",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "server/whiteboard/geometry.ts",
+    "specifier": "../../lib/whiteboard/model",
+    "kind": "relative-local",
+    "resolved_path": "lib/whiteboard/model",
+    "package_id": null,
+    "requires_node_modules": false
+  }
+]

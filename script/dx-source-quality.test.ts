@@ -1,0 +1,329 @@
+import assert from "node:assert/strict";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { join } from "node:path";
+import test from "node:test";
+
+const read = (path: string) => readFileSync(path, "utf8");
+const lineCount = (path: string) => read(path).split(/\r?\n/).length;
+const normalizedPath = (path: string) => path.replaceAll("\\", "/");
+const maxOwnedRustLines = 620;
+
+const collectFiles = (root: string, extensions: Set<string>): string[] => {
+  if (!existsSync(root)) return [];
+
+  const stats = statSync(root);
+  if (stats.isFile()) {
+    return extensions.has(root.slice(root.lastIndexOf("."))) ? [root] : [];
+  }
+
+  return readdirSync(root, { withFileTypes: true })
+    .flatMap((entry) => {
+      const child = join(root, entry.name);
+      if (entry.isDirectory()) return collectFiles(child, extensions);
+      return extensions.has(entry.name.slice(entry.name.lastIndexOf(".")))
+        ? [child]
+        : [];
+    })
+    .sort();
+};
+
+test("DX Studio source is split into small owned modules", () => {
+  const expectedModules = [
+    "crates/web_preview/src/dx_studio/manifest.rs",
+    "crates/web_preview/src/dx_studio/project.rs",
+    "crates/web_preview/src/dx_studio/routes.rs",
+    "crates/web_preview/src/dx_studio_source_edit/manifest.rs",
+    "crates/web_preview/src/dx_studio_source_edit/manifest/selectors.rs",
+    "crates/web_preview/src/dx_studio_source_edit/manifest/summaries.rs",
+    "crates/web_preview/src/dx_studio_source_edit/manifest_ts.rs",
+    "crates/web_preview/src/dx_studio_source_edit/operations.rs",
+    "crates/web_preview/src/dx_studio_source_edit/paths.rs",
+    "crates/web_preview/src/dx_studio_source_edit/plan.rs",
+    "crates/web_preview/src/dx_studio_source_edit/receipt.rs",
+    "crates/web_preview/src/dx_studio_source_edit/snapshot.rs",
+    "crates/web_preview/src/dx_studio_source_edit/source_ranges.rs",
+    "crates/web_preview/src/dx_studio_source_edit/values.rs",
+  ];
+  const rustFiles = [
+    "crates/web_preview/src/dx_studio.rs",
+    "crates/web_preview/src/dx_studio_bridge.rs",
+    "crates/web_preview/src/dx_studio_source_edit.rs",
+    ...collectFiles("crates/web_preview/src/dx_studio", new Set([".rs"])),
+    ...collectFiles("crates/web_preview/src/dx_studio_source_edit", new Set([".rs"])),
+  ];
+  const normalizedRustFiles = rustFiles.map(normalizedPath);
+
+  for (const module of expectedModules) {
+    assert.ok(
+      normalizedRustFiles.includes(module),
+      `expected focused DX module ${module}`,
+    );
+  }
+
+  assert.ok(rustFiles.length >= 15, "expected DX Studio to stay split by ownership");
+  for (const file of rustFiles) {
+    assert.ok(lineCount(file) < maxOwnedRustLines, `${file} is too large`);
+  }
+});
+
+test("DX Studio bridge is assembled from focused browser-script fragments", () => {
+  const bridgeSource = read("crates/web_preview/src/dx_studio_bridge.rs");
+  const fragments = [
+    "crates/web_preview/src/dx_studio_bridge/preamble.ts",
+    "crates/web_preview/src/dx_studio_bridge/selection.ts",
+    "crates/web_preview/src/dx_studio_bridge/overlay.ts",
+    "crates/web_preview/src/dx_studio_bridge/capture.ts",
+    "crates/web_preview/src/dx_studio_bridge/source_edit.ts",
+    "crates/web_preview/src/dx_studio_bridge/api.ts",
+  ];
+  const discoveredFragments = collectFiles(
+    "crates/web_preview/src/dx_studio_bridge",
+    new Set([".ts"]),
+  );
+
+  assert.match(bridgeSource, /concat!\(/);
+  assert.match(bridgeSource, /include_str!\("dx_studio_bridge\/preamble\.ts"\)/);
+  assert.doesNotMatch(bridgeSource, /r#"/);
+  assert.deepEqual(discoveredFragments.map(normalizedPath), [...fragments].sort());
+
+  for (const fragment of fragments) {
+    assert.ok(lineCount(fragment) < 380, `${fragment} is too large`);
+  }
+
+  const combinedScript = fragments.map((fragment) => read(fragment)).join("");
+  assert.doesNotThrow(() => new Function(combinedScript));
+});
+
+test("DX Studio bridge refuses blank operation picker answers", () => {
+  const capture = read("crates/web_preview/src/dx_studio_bridge/capture.ts");
+
+  assert.match(capture, /const rawOperationAnswer = answer\.trim\(\);/);
+  assert.match(
+    capture,
+    /if \(!rawOperationAnswer\) \{\s+restoreBridgeStateAfterPromptCancel\(\);\s+return;\s+\}/,
+  );
+  assert.ok(capture.includes("if (!/^\\d+$/.test(rawOperationAnswer)) {"));
+  assert.match(capture, /drawSelection\(selection, "operation refused"\);/);
+  assert.match(capture, /const index = Number\.parseInt\(rawOperationAnswer, 10\);/);
+  assert.match(capture, /!Number\.isSafeInteger\(index\)/);
+  assert.doesNotMatch(capture, /Number\.parseInt\(answer \|\| "0", 10\)/);
+});
+
+test("DX Studio bridge refuses blank target picker answers", () => {
+  const selection = read("crates/web_preview/src/dx_studio_bridge/selection.ts");
+
+  assert.match(selection, /const rawTargetAnswer = answer\.trim\(\);/);
+  assert.match(
+    selection,
+    /if \(!rawTargetAnswer\) return null;/,
+  );
+  assert.ok(selection.includes("if (!/^\\d+$/.test(rawTargetAnswer)) return null;"));
+  assert.match(selection, /const index = Number\.parseInt\(rawTargetAnswer, 10\);/);
+  assert.match(selection, /!Number\.isSafeInteger\(index\)/);
+  assert.doesNotMatch(selection, /Number\.parseInt\(answer \|\| "0", 10\)/);
+});
+
+test("DX Studio session surfaces invalid manifest candidates", () => {
+  const session = read("crates/web_preview/src/dx_studio_session.rs");
+
+  assert.match(session, /fn manifest_candidate_snapshot\(path: &Path\) -> Value/);
+  assert.match(session, /"candidate_status":/);
+  assert.match(session, /"read_status":/);
+  assert.match(session, /"parse_status":/);
+  assert.match(session, /"invalid_candidate_count":/);
+  assert.match(session, /"invalid_candidates":/);
+  assert.match(session, /"skipped_candidates":/);
+  assert.match(session, /"malformed_json"/);
+  assert.match(session, /"unreadable"/);
+  assert.match(session, /"oversized"/);
+  assert.match(session, /"missing_edit_contract"/);
+  assert.match(session, /"loaded_edit_contract"/);
+  assert.match(session, /const DX_STUDIO_MAX_SESSION_MANIFEST_BYTES: u64 = 2_000_000;/);
+  assert.match(session, /fn read_manifest_candidate\(path: &Path\) -> Result<String, ManifestCandidateReadError>/);
+  assert.match(session, /ManifestCandidateReadError::Oversized/);
+  assert.doesNotMatch(session, /fs::read_to_string/);
+});
+
+test("DX Studio session summary can load TypeScript edit contracts", () => {
+  const manifest = read("crates/web_preview/src/dx_studio/manifest.rs");
+  const manifestTs = read("crates/web_preview/src/dx_studio_source_edit/manifest_ts.rs");
+  const paths = read("crates/web_preview/src/dx_studio_source_edit/paths.rs");
+
+  assert.match(manifest, /edit_contract_from_typescript/);
+  assert.match(manifest, /Some\("ts" \| "tsx"\)/);
+  assert.doesNotMatch(
+    manifest,
+    /!= Some\("json"\)\s*\{\s*continue;\s*\}/,
+  );
+  assert.match(
+    manifestTs,
+    /pub\(crate\) fn edit_contract_from_typescript\(contents: &str\) -> Option<Value>/,
+  );
+  assert.match(manifestTs, /fn assigned_delimiter_range\(/);
+  assert.match(manifestTs, /identifier_is_non_value_declaration/);
+  assert.match(manifestTs, /find_assignment_after_identifier/);
+  assert.match(manifestTs, /fn parses_typed_exported_contract_arrays_after_assignment\(\)/);
+  assert.match(manifestTs, /"allowGeneratedEdits"/);
+  assert.match(paths, /edit_contract_from_typescript/);
+  assert.match(paths, /Some\("ts" \| "tsx"\) => edit_contract_from_typescript/);
+});
+
+test("DX Studio source edits require content and selection-bound snapshots", () => {
+  const root = read("crates/web_preview/src/dx_studio_source_edit.rs");
+  const plan = read("crates/web_preview/src/dx_studio_source_edit/plan.rs");
+  const snapshot = read("crates/web_preview/src/dx_studio_source_edit/snapshot.rs");
+  const receipt = read("crates/web_preview/src/dx_studio_source_edit/receipt.rs");
+
+  assert.match(snapshot, /"content_digest": content_digest/);
+  assert.match(snapshot, /"selection_identity": selection_snapshot_identity\(selection\)/);
+  assert.match(snapshot, /fn validate_expected_selection_identity\(/);
+  assert.match(snapshot, /fn content_digest\(contents: &\[u8\]\) -> String/);
+  assert.match(snapshot, /0xcbf29ce484222325u64/);
+  assert.match(snapshot, /is_strong_selection_identity_key/);
+  assert.match(root, /validate_expected_source_contents\(&source, &original, payload\)\?/);
+  assert.match(plan, /source_file_snapshot\(source, selection\)/);
+  assert.match(receipt, /source snapshot selection identity/);
+  assert.match(receipt, /source snapshot content identity/);
+});
+
+test("DX Studio source snapshot digests bound source reads before hashing", () => {
+  const snapshot = read("crates/web_preview/src/dx_studio_source_edit/snapshot.rs");
+
+  assert.match(snapshot, /use std::\{[\s\S]*fs::\{self, File, Metadata\},[\s\S]*io::Read,/);
+  assert.match(snapshot, /DX_STUDIO_MAX_SOURCE_FILE_BYTES/);
+  assert.match(
+    snapshot,
+    /fn read_source_file_for_digest\(source: &Path\) -> Option<Vec<u8>>/,
+  );
+  assert.match(snapshot, /File::open\(source\)\.ok\(\)\?/);
+  assert.match(snapshot, /\.take\(DX_STUDIO_MAX_SOURCE_FILE_BYTES \+ 1\)/);
+  assert.match(snapshot, /\.read_to_end\(&mut bytes\)\.ok\(\)\?/);
+  assert.match(snapshot, /bytes\.len\(\) as u64 > DX_STUDIO_MAX_SOURCE_FILE_BYTES/);
+  assert.match(snapshot, /let contents = read_source_file_for_digest\(source\)\?/);
+  assert.match(snapshot, /content_digest\(&contents\)/);
+  assert.doesNotMatch(snapshot, /\bfs::read\s*\(/);
+
+  const oversizedCheck = snapshot.indexOf(
+    "bytes.len() as u64 > DX_STUDIO_MAX_SOURCE_FILE_BYTES",
+  );
+  const digest = snapshot.indexOf("content_digest(&contents)");
+  assert.ok(oversizedCheck >= 0, "digest reads should reject the sentinel byte");
+  assert.ok(digest > oversizedCheck, "digesting should happen after the bounded read");
+});
+
+test("DX Studio source writes stay inside bounded file and edit sizes", () => {
+  const root = read("crates/web_preview/src/dx_studio_source_edit.rs");
+
+  assert.match(root, /const DX_STUDIO_MAX_SOURCE_FILE_BYTES: u64 = 2_000_000;/);
+  assert.match(root, /const DX_STUDIO_MAX_SOURCE_EDIT_DELTA_BYTES: i64 = 200_000;/);
+  assert.match(root, /ensure_source_file_size_allows_edit\(&source, metadata\.len\(\)\)\?/);
+  assert.match(root, /ensure_source_write_bounds\(&source, edit\.updated\.len\(\), edit\.changed_bytes\)\?/);
+});
+
+test("DX Studio manifest contract reads stay bounded before parsing", () => {
+  const manifest = read("crates/web_preview/src/dx_studio/manifest.rs");
+  const paths = read("crates/web_preview/src/dx_studio_source_edit/paths.rs");
+  const sourceEditManifest = read(
+    "crates/web_preview/src/dx_studio_source_edit/manifest.rs",
+  );
+
+  for (const source of [manifest, sourceEditManifest]) {
+    assert.match(source, /const DX_STUDIO_MAX_MANIFEST_BYTES: u64 = 2_000_000;/);
+    assert.match(source, /fn read_manifest_candidate\(candidate: &Path\) -> Option<String>/);
+    assert.match(source, /\.take\(DX_STUDIO_MAX_MANIFEST_BYTES \+ 1\)/);
+    assert.match(source, /\.read_to_end\(&mut bytes\)/);
+    assert.match(source, /bytes\.len\(\) as u64 > DX_STUDIO_MAX_MANIFEST_BYTES/);
+    assert.doesNotMatch(source, /fs::read_to_string/);
+  }
+
+  assert.match(manifest, /let Some\(contents\) = read_manifest_candidate\(&candidate\) else/);
+  assert.match(
+    sourceEditManifest,
+    /let contents = read_manifest_candidate\(candidate\)\?/,
+  );
+  assert.match(paths, /const DX_STUDIO_MAX_POLICY_MANIFEST_BYTES: u64 = 2_000_000;/);
+  assert.match(paths, /fn read_manifest_policy_candidate\(candidate: &Path\) -> Option<String>/);
+  assert.match(paths, /\.take\(DX_STUDIO_MAX_POLICY_MANIFEST_BYTES \+ 1\)/);
+  assert.match(paths, /read_manifest_policy_candidate\(&candidate\)/);
+  assert.ok(
+    paths.match(/read_manifest_policy_candidate\(&candidate\)/g)?.length >= 2,
+    "generated-edit policy and source-from-manifest reads should both use bounded manifest reads",
+  );
+  assert.doesNotMatch(paths, /fs::read_to_string/);
+});
+
+test("DX Studio route discovery reads configs and preview manifests through bounded readers", () => {
+  const routes = read("crates/web_preview/src/dx_studio/routes.rs");
+
+  assert.match(routes, /use std::\{[\s\S]*fs::File,[\s\S]*io::Read,/);
+  assert.match(routes, /const DX_STUDIO_MAX_ROUTE_CONFIG_BYTES: u64 = 200_000;/);
+  assert.match(routes, /const DX_STUDIO_MAX_ROUTE_MANIFEST_BYTES: u64 = 2_000_000;/);
+  assert.match(
+    routes,
+    /fn read_route_config_candidate\(candidate: &Path\) -> Option<String>/,
+  );
+  assert.match(
+    routes,
+    /fn read_route_manifest_candidate\(candidate: &Path\) -> Option<String>/,
+  );
+  assert.match(
+    routes,
+    /fn read_bounded_utf8_file\(candidate: &Path, limit: u64\) -> Option<String>/,
+  );
+  assert.match(routes, /File::open\(candidate\)/);
+  assert.match(routes, /\.take\(limit \+ 1\)/);
+  assert.match(routes, /\.read_to_end\(&mut bytes\)/);
+  assert.match(routes, /bytes\.len\(\) as u64 > limit/);
+  assert.match(routes, /String::from_utf8\(bytes\)\.ok\(\)/);
+  assert.match(
+    routes,
+    /let Some\(contents\) = read_route_config_candidate\(&config_path\) else/,
+  );
+  assert.match(
+    routes,
+    /let Some\(contents\) = read_route_manifest_candidate\(&candidate\) else/,
+  );
+  assert.doesNotMatch(routes, /fs::read_to_string/);
+});
+
+test("DX Studio manifest-derived discovery details stay capped", () => {
+  const routes = read("crates/web_preview/src/dx_studio/routes.rs");
+  const sourceEditManifest = read(
+    "crates/web_preview/src/dx_studio_source_edit/manifest.rs",
+  );
+
+  assert.match(routes, /const DX_STUDIO_MAX_PREVIEW_TARGETS: usize = 64;/);
+  assert.match(routes, /const DX_STUDIO_MAX_ROUTE_DETAIL_ITEMS: usize = 64;/);
+  assert.match(routes, /\.take\(DX_STUDIO_MAX_PREVIEW_TARGETS\)/);
+  assert.match(
+    routes,
+    /fn bounded_route_detail_values\(value: &Value, keys: &\[\&str\]\) -> Vec<String>/,
+  );
+  assert.match(
+    routes,
+    /string_values_for_keys\(value, keys\)[\s\S]*\.take\(DX_STUDIO_MAX_ROUTE_DETAIL_ITEMS\)/,
+  );
+  assert.match(
+    routes,
+    /launchRouteMaterializedFiles"[\s\S]*\.take\(DX_STUDIO_MAX_ROUTE_DETAIL_ITEMS\)/,
+  );
+
+  assert.match(
+    sourceEditManifest,
+    /const DX_STUDIO_MAX_AMBIGUOUS_SURFACE_SUMMARIES: usize = 8;/,
+  );
+  assert.match(sourceEditManifest, /let candidate_count = candidates\.len\(\);/);
+  assert.match(
+    sourceEditManifest,
+    /\.take\(DX_STUDIO_MAX_AMBIGUOUS_SURFACE_SUMMARIES\)/,
+  );
+  assert.match(sourceEditManifest, /"candidate_count": candidate_count/);
+  assert.match(
+    sourceEditManifest,
+    /"candidates_truncated": candidate_count > DX_STUDIO_MAX_AMBIGUOUS_SURFACE_SUMMARIES/,
+  );
+  assert.doesNotMatch(
+    sourceEditManifest,
+    /candidates\.iter\(\)\.map\(surface_summary\)\.collect::<Vec<_>>\(\)/,
+  );
+});

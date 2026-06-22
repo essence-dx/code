@@ -1,0 +1,16 @@
+# Prevent GitHub from displaying comments within JSON files as errors.
+# *.json linguist-language=JSON-with-Comments
+# Ensure the WSL script always has LF line endings, even on Windows
+# web/Video/public/ffmpeg/ffmpeg-core.wasm filter=lfs diff=lfs merge=lfs -text
+# web/Graphics/.dx/** filter=lfs diff=lfs merge=lfs -text
+# web/3D/.dx/** filter=lfs diff=lfs merge=lfs -text
+# web/Design/.dx/** filter=lfs diff=lfs merge=lfs -text
+# web/Presentations/.dx/** filter=lfs diff=lfs merge=lfs -text
+# web/Spreadsheets/.dx/** filter=lfs diff=lfs merge=lfs -text
+# web/Music/.dx/** filter=lfs diff=lfs merge=lfs -text
+# web/** filter=lfs diff=lfs merge=lfs -text
+
+# crates/zed/resources/windows/zed.sh text eol=lf
+# assets/liquid_glass/** filter=lfs diff=lfs merge=lfs -text
+# extensions/dx-icon/** filter=lfs diff=lfs merge=lfs -text
+# assets/icons/** filter=lfs diff=lfs merge=lfs -text

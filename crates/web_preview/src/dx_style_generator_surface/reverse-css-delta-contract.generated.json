@@ -1,0 +1,527 @@
+{
+  "schema": "dx.style.grouped-class-reverse-css-delta-contract",
+  "schema_version": 1,
+  "scope": "review-only generated CSS declaration deltas back to grouped atomic utilities",
+  "fixture_path": "fixtures/grouped-class-reverse-css-delta-contract.json",
+  "source_mutation_enabled": false,
+  "editor_write_bridge_required": true,
+  "reverse_css_map_required": true,
+  "source_apply_contract_required": true,
+  "max_replacement_utilities": 256,
+  "max_replacement_utility_bytes": 1024,
+  "max_replacement_source_declaration_bytes": 4096,
+  "supported_properties": [
+    {
+      "property": "background-color",
+      "utility_prefix": "bg-",
+      "token_prefix": "var(--color-",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "background-image",
+      "utility_prefix": "bg-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "background",
+      "utility_prefix": "bg-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "background-size",
+      "utility_prefix": "bg-size-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "color",
+      "utility_prefix": "text-",
+      "token_prefix": "var(--color-",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "border-color",
+      "utility_prefix": "border-",
+      "token_prefix": "var(--color-",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "outline-color",
+      "utility_prefix": "outline-",
+      "token_prefix": "var(--color-",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "accent-color",
+      "utility_prefix": "accent-",
+      "token_prefix": "var(--color-",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "caret-color",
+      "utility_prefix": "caret-",
+      "token_prefix": "var(--color-",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "border-radius",
+      "utility_prefix": "rounded-",
+      "token_prefix": "var(--radius-",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "border",
+      "utility_prefix": "[border:",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_css_property_value"
+    },
+    {
+      "property": "border-radius",
+      "utility_prefix": "rounded-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "border-image",
+      "utility_prefix": "border-image-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "clip-path",
+      "utility_prefix": "clip-path-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "mask-image",
+      "utility_prefix": "mask-image-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "transform",
+      "utility_prefix": "transform-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "container-type",
+      "utility_prefix": "[container-type:",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_css_property_value"
+    },
+    {
+      "property": "container-name",
+      "utility_prefix": "[container-name:",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_css_property_value"
+    },
+    {
+      "property": "display",
+      "utility_prefix": "",
+      "token_prefix": "",
+      "value_strategy": "display_keyword"
+    },
+    {
+      "property": "padding",
+      "utility_prefix": "p-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "padding",
+      "utility_prefix": "p-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "padding-inline",
+      "utility_prefix": "px-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "padding-inline",
+      "utility_prefix": "px-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "padding-block",
+      "utility_prefix": "py-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "padding-block",
+      "utility_prefix": "py-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "padding-top",
+      "utility_prefix": "pt-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "padding-top",
+      "utility_prefix": "pt-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "padding-right",
+      "utility_prefix": "pr-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "padding-right",
+      "utility_prefix": "pr-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "padding-bottom",
+      "utility_prefix": "pb-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "padding-bottom",
+      "utility_prefix": "pb-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "padding-left",
+      "utility_prefix": "pl-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "padding-left",
+      "utility_prefix": "pl-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "margin",
+      "utility_prefix": "m-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "margin_token_suffix"
+    },
+    {
+      "property": "margin-inline",
+      "utility_prefix": "mx-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "margin_token_suffix"
+    },
+    {
+      "property": "margin-block",
+      "utility_prefix": "my-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "margin_token_suffix"
+    },
+    {
+      "property": "margin-top",
+      "utility_prefix": "mt-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "margin_token_suffix"
+    },
+    {
+      "property": "margin-right",
+      "utility_prefix": "mr-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "margin_token_suffix"
+    },
+    {
+      "property": "margin-bottom",
+      "utility_prefix": "mb-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "margin_token_suffix"
+    },
+    {
+      "property": "margin-left",
+      "utility_prefix": "ml-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "margin_token_suffix"
+    },
+    {
+      "property": "gap",
+      "utility_prefix": "gap-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "gap",
+      "utility_prefix": "gap-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "column-gap",
+      "utility_prefix": "gap-x-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "column-gap",
+      "utility_prefix": "gap-x-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "row-gap",
+      "utility_prefix": "gap-y-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "row-gap",
+      "utility_prefix": "gap-y-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "align-items",
+      "utility_prefix": "items-",
+      "token_prefix": "",
+      "value_strategy": "align_items_keyword"
+    },
+    {
+      "property": "justify-content",
+      "utility_prefix": "justify-",
+      "token_prefix": "",
+      "value_strategy": "justify_content_keyword"
+    },
+    {
+      "property": "align-content",
+      "utility_prefix": "content-",
+      "token_prefix": "",
+      "value_strategy": "align_content_keyword"
+    },
+    {
+      "property": "grid-template-columns",
+      "utility_prefix": "grid-cols-",
+      "token_prefix": "",
+      "value_strategy": "grid_track_repeat_count"
+    },
+    {
+      "property": "grid-template-rows",
+      "utility_prefix": "grid-rows-",
+      "token_prefix": "",
+      "value_strategy": "grid_track_repeat_count"
+    },
+    {
+      "property": "width",
+      "utility_prefix": "w-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "width",
+      "utility_prefix": "w-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "height",
+      "utility_prefix": "h-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "height",
+      "utility_prefix": "h-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "min-width",
+      "utility_prefix": "min-w-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "min-width",
+      "utility_prefix": "min-w-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "max-width",
+      "utility_prefix": "max-w-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "max-width",
+      "utility_prefix": "max-w-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "min-height",
+      "utility_prefix": "min-h-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "min-height",
+      "utility_prefix": "min-h-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "max-height",
+      "utility_prefix": "max-h-",
+      "token_prefix": "calc(var(--spacing) * ",
+      "value_strategy": "design_token_suffix"
+    },
+    {
+      "property": "max-height",
+      "utility_prefix": "max-h-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "transition-property",
+      "utility_prefix": "transition-",
+      "token_prefix": "",
+      "value_strategy": "transition_property_value"
+    },
+    {
+      "property": "transition-property",
+      "utility_prefix": "transition-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "transition-duration",
+      "utility_prefix": "duration-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "transition-delay",
+      "utility_prefix": "delay-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "transition-timing-function",
+      "utility_prefix": "ease-",
+      "token_prefix": "",
+      "value_strategy": "transition_timing_function_value"
+    },
+    {
+      "property": "transition-timing-function",
+      "utility_prefix": "ease-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "animation",
+      "utility_prefix": "animate-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "box-shadow",
+      "utility_prefix": "shadow-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "text-shadow",
+      "utility_prefix": "text-shadow-",
+      "token_prefix": "",
+      "value_strategy": "arbitrary_bracket_value"
+    },
+    {
+      "property": "filter",
+      "utility_prefix": "drop-shadow-",
+      "token_prefix": "",
+      "value_strategy": "drop_shadow_function"
+    },
+    {
+      "property": "backdrop-filter",
+      "utility_prefix": "backdrop-blur-",
+      "token_prefix": "",
+      "value_strategy": "backdrop_blur_function"
+    }
+  ],
+  "required_editor_guards": [
+    "reverse CSS map receipt match",
+    "generated CSS declaration delta validation",
+    "reverse CSS delta preview provenance match",
+    "active source digest match",
+    "source apply contract match",
+    "editor write bridge can_apply",
+    "explicit user apply action"
+  ],
+  "required_preview_provenance_fields": [
+    "group_alias",
+    "group_registry_receipt",
+    "reverse_css_map_receipt",
+    "reverse_css_map_status",
+    "group_expansion_status",
+    "group_source_state",
+    "group_utility_count"
+  ],
+  "fallback_review_properties": [
+    "display",
+    "transition-property",
+    "background",
+    "border"
+  ],
+  "existing_utility_required_properties": [
+    "background",
+    "background-image",
+    "background-size",
+    "border",
+    "border-image",
+    "clip-path",
+    "mask-image",
+    "transform",
+    "transition-property",
+    "animation",
+    "container-type",
+    "container-name"
+  ],
+  "consumers": [
+    "Zed Web Preview",
+    "Zed Style panel",
+    "Friday",
+    "dx-check"
+  ],
+  "example_preview": {
+    "alias": "button",
+    "property": "background-color",
+    "value": "var(--color-secondary)",
+    "target_utility": "bg-secondary",
+    "replacement_utilities": [
+      "inline-flex",
+      "items-center",
+      "justify-center",
+      "rounded-md",
+      "bg-secondary",
+      "text-primary-foreground",
+      "px-4",
+      "py-2"
+    ],
+    "replacement_source_declaration": "@button(inline-flex items-center justify-center rounded-md bg-secondary text-primary-foreground px-4 py-2)",
+    "status": "ready_for_review",
+    "reason": "generated declaration can be reviewed as a grouped atomic utility delta",
+    "source_mutation_enabled": false
+  },
+  "notes": [
+    "This fixture lets Web Preview generators preview a CSS declaration delta as source-owned grouped atomics.",
+    "This fixture is review evidence only; it must not enable mutation while source_mutation_enabled is false."
+  ]
+}

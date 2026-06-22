@@ -1,0 +1,107 @@
+import assert from "node:assert/strict";
+import { existsSync, readFileSync } from "node:fs";
+import test from "node:test";
+
+const read = (path: string) => readFileSync(path, "utf8");
+const lineCount = (path: string) => read(path).split(/\r?\n/).length;
+
+test("DX receipt history keeps bucket scanning, receipt IO, Forge summaries, and fields focused", () => {
+  const parentPath = "crates/agent_ui/src/dx_receipt_history.rs";
+  const bucketsPath = "crates/agent_ui/src/dx_receipt_history/buckets.rs";
+  const fieldsPath = "crates/agent_ui/src/dx_receipt_history/fields.rs";
+  const forgePath = "crates/agent_ui/src/dx_receipt_history/forge_history.rs";
+  const forgeFieldsPath = "crates/agent_ui/src/dx_receipt_history/forge_receipt_fields.rs";
+  const receiptFilesPath = "crates/agent_ui/src/dx_receipt_history/receipt_files.rs";
+  const receiptIoPath = "crates/agent_ui/src/dx_receipt_history/receipt_io.rs";
+
+  assert.ok(existsSync(bucketsPath), "missing focused receipt-history bucket scanner");
+  assert.ok(existsSync(fieldsPath), "missing focused receipt-history field helpers");
+  assert.ok(existsSync(forgePath), "missing focused receipt-history Forge parser");
+  assert.ok(existsSync(forgeFieldsPath), "missing focused receipt-history Forge field parser");
+  assert.ok(existsSync(receiptFilesPath), "missing focused receipt-history file walker");
+  assert.ok(existsSync(receiptIoPath), "missing focused receipt-history receipt IO");
+
+  const parent = read(parentPath);
+  const buckets = read(bucketsPath);
+  const fields = read(fieldsPath);
+  const forge = read(forgePath);
+  const forgeFields = read(forgeFieldsPath);
+  const receiptFiles = read(receiptFilesPath);
+  const receiptIo = read(receiptIoPath);
+
+  assert.match(parent, /^mod buckets;$/m);
+  assert.match(parent, /^mod fields;$/m);
+  assert.match(parent, /^mod forge_history;$/m);
+  assert.match(parent, /^mod forge_receipt_fields;$/m);
+  assert.match(parent, /^mod receipt_files;$/m);
+  assert.match(parent, /^mod receipt_io;$/m);
+  assert.match(parent, /use self::buckets::scan_tool_history;/);
+  assert.doesNotMatch(parent, /fn scan_bucket\(/);
+  assert.doesNotMatch(parent, /fn count_receipt_files\(/);
+  assert.doesNotMatch(parent, /fn push_latest_receipts\(/);
+  assert.doesNotMatch(parent, /fn forge_receipt_summary\(/);
+  assert.doesNotMatch(parent, /fn read_json\(/);
+  assert.doesNotMatch(parent, /fn value_at</);
+  assert.match(buckets, /pub\(super\) fn scan_tool_history/);
+  assert.match(buckets, /fn scan_bucket/);
+  assert.match(buckets, /Forge History/);
+  assert.match(buckets, /Metasearch Source Packs/);
+  assert.match(buckets, /Metasearch Status/);
+  assert.match(buckets, /Metasearch Context/);
+  assert.match(buckets, /Source Attachments/);
+  assert.match(
+    buckets,
+    /Path::new\("tools"\)[\s\S]*?\.join\("dx-metasearch"\)[\s\S]*?\.join\("source-packs"\)/,
+  );
+  assert.match(
+    buckets,
+    /Path::new\("tools"\)[\s\S]*?\.join\("dx-metasearch"\)[\s\S]*?\.join\("status"\)/,
+  );
+  assert.match(
+    buckets,
+    /Path::new\("tools"\)[\s\S]*?\.join\("dx-metasearch"\)[\s\S]*?\.join\("context"\)/,
+  );
+  assert.match(
+    buckets,
+    /Path::new\("tools"\)[\s\S]*?\.join\("dx-sources"\)[\s\S]*?\.join\("attachments"\)/,
+  );
+  assert.match(fields, /pub\(super\) fn string_field/);
+  assert.match(fields, /pub\(super\) fn safe_string_field/);
+  assert.match(fields, /pub\(super\) fn bool_field/);
+  assert.match(fields, /pub\(super\) fn usize_field/);
+  assert.match(fields, /fn is_secret_like_scalar/);
+  assert.match(fields, /DX_RECEIPT_SECRET_MARKERS/);
+  assert.match(forge, /pub\(super\) fn forge_receipt_summary/);
+  assert.match(forge, /forge_history_kind/);
+  assert.doesNotMatch(forge, /fn forge_history_kind/);
+  assert.doesNotMatch(forge, /fn forge_history_target_path/);
+  assert.match(forgeFields, /pub\(super\) fn forge_history_kind/);
+  assert.match(forgeFields, /pub\(super\) fn forge_history_target_path/);
+  assert.match(forgeFields, /use super::fields::\{array_len_field, bool_field, safe_string_field, usize_field\}/);
+  assert.match(forgeFields, /forge_history_status[\s\S]*safe_string_field/);
+  assert.match(forgeFields, /forge_history_target_path[\s\S]*safe_string_field/);
+  assert.match(forgeFields, /forge_history_restore_destination_root[\s\S]*safe_string_field/);
+  assert.match(forgeFields, /restore_target_plan/);
+  assert.match(forgeFields, /array_len_field\(value, &\["restore_execution", "restore", "blockers"\]\)/);
+  assert.match(receiptFiles, /pub\(super\) fn count_receipt_files/);
+  assert.match(receiptFiles, /pub\(super\) fn push_latest_receipts/);
+  assert.match(receiptFiles, /pub\(super\) fn root_label/);
+  assert.match(receiptFiles, /fn is_receipt_file/);
+  assert.match(receiptIo, /pub\(super\) fn read_json/);
+  assert.match(receiptIo, /MAX_RECEIPT_BYTES/);
+  assert.match(receiptIo, /file\.take\(MAX_RECEIPT_BYTES \+ 1\)/);
+  assert.match(receiptIo, /read_to_end\(&mut buffer\)/);
+  assert.match(receiptIo, /\(buffer\.len\(\) as u64\) > MAX_RECEIPT_BYTES[\s\S]*return None;/);
+  assert.match(receiptIo, /serde_json::from_slice\(&buffer\)/);
+  assert.doesNotMatch(receiptIo, /serde_json::from_reader/);
+  assert.doesNotMatch(receiptIo, /Take<File>/);
+  assert.doesNotMatch(receiptIo, /fn receipt_reader/);
+
+  assert.ok(lineCount(parentPath) < 95, "dx_receipt_history.rs should stay focused on cache and public snapshot types");
+  assert.ok(lineCount(bucketsPath) < 115, "receipt-history bucket scanner should stay small");
+  assert.ok(lineCount(fieldsPath) < 75, "receipt-history field helpers should stay small");
+  assert.ok(lineCount(forgePath) < 85, "receipt-history Forge summary parser should stay small");
+  assert.ok(lineCount(forgeFieldsPath) < 120, "receipt-history Forge field parser should stay small");
+  assert.ok(lineCount(receiptFilesPath) < 145, "receipt-history file walker should stay small");
+  assert.ok(lineCount(receiptIoPath) < 25, "receipt-history receipt IO should stay small");
+});

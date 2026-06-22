@@ -1,0 +1,131 @@
+{
+  "schema": "dx.style.grouped-class-web-preview-context",
+  "schema_version": 1,
+  "scope": "read-only grouped-class cursor context for Zed Web Preview generator surfaces",
+  "active_context_schema": "zed.dx_style.active_context.v1",
+  "fixture_path": "fixtures/grouped-class-web-preview-context.json",
+  "source_mutation_enabled": false,
+  "supported_token_shapes": [
+    "alias()",
+    "alias(atomic utilities)",
+    "@alias(atomic utilities)",
+    "static atomic utility list"
+  ],
+  "group_call_syntax_values": [
+    "alias_reference",
+    "inline_utilities",
+    "source_declaration",
+    "static_atomic_utility_list"
+  ],
+  "group_call_status_values": [
+    "alias_reference",
+    "alias_reference_expanded",
+    "inline_group_declaration",
+    "source_group_declaration",
+    "atomic_list_candidate"
+  ],
+  "group_call_status_by_syntax": [
+    {
+      "syntax": "alias_reference",
+      "statuses": [
+        "alias_reference",
+        "alias_reference_expanded"
+      ]
+    },
+    {
+      "syntax": "inline_utilities",
+      "statuses": [
+        "inline_group_declaration"
+      ]
+    },
+    {
+      "syntax": "source_declaration",
+      "statuses": [
+        "source_group_declaration"
+      ]
+    },
+    {
+      "syntax": "static_atomic_utility_list",
+      "statuses": [
+        "atomic_list_candidate"
+      ]
+    }
+  ],
+  "context_fields": [
+    "group_context.schema",
+    "group_context.status",
+    "group_context.alias",
+    "group_context.syntax",
+    "group_context.utilities",
+    "group_context.utility_count",
+    "group_context.raw_atomic_bytes",
+    "group_context.grouped_reference_bytes",
+    "group_context.grouping_savings_bytes",
+    "group_context.recommended_representation",
+    "group_context.expansion_status",
+    "group_context.candidate_token_count",
+    "group_context.source_state",
+    "group_context.requires_registry_receipt",
+    "group_context.source_owned",
+    "group_context.can_expand_inline",
+    "group_context.registry_receipt"
+  ],
+  "review_output_fields": [
+    "group_expected_recommended_representation",
+    "group_recommendation_match"
+  ],
+  "diagnostic_codes": [
+    "group_context_contract_missing_field",
+    "group_context_diagnostic_codes_missing",
+    "group_context_utility_preview_cap_missing",
+    "group_context_alias_cap_missing",
+    "group_context_utility_count_cap_missing",
+    "group_context_utility_byte_cap_missing",
+    "group_context_candidate_min_missing",
+    "group_context_alias_exceeds_contract_limit",
+    "group_context_syntax_missing",
+    "group_context_syntax_unsupported",
+    "group_context_status_missing",
+    "group_context_status_unsupported",
+    "group_context_status_mismatch",
+    "group_context_registry_requirement_missing",
+    "group_context_registry_requirement_stale",
+    "group_context_source_owned_missing",
+    "group_context_utilities_missing",
+    "group_context_utilities_empty",
+    "group_context_utility_count_missing",
+    "group_context_utility_count_mismatch",
+    "group_context_raw_atomic_bytes_missing",
+    "group_context_grouped_reference_bytes_missing",
+    "group_context_grouping_savings_bytes_missing",
+    "group_context_raw_atomic_bytes_mismatch",
+    "group_context_grouped_reference_bytes_mismatch",
+    "group_context_grouping_savings_bytes_mismatch",
+    "group_context_recommended_representation_missing",
+    "group_context_recommended_representation_unsupported",
+    "group_context_recommended_representation_mismatch",
+    "group_context_recommendation_match_values_missing",
+    "group_context_recommendation_match_unsupported",
+    "group_context_review_output_fields_missing",
+    "group_context_review_output_field_missing",
+    "group_context_inline_expansion_missing"
+  ],
+  "recommended_representation_values": [
+    "grouped_reference",
+    "atomic_utilities",
+    "group_candidate_needs_alias"
+  ],
+  "recommendation_match_values": [
+    "matched",
+    "mismatch",
+    "missing_source_recommendation",
+    "expected_unavailable",
+    "not_available"
+  ],
+  "max_alias_bytes": 128,
+  "max_utility_count": 32,
+  "max_utility_bytes": 256,
+  "utility_preview_max_chars": 512,
+  "candidate_min_utility_count": 4,
+  "requires_project_group_registry_for_alias_reference": true
+}

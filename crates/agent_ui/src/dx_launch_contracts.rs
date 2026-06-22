@@ -1,0 +1,308 @@
+mod fields;
+mod packets;
+mod review;
+
+use self::fields::{
+    array_len, bool_field, pointer_string, pointer_string_array, string_field, usize_field,
+};
+use self::packets::read_json_packet;
+use self::review::redaction_requires_review;
+use crate::dx_project_context::DxProjectContext;
+use serde_json::Value;
+use std::{
+    path::PathBuf,
+    sync::{Mutex, OnceLock},
+    time::{Duration, Instant},
+};
+
+const IMPORT_MANIFEST_FILE: &str = "import-manifest.json";
+const HANDOFF_FILE: &str = "handoff.json";
+const IMPORT_MANIFEST_SCHEMA: &str = "dx.launch.import_manifest.v1";
+const HANDOFF_SCHEMA: &str = "dx.launch.handoff.v1";
+const DX_LAUNCH_IMPORT_MANIFEST_COMMAND: &str = "dx launch import-manifest --json";
+const DX_LAUNCH_HANDOFF_COMMAND: &str = "dx launch handoff --json";
+const LAUNCH_CONTRACT_CACHE_TTL: Duration = Duration::from_secs(5);
+const MAX_LAUNCH_CONTRACT_DISPLAY_CHARS: usize = 240;
+
+#[derive(Clone)]
+pub(crate) struct DxLaunchContractSnapshot {
+    pub root: PathBuf,
+    pub manifest_path: PathBuf,
+    pub handoff_path: PathBuf,
+    pub manifest_present: bool,
+    pub handoff_present: bool,
+    pub status: String,
+    pub operator_summary: String,
+    pub packet_count: usize,
+    pub fixture_family_count: usize,
+    pub command_count: usize,
+    pub action_count: usize,
+    pub metadata_only_count: usize,
+    pub command_fanout_count: usize,
+    pub confirmation_action_count: usize,
+    pub no_command_fanout: bool,
+    pub startup_commands: Vec<String>,
+    pub detail_commands: Vec<String>,
+    pub diagnostics_commands: Vec<String>,
+    pub first_packets: Vec<String>,
+    pub first_action: Option<String>,
+    pub refresh_command: Option<String>,
+    pub cached_receipt_path: Option<String>,
+    pub last_error: Option<String>,
+    pub next_action: String,
+    pub redaction_requires_review: bool,
+}
+
+static LAUNCH_CONTRACT_CACHE: OnceLock<Mutex<Option<(Instant, DxLaunchContractSnapshot)>>> =
+    OnceLock::new();
+
+pub(crate) fn launch_contract_snapshot() -> DxLaunchContractSnapshot {
+    let cache = LAUNCH_CONTRACT_CACHE.get_or_init(|| Mutex::new(None));
+    let now = Instant::now();
+
+    if let Ok(mut cache) = cache.lock() {
+        if let Some((cached_at, snapshot)) = cache.as_ref() {
+            if now.duration_since(*cached_at) <= LAUNCH_CONTRACT_CACHE_TTL {
+                return snapshot.clone();
+            }
+        }
+
+        let snapshot = scan_launch_contracts();
+        *cache = Some((now, snapshot.clone()));
+        return snapshot;
+    }
+
+    scan_launch_contracts()
+}
+
+fn compact_display_string(value: &str) -> Option<String> {
+    let compact = value.split_whitespace().collect::<Vec<_>>().join(" ");
+    let compact = compact
+        .chars()
+        .filter(|character| !character.is_control())
+        .collect::<String>();
+
+    if compact.is_empty() {
+        return None;
+    }
+
+    if compact.chars().count() <= MAX_LAUNCH_CONTRACT_DISPLAY_CHARS {
+        return Some(compact);
+    }
+
+    let mut bounded = compact
+        .chars()
+        .take(MAX_LAUNCH_CONTRACT_DISPLAY_CHARS.saturating_sub(3))
+        .collect::<String>();
+    bounded.push_str("...");
+    Some(bounded)
+}
+
+fn compact_display_string_or(value: Option<&str>, fallback: &str) -> String {
+    value
+        .and_then(compact_display_string)
+        .unwrap_or_else(|| fallback.to_string())
+}
+
+fn compact_optional_display_string(value: Option<&str>) -> Option<String> {
+    value.and_then(compact_display_string)
+}
+
+fn compact_display_strings(values: Vec<String>) -> Vec<String> {
+    values
+        .into_iter()
+        .filter_map(|value| compact_display_string(&value))
+        .collect()
+}
+
+fn scan_launch_contracts() -> DxLaunchContractSnapshot {
+    let root = DxProjectContext::shared_launch_examples_root();
+    let manifest_path = root.join(IMPORT_MANIFEST_FILE);
+    let handoff_path = root.join(HANDOFF_FILE);
+    let manifest_present = manifest_path.is_file();
+    let handoff_present = handoff_path.is_file();
+
+    let manifest = read_json_packet(&manifest_path);
+    let handoff = read_json_packet(&handoff_path);
+    let manifest_ref = manifest.as_ref().ok();
+    let handoff_ref = handoff.as_ref().ok();
+    let mut errors = Vec::new();
+
+    if !manifest_present {
+        errors.push(format!("Missing {}", manifest_path.display()));
+    } else if let Err(error) = manifest.as_ref() {
+        errors.push(error.clone());
+    }
+
+    if !handoff_present {
+        errors.push(format!("Missing {}", handoff_path.display()));
+    } else if let Err(error) = handoff.as_ref() {
+        errors.push(error.clone());
+    }
+
+    if manifest_ref.and_then(|value| string_field(value, "schema_version"))
+        != Some(IMPORT_MANIFEST_SCHEMA)
+    {
+        errors.push("Launch import manifest schema is missing or unexpected.".to_string());
+    }
+
+    if handoff_ref.and_then(|value| string_field(value, "schema_version")) != Some(HANDOFF_SCHEMA) {
+        errors.push("Launch handoff schema is missing or unexpected.".to_string());
+    }
+
+    let packet_count = manifest_ref
+        .and_then(|value| usize_field(value, "packet_count"))
+        .or_else(|| manifest_ref.map(|value| array_len(value, "packets")))
+        .unwrap_or_default();
+    let fixture_family_count = manifest_ref
+        .and_then(|value| usize_field(value, "fixture_family_count"))
+        .or_else(|| manifest_ref.map(|value| array_len(value, "fixture_families")))
+        .unwrap_or_default();
+    let command_count = handoff_ref
+        .and_then(|value| value.pointer("/schemas/command_count"))
+        .and_then(Value::as_u64)
+        .and_then(|value| value.try_into().ok())
+        .unwrap_or_default();
+    let action_count = handoff_ref
+        .and_then(|value| value.pointer("/action_map/action_count"))
+        .and_then(Value::as_u64)
+        .and_then(|value| value.try_into().ok())
+        .unwrap_or_default();
+    let packets = manifest_ref
+        .and_then(|value| value.get("packets"))
+        .and_then(Value::as_array);
+    let metadata_only_count = packets
+        .map(|packets| {
+            packets
+                .iter()
+                .filter(|packet| bool_field(packet, "metadata_only"))
+                .count()
+        })
+        .unwrap_or_default();
+    let packet_fanout_count = packets
+        .map(|packets| {
+            packets
+                .iter()
+                .filter(|packet| bool_field(packet, "command_fanout"))
+                .count()
+        })
+        .unwrap_or_default();
+    let first_packets = packets
+        .map(|packets| {
+            packets
+                .iter()
+                .take(4)
+                .filter_map(|packet| {
+                    compact_optional_display_string(string_field(packet, "command"))
+                })
+                .collect::<Vec<_>>()
+        })
+        .unwrap_or_default();
+    let actions = handoff_ref
+        .and_then(|value| value.pointer("/action_map/actions"))
+        .and_then(Value::as_array);
+    let confirmation_action_count = actions
+        .map(|actions| {
+            actions
+                .iter()
+                .filter(|action| bool_field(action, "confirmation_required"))
+                .count()
+        })
+        .unwrap_or_default();
+    let action_fanout_count = actions
+        .map(|actions| {
+            actions
+                .iter()
+                .filter(|action| bool_field(action, "command_fanout"))
+                .count()
+        })
+        .unwrap_or_default();
+    let command_fanout_count = packet_fanout_count + action_fanout_count;
+    let first_action = actions
+        .and_then(|actions| actions.first())
+        .and_then(|action| compact_optional_display_string(string_field(action, "command")));
+    let no_command_fanout = handoff_ref
+        .and_then(|value| value.get("no_command_fanout"))
+        .and_then(Value::as_bool)
+        .unwrap_or(false)
+        && command_fanout_count == 0;
+    let redaction_requires_review = manifest_ref.is_some_and(redaction_requires_review)
+        || handoff_ref.is_some_and(redaction_requires_review);
+    let startup_commands = compact_display_strings(pointer_string_array(
+        handoff_ref,
+        "/polling/startup_commands",
+    ));
+    let detail_commands = compact_display_strings(pointer_string_array(
+        handoff_ref,
+        "/polling/detail_commands",
+    ));
+    let diagnostics_commands = compact_display_strings(pointer_string_array(
+        handoff_ref,
+        "/polling/diagnostics_commands",
+    ));
+    let refresh_command = compact_optional_display_string(pointer_string(
+        handoff_ref,
+        "/polling/foreground_refresh_command",
+    ));
+    let cached_receipt_path = compact_optional_display_string(pointer_string(
+        handoff_ref,
+        "/polling/cached_receipt_path",
+    ));
+    let last_error = errors
+        .first()
+        .and_then(|error| compact_display_string(error));
+    let status = if !manifest_present || !handoff_present {
+        "missing".to_string()
+    } else if !errors.is_empty() || redaction_requires_review || !no_command_fanout {
+        "warning".to_string()
+    } else {
+        compact_display_string_or(
+            manifest_ref.and_then(|value| string_field(value, "status")),
+            "ready",
+        )
+    };
+    let operator_summary = compact_display_string_or(
+        manifest_ref
+            .and_then(|value| string_field(value, "operator_summary"))
+            .or_else(|| handoff_ref.and_then(|value| string_field(value, "operator_summary"))),
+        "Launch handoff packets are not available.",
+    );
+    let next_action = if !errors.is_empty() {
+        DX_LAUNCH_IMPORT_MANIFEST_COMMAND.to_string()
+    } else {
+        compact_display_string_or(
+            manifest_ref
+                .and_then(|value| string_field(value, "next_action"))
+                .or_else(|| handoff_ref.and_then(|value| string_field(value, "next_action"))),
+            DX_LAUNCH_HANDOFF_COMMAND,
+        )
+    };
+
+    DxLaunchContractSnapshot {
+        root,
+        manifest_path,
+        handoff_path,
+        manifest_present,
+        handoff_present,
+        status,
+        operator_summary,
+        packet_count,
+        fixture_family_count,
+        command_count,
+        action_count,
+        metadata_only_count,
+        command_fanout_count,
+        confirmation_action_count,
+        no_command_fanout,
+        startup_commands,
+        detail_commands,
+        diagnostics_commands,
+        first_packets,
+        first_action,
+        refresh_command,
+        cached_receipt_path,
+        last_error,
+        next_action,
+        redaction_requires_review,
+    }
+}

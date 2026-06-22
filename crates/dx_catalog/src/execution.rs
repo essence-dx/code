@@ -1,0 +1,808 @@
+use crate::{
+    AgentRoutePreferences, DxCatalog, LocalRuntimeKind, ModelCapabilities, ModelRecord,
+    ProviderAuthKind, ProviderKind, ProviderRecord, RoutingRole, select_catalog_route,
+};
+use serde::{Deserialize, Serialize};
+use std::collections::BTreeMap;
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub struct CatalogExecutionPlanRequest {
+    pub model_id: Option<String>,
+    pub role: Option<RoutingRole>,
+    pub prefer_local: bool,
+    pub prefer_free_tier: bool,
+    pub require_selectable: bool,
+    pub allow_premium: bool,
+    pub max_fallbacks: usize,
+}
+
+impl CatalogExecutionPlanRequest {
+    pub fn for_model_id(model_id: impl Into<String>) -> Self {
+        Self {
+            model_id: Some(model_id.into()),
+            role: None,
+            prefer_local: false,
+            prefer_free_tier: true,
+            require_selectable: true,
+            allow_premium: true,
+            max_fallbacks: 4,
+        }
+    }
+
+    pub fn for_role(role: RoutingRole) -> Self {
+        let preferences = AgentRoutePreferences::new(role);
+        Self {
+            model_id: None,
+            role: Some(role),
+            prefer_local: preferences.prefer_local,
+            prefer_free_tier: preferences.prefer_free_tier,
+            require_selectable: preferences.require_selectable,
+            allow_premium: preferences.allow_premium,
+            max_fallbacks: preferences.max_fallbacks,
+        }
+    }
+
+    fn route_preferences(&self) -> Option<AgentRoutePreferences> {
+        Some(
+            AgentRoutePreferences::new(self.role?)
+                .prefer_local(self.prefer_local)
+                .prefer_free_tier(self.prefer_free_tier)
+                .require_selectable(self.require_selectable)
+                .allow_premium(self.allow_premium)
+                .with_max_fallbacks(self.max_fallbacks),
+        )
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub struct CatalogExecutionPlan {
+    pub requested_model_id: Option<String>,
+    pub role: Option<RoutingRole>,
+    pub primary_model_id: String,
+    pub fallback_model_ids: Vec<String>,
+    pub provider_id: String,
+    pub provider_name: String,
+    pub model_display_name: String,
+    pub adapter_kind: CatalogExecutionAdapterKind,
+    pub permission: CatalogExecutionPermission,
+    pub auth_configured: bool,
+    pub base_url: Option<String>,
+    pub local_runtime: Option<LocalRuntimeKind>,
+    pub can_stream: bool,
+    pub can_use_tools: bool,
+    pub capabilities: ModelCapabilities,
+    pub ready_for_adapter_registration: bool,
+    pub blockers: Vec<String>,
+    pub next_action: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub struct CatalogProviderAdapterRegistrationSpec {
+    pub provider_id: String,
+    pub provider_name: String,
+    pub adapter_kind: CatalogExecutionAdapterKind,
+    pub permission: CatalogExecutionPermission,
+    pub settings_path: Option<String>,
+    pub base_url: Option<String>,
+    pub auth_profile_id: Option<String>,
+    pub auth_configured: bool,
+    pub user_approval_required: bool,
+    pub can_register_settings: bool,
+    pub ready_for_execution: bool,
+    pub registration_blockers: Vec<String>,
+    pub execution_blockers: Vec<String>,
+    pub models: Vec<CatalogProviderAdapterModelSpec>,
+    pub next_action: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub struct CatalogProviderAdapterModelSpec {
+    pub model_id: String,
+    pub api_model_id: String,
+    pub display_name: String,
+    pub context_window_tokens: Option<u32>,
+    pub max_output_tokens: Option<u32>,
+    pub supports_tools: bool,
+    pub supports_images: bool,
+    pub supports_audio: bool,
+    pub supports_video: bool,
+    pub supports_streaming: bool,
+    pub free_tier: bool,
+    pub premium_account: bool,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum CatalogExecutionAdapterKind {
+    LocalLlamaCpp,
+    OllamaCompatibleHttp,
+    OpenAiCompatibleHttp,
+    OpenRouterHttp,
+    LiteLlmProxy,
+    AnthropicHttp,
+    GoogleAiHttp,
+    BedrockRuntime,
+    NativeAccount,
+    Custom,
+    Unsupported,
+}
+
+impl CatalogExecutionAdapterKind {
+    pub fn label(self) -> &'static str {
+        match self {
+            Self::LocalLlamaCpp => "local llama.cpp",
+            Self::OllamaCompatibleHttp => "Ollama-compatible HTTP",
+            Self::OpenAiCompatibleHttp => "OpenAI-compatible HTTP",
+            Self::OpenRouterHttp => "OpenRouter HTTP",
+            Self::LiteLlmProxy => "LiteLLM proxy",
+            Self::AnthropicHttp => "Anthropic HTTP",
+            Self::GoogleAiHttp => "Google AI HTTP",
+            Self::BedrockRuntime => "Bedrock runtime",
+            Self::NativeAccount => "native account",
+            Self::Custom => "custom",
+            Self::Unsupported => "unsupported",
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum CatalogExecutionPermission {
+    None,
+    ApiKey,
+    OAuth,
+    BrowserSession,
+    LocalRuntime,
+    NativeAccount,
+    Custom,
+}
+
+impl CatalogExecutionPermission {
+    pub fn label(self) -> &'static str {
+        match self {
+            Self::None => "no extra credential",
+            Self::ApiKey => "API key",
+            Self::OAuth => "OAuth account",
+            Self::BrowserSession => "browser session",
+            Self::LocalRuntime => "local runtime approval",
+            Self::NativeAccount => "native account",
+            Self::Custom => "custom setup",
+        }
+    }
+}
+
+pub fn build_catalog_execution_plan(
+    catalog: &DxCatalog,
+    request: CatalogExecutionPlanRequest,
+) -> Option<CatalogExecutionPlan> {
+    let (primary_model_id, fallback_model_ids) = if let Some(model_id) = &request.model_id {
+        (model_id.clone(), Vec::new())
+    } else {
+        let route = select_catalog_route(catalog, request.route_preferences()?)?;
+        (route.primary_model_id, route.fallback_model_ids)
+    };
+    let model = catalog.model(&primary_model_id)?;
+    let provider = catalog.provider(&model.provider_id)?;
+    Some(execution_plan_for_model(
+        request,
+        model,
+        provider,
+        fallback_model_ids,
+    ))
+}
+
+pub fn build_catalog_provider_registration_specs(
+    catalog: &DxCatalog,
+) -> Vec<CatalogProviderAdapterRegistrationSpec> {
+    let mut models_by_provider = BTreeMap::<String, Vec<&ModelRecord>>::new();
+    for model in &catalog.models {
+        models_by_provider
+            .entry(model.provider_id.clone())
+            .or_default()
+            .push(model);
+    }
+
+    let mut specs = Vec::new();
+    for provider in &catalog.providers {
+        let Some(models) = models_by_provider.get(provider.id.as_str()) else {
+            continue;
+        };
+
+        let adapter_kind = adapter_kind(provider);
+        if !is_registration_candidate(adapter_kind) {
+            continue;
+        }
+
+        specs.push(provider_registration_spec(catalog, provider, models));
+    }
+
+    specs
+}
+
+fn execution_plan_for_model(
+    request: CatalogExecutionPlanRequest,
+    model: &ModelRecord,
+    provider: &ProviderRecord,
+    fallback_model_ids: Vec<String>,
+) -> CatalogExecutionPlan {
+    let adapter_kind = adapter_kind(provider);
+    let permission = permission(provider);
+    let auth_configured = auth_configured(provider, permission);
+    let base_url = effective_base_url(provider);
+    let mut blockers = execution_blockers(
+        provider,
+        model,
+        adapter_kind,
+        permission,
+        auth_configured,
+        base_url.as_deref(),
+    );
+    blockers.sort();
+    blockers.dedup();
+    let ready_for_adapter_registration = blockers.is_empty();
+    let next_action = if ready_for_adapter_registration {
+        format!(
+            "Register a permissioned {} adapter for provider `{}` and model `{}`.",
+            adapter_kind.label(),
+            provider.id,
+            model.id
+        )
+    } else {
+        blockers
+            .first()
+            .cloned()
+            .unwrap_or_else(|| "Resolve catalog execution prerequisites.".to_string())
+    };
+
+    CatalogExecutionPlan {
+        requested_model_id: request.model_id,
+        role: request.role,
+        primary_model_id: model.id.clone(),
+        fallback_model_ids,
+        provider_id: provider.id.clone(),
+        provider_name: provider.display_name.clone(),
+        model_display_name: model.display_name.clone(),
+        adapter_kind,
+        permission,
+        auth_configured,
+        base_url,
+        local_runtime: model.local_runtime.as_ref().map(|runtime| runtime.runtime),
+        can_stream: provider.supports_streaming || model.capabilities.streaming,
+        can_use_tools: provider.supports_tools || model.capabilities.tools,
+        capabilities: model.capabilities.clone(),
+        ready_for_adapter_registration,
+        blockers,
+        next_action,
+    }
+}
+
+fn provider_registration_spec(
+    catalog: &DxCatalog,
+    provider: &ProviderRecord,
+    models: &[&ModelRecord],
+) -> CatalogProviderAdapterRegistrationSpec {
+    let adapter_kind = adapter_kind(provider);
+    let permission = permission(provider);
+    let base_url = effective_base_url(provider);
+    let auth_configured = auth_configured(provider, permission);
+    let settings_path = settings_path(provider, adapter_kind);
+    let mut registration_blockers = registration_blockers(
+        provider,
+        adapter_kind,
+        base_url.as_deref(),
+        settings_path.as_deref(),
+    );
+    let mut execution_blockers = Vec::new();
+    let mut model_specs = Vec::new();
+
+    for model in models {
+        model_specs.push(model_registration_spec(model, provider));
+        if let Some(plan) = build_catalog_execution_plan(
+            catalog,
+            CatalogExecutionPlanRequest::for_model_id(model.id.clone()),
+        ) {
+            execution_blockers.extend(plan.blockers);
+        }
+    }
+
+    registration_blockers.sort();
+    registration_blockers.dedup();
+    execution_blockers.sort();
+    execution_blockers.dedup();
+
+    let can_register_settings = registration_blockers.is_empty();
+    let ready_for_execution = can_register_settings && execution_blockers.is_empty();
+    let user_approval_required = !provider.is_enabled_by_default
+        || matches!(
+            permission,
+            CatalogExecutionPermission::LocalRuntime | CatalogExecutionPermission::Custom
+        );
+    let next_action = if ready_for_execution {
+        format!(
+            "Register `{}` using `{}` and expose {} catalog model(s).",
+            provider.id,
+            adapter_kind.label(),
+            model_specs.len()
+        )
+    } else if can_register_settings {
+        execution_blockers.first().cloned().unwrap_or_else(|| {
+            format!(
+                "Collect user permission and credentials for `{}` before execution.",
+                provider.id
+            )
+        })
+    } else {
+        registration_blockers.first().cloned().unwrap_or_else(|| {
+            format!(
+                "Resolve registration requirements for catalog provider `{}`.",
+                provider.id
+            )
+        })
+    };
+
+    CatalogProviderAdapterRegistrationSpec {
+        provider_id: provider.id.clone(),
+        provider_name: provider.display_name.clone(),
+        adapter_kind,
+        permission,
+        settings_path,
+        base_url,
+        auth_profile_id: provider
+            .auth_profile
+            .as_ref()
+            .map(|profile| profile.profile_id.clone()),
+        auth_configured,
+        user_approval_required,
+        can_register_settings,
+        ready_for_execution,
+        registration_blockers,
+        execution_blockers,
+        models: model_specs,
+        next_action,
+    }
+}
+
+fn model_registration_spec(
+    model: &ModelRecord,
+    provider: &ProviderRecord,
+) -> CatalogProviderAdapterModelSpec {
+    CatalogProviderAdapterModelSpec {
+        model_id: model.id.clone(),
+        api_model_id: api_model_id(model, provider),
+        display_name: model.display_name.clone(),
+        context_window_tokens: model.context_window_tokens,
+        max_output_tokens: model.max_output_tokens,
+        supports_tools: model.capabilities.tools || provider.supports_tools,
+        supports_images: model.capabilities.vision,
+        supports_audio: model.capabilities.audio,
+        supports_video: model.capabilities.video,
+        supports_streaming: model.capabilities.streaming || provider.supports_streaming,
+        free_tier: model.capabilities.free_tier || provider.supports_free_tier,
+        premium_account: model.capabilities.premium_account || provider.supports_premium_account,
+    }
+}
+
+fn api_model_id(model: &ModelRecord, provider: &ProviderRecord) -> String {
+    if let Some(raw_model_id) = strip_provider_prefix(&model.id, &provider.id) {
+        return raw_model_id.to_string();
+    }
+
+    for alias in &model.aliases {
+        if let Some(raw_model_id) = strip_provider_prefix(alias, &provider.id) {
+            return raw_model_id.to_string();
+        }
+    }
+
+    model
+        .aliases
+        .iter()
+        .find_map(|alias| {
+            let alias = alias.trim();
+            (!alias.is_empty() && !alias.contains('/')).then(|| alias.to_string())
+        })
+        .unwrap_or_else(|| model.id.clone())
+}
+
+fn strip_provider_prefix<'a>(model_id: &'a str, provider_id: &str) -> Option<&'a str> {
+    let raw_model_id = model_id
+        .trim()
+        .strip_prefix(provider_id)?
+        .strip_prefix('/')?;
+    (!raw_model_id.is_empty()).then_some(raw_model_id)
+}
+
+fn adapter_kind(provider: &ProviderRecord) -> CatalogExecutionAdapterKind {
+    match provider.kind {
+        ProviderKind::LocalLlamaCpp => CatalogExecutionAdapterKind::LocalLlamaCpp,
+        ProviderKind::OllamaCompatible => CatalogExecutionAdapterKind::OllamaCompatibleHttp,
+        ProviderKind::OpenAiCompatible => CatalogExecutionAdapterKind::OpenAiCompatibleHttp,
+        ProviderKind::OpenRouter => CatalogExecutionAdapterKind::OpenRouterHttp,
+        ProviderKind::Anthropic => CatalogExecutionAdapterKind::AnthropicHttp,
+        ProviderKind::GoogleAi => CatalogExecutionAdapterKind::GoogleAiHttp,
+        ProviderKind::Bedrock => CatalogExecutionAdapterKind::BedrockRuntime,
+        ProviderKind::LiteLlmAlias => CatalogExecutionAdapterKind::LiteLlmProxy,
+        ProviderKind::NativeAccount => CatalogExecutionAdapterKind::NativeAccount,
+        ProviderKind::Custom => CatalogExecutionAdapterKind::Custom,
+        ProviderKind::ModelsDev | ProviderKind::Unknown => CatalogExecutionAdapterKind::Unsupported,
+    }
+}
+
+fn is_registration_candidate(adapter_kind: CatalogExecutionAdapterKind) -> bool {
+    matches!(
+        adapter_kind,
+        CatalogExecutionAdapterKind::OpenAiCompatibleHttp
+            | CatalogExecutionAdapterKind::OpenRouterHttp
+            | CatalogExecutionAdapterKind::OllamaCompatibleHttp
+            | CatalogExecutionAdapterKind::LiteLlmProxy
+    )
+}
+
+fn settings_path(
+    provider: &ProviderRecord,
+    adapter_kind: CatalogExecutionAdapterKind,
+) -> Option<String> {
+    match adapter_kind {
+        CatalogExecutionAdapterKind::OpenAiCompatibleHttp
+        | CatalogExecutionAdapterKind::OllamaCompatibleHttp
+        | CatalogExecutionAdapterKind::LiteLlmProxy
+            if reserved_native_openai_compatible_provider_shadow(provider).is_none() =>
+        {
+            Some(format!("language_models.openai_compatible.{}", provider.id))
+        }
+        CatalogExecutionAdapterKind::OpenRouterHttp => {
+            Some("language_models.open_router".to_string())
+        }
+        _ => None,
+    }
+}
+
+fn registration_blockers(
+    provider: &ProviderRecord,
+    adapter_kind: CatalogExecutionAdapterKind,
+    base_url: Option<&str>,
+    settings_path: Option<&str>,
+) -> Vec<String> {
+    let mut blockers = Vec::new();
+
+    if let Some(native_provider_id) = reserved_native_openai_compatible_provider_shadow(provider)
+        && matches!(
+            adapter_kind,
+            CatalogExecutionAdapterKind::OpenAiCompatibleHttp
+                | CatalogExecutionAdapterKind::OllamaCompatibleHttp
+                | CatalogExecutionAdapterKind::LiteLlmProxy
+        )
+    {
+        blockers.push(format!(
+            "Provider `{}` uses `{}` as a native Zed provider identifier; catalog metadata must not be registered as `language_models.openai_compatible.{}`.",
+            provider.id, native_provider_id, provider.id
+        ));
+    } else if settings_path.is_none() {
+        blockers.push(format!(
+            "No settings path is defined for provider `{}` with adapter `{}`.",
+            provider.id,
+            adapter_kind.label()
+        ));
+    }
+
+    if adapter_requires_base_url(adapter_kind) && base_url.is_none() {
+        blockers.push(format!(
+            "Provider `{}` needs a base URL before adapter settings can be written.",
+            provider.id
+        ));
+    }
+
+    if adapter_kind == CatalogExecutionAdapterKind::LiteLlmProxy && base_url.is_none() {
+        blockers.push(format!(
+            "LiteLLM provider `{}` needs an explicit proxy base URL.",
+            provider.id
+        ));
+    }
+
+    blockers
+}
+
+fn permission(provider: &ProviderRecord) -> CatalogExecutionPermission {
+    match provider.auth {
+        ProviderAuthKind::None => CatalogExecutionPermission::None,
+        ProviderAuthKind::ApiKey => CatalogExecutionPermission::ApiKey,
+        ProviderAuthKind::OAuth => CatalogExecutionPermission::OAuth,
+        ProviderAuthKind::BrowserSession => CatalogExecutionPermission::BrowserSession,
+        ProviderAuthKind::LocalRuntime => CatalogExecutionPermission::LocalRuntime,
+        ProviderAuthKind::NativeAccount => CatalogExecutionPermission::NativeAccount,
+        ProviderAuthKind::Custom => CatalogExecutionPermission::Custom,
+    }
+}
+
+fn auth_configured(provider: &ProviderRecord, permission: CatalogExecutionPermission) -> bool {
+    match permission {
+        CatalogExecutionPermission::None | CatalogExecutionPermission::LocalRuntime => true,
+        CatalogExecutionPermission::ApiKey
+        | CatalogExecutionPermission::OAuth
+        | CatalogExecutionPermission::BrowserSession
+        | CatalogExecutionPermission::NativeAccount
+        | CatalogExecutionPermission::Custom => provider
+            .auth_profile
+            .as_ref()
+            .is_some_and(|profile| profile.configured),
+    }
+}
+
+fn effective_base_url(provider: &ProviderRecord) -> Option<String> {
+    provider.base_url.clone().or_else(|| match provider.kind {
+        ProviderKind::OpenRouter => Some("https://openrouter.ai/api/v1".to_string()),
+        ProviderKind::OllamaCompatible => Some("http://localhost:11434/v1".to_string()),
+        _ => None,
+    })
+}
+
+fn execution_blockers(
+    provider: &ProviderRecord,
+    model: &ModelRecord,
+    adapter_kind: CatalogExecutionAdapterKind,
+    permission: CatalogExecutionPermission,
+    auth_configured: bool,
+    base_url: Option<&str>,
+) -> Vec<String> {
+    let mut blockers = Vec::new();
+
+    if adapter_kind == CatalogExecutionAdapterKind::Unsupported {
+        blockers.push(format!(
+            "No catalog execution adapter is defined for provider kind `{:?}`.",
+            provider.kind
+        ));
+    }
+
+    if adapter_requires_base_url(adapter_kind) && base_url.is_none() {
+        blockers.push(format!(
+            "Provider `{}` needs a base URL before an HTTP adapter can be registered.",
+            provider.id
+        ));
+    }
+
+    if !auth_configured {
+        blockers.push(format!(
+            "Provider `{}` requires {} configuration before execution.",
+            provider.id,
+            permission.label()
+        ));
+    }
+
+    if permission == CatalogExecutionPermission::LocalRuntime || model.local_runtime.is_some() {
+        blockers.push(format!(
+            "Model `{}` needs explicit local runtime approval before execution.",
+            model.id
+        ));
+    }
+
+    if !provider.is_enabled_by_default {
+        blockers.push(format!(
+            "Provider `{}` is disabled by default and needs explicit user approval.",
+            provider.id
+        ));
+    }
+
+    if adapter_kind == CatalogExecutionAdapterKind::Custom
+        || permission == CatalogExecutionPermission::Custom
+    {
+        blockers.push(format!(
+            "Provider `{}` needs a custom adapter setup contract.",
+            provider.id
+        ));
+    }
+
+    blockers
+}
+
+fn adapter_requires_base_url(adapter_kind: CatalogExecutionAdapterKind) -> bool {
+    matches!(
+        adapter_kind,
+        CatalogExecutionAdapterKind::OllamaCompatibleHttp
+            | CatalogExecutionAdapterKind::OpenAiCompatibleHttp
+            | CatalogExecutionAdapterKind::OpenRouterHttp
+            | CatalogExecutionAdapterKind::LiteLlmProxy
+            | CatalogExecutionAdapterKind::AnthropicHttp
+            | CatalogExecutionAdapterKind::GoogleAiHttp
+    )
+}
+
+fn reserved_native_openai_compatible_provider_shadow(provider: &ProviderRecord) -> Option<String> {
+    std::iter::once(provider.id.as_str())
+        .chain(provider.aliases.iter().map(String::as_str))
+        .find(|identifier| is_reserved_native_openai_compatible_provider_id(identifier))
+        .map(|identifier| identifier.trim().to_ascii_lowercase())
+}
+
+fn is_reserved_native_openai_compatible_provider_id(provider_id: &str) -> bool {
+    let provider_id = provider_id.trim().to_ascii_lowercase();
+    matches!(
+        provider_id.as_str(),
+        "amazon-bedrock"
+            | "anthropic"
+            | "copilot_chat"
+            | "deepseek"
+            | "google"
+            | "llama_cpp"
+            | "lmstudio"
+            | "mistral"
+            | "ollama"
+            | "opencode"
+            | "openai"
+            | "openai-subscribed"
+            | "openrouter"
+            | "vercel_ai_gateway"
+            | "x_ai"
+            | "zed.dev"
+    )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::{CatalogSourceRecord, ModelCapabilities};
+
+    #[test]
+    fn registration_specs_block_native_zed_provider_shadowing() {
+        for provider_id in reserved_native_openai_compatible_provider_ids() {
+            let catalog = catalog_with_provider(
+                provider(provider_id, ProviderKind::OpenAiCompatible),
+                model(&format!("{provider_id}/catalog-model"), provider_id),
+            );
+
+            let specs = build_catalog_provider_registration_specs(&catalog);
+
+            assert_eq!(specs.len(), 1, "provider_id={provider_id}");
+            assert_eq!(specs[0].settings_path, None, "provider_id={provider_id}");
+            assert!(!specs[0].can_register_settings, "provider_id={provider_id}");
+            assert!(
+                specs[0]
+                    .registration_blockers
+                    .iter()
+                    .any(|blocker| blocker.contains("native Zed provider")),
+                "native provider `{provider_id}` must be blocked instead of re-registered as language_models.openai_compatible.{provider_id}"
+            );
+        }
+    }
+
+    #[test]
+    fn registration_specs_block_native_zed_provider_alias_shadowing() {
+        let mut provider = provider("google-gemini", ProviderKind::OpenAiCompatible);
+        provider.aliases = vec!["google".to_string(), "gemini".to_string()];
+        let catalog = catalog_with_provider(
+            provider,
+            model("google-gemini/gemini-3-pro-preview", "google-gemini"),
+        );
+
+        let specs = build_catalog_provider_registration_specs(&catalog);
+
+        assert_eq!(specs.len(), 1);
+        assert_eq!(specs[0].settings_path, None);
+        assert!(!specs[0].can_register_settings);
+        assert!(
+            specs[0]
+                .registration_blockers
+                .iter()
+                .any(|blocker| blocker.contains("native Zed provider")),
+            "provider aliases that shadow native providers must block OpenAI-compatible registration"
+        );
+    }
+
+    #[test]
+    fn registration_specs_keep_non_native_openai_compatible_providers() {
+        let catalog = catalog_with_provider(
+            provider("groq", ProviderKind::OpenAiCompatible),
+            model("groq/llama-3.3-70b-versatile", "groq"),
+        );
+
+        let specs = build_catalog_provider_registration_specs(&catalog);
+
+        assert_eq!(specs.len(), 1);
+        assert_eq!(
+            specs[0].settings_path.as_deref(),
+            Some("language_models.openai_compatible.groq")
+        );
+    }
+
+    #[test]
+    fn registration_specs_keep_catalog_and_api_model_ids_separate() {
+        let mut model = model("groq/llama-3.3-70b-versatile", "groq");
+        model.aliases = vec!["llama-3.3-70b-versatile".to_string()];
+        let catalog =
+            catalog_with_provider(provider("groq", ProviderKind::OpenAiCompatible), model);
+
+        let specs = build_catalog_provider_registration_specs(&catalog);
+
+        assert_eq!(specs.len(), 1);
+        assert_eq!(specs[0].models[0].model_id, "groq/llama-3.3-70b-versatile");
+        assert_eq!(specs[0].models[0].api_model_id, "llama-3.3-70b-versatile");
+    }
+
+    fn catalog_with_provider(provider: ProviderRecord, model: ModelRecord) -> DxCatalog {
+        DxCatalog {
+            schema_version: crate::DX_CATALOG_SCHEMA_VERSION,
+            generated_unix_ms: 0,
+            source_revision: "test".to_string(),
+            sources: vec![CatalogSourceRecord {
+                id: "test-source".to_string(),
+                kind: crate::CatalogSourceKind::ZeroclawProviders,
+                revision: None,
+                generated_unix_ms: None,
+                notes: None,
+            }],
+            providers: vec![provider],
+            models: vec![model],
+            routing_rules: Vec::new(),
+        }
+    }
+
+    fn reserved_native_openai_compatible_provider_ids() -> &'static [&'static str] {
+        &[
+            "amazon-bedrock",
+            "anthropic",
+            "copilot_chat",
+            "deepseek",
+            "google",
+            "llama_cpp",
+            "lmstudio",
+            "mistral",
+            "ollama",
+            "opencode",
+            "openai",
+            "openai-subscribed",
+            "openrouter",
+            "vercel_ai_gateway",
+            "x_ai",
+            "zed.dev",
+        ]
+    }
+
+    fn provider(id: &str, kind: ProviderKind) -> ProviderRecord {
+        ProviderRecord {
+            id: id.to_string(),
+            display_name: id.to_string(),
+            kind,
+            auth: ProviderAuthKind::ApiKey,
+            auth_profile: None,
+            aliases: Vec::new(),
+            base_url: Some(format!("https://api.{id}.example/v1")),
+            homepage_url: None,
+            supports_streaming: true,
+            supports_tools: true,
+            supports_free_tier: false,
+            supports_premium_account: true,
+            is_local: false,
+            is_enabled_by_default: true,
+            notes: None,
+        }
+    }
+
+    fn model(id: &str, provider_id: &str) -> ModelRecord {
+        let provider_prefix = format!("{provider_id}/");
+        ModelRecord {
+            id: id.to_string(),
+            provider_id: provider_id.to_string(),
+            display_name: id.to_string(),
+            aliases: id
+                .strip_prefix(&provider_prefix)
+                .map(|alias| vec![alias.to_string()])
+                .unwrap_or_default(),
+            capabilities: ModelCapabilities {
+                chat: true,
+                tools: true,
+                streaming: true,
+                ..ModelCapabilities::default()
+            },
+            context_window_tokens: Some(128_000),
+            max_output_tokens: Some(8_192),
+            pricing: None,
+            local_runtime: None,
+            recommended_roles: Vec::new(),
+            free_tier_hint: None,
+            premium_account_hint: None,
+            notes: None,
+        }
+    }
+}

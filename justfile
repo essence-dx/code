@@ -1,0 +1,135 @@
+# Justfile for running Zed on this upgraded Windows dev machine.
+# Cargo output is pinned to G:/Dx/code/target in .cargo/config.toml.
+# Agent note: do not invoke any recipe here during source-only or no-`just run`
+# passes. These recipes wrap Cargo and are reserved for an explicitly authorized
+# validation window.
+set shell := ["powershell.exe", "-NoLogo", "-Command"]
+
+build_target_dir := "G:/Dx/code/target"
+min_build_free_gb := "18"
+min_incremental_free_gb := "4"
+
+# Default recipe - shows available commands
+default:
+    @just --list
+
+# Guard runnable builds before Cargo starts filling the incremental cache.
+ensure-build-headroom:
+    @$targetDir = "{{build_target_dir}}"; $zedBinary = Join-Path $targetDir "debug/dx.exe"; $requiredGb = if (Test-Path -LiteralPath $zedBinary) { [int64]{{min_incremental_free_gb}} } else { [int64]{{min_build_free_gb}} }; $driveName = (Split-Path -Qualifier $targetDir).TrimEnd(":"); $drive = Get-PSDrive -Name $driveName; $freeGb = [math]::Round($drive.Free / 1GB, 2); $minBytes = $requiredGb * 1GB; if ($drive.Free -lt $minBytes) { throw "Dx build target drive $($drive.Name): has only $freeGb GB free; need at least $requiredGb GB before running Cargo. Free rebuildable target/cache space on the configured G-drive target, then rerun this recipe." } else { Write-Host "Build target headroom OK: $freeGb GB free on $($drive.Name):" }
+
+launch-zed:
+    @$zed = "{{build_target_dir}}/debug/dx.exe"; if (!(Test-Path -LiteralPath $zed)) { throw "Built Dx binary not found at $zed" }; $startedAt = Get-Date; $logPath = Join-Path $env:LOCALAPPDATA "Dx/logs/Dx.log"; $launchPath = (Get-Location).ProviderPath; $process = Start-Process -FilePath $zed -ArgumentList @($launchPath) -WorkingDirectory (Get-Location) -WindowStyle Normal -PassThru; for ($i = 0; $i -lt 600; $i++) { Start-Sleep -Milliseconds 500; $process.Refresh(); if ($process.HasExited) { if ($process.ExitCode -eq 0 -and (Get-Process dx -ErrorAction SilentlyContinue)) { Write-Host "Dx launch request was handed to an existing process"; exit 0 }; throw "Dx exited during startup with code $($process.ExitCode)" }; if ($process.MainWindowHandle -ne [IntPtr]::Zero) { Start-Sleep -Seconds 3; $process.Refresh(); if ($process.HasExited) { throw "Dx exited during startup with code $($process.ExitCode)" }; Write-Host "Launched Dx process $($process.Id) for $launchPath and detected its main window"; exit 0 }; if (Test-Path -LiteralPath $logPath) { $renderedLine = Get-Content -Path $logPath -Tail 160 -ErrorAction SilentlyContinue | Where-Object { $_ -match "INFO\\s+\\[workspace\\]\\s+Rendered first frame" } | Select-Object -Last 1; if ($renderedLine -match "^([^ ]+)") { try { $renderedAt = [DateTimeOffset]::Parse($Matches[1]).LocalDateTime; if ($renderedAt -ge $startedAt.AddSeconds(-2)) { Start-Sleep -Seconds 3; $process.Refresh(); if ($process.HasExited) { if ($process.ExitCode -eq 0 -and (Get-Process dx -ErrorAction SilentlyContinue)) { Write-Host "Dx rendered first frame in an existing process"; exit 0 }; throw "Dx exited during startup with code $($process.ExitCode)" }; Write-Host "Launched Dx process $($process.Id) for $launchPath and observed Rendered first frame"; exit 0 } } catch {} } } }; throw "Dx process $($process.Id) stayed alive but did not report a main window or fresh first-frame log within 300s"
+
+# RECOMMENDED: Fast local UI loop. Builds only the Zed app with incremental cache.
+run: ensure-build-headroom
+    @echo "Running Dx with fast incremental G-drive build settings..."
+    @echo "Building the dx binary"
+    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "8" } else { $env:CARGO_BUILD_JOBS }; $incremental = if ([string]::IsNullOrWhiteSpace($env:CARGO_INCREMENTAL)) { "1" } else { $env:CARGO_INCREMENTAL }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = $incremental; Write-Host "Using Cargo config: locked Cargo.lock, $jobs job(s), G:/Dx/code/target, rust-lld linker, no debug info, incremental=$incremental"; cargo build --locked -p zed --bin dx
+    @echo "Build complete! Launching Dx once..."
+    @just launch-zed
+
+# Full validation path when the development CLI companion also needs rebuilding.
+run-full: ensure-build-headroom
+    @echo "Running Dx with full incremental G-drive build settings..."
+    @echo "Building the dx binary plus the development CLI companion"
+    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "8" } else { $env:CARGO_BUILD_JOBS }; $incremental = if ([string]::IsNullOrWhiteSpace($env:CARGO_INCREMENTAL)) { "1" } else { $env:CARGO_INCREMENTAL }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = $incremental; Write-Host "Using Cargo config: locked Cargo.lock, $jobs job(s), G:/Dx/code/target, rust-lld linker, no debug info, incremental=$incremental"; cargo build --locked -p zed --bin dx; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; cargo build --locked -p cli --bin cli
+    @echo "Build complete! Launching Dx once..."
+    @just launch-zed
+
+# Try with Cranelift backend (requires nightly Rust)
+run-cranelift: ensure-build-headroom
+    @echo "Building with Cranelift backend (nightly required)..."
+    @echo "Cranelift can reduce linker pressure on very large Rust builds"
+    $env:CARGO_INCREMENTAL = "0"; cargo +nightly build --locked -p zed --bin dx -Z codegen-backend
+    $env:CARGO_INCREMENTAL = "0"; cargo +nightly build --locked -p cli --bin cli -Z codegen-backend
+    @echo "Build complete! Running Dx..."
+    @just launch-zed
+
+# Continue interrupted build
+continue: ensure-build-headroom
+    @echo "Continuing interrupted build..."
+    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "8" } else { $env:CARGO_BUILD_JOBS }; $incremental = if ([string]::IsNullOrWhiteSpace($env:CARGO_INCREMENTAL)) { "1" } else { $env:CARGO_INCREMENTAL }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = $incremental; cargo build --locked -p zed --bin dx
+    @echo "Build complete! Running Dx..."
+    @just launch-zed
+
+# Build only (no run)
+build: ensure-build-headroom
+    @echo "Building Dx with balanced G-drive settings..."
+    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "8" } else { $env:CARGO_BUILD_JOBS }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = "1"; cargo build --locked -p zed --bin dx
+
+# Check code without building
+check:
+    @echo "Checking code (no build)..."
+    cargo check -p zed
+
+# Format code with rustfmt
+fmt:
+    @echo "Formatting workspace with rustfmt..."
+    cargo fmt --all
+
+# Lint a single package with clippy using the local 6-worker profile
+lint package="web_preview":
+    @echo "Linting package '{{package}}' with balanced clippy settings..."
+    @echo "Tip: run 'just lint zed' for the main app or 'just lint web_preview' for the preview crate"
+    cargo clippy -p {{package}} --all-targets -j 6 -- -D warnings
+
+# Clean build artifacts
+clean:
+    @echo "WARNING: This will delete all build progress!"
+    @echo "Press Ctrl+C to cancel, or wait 5 seconds..."
+    Start-Sleep -Seconds 5
+    cargo clean
+
+# Clean only the final binary (keeps incremental cache)
+clean-binary:
+    @echo "Cleaning only the final binary (keeps incremental build cache)..."
+    Remove-Item -LiteralPath "{{build_target_dir}}/debug/dx","{{build_target_dir}}/debug/dx.exe" -Force -ErrorAction SilentlyContinue
+
+# Install nightly Rust and Cranelift (one-time setup)
+setup-cranelift:
+    @echo "Installing nightly Rust and Cranelift backend..."
+    rustup install nightly
+    rustup component add rustc-codegen-cranelift-preview --toolchain nightly
+    @echo "Setup complete! Now use 'just run-cranelift'"
+
+# Show memory info and recommendations
+show-memory-guide:
+    @echo "=== LOCAL ZED BUILD CONFIGURATION ==="
+    @echo ""
+    @echo "Current verified machine profile:"
+    @echo "  CPU: Ryzen 5 5600G, 6 cores / 8 logical processors"
+    @echo "  RAM: 24 GB installed"
+    @echo "  Build output: G:/Dx/code/target"
+    @echo "  Cargo workers: 6 by default, override with CARGO_BUILD_JOBS"
+    @echo "  Runnable build preflight: at least 18 GB free on G:"
+    @echo "  Runnable build mode: CARGO_INCREMENTAL=1 for faster local UI iteration"
+    @echo "  Full zed + cli build: just run-full"
+    @echo ""
+    @echo "If builds still hit memory pressure, configure Windows virtual memory:"
+    @echo "1. Open System Properties > Advanced > Performance Settings"
+    @echo "2. Advanced tab > Virtual Memory > Change"
+    @echo "3. Uncheck 'Automatically manage'"
+    @echo "4. Set Custom size:"
+    @echo "   Initial size: 24576 MB (24 GB)"
+    @echo "   Maximum size: 49152 MB (48 GB)"
+    @echo "5. Click Set, OK, and RESTART your computer"
+    @echo ""
+    @echo "Run 'just ensure-build-headroom' before a final runtime proof if disk space is tight."
+
+# Help - show all important information
+help:
+    @echo "=== ZED LOCAL BUILD GUIDE ==="
+    @echo ""
+    @echo "RECOMMENDED BUILD COMMANDS:"
+    @echo "  just ensure-build-headroom - Check G: free space before any runnable Cargo build"
+    @echo "  just run           - Build dx incrementally and launch the editor"
+    @echo "  just run-full      - Build dx + cli incrementally and launch the editor"
+    @echo "  just run-cranelift - Build dx + cli with Cranelift backend"
+    @echo "  just continue      - Resume interrupted dx build and launch"
+    @echo "  just fmt           - Format the workspace with rustfmt"
+    @echo "  just lint          - Lint web_preview with 6 workers"
+    @echo "  just lint zed      - Lint the main app with 6 workers"
+    @echo ""
+    @echo "SETUP:"
+    @echo "  just setup-cranelift   - Install nightly Rust + Cranelift (one-time)"
+    @echo "  just show-memory-guide - Show local CPU/RAM/output configuration"

@@ -1,0 +1,3624 @@
+use super::agent_plugin_contracts::*;
+use super::dx_plugin_manifest::{
+    DX_PLUGIN_RUNTIME_STATUS_ALIAS_SCHEMA, DX_PLUGIN_RUNTIME_STATUS_ALIASES_SCHEMA,
+    DxPluginCatalogPaths, dx_first_party_plugin_catalog, dx_first_party_plugin_catalog_summary,
+};
+use crate::{
+    AGENT_BROWSER_PAYLOAD_QUEUE_INSPECT_TOOL_NAME, AGENT_BROWSER_PAYLOAD_QUEUE_INSPECTION_SCHEMA,
+    AGENT_BROWSER_PAYLOAD_QUEUE_ITEM_SCHEMA, AGENT_BROWSER_PAYLOAD_QUEUE_TOOL_NAME,
+    AGENT_BROWSER_PAYLOAD_STAGE_TOOL_NAME, AGENT_BROWSER_PAYLOAD_TOOL_NAME,
+    AGENT_CHROME_EXECUTOR_PAYLOAD_SCHEMA, AGENT_CHROME_PAYLOAD_QUEUE_FILE_NAME,
+    AGENT_CHROME_PAYLOAD_QUEUE_INSPECT_TOOL_NAME, AGENT_CHROME_PAYLOAD_QUEUE_ITEM_SCHEMA,
+    AGENT_CHROME_PAYLOAD_QUEUE_RESULT_SCHEMA, AGENT_CHROME_PAYLOAD_QUEUE_TOOL_NAME,
+    AGENT_CHROME_PAYLOAD_RESULT_SCHEMA, AGENT_CHROME_PAYLOAD_TOOL_NAME,
+    AGENT_CHROME_PLAYWRIGHT_ADAPTER_MANIFEST_SCHEMA, AGENT_CHROME_PLAYWRIGHT_ADAPTER_ROOT_NAME,
+    AGENT_CHROME_PLAYWRIGHT_ADAPTER_TOOL_NAME,
+    AGENT_CHROME_PLAYWRIGHT_EXECUTION_INSPECT_RESULT_SCHEMA,
+    AGENT_CHROME_PLAYWRIGHT_EXECUTION_INSPECT_TOOL_NAME,
+    AGENT_CHROME_PLAYWRIGHT_EXECUTION_RECEIPT_SCHEMA,
+    AGENT_CHROME_PLAYWRIGHT_INVOCATION_RESULT_SCHEMA, AGENT_CHROME_PLAYWRIGHT_INVOKE_TOOL_NAME,
+    AGENT_CHROME_PLAYWRIGHT_RUN_REQUEST_SCHEMA, AGENT_CHROME_PLAYWRIGHT_RUNNER_SCRIPT_NAME,
+    AGENT_CHROME_RUNNER_GATE_TOOL_NAME, AGENT_CHROME_RUNNER_RECEIPT_FILE_NAME,
+    AGENT_CHROME_RUNNER_RECEIPT_SCHEMA, AGENT_PC_USE_INSPECT_TOOL_NAME,
+    AGENT_PC_USE_PAYLOAD_QUEUE_INSPECT_TOOL_NAME, AGENT_PC_USE_PAYLOAD_QUEUE_INSPECTION_SCHEMA,
+    AGENT_PC_USE_PAYLOAD_QUEUE_ITEM_SCHEMA, AGENT_PC_USE_PAYLOAD_QUEUE_TOOL_NAME,
+    AGENT_PC_USE_PAYLOAD_SCHEMA, AGENT_PC_USE_PAYLOAD_STAGE_TOOL_NAME,
+    AGENT_PC_USE_PAYLOAD_TOOL_NAME, AGENT_PC_USE_RUNNER_GATE_TOOL_NAME,
+    AGENT_PC_USE_RUNNER_RECEIPT_INSPECT_TOOL_NAME, AGENT_PC_USE_RUNNER_RECEIPT_INSPECTION_SCHEMA,
+    AGENT_PC_USE_RUNNER_RECEIPT_SCHEMA, AGENT_PC_USE_TARGET_MANIFEST_SCHEMA,
+    AGENT_PC_USE_TARGET_MANIFEST_TOOL_NAME, AGENT_PC_USE_TARGET_SNAPSHOT_SCHEMA,
+    AGENT_PC_USE_TARGET_SNAPSHOT_TOOL_NAME, AGENT_PC_USE_UI_SNAPSHOT_CONTRACT_SCHEMA,
+    AGENT_PC_USE_UI_SNAPSHOT_CONTRACT_TOOL_NAME, AGENT_PC_USE_UI_SNAPSHOT_SCHEMA,
+    AGENT_PC_USE_UI_SNAPSHOT_TOOL_NAME, AGENT_PLUGIN_ASSET_PROVISIONER_TOOL_NAME,
+    AGENT_PLUGIN_ASSET_PROVISIONING_RECEIPT_FILE_NAME,
+    AGENT_PLUGIN_ASSET_PROVISIONING_RECEIPT_SCHEMA, AGENT_PLUGIN_ASSET_PROVISIONING_RESULT_SCHEMA,
+    AGENT_PLUGIN_ASSET_READINESS_SUMMARY_SCHEMA, AGENT_PLUGIN_RUNTIME_STATUS_SCHEMA,
+    AGENT_PLUGIN_RUNTIME_STATUS_TOOL_NAME, AgentTool, ToolCallEventStream, ToolInput,
+};
+use agent_client_protocol::schema as acp;
+use anyhow::Result;
+use gpui::{App, Entity, SharedString, Task};
+use paths::data_dir;
+use project::Project;
+use schemars::JsonSchema;
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::{
+    env,
+    path::{Path, PathBuf},
+    sync::Arc,
+    time::{SystemTime, UNIX_EPOCH},
+};
+
+/// Lists the built-in Dx Agent plugin catalog and DX-native first-party plugin manifests.
+///
+/// Use this before trying to control the in-app WebPreview browser, managed Chrome through
+/// Playwright and the DX Chrome extension, permissioned computer-control paths, or Driven
+/// workflow nodes. The tool is read-only and returns capability manifests, bootstrap roots,
+/// current readiness, and safety requirements.
+#[derive(Clone, Debug, Serialize, Deserialize, JsonSchema)]
+#[serde(default)]
+pub struct AgentPluginCatalogToolInput {
+    /// Include plugins that are planned or require bootstrap before they can execute.
+    pub include_planned_plugins: bool,
+    /// Include install roots and download/update policy for default plugin provisioning.
+    pub include_bootstrap_plan: bool,
+    /// Include current host/workspace readiness for Chrome, Playwright, and the DX extension.
+    pub include_bootstrap_readiness: bool,
+}
+
+impl Default for AgentPluginCatalogToolInput {
+    fn default() -> Self {
+        Self {
+            include_planned_plugins: true,
+            include_bootstrap_plan: true,
+            include_bootstrap_readiness: true,
+        }
+    }
+}
+
+pub struct AgentPluginCatalogTool {
+    project: Entity<Project>,
+}
+
+impl AgentPluginCatalogTool {
+    pub fn new(project: Entity<Project>) -> Self {
+        Self { project }
+    }
+}
+
+impl AgentTool for AgentPluginCatalogTool {
+    type Input = AgentPluginCatalogToolInput;
+    type Output = String;
+
+    const NAME: &'static str = "list_agent_plugins";
+
+    fn kind() -> acp::ToolKind {
+        acp::ToolKind::Read
+    }
+
+    fn initial_title(
+        &self,
+        _input: Result<Self::Input, serde_json::Value>,
+        _cx: &mut App,
+    ) -> SharedString {
+        "List agent plugins".into()
+    }
+
+    fn run(
+        self: Arc<Self>,
+        input: ToolInput<Self::Input>,
+        event_stream: ToolCallEventStream,
+        cx: &mut App,
+    ) -> Task<Result<Self::Output, Self::Output>> {
+        cx.spawn(async move |cx| {
+            let input = input.recv().await.map_err(|error| error.to_string())?;
+            let project_root = cx.update(|cx| workspace_root_for_project(&self.project, cx));
+            let catalog = agent_plugin_catalog(project_root, input);
+            let catalog = serde_json::to_string_pretty(&catalog)
+                .map_err(|error| format!("Failed to serialize agent plugin catalog: {error}"))?;
+
+            event_stream.update_fields(
+                acp::ToolCallUpdateFields::new().title("Listed agent plugin catalog"),
+            );
+
+            Ok(catalog)
+        })
+    }
+}
+
+fn workspace_root_for_project(project: &Entity<Project>, cx: &App) -> Option<PathBuf> {
+    project
+        .read(cx)
+        .visible_worktrees(cx)
+        .next()
+        .map(|worktree| worktree.read(cx).abs_path().as_ref().to_path_buf())
+}
+
+fn agent_plugin_catalog(
+    project_root: Option<PathBuf>,
+    input: AgentPluginCatalogToolInput,
+) -> Value {
+    let zed_data_root = data_dir();
+    let default_plugin_root = zed_data_root.join("agent-plugins");
+    let workspace_plugin_root = project_root
+        .as_ref()
+        .map(|root| root.join("tools").join("agent-plugins"));
+    let workspace_tools_root = project_root.as_ref().map(|root| root.join("tools"));
+    let dx_plugin_catalog = dx_first_party_plugin_catalog(
+        DxPluginCatalogPaths {
+            project_root: project_root.clone(),
+            workspace_plugin_root: workspace_plugin_root.clone(),
+            workspace_tools_root: workspace_tools_root.clone(),
+            zed_data_plugin_root: default_plugin_root.clone(),
+        },
+        AgentPluginCatalogTool::NAME,
+        AGENT_PLUGIN_RUNTIME_STATUS_TOOL_NAME,
+    );
+    let dx_plugin_catalog_summary = dx_first_party_plugin_catalog_summary(&dx_plugin_catalog);
+    let dx_default_enabled_plugins = dx_plugin_catalog_summary
+        .get("default_enabled_plugins")
+        .cloned()
+        .unwrap_or_else(|| Value::Array(Vec::new()));
+
+    let mut plugins = vec![
+        browser_plugin_manifest(),
+        chrome_plugin_manifest(
+            workspace_tools_root.clone(),
+            workspace_plugin_root.clone(),
+            &default_plugin_root,
+        ),
+        pc_use_plugin_manifest(workspace_plugin_root.clone(), &default_plugin_root),
+    ];
+
+    if !input.include_planned_plugins {
+        plugins.retain(|plugin| {
+            plugin
+                .get("status")
+                .and_then(Value::as_str)
+                .is_some_and(|status| status == "available")
+        });
+    }
+
+    let catalog_summary = agent_plugin_catalog_summary(&plugins);
+    let bootstrap_plan = input.include_bootstrap_plan.then(|| {
+        agent_plugin_catalog_bootstrap_plan(
+            &default_plugin_root,
+            workspace_plugin_root.as_ref(),
+            workspace_tools_root.as_ref(),
+        )
+    });
+    let bootstrap_readiness = input.include_bootstrap_readiness.then(|| {
+        agent_plugin_bootstrap_readiness(
+            project_root.as_ref(),
+            &default_plugin_root,
+            workspace_plugin_root.as_ref(),
+            workspace_tools_root.as_ref(),
+        )
+    });
+
+    serde_json::json!({
+        "schema": "zed.agent_plugins.catalog.v1",
+        "generated_at_ms": current_epoch_millis(),
+        "catalog_summary": catalog_summary,
+        "catalog": {
+            "name": "DX Agent Plugin Runtime",
+            "status": "discovery_layer_available",
+            "summary_schema": AGENT_PLUGIN_CATALOG_SUMMARY_SCHEMA,
+            "dx_plugin_catalog_summary": dx_plugin_catalog_summary,
+            "default_enabled_plugins": ["zed.browser", "zed.chrome", "zed.pc_use"],
+            "dx_default_enabled_plugins": dx_default_enabled_plugins,
+            "tool_name": AgentPluginCatalogTool::NAME,
+            "tools": agent_plugin_catalog_tools_manifest(),
+            "runtime_status": agent_plugin_catalog_runtime_status_manifest(),
+            "webpreview_handoffs": agent_plugin_catalog_webpreview_handoffs_manifest(),
+            "available_to": [
+                "agent_panel",
+                "subagents",
+                "acp_threads",
+                "web_preview_agent_handoff"
+            ],
+            "bootstrap_plan": bootstrap_plan,
+            "bootstrap_readiness": bootstrap_readiness,
+            "bootstrap_readiness_handoff": agent_plugin_catalog_bootstrap_readiness_handoff(),
+            "permission_model": agent_plugin_catalog_permission_model(),
+            "dx_plugin_catalog": dx_plugin_catalog,
+            "plugins": plugins,
+        }
+    })
+}
+
+fn agent_plugin_catalog_tools_manifest() -> Value {
+    serde_json::json!({
+        "discovery": AgentPluginCatalogTool::NAME,
+        "runtime_status": AGENT_PLUGIN_RUNTIME_STATUS_TOOL_NAME,
+        "compose_browser_action_payload": AGENT_BROWSER_PAYLOAD_TOOL_NAME,
+        "stage_browser_action_payload": AGENT_BROWSER_PAYLOAD_STAGE_TOOL_NAME,
+        "queue_browser_action_payload": AGENT_BROWSER_PAYLOAD_QUEUE_TOOL_NAME,
+        "inspect_browser_action_payload_queue": AGENT_BROWSER_PAYLOAD_QUEUE_INSPECT_TOOL_NAME,
+        "compose_chrome_action_payload": AGENT_CHROME_PAYLOAD_TOOL_NAME,
+        "queue_chrome_action_payload": AGENT_CHROME_PAYLOAD_QUEUE_TOOL_NAME,
+        "inspect_chrome_action_payload_queue": AGENT_CHROME_PAYLOAD_QUEUE_INSPECT_TOOL_NAME,
+        "request_chrome_payload_run": AGENT_CHROME_RUNNER_GATE_TOOL_NAME,
+        "prepare_chrome_playwright_adapter": AGENT_CHROME_PLAYWRIGHT_ADAPTER_TOOL_NAME,
+        "invoke_chrome_playwright_adapter": AGENT_CHROME_PLAYWRIGHT_INVOKE_TOOL_NAME,
+        "inspect_chrome_playwright_executions": AGENT_CHROME_PLAYWRIGHT_EXECUTION_INSPECT_TOOL_NAME,
+        "inspect_zed_window_context": AGENT_PC_USE_INSPECT_TOOL_NAME,
+        "compose_zed_pc_use_action_payload": AGENT_PC_USE_PAYLOAD_TOOL_NAME,
+        "stage_zed_pc_use_action_payload": AGENT_PC_USE_PAYLOAD_STAGE_TOOL_NAME,
+        "queue_zed_pc_use_action_payload": AGENT_PC_USE_PAYLOAD_QUEUE_TOOL_NAME,
+        "inspect_zed_pc_use_payload_queue": AGENT_PC_USE_PAYLOAD_QUEUE_INSPECT_TOOL_NAME,
+        "request_zed_pc_use_payload_run": AGENT_PC_USE_RUNNER_GATE_TOOL_NAME,
+        "inspect_zed_pc_use_runner_receipts": AGENT_PC_USE_RUNNER_RECEIPT_INSPECT_TOOL_NAME,
+        "inspect_zed_pc_use_targets": AGENT_PC_USE_TARGET_MANIFEST_TOOL_NAME,
+        "inspect_zed_pc_use_target_snapshot": AGENT_PC_USE_TARGET_SNAPSHOT_TOOL_NAME,
+        "inspect_zed_pc_use_ui_snapshot_contract": AGENT_PC_USE_UI_SNAPSHOT_CONTRACT_TOOL_NAME,
+        "inspect_zed_pc_use_ui_snapshot": AGENT_PC_USE_UI_SNAPSHOT_TOOL_NAME,
+        "prepare_managed_assets": AGENT_PLUGIN_ASSET_PROVISIONER_TOOL_NAME,
+        "prepare_runtime": PREPARE_AGENT_PLUGIN_RUNTIME_TOOL
+    })
+}
+
+fn agent_plugin_catalog_runtime_status_manifest() -> Value {
+    serde_json::json!({
+        "tool_name": AGENT_PLUGIN_RUNTIME_STATUS_TOOL_NAME,
+        "schema": AGENT_PLUGIN_RUNTIME_STATUS_SCHEMA,
+        "runtime_green_blocker_summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_BLOCKERS_SCHEMA,
+        "runtime_green_readiness_scorecard_schema": AGENT_PLUGIN_RUNTIME_GREEN_SCORECARD_SCHEMA,
+        "runtime_green_operator_handoff_schema": AGENT_PLUGIN_RUNTIME_GREEN_OPERATOR_HANDOFF_SCHEMA,
+        "runtime_green_proof_path_schema": AGENT_PLUGIN_RUNTIME_GREEN_PROOF_PATH_SCHEMA,
+        "runtime_green_claim_gate_schema": AGENT_PLUGIN_RUNTIME_GREEN_CLAIM_GATE_SCHEMA,
+        "runtime_green_claim_readiness_schema": AGENT_PLUGIN_RUNTIME_GREEN_CLAIM_READINESS_SCHEMA,
+        "runtime_green_report_gate_schema": AGENT_PLUGIN_RUNTIME_GREEN_REPORT_GATE_SCHEMA,
+        "runtime_green_report_badge_schema": AGENT_PLUGIN_RUNTIME_GREEN_REPORT_BADGE_SCHEMA,
+        "runtime_green_final_proof_guide_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_PROOF_GUIDE_SCHEMA,
+        "runtime_green_final_proof_guide_summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_PROOF_GUIDE_SUMMARY_SCHEMA,
+        "runtime_green_final_report_packet_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_REPORT_PACKET_SCHEMA,
+        "runtime_green_final_report_packet_summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_REPORT_PACKET_SUMMARY_SCHEMA,
+        "runtime_green_report_readiness_card_schema": AGENT_PLUGIN_RUNTIME_GREEN_REPORT_READINESS_CARD_SCHEMA,
+        "runtime_green_report_readiness_card_summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_REPORT_READINESS_CARD_SUMMARY_SCHEMA,
+        "final_proof_audit_schema": AGENT_BROWSER_FINAL_PROOF_AUDIT_SCHEMA,
+        "final_proof_audit_summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_PROOF_AUDIT_SUMMARY_SCHEMA,
+        "runtime_observability_digest_schema": AGENT_PLUGIN_RUNTIME_OBSERVABILITY_DIGEST_SCHEMA,
+        "runtime_observability_matrix_schema": AGENT_PLUGIN_RUNTIME_OBSERVABILITY_MATRIX_SCHEMA,
+        "dx_plugin_runtime_status_alias_schema": DX_PLUGIN_RUNTIME_STATUS_ALIAS_SCHEMA,
+        "dx_plugin_runtime_status_aliases_schema": DX_PLUGIN_RUNTIME_STATUS_ALIASES_SCHEMA,
+        "dx_plugin_runtime_status_aliases_field": "dx_plugin_runtime_aliases",
+        "pc_use_proof_summary_schema": AGENT_PLUGIN_PC_USE_PROOF_SUMMARY_SCHEMA,
+        "runtime_green_ready_outcomes": {
+            "browser_final_validation_result": "runtime_green_candidate=true",
+            "managed_chrome_runner_receipt": "ready_runner_adapter_pending",
+            "managed_chrome_execution_receipt": "completed",
+            "pc_use_runner_receipt": "ready_future_executor_pending"
+        },
+        "read_only": true,
+        "payload": {
+            "root_mode": "workspace",
+            "include_latest_handoffs": true,
+            "include_host_checks": true,
+            "include_next_actions": true,
+            "include_workflows": true,
+            "include_validation_matrix": true,
+            "include_observability_profiles": true,
+            "include_observability_digest": true,
+            "include_runtime_green_proof_path": true,
+            "include_runtime_green_claim_gate": true
+        },
+        "purpose": "Summarize Browser, managed Chrome, PC-use readiness, compact observability digest, plugin matrix, runtime-green proof path, final proof guide summary, final proof audit summary, final proof audit, final report packet summary, final report packet, report readiness card summary, report readiness card, proof freshness, and profiles without launching browsers, running Node, screenshots, or input dispatch."
+    })
+}
+
+fn agent_plugin_catalog_webpreview_handoffs_manifest() -> Value {
+    serde_json::json!({
+        "runtime_observability_digest": agent_plugin_catalog_handoff_manifest(
+            AGENT_PLUGIN_RUNTIME_OBSERVABILITY_DIGEST_SCHEMA,
+            Some(("plugin_matrix_schema", AGENT_PLUGIN_RUNTIME_OBSERVABILITY_MATRIX_SCHEMA)),
+            "copy_agent_plugin_runtime_observability_digest",
+            "send_agent_plugin_runtime_observability_digest_to_agent",
+            None,
+            "Share one compact WebPreview runtime health digest with lane readiness, plugin matrix, proof focus, and the next operator packet.",
+        ),
+        "runtime_green_operator_handoff": agent_plugin_catalog_handoff_manifest(
+            AGENT_PLUGIN_RUNTIME_GREEN_OPERATOR_HANDOFF_SCHEMA,
+            None,
+            "copy_agent_plugin_runtime_green_handoff",
+            "send_agent_plugin_runtime_green_handoff_to_agent",
+            None,
+            "Share one compact WebPreview runtime-green operator packet with current lane evidence, final observability gates, panel/headroom blockers, and the Agent runtime-status payload.",
+        ),
+        "runtime_green_proof_path": agent_plugin_catalog_handoff_manifest(
+            AGENT_PLUGIN_RUNTIME_GREEN_PROOF_PATH_SCHEMA,
+            None,
+            "copy_agent_plugin_runtime_green_proof_path",
+            "send_agent_plugin_runtime_green_proof_path_to_agent",
+            None,
+            "Share the canonical WebPreview runtime-green proof path with claim gate, proof sources, current best next lane, and Agent runtime-status read sequence.",
+        ),
+        "runtime_green_claim_gate": agent_plugin_catalog_handoff_manifest(
+            AGENT_PLUGIN_RUNTIME_GREEN_CLAIM_GATE_SCHEMA,
+            None,
+            "copy_agent_plugin_runtime_green_claim_gate",
+            "send_agent_plugin_runtime_green_claim_gate_to_agent",
+            None,
+            "Share the compact WebPreview claim gate with ready-lane fraction, first pending evidence, and next operator step.",
+        ),
+        "runtime_green_claim_readiness": agent_plugin_catalog_handoff_manifest(
+            AGENT_PLUGIN_RUNTIME_GREEN_CLAIM_READINESS_SCHEMA,
+            None,
+            "copy_agent_plugin_runtime_green_claim_readiness",
+            "send_agent_plugin_runtime_green_claim_readiness_to_agent",
+            None,
+            "Share the single compact readiness packet that combines claim gate, final result state, final checklist, and reporting policy.",
+        ),
+        "runtime_green_report_gate": agent_plugin_catalog_handoff_manifest(
+            AGENT_PLUGIN_RUNTIME_GREEN_REPORT_GATE_SCHEMA,
+            Some(("badge_schema", AGENT_PLUGIN_RUNTIME_GREEN_REPORT_BADGE_SCHEMA)),
+            "copy_agent_plugin_runtime_green_report_gate",
+            "send_agent_plugin_runtime_green_report_gate_to_agent",
+            None,
+            "Share the canonical ready/blocked badge agents must check before reporting runtime-green, including Browser final blocker fields.",
+        ),
+        "runtime_green_report_badge": agent_plugin_catalog_handoff_manifest(
+            AGENT_PLUGIN_RUNTIME_GREEN_REPORT_BADGE_SCHEMA,
+            None,
+            "copy_agent_plugin_runtime_green_report_gate",
+            "send_agent_plugin_runtime_green_report_gate_to_agent",
+            Some("runtime_green_report_gate.badge"),
+            "Render the compact runtime-green ready/blocked row with Browser stale-result, panel-gate, and final headroom blockers before showing larger proof packets.",
+        ),
+        "runtime_green_final_proof_guide": agent_plugin_catalog_summary_handoff_manifest(
+            AGENT_PLUGIN_RUNTIME_GREEN_FINAL_PROOF_GUIDE_SCHEMA,
+            AGENT_PLUGIN_RUNTIME_GREEN_FINAL_PROOF_GUIDE_SUMMARY_SCHEMA,
+            "runtime_green_final_proof_guide_summary",
+            "runtime_green_report_gate",
+            "copy_agent_plugin_runtime_green_final_proof_guide",
+            "send_agent_plugin_runtime_green_final_proof_guide_to_agent",
+            "Guide agents from report badge and Browser final blocker strip to final result template, manual just run proof, import, and status recheck.",
+        ),
+        "runtime_green_final_report_packet": agent_plugin_catalog_summary_handoff_manifest(
+            AGENT_PLUGIN_RUNTIME_GREEN_FINAL_REPORT_PACKET_SCHEMA,
+            AGENT_PLUGIN_RUNTIME_GREEN_FINAL_REPORT_PACKET_SUMMARY_SCHEMA,
+            "runtime_green_final_report_packet_summary",
+            "runtime_green_report_gate + final_validation_result_import_receipt",
+            "copy_agent_plugin_runtime_green_final_report_packet",
+            "send_agent_plugin_runtime_green_final_report_packet_to_agent",
+            "Share the compact final reporting packet agents must read before making the final runtime-green status claim, including Browser final-observability blockers.",
+        ),
+        "runtime_green_report_readiness_card": agent_plugin_catalog_summary_handoff_manifest(
+            AGENT_PLUGIN_RUNTIME_GREEN_REPORT_READINESS_CARD_SCHEMA,
+            AGENT_PLUGIN_RUNTIME_GREEN_REPORT_READINESS_CARD_SUMMARY_SCHEMA,
+            "runtime_green_report_readiness_card_summary",
+            "runtime_green_claim_readiness + runtime_green_report_gate + runtime_green_final_report_packet + runtime_green_final_proof_audit",
+            "copy_agent_plugin_runtime_green_report_readiness_card",
+            "send_agent_plugin_runtime_green_report_readiness_card_to_agent",
+            "Share one compact status card for right-side panels that combines claim readiness, report gate, final report packet, final proof audit, Browser final blockers, and regression-watch status.",
+        )
+    })
+}
+
+fn agent_plugin_catalog_handoff_manifest(
+    schema: &str,
+    extra_schema: Option<(&str, &str)>,
+    copy_action: &str,
+    send_action: &str,
+    source: Option<&str>,
+    purpose: &str,
+) -> Value {
+    let mut manifest = serde_json::json!({
+        "schema": schema,
+        "copy_action": copy_action,
+        "send_action": send_action,
+        "read_only": true,
+        "purpose": purpose,
+    });
+    if let Some((key, value)) = extra_schema {
+        manifest[key] = serde_json::json!(value);
+    }
+    if let Some(source) = source {
+        manifest["source"] = serde_json::json!(source);
+    }
+    manifest
+}
+
+fn agent_plugin_catalog_summary_handoff_manifest(
+    schema: &str,
+    summary_schema: &str,
+    runtime_status_summary_field: &str,
+    source: &str,
+    copy_action: &str,
+    send_action: &str,
+    purpose: &str,
+) -> Value {
+    serde_json::json!({
+        "schema": schema,
+        "summary_schema": summary_schema,
+        "runtime_status_summary_field": runtime_status_summary_field,
+        "source": source,
+        "copy_action": copy_action,
+        "send_action": send_action,
+        "read_only": true,
+        "purpose": purpose,
+    })
+}
+
+fn agent_plugin_catalog_bootstrap_plan(
+    default_plugin_root: &Path,
+    workspace_plugin_root: Option<&PathBuf>,
+    workspace_tools_root: Option<&PathBuf>,
+) -> Value {
+    serde_json::json!({
+        "default_download": true,
+        "download_policy": "download_or_update_on_first_use",
+        "prepare_tool": agent_plugin_catalog_prepare_tool_manifest(),
+        "playwright_adapter_prepare_tool": agent_plugin_catalog_playwright_adapter_prepare_manifest(),
+        "managed_asset_provisioner_tool": agent_plugin_catalog_managed_asset_provisioner_manifest(),
+        "playwright_adapter_invoke_tool": agent_plugin_catalog_playwright_adapter_invoke_manifest(),
+        "playwright_execution_inspect_tool": agent_plugin_catalog_playwright_execution_inspect_manifest(),
+        "zed_data_plugin_root": default_plugin_root.display().to_string(),
+        "workspace_plugin_root": workspace_plugin_root.map(|path| path.display().to_string()),
+        "workspace_tools_root": workspace_tools_root.map(|path| path.display().to_string()),
+        "dx_chrome_extension": {
+            "install_policy": "download_or_update_on_first_use",
+            "preferred_root": workspace_plugin_root
+                .map(|root| root.join("dx-chrome-extension"))
+                .unwrap_or_else(|| default_plugin_root.join("dx-chrome-extension"))
+                .display()
+                .to_string(),
+            "load_mode": "unpacked_extension",
+            "never_write_to_user_browser_profiles": true
+        },
+        "playwright": {
+            "preferred_root": workspace_tools_root
+                .map(|root| root.join("playwright"))
+                .unwrap_or_else(|| default_plugin_root.join("playwright"))
+                .display()
+                .to_string(),
+            "managed_by": "DX Code Editor",
+            "install_policy": "download_or_update_on_first_use"
+        }
+    })
+}
+
+fn agent_plugin_catalog_prepare_tool_manifest() -> Value {
+    serde_json::json!({
+        "name": PREPARE_AGENT_PLUGIN_RUNTIME_TOOL,
+        "dry_run_payload": {
+            "root_mode": "workspace",
+            "create_managed_roots": false,
+            "write_bootstrap_manifest": false
+        },
+        "workspace_payload": {
+            "root_mode": "workspace",
+            "create_managed_roots": true,
+            "write_bootstrap_manifest": true
+        },
+        "zed_data_payload": {
+            "root_mode": "zed_data",
+            "create_managed_roots": true,
+            "write_bootstrap_manifest": true
+        },
+        "requires_permission_for_writes": true,
+        "downloads_or_launches_browser": false
+    })
+}
+
+fn agent_plugin_catalog_playwright_adapter_prepare_manifest() -> Value {
+    serde_json::json!({
+        "name": AGENT_CHROME_PLAYWRIGHT_ADAPTER_TOOL_NAME,
+        "dry_run_payload": {
+            "root_mode": "workspace",
+            "write_adapter_files": false,
+            "include_script_preview": false
+        },
+        "workspace_payload": {
+            "root_mode": "workspace",
+            "write_adapter_files": true,
+            "include_script_preview": false
+        },
+        "zed_data_payload": {
+            "root_mode": "zed_data",
+            "write_adapter_files": true,
+            "include_script_preview": false
+        },
+        "requires_permission_for_writes": true,
+        "installs_packages": false,
+        "launches_browser": false,
+        "runs_node": false
+    })
+}
+
+fn agent_plugin_catalog_managed_asset_provisioner_manifest() -> Value {
+    serde_json::json!({
+        "name": AGENT_PLUGIN_ASSET_PROVISIONER_TOOL_NAME,
+        "result_schema": AGENT_PLUGIN_ASSET_PROVISIONING_RESULT_SCHEMA,
+        "receipt_schema": AGENT_PLUGIN_ASSET_PROVISIONING_RECEIPT_SCHEMA,
+        "asset_readiness_summary_schema": AGENT_PLUGIN_ASSET_READINESS_SUMMARY_SCHEMA,
+        "operator_recipe_schema": AGENT_PLUGIN_MANAGED_ASSET_OPERATOR_RECIPE_SCHEMA,
+        "dry_run_payload": {
+            "root_mode": "workspace",
+            "write_asset_receipt": false,
+            "copy_dx_chrome_extension": false,
+            "dx_chrome_extension_source_root": null,
+            "overwrite_existing_files": false,
+            "include_file_preview": true
+        },
+        "receipt_payload": {
+            "root_mode": "workspace",
+            "write_asset_receipt": true,
+            "copy_dx_chrome_extension": false,
+            "dx_chrome_extension_source_root": null,
+            "overwrite_existing_files": false,
+            "include_file_preview": true
+        },
+        "local_extension_copy_payload": {
+            "root_mode": "workspace",
+            "write_asset_receipt": true,
+            "copy_dx_chrome_extension": true,
+            "dx_chrome_extension_source_root": "<local unpacked extension root>",
+            "overwrite_existing_files": false,
+            "include_file_preview": true
+        },
+        "requires_permission_for_writes": true,
+        "downloads_packages": false,
+        "runs_node": false,
+        "launches_browser": false,
+        "touches_real_browser_profiles": false
+    })
+}
+
+fn agent_plugin_catalog_playwright_adapter_invoke_manifest() -> Value {
+    serde_json::json!({
+        "name": AGENT_CHROME_PLAYWRIGHT_INVOKE_TOOL_NAME,
+        "dry_run_payload": {
+            "root_mode": "workspace",
+            "execute_adapter": false,
+            "timeout_ms": 60000,
+            "include_process_output": false,
+            "include_payload_packet": false
+        },
+        "execute_payload": {
+            "root_mode": "workspace",
+            "execute_adapter": true,
+            "timeout_ms": 60000,
+            "include_process_output": false,
+            "include_payload_packet": false
+        },
+        "requires_permission_for_execution": true,
+        "safe_actions_only": ["open_url", "screenshot", "inspect_element", "dom_snapshot", "runtime_events", "set_viewport", "wait_for_selector"],
+        "input_actions_blocked": ["click", "type_text", "press_key", "scroll"]
+    })
+}
+
+fn agent_plugin_catalog_playwright_execution_inspect_manifest() -> Value {
+    serde_json::json!({
+        "name": AGENT_CHROME_PLAYWRIGHT_EXECUTION_INSPECT_TOOL_NAME,
+        "payload": {
+            "root_mode": "workspace",
+            "max_entries": 8,
+            "include_requests": false,
+            "include_receipts": false
+        },
+        "read_only": true,
+        "launches_browser": false,
+        "runs_node": false
+    })
+}
+
+fn agent_plugin_catalog_bootstrap_readiness_handoff() -> Value {
+    serde_json::json!({
+        "schema": AGENT_PLUGIN_BOOTSTRAP_READINESS_SCHEMA,
+        "copy_action": "copy_agent_plugin_bootstrap_readiness",
+        "send_action": "send_agent_plugin_bootstrap_readiness_to_agent",
+        "read_only": true,
+        "source": "WebPreview More menu",
+        "purpose": "Copy or send the compact bootstrap readiness packet without copying the full plugin catalog or runtime-status output."
+    })
+}
+
+fn agent_plugin_catalog_permission_model() -> Value {
+    serde_json::json!({
+        "read_only_discovery_without_prompt": true,
+        "browser_interactions_require_explicit_session_unlock": true,
+        "external_chrome_and_pc_use_require_user_visible_permission": true,
+        "receipts_required_for_every_mutating_action": true,
+        "fresh_preflight_required_before_input": true
+    })
+}
+
+fn agent_plugin_catalog_summary(plugins: &[Value]) -> Value {
+    let plugin_summaries = plugins
+        .iter()
+        .map(agent_plugin_catalog_plugin_summary)
+        .collect::<Vec<_>>();
+    let next_actions = agent_plugin_catalog_next_actions_summary(&plugin_summaries);
+    let proof_freshness = agent_plugin_catalog_proof_freshness_summary(&plugin_summaries);
+
+    serde_json::json!({
+        "schema": AGENT_PLUGIN_CATALOG_SUMMARY_SCHEMA,
+        "source_schema": "zed.agent_plugins.catalog.v1",
+        "generated_at_ms": current_epoch_millis(),
+        "status": "discovery_layer_available",
+        "tool_name": AgentPluginCatalogTool::NAME,
+        "plugin_count": plugins.len(),
+        "default_enabled_plugins": ["zed.browser", "zed.chrome", "zed.pc_use"],
+        "available_to": [
+            "agent_panel",
+            "subagents",
+            "acp_threads",
+            "web_preview_agent_handoff"
+        ],
+        "runtime_status": {
+            "tool_name": AGENT_PLUGIN_RUNTIME_STATUS_TOOL_NAME,
+            "schema": AGENT_PLUGIN_RUNTIME_STATUS_SCHEMA,
+            "runtime_observability_digest_schema": AGENT_PLUGIN_RUNTIME_OBSERVABILITY_DIGEST_SCHEMA,
+            "runtime_observability_matrix_schema": AGENT_PLUGIN_RUNTIME_OBSERVABILITY_MATRIX_SCHEMA,
+            "runtime_green_final_proof_guide_summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_PROOF_GUIDE_SUMMARY_SCHEMA,
+            "runtime_green_final_report_packet_summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_REPORT_PACKET_SUMMARY_SCHEMA,
+            "runtime_green_report_readiness_card_summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_REPORT_READINESS_CARD_SUMMARY_SCHEMA,
+            "final_proof_audit_summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_PROOF_AUDIT_SUMMARY_SCHEMA,
+            "read_only": true,
+        },
+        "webpreview_handoffs": {
+            "count": AGENT_PLUGIN_WEBPREVIEW_HANDOFF_IDS.len(),
+            "ids": AGENT_PLUGIN_WEBPREVIEW_HANDOFF_IDS,
+            "summary_schema_count": 3,
+            "current_summary_count": 0,
+        },
+        "next_actions": next_actions,
+        "proof_freshness": proof_freshness,
+        "plugins": plugin_summaries,
+        "read_only": true,
+        "dispatches_input": false,
+    })
+}
+
+const AGENT_PLUGIN_WEBPREVIEW_HANDOFF_IDS: &[&str] = &[
+    "runtime_observability_digest",
+    "runtime_green_operator_handoff",
+    "runtime_green_proof_path",
+    "runtime_green_claim_gate",
+    "runtime_green_claim_readiness",
+    "runtime_green_report_gate",
+    "runtime_green_report_badge",
+    "runtime_green_final_proof_guide",
+    "runtime_green_final_report_packet",
+    "runtime_green_report_readiness_card",
+];
+
+fn agent_plugin_catalog_plugin_summary(plugin: &Value) -> Value {
+    let observability = plugin.get("observability_profile");
+    let code_score = observability
+        .and_then(|profile| profile.get("code_score"))
+        .and_then(Value::as_u64);
+    let runtime_green_blocker = observability
+        .and_then(|profile| profile.get("runtime_green_blocker"))
+        .and_then(Value::as_str);
+    let explicit_next_action = observability
+        .and_then(|profile| profile.get("next_action"))
+        .and_then(Value::as_str);
+    let next_action_source = if explicit_next_action.is_some() {
+        Some("observability_profile.next_action")
+    } else if runtime_green_blocker.is_some() {
+        Some("observability_profile.runtime_green_blocker")
+    } else {
+        None
+    };
+    let next_action = explicit_next_action.or(runtime_green_blocker);
+    let needs_runtime_validation = runtime_green_blocker.is_some()
+        || code_score
+            .map(|score| score < 100)
+            .unwrap_or_else(|| plugin.get("status").and_then(Value::as_str) != Some("available"));
+    let proof_handoff_count = observability
+        .and_then(|profile| profile.get("proof_handoffs"))
+        .and_then(Value::as_object)
+        .map(|handoffs| handoffs.len());
+    let watch_surface_count = observability
+        .and_then(|profile| profile.get("watch_surfaces"))
+        .and_then(Value::as_array)
+        .map(Vec::len);
+    let recommended_handoff = agent_plugin_catalog_recommended_handoff(plugin);
+
+    serde_json::json!({
+        "id": plugin.get("id").and_then(Value::as_str),
+        "name": plugin.get("name").and_then(Value::as_str),
+        "status": plugin.get("status").and_then(Value::as_str),
+        "default_enabled": plugin.get("default_enabled").and_then(Value::as_bool),
+        "scope": plugin.get("scope").and_then(Value::as_str),
+        "runtime": {
+            "backend": plugin.pointer("/runtime/backend").and_then(Value::as_str),
+            "requires_external_process": plugin
+                .pointer("/runtime/requires_external_process")
+                .and_then(Value::as_bool),
+            "native_backend": plugin.pointer("/runtime/native_backend").and_then(Value::as_str),
+        },
+        "observability": {
+            "status": observability
+                .and_then(|profile| profile.get("status"))
+                .and_then(Value::as_str),
+            "code_score": code_score,
+            "needs_runtime_validation": needs_runtime_validation,
+            "runtime_green_blocker": runtime_green_blocker,
+            "proof_handoff_count": proof_handoff_count,
+            "watch_surface_count": watch_surface_count,
+            "next_action": {
+                "summary": next_action,
+                "source": next_action_source,
+                "recommended_handoff": recommended_handoff.clone(),
+                "read_only": true,
+                "dispatches_input": false,
+            },
+            "proof_freshness": agent_plugin_catalog_proof_freshness_contract(
+                plugin,
+                recommended_handoff
+            ),
+            "next_feature_set": observability
+                .and_then(|profile| profile.get("next_feature_set"))
+                .and_then(Value::as_str),
+        },
+        "handoffs": {
+            "function_surfaces_schema": plugin
+                .get("function_surfaces_schema")
+                .and_then(Value::as_str),
+            "function_surfaces_evidence_card_schemas": plugin
+                .pointer("/function_surfaces/evidence_card_schemas")
+                .cloned(),
+            "function_surfaces_copy_action": plugin
+                .pointer("/function_surfaces_handoff/copy_action")
+                .and_then(Value::as_str),
+            "function_surfaces_send_action": plugin
+                .pointer("/function_surfaces_handoff/send_action")
+                .and_then(Value::as_str),
+            "panel_card_deck_schema": plugin
+                .pointer("/panel_card_deck/schema")
+                .and_then(Value::as_str),
+            "panel_card_deck_session_field": plugin
+                .pointer("/panel_card_deck/session_field")
+                .and_then(Value::as_str),
+            "panel_card_deck_status_packet_field": plugin
+                .pointer("/panel_card_deck/status_packet_field")
+                .and_then(Value::as_str),
+            "panel_card_deck_copy_action": plugin
+                .pointer("/panel_card_deck/copy_action")
+                .and_then(Value::as_str),
+            "panel_card_deck_send_action": plugin
+                .pointer("/panel_card_deck/send_action")
+                .and_then(Value::as_str),
+            "panel_card_deck_handoff_actions": plugin
+                .pointer("/panel_card_deck/card_handoff_actions")
+                .cloned(),
+            "panel_card_deck_display_schema": plugin
+                .pointer("/panel_card_deck/card_display_schema")
+                .and_then(Value::as_str),
+            "panel_card_deck_affordance_schema": plugin
+                .pointer("/panel_card_deck/card_affordance_schema")
+                .and_then(Value::as_str),
+            "panel_card_deck_affordance_field": plugin
+                .pointer("/panel_card_deck/card_affordance_field")
+                .and_then(Value::as_str),
+            "panel_card_deck_control_state_schema": plugin
+                .pointer("/panel_card_deck/control_state_schema")
+                .and_then(Value::as_str),
+            "panel_card_deck_control_state_field": plugin
+                .pointer("/panel_card_deck/control_state_field")
+                .and_then(Value::as_str),
+            "panel_card_deck_control_event_schema": plugin
+                .pointer("/panel_card_deck/control_event_schema")
+                .and_then(Value::as_str),
+            "panel_card_deck_control_event_field": plugin
+                .pointer("/panel_card_deck/control_event_field")
+                .and_then(Value::as_str),
+            "panel_card_deck_control_result_schema": plugin
+                .pointer("/panel_card_deck/control_result_schema")
+                .and_then(Value::as_str),
+            "panel_card_deck_control_result_field": plugin
+                .pointer("/panel_card_deck/control_result_field")
+                .and_then(Value::as_str),
+            "panel_control_result_ledger_schema": plugin
+                .pointer("/panel_control_result_ledger/schema")
+                .and_then(Value::as_str),
+            "panel_control_result_import_receipt_schema": plugin
+                .pointer("/panel_control_result_ledger/import_receipt_schema")
+                .and_then(Value::as_str),
+            "panel_control_result_import_action": plugin
+                .pointer("/panel_control_result_ledger/import_action")
+                .and_then(Value::as_str),
+            "panel_control_result_copy_action": plugin
+                .pointer("/panel_control_result_ledger/result_copy_action")
+                .and_then(Value::as_str),
+            "panel_control_result_send_action": plugin
+                .pointer("/panel_control_result_ledger/result_send_action")
+                .and_then(Value::as_str),
+            "panel_control_result_import_receipt_copy_action": plugin
+                .pointer("/panel_control_result_ledger/import_receipt_copy_action")
+                .and_then(Value::as_str),
+            "panel_control_result_import_receipt_send_action": plugin
+                .pointer("/panel_control_result_ledger/import_receipt_send_action")
+                .and_then(Value::as_str),
+            "panel_control_result_ledger_copy_action": plugin
+                .pointer("/panel_control_result_ledger/copy_action")
+                .and_then(Value::as_str),
+            "panel_control_result_ledger_send_action": plugin
+                .pointer("/panel_control_result_ledger/send_action")
+                .and_then(Value::as_str),
+            "panel_live_validation_schema": plugin
+                .pointer("/panel_live_validation/schema")
+                .and_then(Value::as_str),
+            "panel_live_validation_copy_action": plugin
+                .pointer("/panel_live_validation/copy_action")
+                .and_then(Value::as_str),
+            "panel_live_validation_send_action": plugin
+                .pointer("/panel_live_validation/send_action")
+                .and_then(Value::as_str),
+            "panel_live_validation_result_template_copy_action": plugin
+                .pointer("/panel_live_validation/result_template_copy_action")
+                .and_then(Value::as_str),
+            "panel_live_validation_result_template_send_action": plugin
+                .pointer("/panel_live_validation/result_template_send_action")
+                .and_then(Value::as_str),
+            "panel_live_validation_result_gate_schema": plugin
+                .pointer("/panel_live_validation/result_gate_schema")
+                .and_then(Value::as_str),
+            "panel_live_validation_result_gate_copy_action": plugin
+                .pointer("/panel_live_validation/result_gate_copy_action")
+                .and_then(Value::as_str),
+            "panel_live_validation_result_gate_send_action": plugin
+                .pointer("/panel_live_validation/result_gate_send_action")
+                .and_then(Value::as_str),
+            "panel_live_validation_exercise_plan_schema": plugin
+                .pointer("/panel_live_validation/exercise_plan_schema")
+                .and_then(Value::as_str),
+            "panel_live_validation_exercise_plan_copy_action": plugin
+                .pointer("/panel_live_validation/exercise_plan_copy_action")
+                .and_then(Value::as_str),
+            "panel_live_validation_exercise_plan_send_action": plugin
+                .pointer("/panel_live_validation/exercise_plan_send_action")
+                .and_then(Value::as_str),
+            "panel_live_validation_template_prefills_first_suggested_control": plugin
+                .pointer("/panel_live_validation/result_template_prefills_first_suggested_control")
+                .and_then(Value::as_bool),
+            "panel_live_validation_result_contract_required": plugin
+                .pointer("/panel_live_validation/result_contract_required_for_final_runtime")
+                .and_then(Value::as_bool),
+            "panel_live_ui_proof_checklist_schema": plugin
+                .pointer("/panel_live_validation/ui_proof_checklist_schema")
+                .and_then(Value::as_str),
+            "panel_live_ui_proof_checklist_copy_action": plugin
+                .pointer("/panel_live_validation/ui_proof_checklist_copy_action")
+                .and_then(Value::as_str),
+            "panel_live_ui_proof_checklist_send_action": plugin
+                .pointer("/panel_live_validation/ui_proof_checklist_send_action")
+                .and_then(Value::as_str),
+            "panel_live_proof_status_schema": plugin
+                .pointer("/panel_live_validation/runtime_status_proof_schema")
+                .and_then(Value::as_str),
+            "panel_live_proof_status_field": plugin
+                .pointer("/panel_live_validation/runtime_status_proof_field")
+                .and_then(Value::as_str),
+            "panel_live_proof_readiness_card_schema": plugin
+                .pointer("/panel_live_validation/runtime_status_readiness_card_schema")
+                .and_then(Value::as_str),
+            "panel_live_proof_readiness_card_field": plugin
+                .pointer("/panel_live_validation/runtime_status_readiness_card_field")
+                .and_then(Value::as_str),
+            "panel_live_proof_readiness_card_copy_action": plugin
+                .pointer("/panel_live_validation/proof_readiness_card_copy_action")
+                .and_then(Value::as_str),
+            "panel_live_proof_readiness_card_send_action": plugin
+                .pointer("/panel_live_validation/proof_readiness_card_send_action")
+                .and_then(Value::as_str),
+            "final_validation_observability_schema": plugin
+                .pointer("/final_validation_observability_handoff/schema")
+                .and_then(Value::as_str),
+            "final_validation_observability_copy_action": plugin
+                .pointer("/final_validation_observability_handoff/copy_action")
+                .and_then(Value::as_str),
+            "final_validation_observability_send_action": plugin
+                .pointer("/final_validation_observability_handoff/send_action")
+                .and_then(Value::as_str),
+            "final_validation_observability_headroom_recovery_sequence_schema": plugin
+                .pointer(
+                    "/final_validation_observability_handoff/headroom_recovery_sequence_schema",
+                )
+                .and_then(Value::as_str),
+            "final_validation_observability_headroom_recovery_sequence_field": plugin
+                .pointer(
+                    "/final_validation_observability_handoff/headroom_recovery_sequence_field",
+                )
+                .and_then(Value::as_str),
+            "final_validation_observability_headroom_recovery_sequence_status_field": plugin
+                .pointer(
+                    "/final_validation_observability_handoff/headroom_recovery_sequence_status_field",
+                )
+                .and_then(Value::as_str),
+            "final_validation_observability_headroom_recovery_sequence_next_action_field": plugin
+                .pointer(
+                    "/final_validation_observability_handoff/headroom_recovery_sequence_next_action_field",
+                )
+                .and_then(Value::as_str),
+            "final_validation_observability_headroom_recovery_sequence_first_blocked_step_field": plugin
+                .pointer(
+                    "/final_validation_observability_handoff/headroom_recovery_sequence_first_blocked_step_field",
+                )
+                .and_then(Value::as_str),
+            "final_validation_observability_headroom_recovery_sequence_step_count_field": plugin
+                .pointer(
+                    "/final_validation_observability_handoff/headroom_recovery_sequence_step_count_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_proof_capacity_schema": plugin
+                .pointer("/final_runtime_proof_capacity/schema")
+                .and_then(Value::as_str),
+            "final_runtime_target_drive_policy_schema": plugin
+                .pointer("/final_runtime_proof_capacity/target_drive_policy_schema")
+                .and_then(Value::as_str),
+            "final_runtime_target_move_allowed_by_default": plugin
+                .pointer("/final_runtime_proof_capacity/target_move_allowed_by_default")
+                .and_then(Value::as_bool),
+            "final_runtime_target_move_requires_explicit_user_request": plugin
+                .pointer("/final_runtime_proof_capacity/target_move_requires_explicit_user_request")
+                .and_then(Value::as_bool),
+            "final_runtime_headroom_recovery_plan_schema": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_recovery_plan_schema")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_inspection_checklist_schema": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_inspection_checklist_schema")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_size_inspection_schema": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_size_inspection_schema")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_size_inspection_field": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_size_inspection_field")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_size_inspection_copy_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_size_inspection_copy_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_size_inspection_send_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_size_inspection_send_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_size_inspection_status_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_size_inspection_status_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_size_inspection_capacity_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_size_inspection_capacity_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_size_inspection_first_command_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_size_inspection_first_command_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_size_inspection_read_only_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_size_inspection_read_only_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_size_inspection_dispatches_input_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_size_inspection_dispatches_input_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_size_inspection_deletes_files_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_size_inspection_deletes_files_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_size_inspection_moves_target_dir_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_size_inspection_moves_target_dir_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_template_schema": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_cleanup_result_template_schema")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_template_field": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_cleanup_result_template_field")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_template_copy_action": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_template_copy_action",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_template_send_action": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_template_send_action",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_runtime_status_schema": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_runtime_status_schema",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_runtime_status_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_runtime_status_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_plugin_status_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_plugin_status_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_capacity_status_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_capacity_status_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_import_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_cleanup_result_import_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_copy_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_cleanup_result_copy_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_send_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_cleanup_result_send_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_import_receipt_schema": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_import_receipt_schema",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_import_receipt_copy_action": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_import_receipt_copy_action",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_import_receipt_send_action": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_import_receipt_send_action",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_import_receipt_status_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_import_receipt_status_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_import_receipt_ready_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_import_receipt_ready_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_import_receipt_next_action_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_import_receipt_next_action_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_import_receipt_durable_write_count_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_import_receipt_durable_write_count_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_gate_schema": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_cleanup_result_gate_schema")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_gate_field": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_cleanup_result_gate_field")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_gate_current_capacity_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_gate_current_capacity_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_durable_evidence_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_cleanup_result_durable_evidence_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_gate_copy_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_cleanup_result_gate_copy_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_cleanup_result_gate_send_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_cleanup_result_gate_send_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_inspection_checklist_copy_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_inspection_checklist_copy_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_inspection_checklist_send_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_inspection_checklist_send_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_inspection_checklist_field": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_inspection_checklist_field")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_inspection_checklist_status_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_inspection_checklist_status_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_inspection_checklist_capacity_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_inspection_checklist_capacity_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_readiness_gate_schema": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_readiness_gate_schema")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_readiness_gate_copy_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_readiness_gate_copy_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_readiness_gate_send_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_readiness_gate_send_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_readiness_gate_status_packet_field": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_readiness_gate_status_packet_field")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_readiness_gate_capacity_packet_field": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_readiness_gate_capacity_packet_field")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_readiness_gate_capacity_ready_field": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_readiness_gate_capacity_ready_field")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_readiness_gate_capacity_required_free_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_readiness_gate_capacity_required_free_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_readiness_gate_capacity_observed_free_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_readiness_gate_capacity_observed_free_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_readiness_gate_capacity_missing_free_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_readiness_gate_capacity_missing_free_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_readiness_gate_status_summary_required_free_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_readiness_gate_status_summary_required_free_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_readiness_gate_status_summary_missing_free_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_readiness_gate_status_summary_missing_free_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_reclaim_candidates_schema": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_reclaim_candidates_schema")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_reclaim_candidates_field": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_reclaim_candidates_field")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_reclaim_candidates_status_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_reclaim_candidates_status_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_reclaim_candidates_capacity_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_reclaim_candidates_capacity_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_reclaim_candidates_cleanup_result_gate_source_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_reclaim_candidates_cleanup_result_gate_source_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_reclaim_candidates_cleanup_result_gate_ready_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_reclaim_candidates_cleanup_result_gate_ready_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_reclaim_candidates_copy_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_reclaim_candidates_copy_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_reclaim_candidates_send_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_reclaim_candidates_send_action")
+                .and_then(Value::as_str),
+            "final_runtime_blocker_board_schema": plugin
+                .pointer("/final_runtime_proof_capacity/blocker_board_schema")
+                .and_then(Value::as_str),
+            "final_runtime_blocker_board_copy_action": plugin
+                .pointer("/final_runtime_proof_capacity/blocker_board_copy_action")
+                .and_then(Value::as_str),
+            "final_runtime_blocker_board_send_action": plugin
+                .pointer("/final_runtime_proof_capacity/blocker_board_send_action")
+                .and_then(Value::as_str),
+            "final_runtime_blocker_board_status_packet_field": plugin
+                .pointer("/final_runtime_proof_capacity/blocker_board_status_packet_field")
+                .and_then(Value::as_str),
+            "final_runtime_blocker_board_panel_checklist_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/blocker_board_panel_checklist_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_blocker_board_derived_panel_result_gate_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/blocker_board_derived_panel_result_gate_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_blocker_board_derived_panel_proof_card_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/blocker_board_derived_panel_proof_card_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_blocker_board_derived_capacity_field": plugin
+                .pointer("/final_runtime_proof_capacity/blocker_board_derived_capacity_field")
+                .and_then(Value::as_str),
+            "final_runtime_blocker_board_derived_cleanup_result_gate_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/blocker_board_derived_cleanup_result_gate_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_blocker_board_derived_capacity_cleanup_result_gate_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/blocker_board_derived_capacity_cleanup_result_gate_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_blocker_board_derived_recovery_cleanup_result_gate_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/blocker_board_derived_recovery_cleanup_result_gate_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_recovery_plan_field": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_recovery_plan_field")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_recovery_plan_status_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_recovery_plan_status_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_recovery_plan_copy_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_recovery_plan_copy_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_recovery_plan_send_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_recovery_plan_send_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_recovery_card_schema": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_recovery_card_schema")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_recovery_card_field": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_recovery_card_field")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_recovery_card_cleanup_result_gate_source_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_recovery_card_cleanup_result_gate_source_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_recovery_card_cleanup_result_gate_ready_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_recovery_card_cleanup_result_gate_ready_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_headroom_recovery_card_copy_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_recovery_card_copy_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_recovery_card_send_action": plugin
+                .pointer("/final_runtime_proof_capacity/headroom_recovery_card_send_action")
+                .and_then(Value::as_str),
+            "final_runtime_headroom_recovery_card_status_packet_field": plugin
+                .pointer(
+                    "/final_runtime_proof_capacity/headroom_recovery_card_status_packet_field",
+                )
+                .and_then(Value::as_str),
+            "final_runtime_proof_capacity_copy_action": plugin
+                .pointer("/final_runtime_proof_capacity/copy_action")
+                .and_then(Value::as_str),
+            "final_runtime_proof_capacity_send_action": plugin
+                .pointer("/final_runtime_proof_capacity/send_action")
+                .and_then(Value::as_str),
+            "panel_card_deck_interaction_validation_schema": plugin
+                .pointer("/panel_card_deck/interaction_validation_schema")
+                .and_then(Value::as_str),
+            "panel_card_deck_interaction_validation_field": plugin
+                .pointer("/panel_card_deck/interaction_validation_field")
+                .and_then(Value::as_str),
+            "panel_card_deck_render_contract_schema": plugin
+                .pointer("/panel_card_deck/render_contract_schema")
+                .and_then(Value::as_str),
+            "panel_card_deck_render_contract_field": plugin
+                .pointer("/panel_card_deck/render_contract_field")
+                .and_then(Value::as_str),
+            "bootstrap_schema": plugin
+                .get("bootstrap_readiness_schema")
+                .and_then(Value::as_str),
+            "proof_summary_schema": plugin
+                .get("proof_summary_schema")
+                .or_else(|| plugin.pointer("/runtime/pc_use_proof_summary_schema"))
+                .and_then(Value::as_str),
+            "proof_card_schema": plugin
+                .pointer("/runtime/webpreview_pc_use_proof_card_schema")
+                .and_then(Value::as_str),
+            "proof_card_field": plugin
+                .pointer("/runtime/webpreview_pc_use_proof_card_field")
+                .and_then(Value::as_str),
+            "action_card_display_schema": plugin
+                .pointer("/action_payload_contract/webpreview_execution_action_card_display_schema")
+                .and_then(Value::as_str),
+            "action_card_display_field": plugin
+                .pointer("/action_payload_contract/webpreview_execution_action_card_display_field")
+                .and_then(Value::as_str),
+            "runtime_status_proof_summary_field": observability
+                .and_then(|profile| profile.pointer("/proof_handoffs/runtime_status_proof_summary_field"))
+                .and_then(Value::as_str),
+            "capability_count": plugin
+                .get("capabilities")
+                .and_then(Value::as_array)
+                .map(Vec::len),
+        },
+        "safety": {
+            "read_only_summary": true,
+            "dispatches_input": false,
+        },
+    })
+}
+
+fn agent_plugin_catalog_next_actions_summary(plugins: &[Value]) -> Value {
+    let rows = plugins
+        .iter()
+        .filter_map(|plugin| {
+            let next_action = plugin.pointer("/observability/next_action/summary")?;
+
+            Some(serde_json::json!({
+                "plugin_id": plugin.get("id").and_then(Value::as_str),
+                "plugin_name": plugin.get("name").and_then(Value::as_str),
+                "status": plugin.pointer("/observability/status").and_then(Value::as_str),
+                "code_score": plugin.pointer("/observability/code_score").and_then(Value::as_u64),
+                "needs_runtime_validation": plugin
+                    .pointer("/observability/needs_runtime_validation")
+                    .and_then(Value::as_bool),
+                "summary": next_action,
+                "source": plugin.pointer("/observability/next_action/source").and_then(Value::as_str),
+                "recommended_handoff": plugin.pointer("/observability/next_action/recommended_handoff").cloned(),
+            }))
+        })
+        .collect::<Vec<_>>();
+    let blocked_or_pending_count = rows
+        .iter()
+        .filter(|row| {
+            row.get("needs_runtime_validation")
+                .and_then(Value::as_bool)
+                .unwrap_or(true)
+        })
+        .count();
+    let first = rows.first().cloned();
+
+    serde_json::json!({
+        "blocked_or_pending_count": blocked_or_pending_count,
+        "total_count": rows.len(),
+        "first": first,
+        "rows": rows,
+        "read_only": true,
+        "dispatches_input": false,
+    })
+}
+
+fn agent_plugin_catalog_proof_freshness_summary(plugins: &[Value]) -> Value {
+    let rows = plugins
+        .iter()
+        .filter_map(|plugin| plugin.pointer("/observability/proof_freshness").cloned())
+        .collect::<Vec<_>>();
+    let must_recheck_count = rows
+        .iter()
+        .filter(|row| {
+            row.get("must_recheck_before_runtime_green")
+                .and_then(Value::as_bool)
+                .unwrap_or(true)
+        })
+        .count();
+    let read_sequence = rows
+        .iter()
+        .filter_map(|row| row.get("read_sequence").cloned())
+        .collect::<Vec<_>>();
+    let first = rows.first().cloned();
+
+    serde_json::json!({
+        "status": if must_recheck_count == 0 {
+            "no_recheck_required"
+        } else {
+            "final_windows_recheck_required"
+        },
+        "must_recheck_count": must_recheck_count,
+        "lane_count": rows.len(),
+        "first": first,
+        "read_sequence": read_sequence,
+        "rows": rows,
+        "safety": {
+            "read_only_summary": true,
+            "writes_files": false,
+            "runs_node": false,
+            "launches_browser": false,
+            "dispatches_input": false,
+            "touches_real_browser_profiles": false,
+        },
+    })
+}
+
+fn agent_plugin_catalog_proof_freshness_contract(
+    plugin: &Value,
+    recommended_handoff: Option<Value>,
+) -> Value {
+    let plugin_id = plugin
+        .get("id")
+        .and_then(Value::as_str)
+        .unwrap_or("unknown");
+    let (lane_id, status, source, runtime_status_field, read_sequence, proof_sources) =
+        match plugin_id {
+            "zed.browser" => (
+                "browser_webpreview",
+                "manual_result_import_recheck_required",
+                "webpreview_evidence.final_validation_observability",
+                "runtime_observability_plugin_matrix.rows[browser_webpreview].evidence_freshness",
+                vec![
+                    "copy_agent_browser_final_validation_bundle",
+                    "copy_agent_browser_final_validation_result_template",
+                    "import_agent_browser_final_validation_result_from_clipboard",
+                    "copy_agent_browser_panel_live_validation_result_gate",
+                    "copy_agent_browser_final_runtime_headroom_readiness_gate",
+                    "copy_agent_browser_final_runtime_blocker_board",
+                    "copy_agent_browser_final_proof_audit",
+                    AGENT_PLUGIN_RUNTIME_STATUS_TOOL_NAME,
+                ],
+                vec![
+                    "final_validation_observability",
+                    "panel_live_validation_result_gate",
+                    "final_runtime_proof_capacity",
+                    "final_runtime_blocker_board",
+                    "runtime_observability_plugin_matrix.rows[browser_webpreview].proof",
+                    "final_validation_result_import_receipt",
+                    "runtime_green_final_proof_audit_summary",
+                ],
+            ),
+            "zed.chrome" => (
+                "managed_chrome",
+                "managed_execution_receipt_recheck_required",
+                "webpreview_evidence.managed_chrome_execution_status",
+                "runtime_observability_plugin_matrix.rows[managed_chrome].evidence_freshness",
+                vec![
+                    "copy_agent_plugin_bootstrap_readiness",
+                    "copy_managed_chrome_execution_status",
+                    AGENT_CHROME_PLAYWRIGHT_EXECUTION_INSPECT_TOOL_NAME,
+                    AGENT_PLUGIN_RUNTIME_STATUS_TOOL_NAME,
+                ],
+                vec![
+                    "plugin_bootstrap_readiness",
+                    "managed_chrome_execution_status",
+                    "managed_chrome_execution_receipt",
+                ],
+            ),
+            "zed.pc_use" => (
+                "pc_use",
+                "pc_use_runner_receipt_recheck_required",
+                "webpreview_evidence.pc_use_status.proof_summary",
+                "runtime_observability_plugin_matrix.rows[pc_use].evidence_freshness",
+                vec![
+                    "copy_pc_use_status",
+                    AGENT_PC_USE_PAYLOAD_QUEUE_INSPECT_TOOL_NAME,
+                    AGENT_PC_USE_RUNNER_RECEIPT_INSPECT_TOOL_NAME,
+                    AGENT_PLUGIN_RUNTIME_STATUS_TOOL_NAME,
+                ],
+                vec![
+                    "pc_use_status.proof_summary",
+                    "pc_use_runner_receipt",
+                    "pc_use_payload_queue",
+                ],
+            ),
+            _ => (
+                "unknown",
+                "unknown_plugin_recheck_required",
+                "agent_plugin_catalog.plugins",
+                "runtime_observability_plugin_matrix.rows[].evidence_freshness",
+                vec![AGENT_PLUGIN_RUNTIME_STATUS_TOOL_NAME],
+                vec!["agent_plugin_catalog"],
+            ),
+        };
+
+    serde_json::json!({
+        "plugin_id": plugin_id,
+        "lane_id": lane_id,
+        "status": status,
+        "source": source,
+        "runtime_status_field": runtime_status_field,
+        "read_sequence": read_sequence,
+        "proof_sources": proof_sources,
+        "browser_final_observability_proof_fields": if plugin_id == "zed.browser" {
+            serde_json::json!([
+                "runtime_observability_plugin_matrix.rows[browser_webpreview].proof.final_result_runtime_green_candidate",
+                "runtime_observability_plugin_matrix.rows[browser_webpreview].proof.stale_final_result_missing_expected_required_check_count",
+                "runtime_observability_plugin_matrix.rows[browser_webpreview].proof.panel_live_validation_result_gate_ready",
+                "runtime_observability_plugin_matrix.rows[browser_webpreview].proof.final_runtime_capacity_ready",
+                "runtime_observability_plugin_matrix.rows[browser_webpreview].proof.final_runtime_capacity_missing_free_gib",
+                "runtime_observability_plugin_matrix.rows[browser_webpreview].proof.final_runtime_first_blocker"
+            ])
+        } else {
+            Value::Null
+        },
+        "recommended_handoff": recommended_handoff,
+        "must_recheck_before_runtime_green": true,
+        "does_not_probe_files": true,
+        "read_only": true,
+        "dispatches_input": false,
+    })
+}
+
+fn agent_plugin_catalog_recommended_handoff(plugin: &Value) -> Option<Value> {
+    let plugin_id = plugin.get("id").and_then(Value::as_str)?;
+    let proof_handoffs = plugin.pointer("/observability_profile/proof_handoffs")?;
+    let preferred_keys: &[&str] = match plugin_id {
+        "zed.browser" => &[
+            "runtime_green_report_readiness_card",
+            "runtime_green_final_report_packet",
+            "runtime_green_final_proof_guide",
+            "final_bundle",
+            "validation_progress",
+        ],
+        "zed.chrome" => &[
+            "execution_inspect_tool",
+            "adapter_invoke_tool",
+            "runner_gate_tool",
+            "queue_inspection_tool",
+            "webpreview_status_copy",
+        ],
+        "zed.pc_use" => &[
+            "webpreview_status_copy",
+            "runner_receipts_tool",
+            "payload_queue_inspect_tool",
+            "target_snapshot_tool",
+            "context_tool",
+        ],
+        _ => &[],
+    };
+
+    preferred_keys.iter().find_map(|key| {
+        proof_handoffs
+            .get(*key)
+            .and_then(Value::as_str)
+            .map(|value| {
+                serde_json::json!({
+                    "id": *key,
+                    "value": value,
+                })
+            })
+    })
+}
+
+fn browser_function_surfaces_manifest() -> Value {
+    let screenshot_state = if cfg!(target_os = "windows") {
+        "available"
+    } else {
+        "platform_unavailable"
+    };
+    let devtools_state = if cfg!(any(target_os = "windows", target_os = "macos")) {
+        "available"
+    } else {
+        "platform_unavailable"
+    };
+
+    serde_json::json!({
+        "schema": AGENT_BROWSER_FUNCTION_SURFACES_SCHEMA,
+        "source": "WebPreview More menu and active WebPreview session snapshot",
+        "backend": "web_preview",
+        "evidence_card_schemas": {
+            "inspected_element": INSPECTED_ELEMENT_EVIDENCE_CARD_SCHEMA,
+            "devtools": DEVTOOLS_EVIDENCE_CARD_SCHEMA,
+        },
+        "surfaces": [
+            {
+                "id": "browser.screenshot.capture",
+                "state": screenshot_state,
+                "menu_action": "take_screenshot",
+                "menu_label": "Take Screenshot",
+                "output": ["clipboard_image", "agent_panel_image_attachment", "profile_screenshots_png"],
+                "uses_page_script": false,
+                "dispatches_input": false,
+                "requires_interactive_unlock": false,
+            },
+            {
+                "id": "browser.screenshot.area",
+                "state": screenshot_state,
+                "menu_action": "capture_selected_area_screenshot",
+                "menu_label": "Capture Area",
+                "overlay_completion_kind": "capture-area",
+                "output": ["cropped_clipboard_image", "agent_panel_image_attachment", "profile_screenshots_png"],
+                "uses_page_script": true,
+                "dispatches_input": false,
+                "requires_interactive_unlock": false,
+            },
+            {
+                "id": "browser.screenshot.annotate",
+                "state": screenshot_state,
+                "menu_action": "annotate_screenshot",
+                "menu_label": "Annotate Screenshot",
+                "overlay_completion_kind": "annotated-screenshot",
+                "output": ["clipboard_image", "agent_panel_image_attachment", "annotation_metadata_json"],
+                "uses_page_script": true,
+                "dispatches_input": false,
+                "requires_interactive_unlock": false,
+            },
+            {
+                "id": "browser.element.inspect",
+                "state": "available_after_page_ready",
+                "menu_action": "inspect_element",
+                "menu_label": "Inspect Element",
+                "overlay_completion_kind": "inspect-element",
+                "output": ["agent_panel_selector", "agent_panel_html", "computed_style_summary", "optional_cropped_screenshot"],
+                "latest_card_schema": INSPECTED_ELEMENT_EVIDENCE_CARD_SCHEMA,
+                "uses_page_script": true,
+                "dispatches_input": false,
+                "requires_interactive_unlock": false,
+            },
+            {
+                "id": "browser.devtools.open",
+                "state": devtools_state,
+                "menu_action": "open_devtools",
+                "menu_label": "Open DevTools",
+                "output": ["native_devtools_window"],
+                "latest_card_schema": DEVTOOLS_EVIDENCE_CARD_SCHEMA,
+                "uses_page_script": false,
+                "dispatches_input": false,
+                "requires_interactive_unlock": false,
+            },
+            {
+                "id": "browser.viewport.responsive",
+                "state": "available",
+                "menu_actions": ["viewport_full", "viewport_iphone_15", "viewport_ipad_air", "viewport_laptop", "viewport_rotate"],
+                "executor_action": "run_permissioned_viewport_executor",
+                "presets": [
+                    {"mode": "full", "label": "Full", "width": null, "height": null},
+                    {"mode": "fixed", "label": "iPhone 15", "width": 393, "height": 852},
+                    {"mode": "fixed", "label": "iPad Air", "width": 820, "height": 1180},
+                    {"mode": "fixed", "label": "Laptop", "width": 1280, "height": 900}
+                ],
+                "uses_page_script": false,
+                "dispatches_input": false,
+                "requires_interactive_unlock_for_executor": true,
+            }
+        ],
+        "workflow": [
+            "Use screenshot or selected-area capture for visual context.",
+            "Use annotated screenshots when the user needs specific regions called out.",
+            "Use Inspect Element after page ready for selector, HTML, style, rect, and screenshot context.",
+            "Use responsive viewport menu entries for visual testing and the permissioned viewport executor only when explicit interactive unlock is active.",
+            "Use DevTools for manual debugging on native WebPreview backends."
+        ],
+        "safety": {
+            "read_only_or_agent_handoff": true,
+            "dispatches_page_input": false,
+            "mutates_external_browser_profiles": false
+        }
+    })
+}
+
+fn browser_plugin_manifest() -> Value {
+    serde_json::json!({
+        "id": "zed.browser",
+        "name": "Browser",
+        "description": "Controls the in-app WebPreview browser session through Zed's native browser context, diagnostics, screenshots, and permissioned executor gates.",
+        "kind": "built_in",
+        "status": "available",
+        "default_enabled": true,
+        "ships_with_editor": true,
+        "scope": "in_app_web_preview",
+        "runtime": {
+            "backend": "web_preview",
+            "requires_external_process": false,
+            "platforms": {
+                "windows": "webview2_composition",
+                "macos": "wkwebview",
+                "linux": "webkitgtk_planned"
+            }
+        },
+        "observability_profile": {
+            "status": "code_complete_pending_windows_runtime_validation",
+            "code_score": 99,
+            "runtime_green_blocker": "Run one final Windows just run pass, exercise editor typing/WebPreview/native executor flows, fill the final result template, and import the filled result.",
+            "proof_handoffs": {
+                "validation_progress": "copy_agent_browser_executor_validation_progress",
+                "runtime_green_claim_gate": "copy_agent_plugin_runtime_green_claim_gate",
+                "runtime_green_claim_readiness": "copy_agent_plugin_runtime_green_claim_readiness",
+                "runtime_green_report_gate": "copy_agent_plugin_runtime_green_report_gate",
+                "runtime_green_report_badge": "copy_agent_plugin_runtime_green_report_gate",
+                "runtime_green_final_proof_guide": "copy_agent_plugin_runtime_green_final_proof_guide",
+                "runtime_green_final_report_packet": "copy_agent_plugin_runtime_green_final_report_packet",
+                "runtime_green_report_readiness_card": "copy_agent_plugin_runtime_green_report_readiness_card",
+                "panel_card_deck": "copy_agent_browser_panel_card_deck",
+                "panel_control_result_import": "import_agent_browser_panel_control_result_from_clipboard",
+                "panel_control_result_import_receipt": "copy_agent_browser_panel_control_result_import_receipt",
+                "panel_control_result_ledger": "copy_agent_browser_panel_control_result_ledger",
+                "panel_live_validation": "copy_agent_browser_panel_live_validation",
+                "panel_live_validation_result_template": "copy_agent_browser_panel_live_validation_result_template",
+                "panel_live_validation_result_gate": "copy_agent_browser_panel_live_validation_result_gate",
+                "panel_live_validation_exercise_plan": "copy_agent_browser_panel_live_validation_exercise_plan",
+                "panel_live_proof_readiness_card": "copy_agent_browser_panel_live_proof_readiness_card",
+                "panel_live_ui_proof_checklist": "copy_agent_browser_panel_live_ui_proof_checklist",
+                "final_runtime_proof_capacity": "copy_agent_browser_final_runtime_proof_capacity",
+                "final_runtime_headroom_recovery_plan": "copy_agent_browser_final_runtime_headroom_recovery_plan",
+                "final_runtime_headroom_recovery_card": "copy_agent_browser_final_runtime_headroom_recovery_card",
+                "final_runtime_headroom_inspection_checklist": "copy_agent_browser_final_runtime_headroom_inspection_checklist",
+                "final_runtime_headroom_size_inspection": "copy_agent_browser_final_runtime_headroom_size_inspection",
+                "final_runtime_headroom_cleanup_result_template": "copy_agent_browser_final_runtime_headroom_cleanup_result_template",
+                "final_runtime_headroom_cleanup_result_import": "import_agent_browser_final_runtime_headroom_cleanup_result_from_clipboard",
+                "final_runtime_headroom_cleanup_result": "copy_agent_browser_final_runtime_headroom_cleanup_result",
+                "final_runtime_headroom_cleanup_result_import_receipt": "copy_agent_browser_final_runtime_headroom_cleanup_result_import_receipt",
+                "final_runtime_headroom_cleanup_result_gate": "copy_agent_browser_final_runtime_headroom_cleanup_result_gate",
+                "final_runtime_headroom_readiness_gate": "copy_agent_browser_final_runtime_headroom_readiness_gate",
+                "final_runtime_headroom_reclaim_candidates": "copy_agent_browser_final_runtime_headroom_reclaim_candidates",
+                "final_runtime_headroom_recovery_sequence": "copy_agent_browser_final_validation_observability",
+                "final_runtime_blocker_board": "copy_agent_browser_final_runtime_blocker_board",
+                "final_bundle": "copy_agent_browser_final_validation_bundle",
+                "final_result_template": "copy_agent_browser_final_validation_result_template",
+                "final_result_import": "import_agent_browser_final_validation_result_from_clipboard",
+                "final_result_import_receipt": "copy_agent_browser_final_validation_result_import_receipt",
+                "final_proof_audit": "copy_agent_browser_final_proof_audit",
+                "final_result_send": "send_agent_browser_final_validation_result_to_agent"
+            },
+            "watch_surfaces": [
+                "editor caret and typing latency",
+                "WebPreview focus after navigation or reload",
+                "native click/type/key/scroll/history/cache receipts",
+                "managed Chrome execution receipts",
+                "PC-use queue and runner receipts"
+            ],
+            "next_feature_set": "Agent Plugin Runtime Observability"
+        },
+        "function_surfaces_schema": AGENT_BROWSER_FUNCTION_SURFACES_SCHEMA,
+        "function_surfaces": browser_function_surfaces_manifest(),
+        "function_surfaces_handoff": {
+            "schema": AGENT_BROWSER_FUNCTION_SURFACES_SCHEMA,
+            "copy_action": "copy_agent_browser_function_surfaces",
+            "send_action": "send_agent_browser_function_surfaces_to_agent",
+            "read_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Copy or send the concrete screenshot, inspect, DevTools, and responsive viewport surface map without requiring the larger session or catalog."
+        },
+        "panel_card_deck": {
+            "schema": AGENT_BROWSER_PANEL_CARD_DECK_SCHEMA,
+            "card_display_schema": AGENT_BROWSER_PANEL_CARD_DISPLAY_SCHEMA,
+            "card_affordance_schema": AGENT_BROWSER_PANEL_CARD_AFFORDANCE_SCHEMA,
+            "card_affordance_field": "agent_browser_panel_card_deck.cards[].display.affordances",
+            "control_state_schema": AGENT_BROWSER_PANEL_CARD_CONTROL_STATE_SCHEMA,
+            "control_state_field": "agent_browser_panel_card_deck.cards[].display.affordances[].control_state",
+            "control_event_schema": AGENT_BROWSER_PANEL_CARD_CONTROL_EVENT_SCHEMA,
+            "control_event_field": "agent_browser_panel_card_deck.cards[].display.affordances[].event",
+            "control_result_schema": AGENT_BROWSER_PANEL_CARD_CONTROL_RESULT_SCHEMA,
+            "control_result_field": "agent_browser_panel_card_deck.cards[].display.affordances[].result_contract",
+            "interaction_validation_schema": AGENT_BROWSER_PANEL_CARD_INTERACTION_VALIDATION_SCHEMA,
+            "interaction_validation_field": "agent_browser_panel_card_deck.render_contract.interaction_validation",
+            "render_contract_schema": AGENT_BROWSER_PANEL_CARD_RENDER_CONTRACT_SCHEMA,
+            "render_contract_field": "agent_browser_panel_card_deck.render_contract",
+            "session_field": "agent_browser_panel_card_deck",
+            "status_packet_field": "packet.latest.agent_browser_panel_card_deck",
+            "copy_action": "copy_agent_browser_panel_card_deck",
+            "send_action": "send_agent_browser_panel_card_deck_to_agent",
+            "read_only": true,
+            "purpose": "Render one compact Agent Panel deck for screenshot, annotation, inspect, DevTools, responsive viewport, managed Chrome, and PC-use proof cards.",
+            "card_sources": [
+                "session.screenshot_capture",
+                "session.annotated_screenshot",
+                "session.inspected_element_evidence_card",
+                "session.devtools_evidence_card",
+                "session.responsive_viewport_change",
+                "session.managed_chrome_execution.latest_action_card",
+                "session.pc_use_status.latest_proof_card"
+            ],
+            "card_handoff_actions": {
+                "browser.screenshot.capture": {"primary_action": "take_screenshot", "refresh_action": "take_screenshot", "refresh_label": "Refresh Screenshot", "details_action": "send_agent_browser_status_packet_to_agent"},
+                "browser.screenshot.annotate": {"primary_action": "annotate_screenshot", "refresh_action": "annotate_screenshot", "refresh_label": "Refresh Annotation", "details_action": "send_agent_browser_status_packet_to_agent"},
+                "browser.element.inspect": {"primary_action": "inspect_element", "refresh_action": "inspect_element", "refresh_label": "Refresh Inspect Evidence", "details_action": "send_agent_browser_status_packet_to_agent"},
+                "browser.devtools.open": {"primary_action": "open_devtools", "refresh_action": "open_devtools", "refresh_label": "Refresh DevTools Evidence", "details_action": "send_agent_browser_status_packet_to_agent"},
+                "browser.viewport.responsive": {"primary_action": "set_responsive_viewport", "refresh_action": "set_responsive_viewport", "refresh_label": "Refresh Viewport Proof", "details_action": "send_agent_browser_status_packet_to_agent"},
+                "chrome.managed.latest_action": {"primary_action": "copy_managed_chrome_execution_status", "refresh_action": "copy_managed_chrome_execution_status", "refresh_label": "Refresh Managed Chrome Status", "details_action": "send_managed_chrome_execution_status_to_agent"},
+                "pc_use.latest_proof": {"primary_action": "copy_pc_use_status", "refresh_action": "copy_pc_use_status", "refresh_label": "Refresh PC-use Status", "details_action": "send_pc_use_status_to_agent"}
+            }
+        },
+        "panel_control_result_ledger": {
+            "schema": AGENT_BROWSER_PANEL_CONTROL_RESULT_LEDGER_SCHEMA,
+            "control_result_schema": AGENT_BROWSER_PANEL_CARD_CONTROL_RESULT_SCHEMA,
+            "import_receipt_schema": AGENT_BROWSER_PANEL_CONTROL_RESULT_IMPORT_RECEIPT_SCHEMA,
+            "source_deck_schema": AGENT_BROWSER_PANEL_CARD_DECK_SCHEMA,
+            "session_field": "agent_browser_panel_control_result_ledger",
+            "status_packet_field": "packet.latest.agent_browser_panel_control_result_ledger",
+            "result_session_field": "agent_browser_panel_control_result",
+            "result_import_receipt_session_field": "agent_browser_panel_control_result_import_receipt",
+            "durable_evidence_session_field": "agent_browser_panel_control_result_durable_evidence",
+            "import_action": "import_agent_browser_panel_control_result_from_clipboard",
+            "result_copy_action": "copy_agent_browser_panel_control_result",
+            "result_send_action": "send_agent_browser_panel_control_result_to_agent",
+            "import_receipt_copy_action": "copy_agent_browser_panel_control_result_import_receipt",
+            "import_receipt_send_action": "send_agent_browser_panel_control_result_import_receipt_to_agent",
+            "copy_action": "copy_agent_browser_panel_control_result_ledger",
+            "send_action": "send_agent_browser_panel_control_result_ledger_to_agent",
+            "source_receipts": [
+                "session.agent_browser_panel_control_result",
+                "session.agent_browser_panel_control_result_import_receipt",
+                "session.agent_browser_panel_control_result_durable_evidence",
+                "session.agent_browser_action_payload_import_receipt",
+                "session.blocked_interaction_receipt",
+                "session.successful_interaction_receipt"
+            ],
+            "managed_result_dir": AGENT_BROWSER_PANEL_CONTROL_RESULT_DIR_NAME,
+            "managed_result_file": AGENT_BROWSER_PANEL_CONTROL_RESULT_FILE_NAME,
+            "managed_result_archive_prefix": AGENT_BROWSER_PANEL_CONTROL_RESULT_ARCHIVE_PREFIX,
+            "read_only": true,
+            "purpose": "Normalize panel control results from imported durable panel results, latest payload import, blocked receipt, and success receipt template without dispatching input."
+        },
+        "panel_live_validation": {
+            "schema": AGENT_BROWSER_PANEL_LIVE_VALIDATION_SCHEMA,
+            "source_deck_schema": AGENT_BROWSER_PANEL_CARD_DECK_SCHEMA,
+            "control_result_schema": AGENT_BROWSER_PANEL_CARD_CONTROL_RESULT_SCHEMA,
+            "import_receipt_schema": AGENT_BROWSER_PANEL_CONTROL_RESULT_IMPORT_RECEIPT_SCHEMA,
+            "copy_action": "copy_agent_browser_panel_live_validation",
+            "send_action": "send_agent_browser_panel_live_validation_to_agent",
+            "result_template_schema": AGENT_BROWSER_PANEL_CARD_CONTROL_RESULT_SCHEMA,
+            "result_template_copy_action": "copy_agent_browser_panel_live_validation_result_template",
+            "result_template_send_action": "send_agent_browser_panel_live_validation_result_template_to_agent",
+            "result_template_status_packet_field": "packet.latest.agent_browser_panel_live_validation_result_template",
+            "result_template_import_action": "import_agent_browser_panel_control_result_from_clipboard",
+            "result_gate_schema": AGENT_BROWSER_PANEL_LIVE_VALIDATION_RESULT_GATE_SCHEMA,
+            "result_gate_copy_action": "copy_agent_browser_panel_live_validation_result_gate",
+            "result_gate_send_action": "send_agent_browser_panel_live_validation_result_gate_to_agent",
+            "result_gate_status_packet_field": "packet.latest.agent_browser_panel_live_validation_result_gate",
+            "result_gate_ready_requires": [
+                "panel_live_validation.status == ready_for_live_ui_validation",
+                "panel_control_result.status == completed",
+                "panel_control_result.action is present",
+                "panel_control_result.result_contract_matched == true",
+                "panel_control_result.result_contract is present"
+            ],
+            "runtime_status_proof_schema": AGENT_PLUGIN_BROWSER_PANEL_LIVE_PROOF_STATUS_SCHEMA,
+            "runtime_status_proof_field": "browser_panel_live_proof_status",
+            "runtime_status_readiness_card_schema": AGENT_PLUGIN_BROWSER_PANEL_LIVE_PROOF_READINESS_CARD_SCHEMA,
+            "runtime_status_readiness_card_field": "browser_panel_live_proof_readiness_card",
+            "runtime_status_plugin_readiness_card_field": "plugins.browser.panel_live_proof_readiness_card",
+            "proof_readiness_card_schema": AGENT_PLUGIN_BROWSER_PANEL_LIVE_PROOF_READINESS_CARD_SCHEMA,
+            "proof_readiness_card_copy_action": "copy_agent_browser_panel_live_proof_readiness_card",
+            "proof_readiness_card_send_action": "send_agent_browser_panel_live_proof_readiness_card_to_agent",
+            "runtime_status_claim_field": "runtime_green_claim_readiness.browser_panel_live_proof_status",
+            "runtime_status_report_gate_field": "runtime_green_report_gate.browser_panel_live_proof_status",
+            "exercise_plan_schema": AGENT_BROWSER_PANEL_LIVE_VALIDATION_EXERCISE_PLAN_SCHEMA,
+            "exercise_plan_copy_action": "copy_agent_browser_panel_live_validation_exercise_plan",
+            "exercise_plan_send_action": "send_agent_browser_panel_live_validation_exercise_plan_to_agent",
+            "exercise_plan_status_packet_field": "packet.latest.agent_browser_panel_live_validation_exercise_plan",
+            "ui_proof_checklist_schema": AGENT_BROWSER_PANEL_LIVE_UI_PROOF_CHECKLIST_SCHEMA,
+            "ui_proof_checklist_copy_action": "copy_agent_browser_panel_live_ui_proof_checklist",
+            "ui_proof_checklist_send_action": "send_agent_browser_panel_live_ui_proof_checklist_to_agent",
+            "ui_proof_checklist_status_packet_field": "packet.latest.agent_browser_panel_live_ui_proof_checklist",
+            "ui_proof_checklist_cleanup_result_gate_status_field": "packet.latest.agent_browser_panel_live_ui_proof_checklist.summary.cleanup_result_gate_status",
+            "ui_proof_checklist_cleanup_result_ready_field": "packet.latest.agent_browser_panel_live_ui_proof_checklist.summary.cleanup_result_ready_for_capacity_recheck",
+            "ui_proof_checklist_capacity_recheck_status": "final_runtime_capacity_recheck_required",
+            "ui_proof_checklist_blocker_board_status_field": "packet.latest.agent_browser_panel_live_ui_proof_checklist.artifacts.final_runtime_blocker_board.payload.status",
+            "result_template_prefills_first_suggested_control": true,
+            "result_contract_required_for_final_runtime": true,
+            "status_packet_field": "packet.latest.agent_browser_panel_live_validation",
+            "source_fields": [
+                "session.agent_browser_panel_card_deck",
+                "session.agent_browser_panel_control_result",
+                "session.agent_browser_panel_control_result_import_receipt",
+                "session.agent_browser_panel_control_result_ledger"
+            ],
+            "read_only": true,
+            "purpose": "Provide the live UI checklist for exercising right-side panel controls before final runtime validation."
+        },
+        "bootstrap_readiness_handoff": {
+            "schema": AGENT_PLUGIN_BOOTSTRAP_READINESS_SCHEMA,
+            "copy_action": "copy_agent_plugin_bootstrap_readiness",
+            "send_action": "send_agent_plugin_bootstrap_readiness_to_agent",
+            "read_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Copy or send the compact host dependency, managed-root, and managed-asset readiness packet before managed Chrome or PC-use provisioning."
+        },
+        "entrypoints": [
+            "WebPreview More menu",
+            "Agent Panel content handoff",
+            "list_agent_plugins tool"
+        ],
+        "action_payload_contract": {
+            "payload_tool_name": AGENT_BROWSER_PAYLOAD_TOOL_NAME,
+            "payload_stage_tool_name": AGENT_BROWSER_PAYLOAD_STAGE_TOOL_NAME,
+            "payload_queue_tool_name": AGENT_BROWSER_PAYLOAD_QUEUE_TOOL_NAME,
+            "bridge_schema": "zed.web_preview.agent_browser_action_payload_bridge.v1",
+            "executor_payload_schema": "zed.web_preview.agent_browser_executor_payload.v1",
+            "payload_queue_item_schema": AGENT_BROWSER_PAYLOAD_QUEUE_ITEM_SCHEMA,
+            "payload_queue_inspection_schema": AGENT_BROWSER_PAYLOAD_QUEUE_INSPECTION_SCHEMA,
+            "payload_queue_inspect_tool_name": AGENT_BROWSER_PAYLOAD_QUEUE_INSPECT_TOOL_NAME,
+            "payload_import_receipt_schema": "zed.web_preview.agent_browser_action_payload_import_receipt.v1",
+            "executor_validation_progress_schema": AGENT_BROWSER_EXECUTOR_VALIDATION_PROGRESS_SCHEMA,
+            "native_dispatch_receipt_matrix_schema": AGENT_BROWSER_NATIVE_DISPATCH_RECEIPT_MATRIX_SCHEMA,
+            "final_validation_bundle_schema": AGENT_BROWSER_FINAL_VALIDATION_BUNDLE_SCHEMA,
+            "final_validation_result_schema": AGENT_BROWSER_FINAL_VALIDATION_RESULT_SCHEMA,
+            "final_validation_result_import_receipt_schema": AGENT_BROWSER_FINAL_VALIDATION_RESULT_IMPORT_RECEIPT_SCHEMA,
+            "panel_control_result_schema": AGENT_BROWSER_PANEL_CARD_CONTROL_RESULT_SCHEMA,
+            "panel_control_result_import_receipt_schema": AGENT_BROWSER_PANEL_CONTROL_RESULT_IMPORT_RECEIPT_SCHEMA,
+            "panel_live_validation_schema": AGENT_BROWSER_PANEL_LIVE_VALIDATION_SCHEMA,
+            "panel_live_validation_result_template_schema": AGENT_BROWSER_PANEL_CARD_CONTROL_RESULT_SCHEMA,
+            "panel_live_validation_result_gate_schema": AGENT_BROWSER_PANEL_LIVE_VALIDATION_RESULT_GATE_SCHEMA,
+            "panel_live_validation_exercise_plan_schema": AGENT_BROWSER_PANEL_LIVE_VALIDATION_EXERCISE_PLAN_SCHEMA,
+            "panel_live_ui_proof_checklist_schema": AGENT_BROWSER_PANEL_LIVE_UI_PROOF_CHECKLIST_SCHEMA,
+            "browser_panel_live_proof_status_schema": AGENT_PLUGIN_BROWSER_PANEL_LIVE_PROOF_STATUS_SCHEMA,
+            "browser_panel_live_proof_readiness_card_schema": AGENT_PLUGIN_BROWSER_PANEL_LIVE_PROOF_READINESS_CARD_SCHEMA,
+            "final_runtime_proof_capacity_schema": AGENT_BROWSER_FINAL_RUNTIME_PROOF_CAPACITY_SCHEMA,
+            "final_runtime_target_drive_policy_schema": AGENT_BROWSER_FINAL_RUNTIME_TARGET_DRIVE_POLICY_SCHEMA,
+            "final_runtime_headroom_recovery_plan_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_RECOVERY_PLAN_SCHEMA,
+            "final_runtime_headroom_recovery_card_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_RECOVERY_CARD_SCHEMA,
+            "final_runtime_headroom_inspection_checklist_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_INSPECTION_CHECKLIST_SCHEMA,
+            "final_runtime_headroom_size_inspection_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_SIZE_INSPECTION_SCHEMA,
+            "final_runtime_headroom_cleanup_result_template_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_CLEANUP_RESULT_TEMPLATE_SCHEMA,
+            "final_runtime_headroom_cleanup_result_gate_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_CLEANUP_RESULT_GATE_SCHEMA,
+            "final_runtime_headroom_cleanup_result_import_receipt_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_CLEANUP_RESULT_IMPORT_RECEIPT_SCHEMA,
+            "final_runtime_headroom_cleanup_result_status_schema": AGENT_PLUGIN_FINAL_RUNTIME_HEADROOM_CLEANUP_RESULT_STATUS_SCHEMA,
+            "final_runtime_headroom_readiness_gate_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_READINESS_GATE_SCHEMA,
+            "final_runtime_headroom_reclaim_candidates_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_RECLAIM_CANDIDATES_SCHEMA,
+            "final_runtime_headroom_recovery_sequence_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_RECOVERY_SEQUENCE_SCHEMA,
+            "final_runtime_blocker_board_schema": AGENT_BROWSER_FINAL_RUNTIME_BLOCKER_BOARD_SCHEMA,
+            "final_proof_audit_schema": AGENT_BROWSER_FINAL_PROOF_AUDIT_SCHEMA,
+            "final_proof_audit_summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_PROOF_AUDIT_SUMMARY_SCHEMA,
+            "runtime_green_final_proof_guide_summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_PROOF_GUIDE_SUMMARY_SCHEMA,
+            "runtime_green_final_report_packet_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_REPORT_PACKET_SCHEMA,
+            "runtime_green_final_report_packet_summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_REPORT_PACKET_SUMMARY_SCHEMA,
+            "runtime_green_report_readiness_card_schema": AGENT_PLUGIN_RUNTIME_GREEN_REPORT_READINESS_CARD_SCHEMA,
+            "runtime_green_report_readiness_card_summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_REPORT_READINESS_CARD_SUMMARY_SCHEMA,
+            "final_validation_observability_schema": AGENT_BROWSER_FINAL_VALIDATION_OBSERVABILITY_SCHEMA,
+            "clipboard_import_action": "import_agent_browser_action_payload_from_clipboard",
+            "managed_queue_import_action": "import_agent_browser_action_payload_from_managed_queue",
+            "examples": [
+                {
+                    "action": "type_text",
+                    "payload": {
+                        "schema": "zed.web_preview.agent_browser_executor_payload.v1",
+                        "payload": {
+                            "action": "type_text",
+                            "selector": "optional CSS selector from the latest type preflight",
+                            "text": "Text to insert",
+                            "clear_existing": false
+                        }
+                    }
+                },
+                {
+                    "action": "press_key",
+                    "payload": {
+                        "schema": "zed.web_preview.agent_browser_executor_payload.v1",
+                        "payload": {
+                            "action": "press_key",
+                            "key": "Escape",
+                            "modifiers": []
+                        }
+                    }
+                }
+            ],
+            "rules": [
+                "Payload bridges are handoff artifacts and never dispatch by themselves.",
+                "Managed queue items should be checked with the queue inspection tool before WebPreview import when an Agent did not just queue the payload.",
+                "Interactive executors still require unlock, fresh preflight, action-specific gates, and receipts.",
+                "type_text requires non-empty payload.text and rejects selector mismatches when a selector is supplied."
+            ]
+        },
+        "validation_progress_handoff": {
+            "schema": AGENT_BROWSER_EXECUTOR_VALIDATION_PROGRESS_SCHEMA,
+            "copy_action": "copy_agent_browser_executor_validation_progress",
+            "send_action": "send_agent_browser_executor_validation_progress_to_agent",
+            "read_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Copy or send grouped Browser executor evidence without requiring larger status/readiness/runbook packets."
+        },
+        "native_dispatch_receipt_matrix_handoff": {
+            "schema": AGENT_BROWSER_NATIVE_DISPATCH_RECEIPT_MATRIX_SCHEMA,
+            "copy_action": "copy_native_dispatch_receipt_matrix",
+            "send_action": "send_native_dispatch_receipt_matrix_to_agent",
+            "read_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Copy or send the compact native dispatch receipt matrix across click, type, key, scroll, history, and cache-reset receipts."
+        },
+        "final_validation_bundle_handoff": {
+            "schema": AGENT_BROWSER_FINAL_VALIDATION_BUNDLE_SCHEMA,
+            "headroom_recovery_sequence_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_RECOVERY_SEQUENCE_SCHEMA,
+            "headroom_recovery_sequence_field": "handoff_artifacts.final_runtime_headroom_recovery_sequence",
+            "headroom_recovery_sequence_summary_field": "handoff_artifacts.final_runtime_headroom_recovery_sequence.current_summary",
+            "headroom_recovery_sequence_first_blocked_step_field": "handoff_artifacts.final_runtime_headroom_recovery_sequence.current_summary.first_blocked_step",
+            "result_schema": AGENT_BROWSER_FINAL_VALIDATION_RESULT_SCHEMA,
+            "result_status_values": ["not_run", "pass", "fail", "blocked", "skipped"],
+            "runtime_green_requires": [
+                "manual_evidence_template.status == pass",
+                "every required manual_evidence_template.checks entry has status == pass",
+                "manual_evidence_template.overall_blocker == null",
+                "manual_evidence_template.checks.git_sync.status == pass",
+                "manual_evidence_template.checks.just_dry_run.status == pass",
+                "panel_live_validation_result_gate.ready_for_final_runtime == true",
+                "inspect_agent_plugin_runtime_status.browser_panel_live_proof_status.ready_for_final_runtime == true",
+                "inspect_agent_plugin_runtime_status.browser_panel_live_proof_status.result_contract_ready == true",
+                "inspect_agent_plugin_runtime_status.browser_panel_live_proof_readiness_card.status == ready_for_final_runtime",
+                "manual_evidence_template.checks.agent_runtime_panel_live_contract.status == pass",
+                "agent_browser_final_runtime_proof_capacity.ready_for_just_run == true",
+                "handoff_artifacts.final_runtime_headroom_recovery_sequence.current_summary.status == headroom_ready_for_final_runtime_proof",
+                "handoff_artifacts.final_runtime_headroom_recovery_sequence.current_summary.first_blocked_step == null",
+                "executor_validation_progress.status == manual_windows_runtime_validation_ready"
+            ],
+            "copy_action": "copy_agent_browser_final_validation_bundle",
+            "send_action": "send_agent_browser_final_validation_bundle_to_agent",
+            "read_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Copy or send the canonical final Windows validation bundle before claiming runtime-green."
+        },
+        "final_validation_result_template_handoff": {
+            "schema": AGENT_BROWSER_FINAL_VALIDATION_RESULT_SCHEMA,
+            "allowed_status_values": AGENT_BROWSER_FINAL_VALIDATION_ALLOWED_STATUS_VALUES,
+            "expected_required_check_ids": [
+                "editor_typing",
+                "webpreview_input",
+                "git_sync",
+                "just_dry_run",
+                "final_runtime_capacity",
+                "final_headroom_recovery_sequence",
+                "panel_live_validation",
+                "agent_runtime_panel_live_contract",
+                "native_executor_receipts",
+                "payload_bridge",
+                "managed_chrome",
+                "pc_use"
+            ],
+            "headroom_recovery_sequence_required_check_id": "final_headroom_recovery_sequence",
+            "headroom_recovery_sequence_bundle_field": "handoff_artifacts.final_runtime_headroom_recovery_sequence.current_sequence",
+            "agent_runtime_panel_live_contract_required_check_id": "agent_runtime_panel_live_contract",
+            "agent_runtime_panel_live_contract_runtime_status_fields": [
+                "browser_panel_live_proof_status.ready_for_final_runtime",
+                "browser_panel_live_proof_status.result_contract_ready",
+                "browser_panel_live_proof_readiness_card.status"
+            ],
+            "copy_action": "copy_agent_browser_final_validation_result_template",
+            "send_action": "send_agent_browser_final_validation_result_template_to_agent",
+            "read_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Copy or send only the fillable manual Windows result template before the final runtime proof."
+        },
+        "final_validation_result_handoff": {
+            "schema": AGENT_BROWSER_FINAL_VALIDATION_RESULT_SCHEMA,
+            "import_action": "import_agent_browser_final_validation_result_from_clipboard",
+            "copy_action": "copy_agent_browser_final_validation_result",
+            "send_action": "send_agent_browser_final_validation_result_to_agent",
+            "managed_result_dir": AGENT_BROWSER_FINAL_VALIDATION_DIR_NAME,
+            "managed_result_file": AGENT_BROWSER_FINAL_VALIDATION_RESULT_FILE_NAME,
+            "managed_result_archive_prefix": AGENT_BROWSER_FINAL_VALIDATION_RESULT_ARCHIVE_PREFIX,
+            "runtime_status_field": "runtime_green_blocker_summary.latest_evidence.browser_final_validation_result",
+            "allowed_status_values_field": "allowed_status_values",
+            "non_pass_required_checks_field": "non_pass_required_checks",
+            "missing_required_statuses_field": "missing_required_statuses",
+            "invalid_required_check_statuses_field": "invalid_required_check_statuses",
+            "stale_required_check_blocker_field": "missing_expected_required_checks",
+            "panel_live_validation_check_status_field": "panel_live_validation_check_status",
+            "panel_live_validation_check_ready_field": "panel_live_validation_check_ready",
+            "agent_runtime_panel_live_contract_ready_field": "agent_runtime_panel_live_contract_ready",
+            "agent_runtime_panel_live_contract_check_status_field": "agent_runtime_panel_live_contract_check_status",
+            "agent_runtime_panel_live_contract_check_has_evidence_field": "agent_runtime_panel_live_contract_check_has_evidence",
+            "copy_send_read_only": true,
+            "import_writes_managed_result": true,
+            "managed_roots_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Import, persist, copy, or send the filled manual Windows result after the final runtime proof."
+        },
+        "final_validation_result_import_receipt_handoff": {
+            "schema": AGENT_BROWSER_FINAL_VALIDATION_RESULT_IMPORT_RECEIPT_SCHEMA,
+            "source_action": "import_agent_browser_final_validation_result_from_clipboard",
+            "copy_action": "copy_agent_browser_final_validation_result_import_receipt",
+            "send_action": "send_agent_browser_final_validation_result_import_receipt_to_agent",
+            "runtime_status_recheck": AGENT_PLUGIN_RUNTIME_STATUS_TOOL_NAME,
+            "copy_send_read_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Copy or send the final result import receipt with durable proof paths and the post-import report-gate recheck."
+        },
+        "final_validation_observability_handoff": {
+            "schema": AGENT_BROWSER_FINAL_VALIDATION_OBSERVABILITY_SCHEMA,
+            "headroom_recovery_sequence_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_RECOVERY_SEQUENCE_SCHEMA,
+            "headroom_recovery_sequence_field": "final_runtime_headroom_recovery_sequence",
+            "headroom_recovery_sequence_status_field": "final_runtime_headroom_recovery_sequence.status",
+            "headroom_recovery_sequence_next_action_field": "final_runtime_headroom_recovery_sequence.next_action",
+            "headroom_recovery_sequence_first_blocked_step_field": "final_runtime_headroom_recovery_sequence.first_blocked_step.id",
+            "headroom_recovery_sequence_step_count_field": "final_runtime_headroom_recovery_sequence.step_count",
+            "stale_final_result_missing_expected_required_checks_field": "final_result_missing_expected_required_checks",
+            "stale_final_result_missing_expected_required_check_count_field": "final_result_missing_expected_required_check_count",
+            "copy_action": "copy_agent_browser_final_validation_observability",
+            "send_action": "send_agent_browser_final_validation_observability_to_agent",
+            "read_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Copy or send the compact final proof-state and recovery-action summary without requiring the larger session or action manifest."
+        },
+        "final_runtime_proof_capacity": {
+            "schema": AGENT_BROWSER_FINAL_RUNTIME_PROOF_CAPACITY_SCHEMA,
+            "target_drive_policy_schema": AGENT_BROWSER_FINAL_RUNTIME_TARGET_DRIVE_POLICY_SCHEMA,
+            "target_drive_policy_field": "target_drive_policy",
+            "target_move_allowed_by_default": false,
+            "target_move_requires_explicit_user_request": true,
+            "target_policy_sources": [".cargo/config.toml target-dir", "justfile build_target_dir"],
+            "headroom_recovery_plan_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_RECOVERY_PLAN_SCHEMA,
+            "headroom_recovery_plan_field": "headroom_recovery_plan",
+            "headroom_inspection_checklist_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_INSPECTION_CHECKLIST_SCHEMA,
+            "headroom_inspection_checklist_field": "headroom_recovery_plan.inspection_checklist",
+            "headroom_size_inspection_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_SIZE_INSPECTION_SCHEMA,
+            "headroom_size_inspection_field": "headroom_recovery_plan.size_inspection",
+            "headroom_size_inspection_copy_action": "copy_agent_browser_final_runtime_headroom_size_inspection",
+            "headroom_size_inspection_send_action": "send_agent_browser_final_runtime_headroom_size_inspection_to_agent",
+            "headroom_size_inspection_status_packet_field": "packet.latest.agent_browser_final_runtime_headroom_size_inspection",
+            "headroom_size_inspection_capacity_packet_field": "packet.latest.agent_browser_final_runtime_proof_capacity.headroom_recovery_plan.size_inspection",
+            "headroom_size_inspection_first_command_packet_field": "packet.latest.agent_browser_final_runtime_headroom_size_inspection.commands.0.id",
+            "headroom_size_inspection_read_only_packet_field": "packet.latest.agent_browser_final_runtime_headroom_size_inspection.read_only",
+            "headroom_size_inspection_dispatches_input_packet_field": "packet.latest.agent_browser_final_runtime_headroom_size_inspection.dispatches_input",
+            "headroom_size_inspection_deletes_files_packet_field": "packet.latest.agent_browser_final_runtime_headroom_size_inspection.deletes_files",
+            "headroom_size_inspection_moves_target_dir_packet_field": "packet.latest.agent_browser_final_runtime_headroom_size_inspection.moves_target_dir",
+            "headroom_cleanup_result_template_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_CLEANUP_RESULT_TEMPLATE_SCHEMA,
+            "headroom_cleanup_result_template_field": "headroom_recovery_plan.cleanup_result_template",
+            "headroom_cleanup_result_template_copy_action": "copy_agent_browser_final_runtime_headroom_cleanup_result_template",
+            "headroom_cleanup_result_template_send_action": "send_agent_browser_final_runtime_headroom_cleanup_result_template_to_agent",
+            "headroom_cleanup_result_template_status_packet_field": "packet.latest.agent_browser_final_runtime_headroom_cleanup_result_template",
+            "headroom_cleanup_result_runtime_status_schema": AGENT_PLUGIN_FINAL_RUNTIME_HEADROOM_CLEANUP_RESULT_STATUS_SCHEMA,
+            "headroom_cleanup_result_runtime_status_field": "final_runtime_headroom_cleanup_result_status",
+            "headroom_cleanup_result_plugin_status_field": "plugins.browser.final_runtime_headroom_cleanup_result_status",
+            "headroom_cleanup_result_capacity_status_field": "final_runtime_proof_capacity.headroom_cleanup_result_status",
+            "headroom_cleanup_result_import_action": "import_agent_browser_final_runtime_headroom_cleanup_result_from_clipboard",
+            "headroom_cleanup_result_copy_action": "copy_agent_browser_final_runtime_headroom_cleanup_result",
+            "headroom_cleanup_result_send_action": "send_agent_browser_final_runtime_headroom_cleanup_result_to_agent",
+            "headroom_cleanup_result_import_receipt_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_CLEANUP_RESULT_IMPORT_RECEIPT_SCHEMA,
+            "headroom_cleanup_result_import_receipt_copy_action": "copy_agent_browser_final_runtime_headroom_cleanup_result_import_receipt",
+            "headroom_cleanup_result_import_receipt_send_action": "send_agent_browser_final_runtime_headroom_cleanup_result_import_receipt_to_agent",
+            "headroom_cleanup_result_status_packet_field": "packet.latest.agent_browser_final_runtime_headroom_cleanup_result",
+            "headroom_cleanup_result_import_receipt_status_packet_field": "packet.latest.agent_browser_final_runtime_headroom_cleanup_result_import_receipt",
+            "headroom_cleanup_result_import_receipt_ready_field": "cleanup_result_gate.ready_for_capacity_recheck",
+            "headroom_cleanup_result_import_receipt_next_action_field": "post_import.next_action",
+            "headroom_cleanup_result_import_receipt_durable_write_count_field": "durable_write_count",
+            "headroom_cleanup_result_gate_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_CLEANUP_RESULT_GATE_SCHEMA,
+            "headroom_cleanup_result_gate_field": "headroom_recovery_plan.cleanup_result_gate",
+            "headroom_cleanup_result_gate_current_capacity_field": "headroom_cleanup_result_gate",
+            "headroom_cleanup_result_durable_evidence_field": "headroom_cleanup_result_durable_evidence",
+            "headroom_cleanup_result_gate_copy_action": "copy_agent_browser_final_runtime_headroom_cleanup_result_gate",
+            "headroom_cleanup_result_gate_send_action": "send_agent_browser_final_runtime_headroom_cleanup_result_gate_to_agent",
+            "headroom_cleanup_result_gate_status_packet_field": "packet.latest.agent_browser_final_runtime_headroom_cleanup_result_gate",
+            "headroom_inspection_checklist_copy_action": "copy_agent_browser_final_runtime_headroom_inspection_checklist",
+            "headroom_inspection_checklist_send_action": "send_agent_browser_final_runtime_headroom_inspection_checklist_to_agent",
+            "headroom_inspection_checklist_status_packet_field": "packet.latest.agent_browser_final_runtime_headroom_inspection_checklist",
+            "headroom_inspection_checklist_capacity_packet_field": "packet.latest.agent_browser_final_runtime_proof_capacity.headroom_recovery_plan.inspection_checklist",
+            "headroom_readiness_gate_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_READINESS_GATE_SCHEMA,
+            "headroom_readiness_gate_copy_action": "copy_agent_browser_final_runtime_headroom_readiness_gate",
+            "headroom_readiness_gate_send_action": "send_agent_browser_final_runtime_headroom_readiness_gate_to_agent",
+            "headroom_readiness_gate_status_packet_field": "packet.latest.agent_browser_final_runtime_headroom_readiness_gate",
+            "headroom_readiness_gate_capacity_packet_field": "packet.latest.agent_browser_final_runtime_proof_capacity",
+            "headroom_readiness_gate_capacity_ready_field": "ready_for_just_run",
+            "headroom_readiness_gate_capacity_required_free_field": "target.required_free_gib",
+            "headroom_readiness_gate_capacity_observed_free_field": "target.observed_free_gib",
+            "headroom_readiness_gate_capacity_missing_free_field": "target.missing_free_gib",
+            "headroom_readiness_gate_status_summary_required_free_field": "final_runtime_headroom_readiness_gate_required_free_gib",
+            "headroom_readiness_gate_status_summary_missing_free_field": "final_runtime_headroom_readiness_gate_missing_free_gib",
+            "headroom_reclaim_candidates_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_RECLAIM_CANDIDATES_SCHEMA,
+            "headroom_reclaim_candidates_field": "headroom_reclaim_candidates",
+            "headroom_reclaim_candidates_capacity_packet_field": "packet.latest.agent_browser_final_runtime_proof_capacity.headroom_reclaim_candidates",
+            "headroom_reclaim_candidates_cleanup_result_gate_source_field": "headroom_reclaim_candidates.cleanup_result_gate.source",
+            "headroom_reclaim_candidates_cleanup_result_gate_ready_field": "headroom_reclaim_candidates.cleanup_result_gate.ready_for_capacity_recheck",
+            "headroom_reclaim_candidates_copy_action": "copy_agent_browser_final_runtime_headroom_reclaim_candidates",
+            "headroom_reclaim_candidates_send_action": "send_agent_browser_final_runtime_headroom_reclaim_candidates_to_agent",
+            "headroom_reclaim_candidates_status_packet_field": "packet.latest.agent_browser_final_runtime_headroom_reclaim_candidates",
+            "blocker_board_schema": AGENT_BROWSER_FINAL_RUNTIME_BLOCKER_BOARD_SCHEMA,
+            "blocker_board_copy_action": "copy_agent_browser_final_runtime_blocker_board",
+            "blocker_board_send_action": "send_agent_browser_final_runtime_blocker_board_to_agent",
+            "blocker_board_status_packet_field": "packet.latest.agent_browser_final_runtime_blocker_board",
+            "blocker_board_panel_checklist_packet_field": "packet.latest.agent_browser_panel_live_ui_proof_checklist.artifacts.final_runtime_blocker_board.payload",
+            "blocker_board_derived_panel_result_gate_field": "packet.latest.agent_browser_panel_live_validation_result_gate",
+            "blocker_board_derived_panel_proof_card_field": "packet.latest.agent_browser_panel_live_proof_readiness_card",
+            "blocker_board_derived_capacity_field": "packet.latest.agent_browser_final_runtime_proof_capacity",
+            "blocker_board_derived_cleanup_result_gate_field": "packet.latest.agent_browser_final_runtime_headroom_cleanup_result_gate",
+            "blocker_board_derived_capacity_cleanup_result_gate_field": "packet.latest.agent_browser_final_runtime_proof_capacity.headroom_cleanup_result_gate",
+            "blocker_board_derived_recovery_cleanup_result_gate_field": "packet.latest.agent_browser_final_runtime_proof_capacity.headroom_recovery_plan.cleanup_result_gate",
+            "headroom_recovery_plan_copy_action": "copy_agent_browser_final_runtime_headroom_recovery_plan",
+            "headroom_recovery_plan_send_action": "send_agent_browser_final_runtime_headroom_recovery_plan_to_agent",
+            "headroom_recovery_plan_status_packet_field": "packet.latest.agent_browser_final_runtime_proof_capacity.headroom_recovery_plan",
+            "headroom_recovery_card_schema": AGENT_BROWSER_FINAL_RUNTIME_HEADROOM_RECOVERY_CARD_SCHEMA,
+            "headroom_recovery_card_field": "headroom_recovery_card",
+            "headroom_recovery_card_cleanup_result_gate_source_field": "headroom_recovery_card.cleanup_result_gate.source",
+            "headroom_recovery_card_cleanup_result_gate_ready_field": "headroom_recovery_card.cleanup_result_gate.ready_for_capacity_recheck",
+            "headroom_recovery_card_copy_action": "copy_agent_browser_final_runtime_headroom_recovery_card",
+            "headroom_recovery_card_send_action": "send_agent_browser_final_runtime_headroom_recovery_card_to_agent",
+            "headroom_recovery_card_status_packet_field": "packet.latest.agent_browser_final_runtime_proof_capacity.headroom_recovery_card",
+            "copy_action": "copy_agent_browser_final_runtime_proof_capacity",
+            "send_action": "send_agent_browser_final_runtime_proof_capacity_to_agent",
+            "status_packet_field": "packet.latest.agent_browser_final_runtime_proof_capacity",
+            "minimum_target_drive_free_gib": 18.0,
+            "manual_command": "just run",
+            "read_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Check target-drive headroom before the final just run proof."
+        },
+        "final_proof_audit_handoff": {
+            "schema": AGENT_BROWSER_FINAL_PROOF_AUDIT_SCHEMA,
+            "summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_PROOF_AUDIT_SUMMARY_SCHEMA,
+            "runtime_status_summary_field": "runtime_green_final_proof_audit_summary",
+            "non_pass_required_check_count_field": "runtime_green_final_proof_audit_summary.non_pass_required_check_count",
+            "missing_required_status_count_field": "runtime_green_final_proof_audit_summary.missing_required_status_count",
+            "invalid_required_check_status_count_field": "runtime_green_final_proof_audit_summary.invalid_required_check_status_count",
+            "has_final_result_status_diagnostics_field": "runtime_green_final_proof_audit_summary.has_final_result_status_diagnostics",
+            "panel_live_validation_check_status_field": "runtime_green_final_proof_audit_summary.panel_live_validation_check_status",
+            "panel_live_validation_check_ready_field": "runtime_green_final_proof_audit_summary.panel_live_validation_check_ready",
+            "agent_runtime_panel_live_contract_ready_field": "runtime_green_final_proof_audit_summary.agent_runtime_panel_live_contract_ready",
+            "agent_runtime_panel_live_contract_check_status_field": "runtime_green_final_proof_audit_summary.agent_runtime_panel_live_contract_check_status",
+            "agent_runtime_panel_live_contract_check_has_evidence_field": "runtime_green_final_proof_audit_summary.agent_runtime_panel_live_contract_check_has_evidence",
+            "agent_runtime_panel_live_contract_check_blocker_present_field": "runtime_green_final_proof_audit_summary.agent_runtime_panel_live_contract_check_blocker_present",
+            "copy_action": "copy_agent_browser_final_proof_audit",
+            "send_action": "send_agent_browser_final_proof_audit_to_agent",
+            "read_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Copy or send the compact final proof audit with missing checks, status diagnostics, missing evidence, blockers, import receipt state, and report-gate status."
+        },
+        "runtime_green_claim_gate_handoff": {
+            "schema": AGENT_PLUGIN_RUNTIME_GREEN_CLAIM_GATE_SCHEMA,
+            "copy_action": "copy_agent_plugin_runtime_green_claim_gate",
+            "send_action": "send_agent_plugin_runtime_green_claim_gate_to_agent",
+            "read_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Copy or send the compact runtime-green claim gate without requiring the larger proof path."
+        },
+        "runtime_green_claim_readiness_handoff": {
+            "schema": AGENT_PLUGIN_RUNTIME_GREEN_CLAIM_READINESS_SCHEMA,
+            "stale_final_result_missing_expected_required_checks_field": "final_result_missing_expected_required_checks",
+            "stale_final_result_missing_expected_required_check_count_field": "final_result_missing_expected_required_check_count",
+            "final_runtime_headroom_required_field": "final_runtime_headroom_required",
+            "final_runtime_capacity_ready_field": "final_runtime_capacity_ready",
+            "final_runtime_capacity_status_field": "final_runtime_capacity_status",
+            "final_runtime_capacity_missing_free_field": "final_runtime_capacity_missing_free_gib",
+            "copy_action": "copy_agent_plugin_runtime_green_claim_readiness",
+            "send_action": "send_agent_plugin_runtime_green_claim_readiness_to_agent",
+            "read_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Copy or send the compact runtime-green claim readiness packet, including final headroom blocker state, without requiring the larger proof path."
+        },
+        "runtime_green_report_gate_handoff": {
+            "schema": AGENT_PLUGIN_RUNTIME_GREEN_REPORT_GATE_SCHEMA,
+            "badge_schema": AGENT_PLUGIN_RUNTIME_GREEN_REPORT_BADGE_SCHEMA,
+            "stale_final_result_blocker": "final_validation_result_stale_required_checks",
+            "stale_final_result_missing_expected_required_checks_field": "final_result_missing_expected_required_checks",
+            "stale_final_result_missing_expected_required_check_count_field": "final_result_missing_expected_required_check_count",
+            "final_runtime_headroom_blocker": "final_runtime_proof_capacity",
+            "final_runtime_headroom_required_field": "final_runtime_headroom_required",
+            "final_runtime_capacity_ready_field": "final_runtime_capacity_ready",
+            "final_runtime_capacity_status_field": "final_runtime_capacity_status",
+            "final_runtime_capacity_missing_free_field": "final_runtime_capacity_missing_free_gib",
+            "copy_action": "copy_agent_plugin_runtime_green_report_gate",
+            "send_action": "send_agent_plugin_runtime_green_report_gate_to_agent",
+            "read_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Copy or send the ready/blocked report gate that agents must check before reporting runtime-green, including Browser final stale-result, panel-gate, and target-drive headroom blockers."
+        },
+        "runtime_green_report_badge": {
+            "schema": AGENT_PLUGIN_RUNTIME_GREEN_REPORT_BADGE_SCHEMA,
+            "source": "runtime_green_report_gate.badge",
+            "copy_action": "copy_agent_plugin_runtime_green_report_gate",
+            "send_action": "send_agent_plugin_runtime_green_report_gate_to_agent",
+            "read_only": true,
+            "browser_final_blocker_fields": [
+                "runtime_green_report_gate.badge.stale_final_result_missing_expected_required_check_count",
+                "runtime_green_report_gate.badge.browser_panel_live_validation_result_gate_ready",
+                "runtime_green_report_gate.badge.browser_panel_live_validation_result_gate_status",
+                "runtime_green_report_gate.badge.browser_final_runtime_capacity_ready",
+                "runtime_green_report_gate.badge.browser_final_runtime_capacity_status",
+                "runtime_green_report_gate.badge.browser_final_runtime_missing_free_gib",
+                "runtime_green_report_gate.badge.browser_final_runtime_first_blocker",
+                "runtime_green_report_gate.badge.browser_final_runtime_recommended_action"
+            ],
+            "purpose": "Render the compact runtime-green ready/blocked row with Browser stale-result, panel-gate, and final headroom blockers before showing larger proof packets."
+        },
+        "runtime_green_final_proof_guide": {
+            "schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_PROOF_GUIDE_SCHEMA,
+            "summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_PROOF_GUIDE_SUMMARY_SCHEMA,
+            "runtime_status_summary_field": "runtime_green_final_proof_guide_summary",
+            "copy_action": "copy_agent_plugin_runtime_green_final_proof_guide",
+            "send_action": "send_agent_plugin_runtime_green_final_proof_guide_to_agent",
+            "read_only": true,
+            "source": "WebPreview final validation bundle and status packet",
+            "browser_final_blocker_strip_field": "runtime_green_final_proof_guide_summary.browser_final_blocker_strip",
+            "status_summary_direct_fields": [
+                "runtime_green_final_proof_guide_browser_final_blocker_strip",
+                "runtime_green_final_proof_guide_first_blocker",
+                "runtime_green_final_proof_guide_recommended_action",
+                "runtime_green_final_proof_guide_missing_free_gib"
+            ],
+            "handoff_current_fields": [
+                "handoff_artifacts.runtime_green_final_proof_guide.current_browser_final_blocker_strip",
+                "handoff_artifacts.runtime_green_final_proof_guide.current_first_blocker",
+                "handoff_artifacts.runtime_green_final_proof_guide.current_recommended_action",
+                "handoff_artifacts.runtime_green_final_proof_guide.current_missing_free_gib",
+                "handoff_artifacts.runtime_green_final_proof_guide.current_headroom_required",
+                "handoff_artifacts.runtime_green_final_proof_guide.current_headroom_recommended_action",
+                "handoff_artifacts.runtime_green_final_proof_guide.current_headroom_recovery_steps",
+                "handoff_artifacts.runtime_green_final_proof_guide.current_headroom_recovery_step_count"
+            ],
+            "headroom_recovery_fields": [
+                "runtime_green_final_proof_guide_summary.browser_final_headroom_required",
+                "runtime_green_final_proof_guide_summary.browser_final_headroom_missing_free_gib",
+                "runtime_green_final_proof_guide_summary.browser_final_headroom_recommended_action",
+                "runtime_green_final_proof_guide_summary.browser_final_headroom_recovery_steps",
+                "runtime_green_final_proof_guide_summary.browser_final_headroom_recovery_step_count"
+            ],
+            "purpose": "Guide agents from report badge and Browser final blocker strip to final result template, manual just run proof, import, and status recheck."
+        },
+        "runtime_green_final_report_packet_handoff": {
+            "schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_REPORT_PACKET_SCHEMA,
+            "summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_FINAL_REPORT_PACKET_SUMMARY_SCHEMA,
+            "runtime_status_summary_field": "runtime_green_final_report_packet_summary",
+            "stale_final_result_required_evidence_id": "fresh_final_validation_required_checks",
+            "stale_final_result_missing_expected_required_check_count_field": "final_validation_observability.missing_expected_required_check_count",
+            "final_runtime_headroom_field": "final_runtime_headroom",
+            "final_runtime_headroom_ready_field": "final_runtime_headroom.ready_for_just_run",
+            "final_runtime_headroom_missing_free_field": "final_runtime_headroom.missing_free_gib",
+            "copy_action": "copy_agent_plugin_runtime_green_final_report_packet",
+            "send_action": "send_agent_plugin_runtime_green_final_report_packet_to_agent",
+            "read_only": true,
+            "source": "WebPreview More menu",
+            "purpose": "Copy or send the compact final reporting packet that combines report gate, import receipt, final-proof guide, final observability state, and final runtime headroom gate."
+        },
+        "runtime_green_report_readiness_card_handoff": {
+            "schema": AGENT_PLUGIN_RUNTIME_GREEN_REPORT_READINESS_CARD_SCHEMA,
+            "summary_schema": AGENT_PLUGIN_RUNTIME_GREEN_REPORT_READINESS_CARD_SUMMARY_SCHEMA,
+            "runtime_status_summary_field": "runtime_green_report_readiness_card_summary",
+            "stale_final_result_missing_expected_required_check_count_field": "final_proof_audit.missing_expected_required_check_count",
+            "final_result_status_diagnostics_field": "final_proof_audit.has_final_result_status_diagnostics",
+            "non_pass_required_check_count_field": "final_proof_audit.non_pass_required_check_count",
+            "missing_required_status_count_field": "final_proof_audit.missing_required_status_count",
+            "invalid_required_check_status_count_field": "final_proof_audit.invalid_required_check_status_count",
+            "panel_live_validation_check_status_field": "final_proof_audit.panel_live_validation_check_status",
+            "panel_live_validation_check_ready_field": "final_proof_audit.panel_live_validation_check_ready",
+            "agent_runtime_panel_live_contract_ready_field": "final_proof_audit.agent_runtime_panel_live_contract_ready",
+            "agent_runtime_panel_live_contract_check_status_field": "final_proof_audit.agent_runtime_panel_live_contract_check_status",
+            "agent_runtime_panel_live_contract_check_has_evidence_field": "final_proof_audit.agent_runtime_panel_live_contract_check_has_evidence",
+            "agent_runtime_panel_live_contract_check_blocker_present_field": "final_proof_audit.agent_runtime_panel_live_contract_check_blocker_present",
+            "final_runtime_headroom_field": "final_runtime_headroom",
+            "final_runtime_headroom_ready_field": "final_proof_audit.final_runtime_capacity_ready",
+            "final_runtime_headroom_missing_free_field": "final_proof_audit.final_runtime_missing_free_gib",
+            "copy_action": "copy_agent_plugin_runtime_green_report_readiness_card",
+            "send_action": "send_agent_plugin_runtime_green_report_readiness_card_to_agent",
+            "read_only": true,
+            "source": "WebPreview status packet, final validation bundle, and Agent runtime status",
+            "purpose": "Expose one compact status card for right-side panels with claim readiness, report gate, final report packet, final proof audit, final runtime headroom, and regression-watch state."
+        },
+        "capabilities": [
+            capability("browser.sessions.list", "available", "List open WebPreview sessions and workspace inventory."),
+            capability("browser.session.snapshot", "available", "Read the active WebPreview session metadata, bounds, profile, URL, and policy."),
+            capability("browser.page.diagnostics", "available", "Collect ready state, title, URL, DOM counts, and page metadata."),
+            capability("browser.dom.snapshot", "available", "Collect a bounded DOM tree snapshot for model context."),
+            capability("browser.runtime.events", "available", "Read bounded console, page-error, fetch, and XHR event buffers."),
+            capability("browser.screenshot.capture", "available", "Capture WebPreview screenshots for Agent Panel attachments."),
+            capability("browser.screenshot.area", "available", "Capture a selected WebPreview rectangle for Agent Panel attachments."),
+            capability("browser.screenshot.annotate", "available", "Draw page annotations and capture the marked WebPreview screenshot with metadata."),
+            capability("browser.element.inspect", "available", "Pick a page element and send selector, HTML, computed styles, rect, and screenshot context to the Agent Panel."),
+            capability("browser.devtools.open", "available", "Open the native browser DevTools for the active WebPreview backend."),
+            capability("browser.viewport.responsive", "available", "Switch the active WebPreview between full, phone, tablet, laptop, and rotated responsive viewports."),
+            capability("browser.function_surfaces", "available", "Copy or send the concrete WebPreview screenshot, inspect, DevTools, and responsive viewport surface map."),
+            capability("browser.panel_card_deck", "available", "Copy or send one compact Agent Panel deck for screenshot, annotation, inspect, DevTools, responsive viewport, managed Chrome, and PC-use proof cards."),
+            capability("browser.panel_control_result_import", "available_explicit_user_action", "Import a filled panel control result from the clipboard and persist it under managed Browser result roots."),
+            capability("browser.panel_control_result_import_receipt", "available_after_import", "Copy or send the latest durable panel control result import receipt with managed proof paths."),
+            capability("browser.panel_control_result_ledger", "available", "Copy or send normalized panel control results derived from the latest receipt and import surfaces."),
+            capability("browser.panel_live_validation", "available", "Copy or send the right-side panel live-validation checklist before the final runtime proof."),
+            capability("browser.panel_live_validation_result_template", "available", "Copy or send the fillable panel control-result template for the live panel validation exercise."),
+            capability("browser.panel_live_validation_result_gate", "available", "Copy or send the live panel result gate before final runtime proof."),
+            capability("browser.panel_live_validation_exercise_plan", "available", "Copy or send the ordered right-side panel exercise, result import, and gate-check plan."),
+            capability("browser.panel_live_proof_status", "available_in_runtime_status", "Read durable panel live-validation proof status from inspect_agent_plugin_runtime_status before final runtime proof."),
+            capability("browser.panel_live_proof_readiness_card", "available", "Copy or send the compact panel live proof readiness card before final runtime proof."),
+            capability("browser.panel_live_ui_proof_checklist", "available", "Copy or send the bundled live UI panel proof checklist with cleanup-result recheck state before the final runtime proof."),
+            capability("browser.plugin_bootstrap_readiness", "available", "Copy or send compact Agent Plugin Runtime host, managed-root, and managed-asset readiness from WebPreview."),
+            capability("browser.runtime_green_claim_readiness", "available", "Copy or send compact runtime-green claim readiness with claim gate, final result state, and reporting policy."),
+            capability("browser.runtime_green_report_gate", "available", "Copy or send the canonical runtime-green ready/blocked report gate."),
+            capability("browser.runtime_green_report_badge", "available", "Render the runtime-green ready/blocked status row plus Browser final blockers from the report gate."),
+            capability("browser.runtime_green_final_proof_guide", "available", "Follow the compact final proof guide from report badge and Browser final blockers through template, manual just run proof, import, and recheck."),
+            capability("browser.runtime_green_final_report_packet", "available", "Copy or send the final reporting packet that gates the runtime-green status claim on report-gate and final-result evidence."),
+            capability("browser.runtime_green_report_readiness_card", "available", "Read the compact runtime-green report readiness card for right-side panel status without parsing every proof packet."),
+            capability("browser.action.open_url", "available_when_unlocked", "Open the current URL/search editor text through the permissioned WebPreview executor shell."),
+            capability("browser.action.reload", "available_when_unlocked", "Reload through the permissioned WebPreview executor shell."),
+            capability("browser.action.go_back", "available_when_unlocked", "Navigate back through the native WebPreview history executor after unlock, native history trace, QA checklist, and receipt logging."),
+            capability("browser.action.go_forward", "available_when_unlocked", "Navigate forward through the native WebPreview history executor after unlock, native history trace, QA checklist, and receipt logging."),
+            capability("browser.action.clear_data", "available_when_unlocked", "Clear WebPreview browsing data through the permissioned executor shell."),
+            capability("browser.action.clear_cache", "available_when_unlocked", "Clear only WebPreview disk cache and cache storage through the scoped native executor after unlock, cache-reset trace, QA checklist, and receipt logging."),
+            capability("browser.action.set_viewport", "available_when_unlocked", "Switch to the next responsive viewport preset through the permissioned WebPreview executor shell."),
+            capability("browser.action.click_preflight", "available", "Select a visible click target and emit the receipt a future native click must satisfy without dispatching input."),
+            capability("browser.action.type_preflight", "available", "Select a visible text-entry target and emit the receipt a future native type action must satisfy without dispatching input."),
+            capability("browser.action.key_preflight", "available", "Prepare a safe key candidate and emit the receipt a future native key action must satisfy without dispatching input."),
+            capability("browser.action.scroll_preflight", "available", "Select a scrollable page or element target and emit the receipt a future native scroll action must satisfy without dispatching input."),
+            capability("browser.action.native_input_bridge", "planned_manual_qa_gate", "Trace the disabled-by-default native input bridge readiness before click, type, key, or scroll dispatch can be enabled."),
+            capability("browser.action.native_click_trace", "available", "Translate the latest click preflight target into native WebPreview coordinates and emit a trace receipt without dispatching input."),
+            capability("browser.action.native_type_trace", "available", "Translate the latest type preflight target into native WebPreview coordinate and keyboard-focus planning without dispatching input."),
+            capability("browser.action.native_key_trace", "available", "Translate the latest key preflight candidate into native keyboard-focus planning without dispatching input."),
+            capability("browser.action.native_scroll_trace", "available", "Translate the latest scroll preflight target into native wheel-coordinate planning without dispatching input."),
+            capability("browser.action.native_history_trace", "available", "Trace native back/forward readiness and receipt requirements without navigating the page."),
+            capability("browser.action.native_cache_reset_trace", "available", "Trace scoped cache-reset readiness and profile-safety requirements without clearing browser data."),
+            capability("browser.dispatch.manual_qa_checklist", "available", "Generate the final manual QA checklist required before enabling native browser dispatch."),
+            capability("browser.action.payload_compose", "available", "Use compose_agent_browser_action_payload to generate validated WebPreview action payload packets before importing them into the payload bridge."),
+            capability("browser.action.payload_stage_clipboard", "available_requires_authorization", "Use stage_agent_browser_action_payload to write a validated WebPreview action payload packet to the clipboard for explicit WebPreview import."),
+            capability("browser.action.payload_queue_managed", "available_requires_authorization", "Use queue_agent_browser_action_payload to write a validated payload packet into the managed workspace or Zed-data Browser payload queue for explicit WebPreview import."),
+            capability("browser.action.payload_bridge", "available", "Generate or send a schema-versioned payload bridge that maps Agent action payloads into WebPreview executors without dispatching by itself."),
+            capability("browser.action.payload_import_clipboard", "available_explicit_user_action", "Import a JSON action payload or plain text from the clipboard into the active WebPreview payload bridge for the next type executor attempt."),
+            capability("browser.action.payload_import_queue", "available_explicit_user_action", "Import the latest managed Agent Browser payload queue item into the active WebPreview payload bridge without dispatching input."),
+            capability("browser.action.payload_import_receipt", "available", "Copy or send the latest WebPreview payload import receipt, with accepted schema, action metadata, redacted text length, permission state, and next-step safety notes."),
+            capability("browser.action.executor_validation_progress", "available", "Copy or send grouped Browser executor validation progress for final Windows proof without dispatching input."),
+            capability("browser.dispatch.receipt_matrix", "available", "Copy or send the compact native dispatch receipt matrix for click, type, key, scroll, history, and cache-reset readiness."),
+            capability("browser.validation.final_bundle", "available", "Copy or send the final Windows validation bundle tying readiness, progress, runbook, manifest, plugin catalog, and proof order together."),
+            capability("browser.validation.final_result_template", "available", "Copy or send the fillable manual Windows result template with allowed status values and runtime-green requirements."),
+            capability("browser.validation.final_result", "available", "Import, copy, or send the filled final Windows validation result after manual runtime proof."),
+            capability("browser.validation.final_result_import_receipt", "available", "Copy or send the final result import receipt with durable proof paths and the next runtime-status recheck."),
+            capability("browser.validation.final_proof_state", "available", "Copy or send compact final proof-state observability and recovery actions without generating larger proof packets."),
+            capability("browser.validation.final_runtime_capacity", "available", "Copy or send target-drive headroom before final just run proof."),
+            capability("browser.validation.final_runtime_target_drive_policy", "available", "Expose the configured target-drive policy so panels keep Zed build outputs on the configured drive unless the user explicitly changes that policy."),
+            capability("browser.validation.final_runtime_headroom_recovery", "available", "Copy or send the non-destructive target-drive recovery plan before final just run proof."),
+            capability("browser.validation.final_runtime_headroom_recovery_sequence", "available", "Read the ordered headroom recovery sequence from final validation observability before final just run proof."),
+            capability("browser.validation.final_runtime_headroom_readiness_gate", "available", "Copy or send the compact target-drive headroom gate before final just run proof."),
+            capability("browser.validation.final_runtime_headroom_reclaim_candidates", "available", "Copy or send read-only target-drive reclaim candidates with preserve rules before manual cleanup."),
+            capability("browser.validation.final_runtime_headroom_size_inspection", "available", "Expose read-only target/cache size inspection commands before manual headroom recovery."),
+            capability("browser.validation.final_runtime_headroom_cleanup_result_template", "available", "Expose a manual cleanup-result template for target-drive headroom recovery evidence."),
+            capability("browser.validation.final_runtime_headroom_cleanup_result_import", "available_explicit_user_action", "Import a filled target-drive cleanup result from the clipboard and persist it under managed Browser proof roots."),
+            capability("browser.validation.final_runtime_headroom_cleanup_result_import_receipt", "available_after_import", "Copy or send the latest target-drive cleanup-result import receipt with managed proof paths."),
+            capability("browser.validation.final_runtime_headroom_cleanup_result_gate", "available", "Expose a compact gate for manual cleanup-result readiness before capacity recheck."),
+            capability("browser.validation.final_runtime_headroom_cleanup_result_runtime_status", "available_in_runtime_status", "Read durable cleanup-result readiness from inspect_agent_plugin_runtime_status before capacity recheck."),
+            capability("browser.validation.final_runtime_blocker_board", "available", "Copy or send the ordered final-runtime blocker board across panel-result, panel-proof, and target-drive gates."),
+            capability("browser.validation.final_proof_audit", "available", "Copy or send the compact final proof audit with missing checks, missing evidence, blockers, import receipt state, and report-gate status."),
+            capability("browser.action.click", "available_when_unlocked", "Click visible page targets through the Windows native WebView executor after unlock, fresh preflight, QA checklist, and receipt logging."),
+            capability("browser.action.type", "available_when_unlocked_payload_required", "Insert explicit payload text through the WebView2 DevTools Protocol executor after unlock, fresh type preflight, focused-target check, keyboard-focus gate, QA checklist, and receipt logging."),
+            capability("browser.action.key", "available_when_unlocked", "Send allowlisted key presses through the WebView2 DevTools Protocol executor after unlock, fresh preflight, keyboard-focus gate, QA checklist, and receipt logging."),
+            capability("browser.action.scroll", "available_when_unlocked", "Scroll page or element targets through the Windows native WebView executor after unlock, fresh preflight, QA checklist, and receipt logging.")
+        ],
+        "safety": {
+            "interactive_locked_by_default": true,
+            "uses_current_webpreview_profile": true,
+            "does_not_mutate_external_browser_profiles": true,
+            "requires_receipts": true
+        }
+    })
+}
+
+fn chrome_plugin_manifest(
+    workspace_tools_root: Option<PathBuf>,
+    workspace_plugin_root: Option<PathBuf>,
+    default_plugin_root: &std::path::Path,
+) -> Value {
+    serde_json::json!({
+        "id": "zed.chrome",
+        "name": "Chrome",
+        "description": "Controls an external managed Chrome session with Playwright plus the DX Chrome extension bridge.",
+        "kind": "built_in",
+        "status": "requires_bootstrap",
+        "default_enabled": true,
+        "ships_with_editor": true,
+        "scope": "external_chrome_playwright_dx_extension",
+        "runtime": {
+            "backend": "playwright",
+            "requires_node": true,
+            "requires_managed_chrome": true,
+            "requires_dx_chrome_extension": true,
+            "playwright_root": workspace_tools_root
+                .as_ref()
+                .map(|root| root.join("playwright"))
+                .unwrap_or_else(|| default_plugin_root.join("playwright"))
+                .display()
+                .to_string(),
+            "playwright_adapter_root": workspace_tools_root
+                .as_ref()
+                .map(|root| root.join("playwright").join(AGENT_CHROME_PLAYWRIGHT_ADAPTER_ROOT_NAME))
+                .unwrap_or_else(|| {
+                    default_plugin_root
+                        .join("playwright")
+                        .join(AGENT_CHROME_PLAYWRIGHT_ADAPTER_ROOT_NAME)
+                })
+                .display()
+                .to_string(),
+            "playwright_runner_script": workspace_tools_root
+                .as_ref()
+                .map(|root| {
+                    root.join("playwright")
+                        .join(AGENT_CHROME_PLAYWRIGHT_ADAPTER_ROOT_NAME)
+                        .join(AGENT_CHROME_PLAYWRIGHT_RUNNER_SCRIPT_NAME)
+                })
+                .unwrap_or_else(|| {
+                    default_plugin_root
+                        .join("playwright")
+                        .join(AGENT_CHROME_PLAYWRIGHT_ADAPTER_ROOT_NAME)
+                        .join(AGENT_CHROME_PLAYWRIGHT_RUNNER_SCRIPT_NAME)
+                })
+                .display()
+                .to_string(),
+            "dx_extension_root": workspace_plugin_root
+                .as_ref()
+                .map(|root| root.join("dx-chrome-extension"))
+                .unwrap_or_else(|| default_plugin_root.join("dx-chrome-extension"))
+                .display()
+                .to_string(),
+            "profile_policy": "managed_profile_only"
+        },
+        "download": {
+            "default_download": true,
+            "policy": "download_or_update_on_first_use",
+            "assets": [
+                "playwright_node_runtime",
+                "playwright_chromium_or_system_chrome_adapter",
+                "dx_chrome_extension_unpacked"
+            ],
+            "never_write_to_user_real_chrome_profile": true
+        },
+        "observability_profile": {
+            "status": "managed_adapter_ready_pending_windows_runtime_validation",
+            "code_score": 94,
+            "runtime_green_blocker": "Validate the managed Chrome queue, runner gate, Playwright adapter invoke path, and execution receipt inspection on Windows without touching real browser profiles.",
+            "proof_handoffs": {
+                "queue_inspection_tool": AGENT_CHROME_PAYLOAD_QUEUE_INSPECT_TOOL_NAME,
+                "runner_gate_tool": AGENT_CHROME_RUNNER_GATE_TOOL_NAME,
+                "asset_provisioner_tool": AGENT_PLUGIN_ASSET_PROVISIONER_TOOL_NAME,
+                "adapter_prepare_tool": AGENT_CHROME_PLAYWRIGHT_ADAPTER_TOOL_NAME,
+                "adapter_invoke_tool": AGENT_CHROME_PLAYWRIGHT_INVOKE_TOOL_NAME,
+                "execution_inspect_tool": AGENT_CHROME_PLAYWRIGHT_EXECUTION_INSPECT_TOOL_NAME,
+                "webpreview_status_copy": "copy_managed_chrome_execution_status",
+                "webpreview_status_send": "send_managed_chrome_execution_status_to_agent"
+            },
+            "watch_surfaces": [
+                "managed workspace or Zed-data roots only",
+                "asset provisioning receipts prove managed assets were prepared before Chrome execution",
+                "real Chrome, Edge, and Firefox profiles stay untouched",
+                "adapter execution remains limited to open_url, screenshot, inspect_element, dom_snapshot, runtime_events, set_viewport, and wait_for_selector",
+                "click, type, key, and scroll stay blocked in the managed adapter",
+                "runner and execution receipts stay inspectable from Agent and WebPreview catalogs"
+            ],
+            "next_action": "Run the readiness and receipt chain from queue inspection through execution inspection during final Windows validation."
+        },
+        "action_payload_contract": {
+            "payload_tool_name": AGENT_CHROME_PAYLOAD_TOOL_NAME,
+            "payload_queue_tool_name": AGENT_CHROME_PAYLOAD_QUEUE_TOOL_NAME,
+            "payload_queue_inspect_tool_name": AGENT_CHROME_PAYLOAD_QUEUE_INSPECT_TOOL_NAME,
+            "runner_gate_tool_name": AGENT_CHROME_RUNNER_GATE_TOOL_NAME,
+            "asset_provisioner_tool_name": AGENT_PLUGIN_ASSET_PROVISIONER_TOOL_NAME,
+            "asset_provisioning_receipt_file": AGENT_PLUGIN_ASSET_PROVISIONING_RECEIPT_FILE_NAME,
+            "asset_provisioning_result_schema": AGENT_PLUGIN_ASSET_PROVISIONING_RESULT_SCHEMA,
+            "asset_provisioning_receipt_schema": AGENT_PLUGIN_ASSET_PROVISIONING_RECEIPT_SCHEMA,
+            "playwright_adapter_tool_name": AGENT_CHROME_PLAYWRIGHT_ADAPTER_TOOL_NAME,
+            "playwright_invoke_tool_name": AGENT_CHROME_PLAYWRIGHT_INVOKE_TOOL_NAME,
+            "playwright_execution_inspect_tool_name": AGENT_CHROME_PLAYWRIGHT_EXECUTION_INSPECT_TOOL_NAME,
+            "webpreview_execution_status_copy_action": "copy_managed_chrome_execution_status",
+            "webpreview_execution_status_agent_action": "send_managed_chrome_execution_status_to_agent",
+            "webpreview_execution_status_schema": "zed.web_preview.managed_chrome_execution_status.v1",
+            "webpreview_execution_action_card_schema": "zed.web_preview.managed_chrome_action_card.v1",
+            "webpreview_execution_action_card_field": "latest_action_card",
+            "webpreview_execution_action_card_display_schema": WEBPREVIEW_MANAGED_CHROME_ACTION_CARD_DISPLAY_SCHEMA,
+            "webpreview_execution_action_card_display_field": "latest_action_card.display",
+            "playwright_run_request_schema": AGENT_CHROME_PLAYWRIGHT_RUN_REQUEST_SCHEMA,
+            "playwright_invocation_result_schema": AGENT_CHROME_PLAYWRIGHT_INVOCATION_RESULT_SCHEMA,
+            "playwright_adapter_manifest_schema": AGENT_CHROME_PLAYWRIGHT_ADAPTER_MANIFEST_SCHEMA,
+            "playwright_execution_receipt_schema": AGENT_CHROME_PLAYWRIGHT_EXECUTION_RECEIPT_SCHEMA,
+            "playwright_execution_inspection_schema": AGENT_CHROME_PLAYWRIGHT_EXECUTION_INSPECT_RESULT_SCHEMA,
+            "playwright_adapter_root_name": AGENT_CHROME_PLAYWRIGHT_ADAPTER_ROOT_NAME,
+            "playwright_runner_script_name": AGENT_CHROME_PLAYWRIGHT_RUNNER_SCRIPT_NAME,
+            "runner_receipt_schema": AGENT_CHROME_RUNNER_RECEIPT_SCHEMA,
+            "latest_runner_receipt_file": AGENT_CHROME_RUNNER_RECEIPT_FILE_NAME,
+            "payload_result_schema": AGENT_CHROME_PAYLOAD_RESULT_SCHEMA,
+            "executor_payload_schema": AGENT_CHROME_EXECUTOR_PAYLOAD_SCHEMA,
+            "payload_queue_item_schema": AGENT_CHROME_PAYLOAD_QUEUE_ITEM_SCHEMA,
+            "payload_queue_result_schema": AGENT_CHROME_PAYLOAD_QUEUE_RESULT_SCHEMA,
+            "latest_queue_file": AGENT_CHROME_PAYLOAD_QUEUE_FILE_NAME,
+            "managed_queue_roots": {
+                "workspace": workspace_plugin_root
+                    .as_ref()
+                    .map(|root| root.join("chrome-payloads").display().to_string()),
+                "zed_data": default_plugin_root
+                    .join("chrome-payloads")
+                    .display()
+                    .to_string()
+            },
+            "managed_adapter_roots": {
+                "workspace": workspace_tools_root.as_ref().map(|root| {
+                    root.join("playwright")
+                        .join(AGENT_CHROME_PLAYWRIGHT_ADAPTER_ROOT_NAME)
+                        .display()
+                        .to_string()
+                }),
+                "zed_data": default_plugin_root
+                    .join("playwright")
+                    .join(AGENT_CHROME_PLAYWRIGHT_ADAPTER_ROOT_NAME)
+                    .display()
+                    .to_string()
+            },
+            "managed_execution_roots": {
+                "workspace": workspace_tools_root.as_ref().map(|root| {
+                    root.join("agent-plugins")
+                        .join("chrome-executions")
+                        .display()
+                        .to_string()
+                }),
+                "zed_data": default_plugin_root
+                    .join("chrome-executions")
+                    .display()
+                    .to_string()
+            },
+            "supported_actions": [
+                "open_url",
+                "click",
+                "type_text",
+                "press_key",
+                "scroll",
+                "screenshot",
+                "inspect_element",
+                "dom_snapshot",
+                "runtime_events",
+                "wait_for_selector",
+                "set_viewport"
+            ],
+            "examples": [
+                {
+                    "action": "open_url",
+                    "payload": {
+                        "schema": AGENT_CHROME_EXECUTOR_PAYLOAD_SCHEMA,
+                        "payload": {
+                            "action": "open_url",
+                            "url": "http://localhost:3000"
+                        }
+                    }
+                },
+                {
+                    "action": "type_text",
+                    "payload": {
+                        "schema": AGENT_CHROME_EXECUTOR_PAYLOAD_SCHEMA,
+                        "payload": {
+                            "action": "type_text",
+                            "selector": "input[name='email']",
+                            "text": "user@example.com"
+                        }
+                    }
+                },
+                {
+                    "action": "inspect_element",
+                    "payload": {
+                        "schema": AGENT_CHROME_EXECUTOR_PAYLOAD_SCHEMA,
+                        "payload": {
+                            "action": "inspect_element",
+                            "selector": "main",
+                            "timeout_ms": 5000
+                        }
+                    }
+                },
+                {
+                    "action": "dom_snapshot",
+                    "payload": {
+                        "schema": AGENT_CHROME_EXECUTOR_PAYLOAD_SCHEMA,
+                        "payload": {
+                            "action": "dom_snapshot",
+                            "selector": "main",
+                            "timeout_ms": 5000
+                        }
+                    }
+                },
+                {
+                    "action": "runtime_events",
+                    "payload": {
+                        "schema": AGENT_CHROME_EXECUTOR_PAYLOAD_SCHEMA,
+                        "payload": {
+                            "action": "runtime_events",
+                            "timeout_ms": 1000
+                        }
+                    }
+                },
+                {
+                    "action": "set_viewport",
+                    "payload": {
+                        "schema": AGENT_CHROME_EXECUTOR_PAYLOAD_SCHEMA,
+                        "payload": {
+                            "action": "set_viewport",
+                            "width": 390,
+                            "height": 844,
+                            "device_scale_factor": 3.0
+                        }
+                    }
+                }
+            ],
+            "rules": [
+                "Payload tools never launch Chrome, install Playwright, dispatch input, or run page scripts.",
+                "Queued payloads are written only to managed workspace or Zed-data plugin roots after authorization.",
+                "The managed asset provisioner can write an asset receipt or copy a local unpacked DX Chrome extension into managed roots without downloads, Node, or Chrome launch.",
+                "The Playwright adapter preparation tool writes only versioned adapter files under managed roots and does not run Node.",
+                "The Playwright invocation tool can run only open_url, screenshot, inspect_element, dom_snapshot, runtime_events, set_viewport, and wait_for_selector after authorization and a ready runner receipt.",
+                "The Playwright execution inspection tool is read-only and summarizes managed request and receipt files.",
+                "WebPreview can copy or send the latest managed execution status to the Agent Panel without launching Chrome.",
+                "Future execution must use managed profiles, explicit permission, fresh preflight, and receipts.",
+                "The runner must never write into the user's real Chrome, Edge, or Firefox profile."
+            ]
+        },
+        "capabilities": [
+            capability("chrome.action.payload_compose", "available", "Use compose_managed_chrome_action_payload to generate validated managed Chrome/Playwright action packets."),
+            capability("chrome.action.payload_queue_managed", "available_requires_authorization", "Use queue_managed_chrome_action_payload to write a validated Chrome action packet into the managed workspace or Zed-data queue."),
+            capability("chrome.action.payload_queue_inspect", "available", "Use inspect_managed_chrome_payload_queue to validate the latest queued Chrome payload and runner prerequisites before launch or dispatch exists."),
+            capability("chrome.action.runner_gate", "available_requires_authorization", "Use request_managed_chrome_payload_run to write a permissioned runner receipt that blocks until queue, bootstrap, managed-profile, and future adapter requirements are satisfied."),
+            capability("chrome.runtime.asset_provisioner", "available_requires_authorization", "Use prepare_agent_plugin_managed_assets to write an asset receipt or copy a local unpacked DX Chrome extension into managed roots without downloads, Node, or Chrome launch."),
+            capability("chrome.runtime.playwright_adapter_prepare", "available_requires_authorization", "Use prepare_managed_chrome_playwright_adapter to write a versioned managed Playwright adapter artifact without installing packages, launching Chrome, or dispatching input."),
+            capability("chrome.runtime.playwright_adapter_invoke", "available_requires_authorization", "Use invoke_managed_chrome_playwright_adapter to run the prepared adapter for open_url, screenshot, inspect_element, dom_snapshot, runtime_events, set_viewport, or wait_for_selector after a ready runner receipt."),
+            capability("chrome.runtime.playwright_execution_inspect", "available", "Use inspect_managed_chrome_playwright_executions to read recent managed run requests and execution receipts without launching Chrome."),
+            capability("chrome.runtime.playwright_execution_status_handoff", "available", "Use WebPreview Copy/Send Managed Chrome Execution Status to hand the latest managed request or receipt summary to the Agent Panel."),
+            capability("chrome.action.payload_queue_schema", "available", "Read the managed Chrome payload packet, queue item, queue result, and latest-file schemas for future runner execution."),
+            capability("chrome.session.launch", "requires_bootstrap", "Launch or attach to a managed Chrome profile."),
+            capability("chrome.page.open_url", "requires_bootstrap", "Open URLs in managed Chrome tabs and read navigation response metadata from receipts."),
+            capability("chrome.page.click", "requires_permission", "Click elements through Playwright locators or extension targets."),
+            capability("chrome.page.type", "requires_permission", "Type into focused inputs through Playwright or extension bridge."),
+            capability("chrome.page.press_key", "requires_permission", "Press keyboard shortcuts in managed Chrome."),
+            capability("chrome.page.scroll", "requires_permission", "Scroll pages and containers in managed Chrome."),
+            capability("chrome.page.screenshot", "requires_bootstrap", "Capture viewport, full-page, or selector-scoped screenshots with receipt metadata."),
+            capability("chrome.page.inspect_element", "requires_bootstrap", "Read selector-scoped tag, attribute, bounds, visibility, and computed-style summaries from managed Chrome receipts."),
+            capability("chrome.page.dom_snapshot", "requires_bootstrap", "Read bounded document or selector-scoped DOM snapshots from managed Chrome receipts."),
+            capability("chrome.page.set_viewport", "requires_bootstrap", "Apply responsive viewport dimensions and read requested/applied viewport metadata from managed Chrome receipts."),
+            capability("chrome.page.wait_for_selector", "requires_bootstrap", "Wait for selector visibility and read matched bounds from managed Chrome receipts."),
+            capability("chrome.runtime.console", "requires_bootstrap", "Read bounded console, page error, failed request, HTTP error, and performance-resource summaries from managed Chrome receipts."),
+            capability("chrome.extension.bridge", "requires_bootstrap", "Use the DX Chrome extension bridge for pages where DevTools-only control is insufficient.")
+        ],
+        "safety": {
+            "managed_profile_only": true,
+            "explicit_permission_required_for_input": true,
+            "receipts_required": true,
+            "os_wide_control": false
+        }
+    })
+}
+
+fn pc_use_plugin_manifest(
+    workspace_plugin_root: Option<PathBuf>,
+    default_plugin_root: &std::path::Path,
+) -> Value {
+    serde_json::json!({
+        "id": "zed.pc_use",
+        "name": "PC Use",
+        "description": "Permissioned Zed-window UI inspection and future local computer-use actions for agent workflows.",
+        "kind": "built_in",
+        "status": "read_only_inspection_available",
+        "default_enabled": true,
+        "ships_with_editor": true,
+        "scope": "zed_window_and_permissioned_desktop",
+        "runtime": {
+            "backend": "zed_window_runtime",
+            "inspect_tool_name": AGENT_PC_USE_INSPECT_TOOL_NAME,
+            "inspect_schema": "zed.agent_plugins.pc_use.zed_window_context.v1",
+            "target_manifest_tool_name": AGENT_PC_USE_TARGET_MANIFEST_TOOL_NAME,
+            "target_manifest_schema": AGENT_PC_USE_TARGET_MANIFEST_SCHEMA,
+            "target_snapshot_tool_name": AGENT_PC_USE_TARGET_SNAPSHOT_TOOL_NAME,
+            "target_snapshot_schema": AGENT_PC_USE_TARGET_SNAPSHOT_SCHEMA,
+            "ui_snapshot_contract_tool_name": AGENT_PC_USE_UI_SNAPSHOT_CONTRACT_TOOL_NAME,
+            "ui_snapshot_contract_schema": AGENT_PC_USE_UI_SNAPSHOT_CONTRACT_SCHEMA,
+            "ui_snapshot_tool_name": AGENT_PC_USE_UI_SNAPSHOT_TOOL_NAME,
+            "ui_snapshot_schema": AGENT_PC_USE_UI_SNAPSHOT_SCHEMA,
+            "payload_tool_name": AGENT_PC_USE_PAYLOAD_TOOL_NAME,
+            "payload_stage_tool_name": AGENT_PC_USE_PAYLOAD_STAGE_TOOL_NAME,
+            "payload_queue_tool_name": AGENT_PC_USE_PAYLOAD_QUEUE_TOOL_NAME,
+            "payload_queue_inspect_tool_name": AGENT_PC_USE_PAYLOAD_QUEUE_INSPECT_TOOL_NAME,
+            "runner_gate_tool_name": AGENT_PC_USE_RUNNER_GATE_TOOL_NAME,
+            "runner_receipt_inspect_tool_name": AGENT_PC_USE_RUNNER_RECEIPT_INSPECT_TOOL_NAME,
+            "webpreview_pc_use_status_copy_action": "copy_pc_use_status",
+            "webpreview_pc_use_status_agent_action": "send_pc_use_status_to_agent",
+            "webpreview_pc_use_status_schema": "zed.web_preview.pc_use_status.v1",
+            "pc_use_proof_summary_schema": AGENT_PLUGIN_PC_USE_PROOF_SUMMARY_SCHEMA,
+            "webpreview_pc_use_proof_summary_schema": "zed.web_preview.pc_use_proof_summary.v1",
+            "webpreview_pc_use_proof_card_schema": WEBPREVIEW_PC_USE_PROOF_CARD_SCHEMA,
+            "webpreview_pc_use_proof_card_field": "latest_proof_card",
+            "payload_schema": AGENT_PC_USE_PAYLOAD_SCHEMA,
+            "payload_queue_item_schema": AGENT_PC_USE_PAYLOAD_QUEUE_ITEM_SCHEMA,
+            "payload_queue_inspection_schema": AGENT_PC_USE_PAYLOAD_QUEUE_INSPECTION_SCHEMA,
+            "runner_receipt_schema": AGENT_PC_USE_RUNNER_RECEIPT_SCHEMA,
+            "runner_receipt_inspection_schema": AGENT_PC_USE_RUNNER_RECEIPT_INSPECTION_SCHEMA,
+            "future_input_payload_requires_target_snapshot_id": true,
+            "plugin_root": workspace_plugin_root
+                .as_ref()
+                .map(|root| root.join("pc-use"))
+                .unwrap_or_else(|| default_plugin_root.join("pc-use"))
+                .display()
+                .to_string(),
+            "os_wide_automation": "requires_separate_explicit_permission"
+        },
+        "observability_profile": {
+            "status": "payload_and_receipt_gates_ready_pending_ui_executor_validation",
+            "code_score": 90,
+            "runtime_green_blocker": "Validate PC-use context, target, UI snapshot, payload queue, runner receipt, and WebPreview status handoff without screenshots, focus, input dispatch, process launch, or OS-wide control.",
+            "proof_handoffs": {
+                "context_tool": AGENT_PC_USE_INSPECT_TOOL_NAME,
+                "target_manifest_tool": AGENT_PC_USE_TARGET_MANIFEST_TOOL_NAME,
+                "target_snapshot_tool": AGENT_PC_USE_TARGET_SNAPSHOT_TOOL_NAME,
+                "ui_snapshot_contract_tool": AGENT_PC_USE_UI_SNAPSHOT_CONTRACT_TOOL_NAME,
+                "ui_snapshot_tool": AGENT_PC_USE_UI_SNAPSHOT_TOOL_NAME,
+                "payload_queue_inspect_tool": AGENT_PC_USE_PAYLOAD_QUEUE_INSPECT_TOOL_NAME,
+                "runner_receipts_tool": AGENT_PC_USE_RUNNER_RECEIPT_INSPECT_TOOL_NAME,
+                "runtime_status_proof_summary_field": "plugins.pc_use.proof_summary",
+                "runtime_green_evidence_proof_summary_field": "runtime_green_blocker_summary.latest_evidence.pc_use_proof_summary",
+                "webpreview_status_proof_card_field": "pc_use_status.latest_proof_card",
+                "webpreview_status_copy": "copy_pc_use_status",
+                "webpreview_status_send": "send_pc_use_status_to_agent"
+            },
+            "watch_surfaces": [
+                "read-only or managed-root-scoped operations only",
+                "future UI snapshot target ids require matching snapshot receipt ids",
+                "no OS-wide desktop control",
+                "no focus, click, type, screenshot, or process launch in the current gate",
+                "runner receipts stay auditable before any future executor exists"
+            ],
+            "next_action": "Validate the PC-use context, target, queue, runner, and receipt chain in the final Windows pass."
+        },
+        "capabilities": [
+            capability("pc.zed_window.inspect_context", "available", "Use inspect_zed_window_context to read safe workspace and managed-root context before any future PC-use action."),
+            capability("pc.zed_window.target_manifest", "available", "Use inspect_zed_pc_use_targets to read the supported Zed surfaces, action prerequisites, and target-id contract before composing PC-use payloads."),
+            capability("pc.zed_window.target_snapshot", "available", "Use inspect_zed_pc_use_target_snapshot to read safe current workspace and project-panel target ids before composing PC-use payloads."),
+            capability("pc.zed_window.ui_snapshot_contract", "available", "Use inspect_zed_pc_use_ui_snapshot_contract to read the future UI snapshot target namespaces required before focus, click, or type payloads can be input-ready."),
+            capability("pc.zed_window.ui_snapshot", "available", "Use inspect_zed_pc_use_ui_snapshot to read the current partial Zed UI snapshot and live-UI gaps without screenshots, focus, click, or type dispatch."),
+            capability("pc.zed_window.payload_compose", "available", "Use compose_zed_pc_use_action_payload to validate future Zed-window screenshot, focus, click, type, or inspect intents against the manifest and target-snapshot contract without dispatching input."),
+            capability("pc.zed_window.payload_stage_clipboard", "available_requires_authorization", "Use stage_zed_pc_use_action_payload to write a validated Zed-window PC-use payload packet to the clipboard without dispatching input."),
+            capability("pc.zed_window.payload_queue_managed", "available_requires_authorization", "Use queue_zed_pc_use_action_payload to write a validated Zed-window PC-use payload packet into managed workspace or Zed-data handoff roots without dispatching input."),
+            capability("pc.zed_window.payload_queue_inspect", "available", "Use inspect_zed_pc_use_payload_queue to validate the latest managed PC-use payload handoff before any future importer or executor exists."),
+            capability("pc.zed_window.runner_gate_receipt", "available_requires_authorization", "Use request_zed_pc_use_payload_run to write an auditable runner-gate receipt after validating the managed PC-use queue, without taking screenshots or dispatching input."),
+            capability("pc.zed_window.runner_receipt_inspect", "available", "Use inspect_zed_pc_use_runner_receipts to read recent PC-use runner-gate receipts without taking screenshots, focusing Zed, or dispatching input."),
+            capability("pc.zed_window.status_handoff", "available", "Use WebPreview Copy/Send Zed PC-use Status to hand the latest managed queue, runner receipt, and proof summary to the Agent Panel."),
+            capability("pc.zed_window.screenshot", "planned", "Capture Zed-window screenshots for agent context."),
+            capability("pc.zed_window.focus", "planned", "Focus Zed panes, panels, and tabs by safe editor-native handles."),
+            capability("pc.zed_window.click", "planned_permission_gate", "Click within Zed surfaces only after permission and target preflight."),
+            capability("pc.zed_window.type", "planned_permission_gate", "Type within Zed surfaces only after permission and target preflight."),
+            capability("pc.zed_window.inspect_ui", "planned", "Read safe visible UI metadata for currently visible Zed surfaces."),
+            capability("pc.desktop.os_wide", "blocked_by_default", "OS-wide desktop automation remains unavailable until the user explicitly enables it.")
+        ],
+        "safety": {
+            "read_only_context_available": true,
+            "read_only_target_manifest_available": true,
+            "read_only_target_snapshot_available": true,
+            "read_only_ui_snapshot_contract_available": true,
+            "read_only_ui_snapshot_available": true,
+            "read_only_payload_compose_available": true,
+            "payload_stage_clipboard_available": true,
+            "payload_queue_managed_available": true,
+            "payload_queue_inspection_available": true,
+            "runner_gate_receipt_available": true,
+            "runner_receipt_inspection_available": true,
+            "webpreview_pc_use_status_available": true,
+            "zed_window_first": true,
+            "os_wide_actions_blocked_by_default": true,
+            "explicit_permission_required_for_input": true,
+            "receipts_required": true
+        }
+    })
+}
+
+fn agent_plugin_bootstrap_readiness(
+    project_root: Option<&PathBuf>,
+    default_plugin_root: &Path,
+    workspace_plugin_root: Option<&PathBuf>,
+    workspace_tools_root: Option<&PathBuf>,
+) -> Value {
+    let workspace_tools_root = workspace_tools_root.cloned();
+    let workspace_plugin_root = workspace_plugin_root.cloned();
+    let managed_base_root = workspace_tools_root
+        .clone()
+        .unwrap_or_else(|| default_plugin_root.to_path_buf());
+    let plugin_root = workspace_plugin_root
+        .clone()
+        .unwrap_or_else(|| default_plugin_root.to_path_buf());
+    let playwright_root = workspace_tools_root
+        .as_ref()
+        .map(|root| root.join("playwright"))
+        .unwrap_or_else(|| default_plugin_root.join("playwright"));
+    let playwright_adapter_root = playwright_root.join(AGENT_CHROME_PLAYWRIGHT_ADAPTER_ROOT_NAME);
+    let playwright_adapter_manifest = playwright_adapter_root.join("adapter-manifest.json");
+    let playwright_runner_script =
+        playwright_adapter_root.join(AGENT_CHROME_PLAYWRIGHT_RUNNER_SCRIPT_NAME);
+    let dx_extension_root = workspace_plugin_root
+        .as_ref()
+        .map(|root| root.join("dx-chrome-extension"))
+        .unwrap_or_else(|| default_plugin_root.join("dx-chrome-extension"));
+    let bootstrap_manifest = plugin_root.join("agent-plugin-bootstrap.json");
+    let asset_provisioning_receipt =
+        plugin_root.join(AGENT_PLUGIN_ASSET_PROVISIONING_RECEIPT_FILE_NAME);
+    let managed_profile_root = workspace_tools_root
+        .as_ref()
+        .map(|root| root.join("browser-profiles").join("chrome"))
+        .unwrap_or_else(|| default_plugin_root.join("browser-profiles").join("chrome"));
+
+    let node = find_executable(&["node", "node.exe"]);
+    let npm = find_executable(&["npm", "npm.cmd", "npm.exe"]);
+    let browser = find_browser_executable();
+    let playwright_package = playwright_root
+        .join("node_modules")
+        .join("playwright")
+        .join("package.json");
+    let playwright_adapter_manifest_ready = adapter_manifest_ready(&playwright_adapter_manifest);
+    let dx_extension_manifest = dx_extension_root.join("manifest.json");
+    let bootstrap_manifest_schema = json_file_schema(&bootstrap_manifest);
+    let bootstrap_manifest_ready =
+        bootstrap_manifest_schema.as_deref() == Some(AGENT_PLUGIN_BOOTSTRAP_MANIFEST_SCHEMA);
+    let asset_provisioning_receipt_schema = json_file_schema(&asset_provisioning_receipt);
+    let asset_provisioning_receipt_ready = asset_provisioning_receipt_schema.as_deref()
+        == Some(AGENT_PLUGIN_ASSET_PROVISIONING_RECEIPT_SCHEMA);
+
+    let checks = vec![
+        bootstrap_check(
+            "workspace.root",
+            "Workspace root",
+            project_root.is_some(),
+            project_root.cloned(),
+            "host_blocker",
+            "A workspace root is needed so managed browser tools stay inside the project.",
+        ),
+        bootstrap_check(
+            "host.node",
+            "Node.js runtime",
+            node.is_some(),
+            node.clone(),
+            "host_blocker",
+            "Playwright and Chrome plugin bootstrapping need Node.js.",
+        ),
+        bootstrap_check(
+            "host.npm",
+            "npm package manager",
+            npm.is_some(),
+            npm.clone(),
+            "host_blocker",
+            "Playwright package provisioning needs npm or a compatible npm executable.",
+        ),
+        bootstrap_check(
+            "host.chrome_or_edge",
+            "Chrome or Edge executable",
+            browser.is_some(),
+            browser.clone(),
+            "host_blocker",
+            "External Chrome control needs Chrome, Edge, or Chromium on this OS.",
+        ),
+        bootstrap_check(
+            "root.managed_base",
+            "Managed runtime base root",
+            managed_base_root.is_dir(),
+            Some(managed_base_root.clone()),
+            "provision_required",
+            "Create this managed base root before writing plugin queues, assets, profiles, or receipts.",
+        ),
+        bootstrap_check(
+            "root.plugin",
+            "Managed plugin root",
+            plugin_root.is_dir(),
+            Some(plugin_root.clone()),
+            "provision_required",
+            "Create this managed plugin root before writing Browser, Chrome, or PC-use handoff files.",
+        ),
+        bootstrap_check(
+            "root.playwright",
+            "Managed Playwright root",
+            playwright_root.is_dir(),
+            Some(playwright_root.clone()),
+            "provision_required",
+            "Create this managed Playwright root before installing or preparing Playwright adapter files.",
+        ),
+        bootstrap_check(
+            "root.dx_chrome_extension",
+            "Managed DX Chrome extension root",
+            dx_extension_root.is_dir(),
+            Some(dx_extension_root.clone()),
+            "provision_required",
+            "Create this managed extension root before unpacking the DX Chrome extension.",
+        ),
+        bootstrap_check(
+            "profile.managed_chrome",
+            "Managed Chrome profile root",
+            managed_profile_root.is_dir(),
+            Some(managed_profile_root.clone()),
+            "provision_required",
+            "Create this profile root and never write into a user's real Chrome, Edge, or Firefox profile.",
+        ),
+        bootstrap_check(
+            "asset.bootstrap_manifest",
+            "Agent plugin bootstrap manifest",
+            bootstrap_manifest_ready,
+            Some(bootstrap_manifest.clone()),
+            "provision_required",
+            "Write the bootstrap manifest so future agents can verify the managed-root policy before provisioning assets.",
+        ),
+        bootstrap_check(
+            "asset.provisioning_receipt",
+            "Managed asset provisioning receipt",
+            asset_provisioning_receipt_ready,
+            Some(asset_provisioning_receipt.clone()),
+            "provision_required",
+            "Run the managed asset provisioner with write_asset_receipt=true so agents can prove managed assets were prepared before Chrome execution.",
+        ),
+        bootstrap_check(
+            "asset.playwright_package",
+            "Managed Playwright package",
+            playwright_package.is_file(),
+            Some(playwright_package.clone()),
+            "provision_required",
+            "Install Playwright into the managed tools root before launching external Chrome.",
+        ),
+        bootstrap_check(
+            "asset.playwright_adapter_manifest",
+            "Managed Playwright adapter manifest",
+            playwright_adapter_manifest_ready,
+            Some(playwright_adapter_manifest.clone()),
+            "provision_required",
+            "Prepare the managed Playwright adapter artifact before launching external Chrome.",
+        ),
+        bootstrap_check(
+            "asset.playwright_adapter_runner",
+            "Managed Playwright adapter runner",
+            playwright_runner_script.is_file(),
+            Some(playwright_runner_script.clone()),
+            "provision_required",
+            "Prepare the managed Playwright runner script before launching external Chrome.",
+        ),
+        bootstrap_check(
+            "asset.dx_chrome_extension",
+            "DX Chrome extension manifest",
+            dx_extension_manifest.is_file(),
+            Some(dx_extension_manifest.clone()),
+            "provision_required",
+            "Use the managed asset provisioner to copy a local unpacked DX Chrome extension before loading managed Chrome with the bridge.",
+        ),
+    ];
+
+    let host_blockers = readiness_issues(&checks, "host_blocker");
+    let provision_required = readiness_issues(&checks, "provision_required");
+    let status = if !host_blockers.is_empty() {
+        "blocked_missing_host_dependencies"
+    } else if !provision_required.is_empty() {
+        "ready_to_provision"
+    } else {
+        "ready_for_managed_chrome_executor"
+    };
+
+    serde_json::json!({
+        "schema": AGENT_PLUGIN_BOOTSTRAP_READINESS_SCHEMA,
+        "generated_at_ms": current_epoch_millis(),
+        "status": status,
+        "prepare_tool_name": PREPARE_AGENT_PLUGIN_RUNTIME_TOOL,
+        "project_root": project_root.map(path_string),
+        "phase_summary": bootstrap_phase_summary(&checks),
+        "prepare_runtime_handoff": {
+            "tool_name": PREPARE_AGENT_PLUGIN_RUNTIME_TOOL,
+            "dry_run_payload": {
+                "root_mode": "workspace",
+                "create_managed_roots": false,
+                "write_bootstrap_manifest": false
+            },
+            "workspace_payload": {
+                "root_mode": "workspace",
+                "create_managed_roots": true,
+                "write_bootstrap_manifest": true
+            },
+            "zed_data_payload": {
+                "root_mode": "zed_data",
+                "create_managed_roots": true,
+                "write_bootstrap_manifest": true
+            },
+            "requires_permission_for_writes": true,
+            "downloads_packages": false,
+            "launches_browser": false,
+            "touches_real_browser_profiles": false
+        },
+        "prepare_runtime_request": bootstrap_prepare_request(status, project_root.is_some()),
+        "asset_provisioning_plan": bootstrap_asset_provisioning_plan(
+            status,
+            if project_root.is_some() { "workspace" } else { "zed_data" },
+            &bootstrap_manifest,
+            bootstrap_manifest_ready,
+            &playwright_root,
+            &playwright_package,
+            &playwright_adapter_root,
+            &playwright_adapter_manifest,
+            &playwright_runner_script,
+            playwright_adapter_manifest_ready,
+            &dx_extension_root,
+            &dx_extension_manifest,
+        ),
+        "roots": {
+            "zed_data_plugin_root": path_string(default_plugin_root),
+            "managed_base_root": path_string(&managed_base_root),
+            "plugin_root": path_string(&plugin_root),
+            "workspace_plugin_root": workspace_plugin_root.as_ref().map(path_string),
+            "workspace_tools_root": workspace_tools_root.as_ref().map(path_string),
+            "playwright_root": path_string(&playwright_root),
+            "playwright_adapter_root": path_string(&playwright_adapter_root),
+            "playwright_adapter_manifest": path_string(&playwright_adapter_manifest),
+            "playwright_runner_script": path_string(&playwright_runner_script),
+            "dx_chrome_extension_root": path_string(&dx_extension_root),
+            "managed_chrome_profile_root": path_string(&managed_profile_root),
+            "bootstrap_manifest": path_string(&bootstrap_manifest),
+        },
+        "host": {
+            "node": node.as_ref().map(path_string),
+            "npm": npm.as_ref().map(path_string),
+            "chrome_or_edge": browser.as_ref().map(path_string),
+        },
+        "manifest": {
+            "path": path_string(&bootstrap_manifest),
+            "expected_schema": AGENT_PLUGIN_BOOTSTRAP_MANIFEST_SCHEMA,
+            "actual_schema": bootstrap_manifest_schema,
+            "ready": bootstrap_manifest_ready,
+        },
+        "checks": checks,
+        "host_blockers": host_blockers,
+        "provision_required": provision_required,
+        "next_actions": bootstrap_next_actions(status),
+        "safety": {
+            "write_scope": "managed Zed data roots or workspace tools roots only",
+            "never_write_to_user_browser_profiles": true,
+            "external_browser_input_requires_user_permission": true,
+            "receipts_required_for_executor_actions": true,
+        },
+    })
+}
+
+fn bootstrap_asset_provisioning_plan(
+    status: &str,
+    root_mode: &str,
+    bootstrap_manifest: &Path,
+    bootstrap_manifest_ready: bool,
+    playwright_root: &Path,
+    playwright_package: &Path,
+    playwright_adapter_root: &Path,
+    playwright_adapter_manifest: &Path,
+    playwright_runner_script: &Path,
+    playwright_adapter_manifest_ready: bool,
+    dx_extension_root: &Path,
+    dx_extension_manifest: &Path,
+) -> Value {
+    let adapter_ready = playwright_adapter_manifest_ready && playwright_runner_script.is_file();
+
+    serde_json::json!({
+        "schema": AGENT_PLUGIN_BOOTSTRAP_ASSET_PLAN_SCHEMA,
+        "readiness_status": status,
+        "safe_to_start_after_plan": status == "ready_for_managed_chrome_executor",
+        "root_mode": root_mode,
+        "operator_recipe": managed_asset_operator_recipe(root_mode),
+        "steps": [
+            {
+                "id": "bootstrap.manifest",
+                "label": "Agent plugin bootstrap manifest",
+                "state": if bootstrap_manifest_ready { "ready" } else { "pending_prepare_runtime" },
+                "path": path_string(bootstrap_manifest),
+                "tool_name": PREPARE_AGENT_PLUGIN_RUNTIME_TOOL,
+                "apply_payload": {
+                    "root_mode": root_mode,
+                    "create_managed_roots": true,
+                    "write_bootstrap_manifest": true
+                },
+                "requires_authorization": true,
+                "runs_node": false,
+                "downloads_packages": false,
+                "launches_browser": false
+            },
+            {
+                "id": "playwright.package",
+                "label": "Managed Playwright package",
+                "state": if playwright_package.is_file() { "ready" } else { "pending_manual_or_future_provisioner" },
+                "managed_root": path_string(playwright_root),
+                "expected_package_json": path_string(playwright_package),
+                "requires_authorization": true,
+                "runs_node": true,
+                "downloads_packages": true,
+                "launches_browser": false,
+                "touches_real_browser_profiles": false
+            },
+            {
+                "id": "playwright.adapter",
+                "label": "Managed Chrome Playwright adapter",
+                "state": if adapter_ready { "ready" } else { "pending_prepare_managed_adapter" },
+                "tool_name": AGENT_CHROME_PLAYWRIGHT_ADAPTER_TOOL_NAME,
+                "managed_root": path_string(playwright_adapter_root),
+                "expected_manifest": path_string(playwright_adapter_manifest),
+                "expected_runner": path_string(playwright_runner_script),
+                "dry_run_payload": {
+                    "root_mode": root_mode,
+                    "write_adapter_files": false,
+                    "include_script_preview": false
+                },
+                "write_payload": {
+                    "root_mode": root_mode,
+                    "write_adapter_files": true,
+                    "include_script_preview": false
+                },
+                "requires_authorization": true,
+                "runs_node": false,
+                "downloads_packages": false,
+                "launches_browser": false
+            },
+            {
+                "id": "dx.chrome_extension",
+                "label": "Managed DX Chrome extension",
+                "state": if dx_extension_manifest.is_file() { "ready" } else { "pending_manual_or_future_provisioner" },
+                "managed_root": path_string(dx_extension_root),
+                "expected_manifest": path_string(dx_extension_manifest),
+                "requires_authorization": true,
+                "runs_node": false,
+                "downloads_packages": true,
+                "launches_browser": false,
+                "touches_real_browser_profiles": false
+            }
+        ],
+        "after_asset_provisioning_verification": {
+            "catalog_tool": AgentPluginCatalogTool::NAME,
+            "runtime_status_tool": AGENT_PLUGIN_RUNTIME_STATUS_TOOL_NAME,
+            "asset_provisioner_tool": AGENT_PLUGIN_ASSET_PROVISIONER_TOOL_NAME,
+            "required_ready_checks": [
+                "asset.bootstrap_manifest",
+                "asset.provisioning_receipt",
+                "asset.playwright_package",
+                "asset.playwright_adapter_manifest",
+                "asset.playwright_adapter_runner",
+                "asset.dx_chrome_extension"
+            ]
+        },
+        "safety": {
+            "plan_is_metadata_only": true,
+            "writes_files": false,
+            "launches_browser": false,
+            "dispatches_input": false,
+            "touches_real_browser_profiles": false,
+            "requires_receipts_before_executor_actions": true
+        }
+    })
+}
+
+fn bootstrap_check(
+    id: &str,
+    label: &str,
+    ready: bool,
+    path: Option<PathBuf>,
+    missing_kind: &str,
+    details: &str,
+) -> Value {
+    serde_json::json!({
+        "id": id,
+        "label": label,
+        "state": if ready { "ready" } else { missing_kind },
+        "ready": ready,
+        "path": path.as_ref().map(path_string),
+        "details": details,
+    })
+}
+
+fn readiness_issues(checks: &[Value], state: &str) -> Vec<Value> {
+    checks
+        .iter()
+        .filter(|check| {
+            check
+                .get("state")
+                .and_then(Value::as_str)
+                .is_some_and(|check_state| check_state == state)
+        })
+        .cloned()
+        .collect()
+}
+
+fn bootstrap_phase_summary(checks: &[Value]) -> Value {
+    let host = bootstrap_phase("host_dependencies", checks, &["workspace.", "host."]);
+    let roots = bootstrap_phase("managed_roots", checks, &["root.", "profile."]);
+    let assets = bootstrap_phase("managed_assets", checks, &["asset."]);
+    let ready_phase_count = [&host, &roots, &assets]
+        .into_iter()
+        .filter(|phase| phase.get("ready").and_then(Value::as_bool).unwrap_or(false))
+        .count();
+
+    serde_json::json!({
+        "host_dependencies": host,
+        "managed_roots": roots,
+        "managed_assets": assets,
+        "ready_phase_count": ready_phase_count,
+        "total_phase_count": 3,
+    })
+}
+
+fn bootstrap_phase(name: &str, checks: &[Value], prefixes: &[&str]) -> Value {
+    let phase_checks = checks
+        .iter()
+        .filter(|check| {
+            check
+                .get("id")
+                .and_then(Value::as_str)
+                .is_some_and(|id| prefixes.iter().any(|prefix| id.starts_with(prefix)))
+        })
+        .cloned()
+        .collect::<Vec<_>>();
+    let total = phase_checks.len();
+    let ready = phase_checks
+        .iter()
+        .filter(|check| check.get("ready").and_then(Value::as_bool).unwrap_or(false))
+        .count();
+    let missing = phase_checks
+        .iter()
+        .filter_map(|check| {
+            let is_ready = check.get("ready").and_then(Value::as_bool).unwrap_or(false);
+            (!is_ready)
+                .then(|| check.get("id").and_then(Value::as_str).map(str::to_owned))
+                .flatten()
+        })
+        .collect::<Vec<_>>();
+
+    serde_json::json!({
+        "name": name,
+        "ready": ready == total && total > 0,
+        "ready_check_count": ready,
+        "total_check_count": total,
+        "missing": missing,
+    })
+}
+
+fn managed_asset_operator_recipe(root_mode: &str) -> Value {
+    serde_json::json!({
+        "schema": AGENT_PLUGIN_MANAGED_ASSET_OPERATOR_RECIPE_SCHEMA,
+        "root_mode": root_mode,
+        "goal": "Prepare managed Browser and Chrome plugin assets in the safe order before any external Chrome execution.",
+        "ordered_steps": [
+            {
+                "step": "inspect_bootstrap_readiness",
+                "tool": AgentPluginCatalogTool::NAME,
+                "recommended_payload": {
+                    "include_bootstrap_readiness": true,
+                    "include_workflow_recipes": true,
+                    "include_validation_matrix": true
+                },
+                "writes_files": false,
+                "runs_node": false,
+                "launches_browser": false,
+                "dispatches_input": false
+            },
+            {
+                "step": "prepare_managed_roots",
+                "tool": PREPARE_AGENT_PLUGIN_RUNTIME_TOOL,
+                "recommended_payload": {
+                    "root_mode": root_mode,
+                    "create_managed_roots": true,
+                    "write_bootstrap_manifest": true
+                },
+                "requires_authorization": true,
+                "writes_files": true,
+                "runs_node": false,
+                "launches_browser": false,
+                "dispatches_input": false
+            },
+            {
+                "step": "write_asset_receipt",
+                "tool": AGENT_PLUGIN_ASSET_PROVISIONER_TOOL_NAME,
+                "recommended_payload": {
+                    "root_mode": root_mode,
+                    "write_asset_receipt": true,
+                    "copy_dx_chrome_extension": false,
+                    "dx_chrome_extension_source_root": Value::Null,
+                    "overwrite_existing_files": false,
+                    "include_file_preview": true
+                },
+                "requires_authorization": true,
+                "writes_files": true,
+                "runs_node": false,
+                "launches_browser": false,
+                "dispatches_input": false
+            },
+            {
+                "step": "copy_dx_chrome_extension_if_missing",
+                "tool": AGENT_PLUGIN_ASSET_PROVISIONER_TOOL_NAME,
+                "recommended_payload": {
+                    "root_mode": root_mode,
+                    "write_asset_receipt": true,
+                    "copy_dx_chrome_extension": true,
+                    "dx_chrome_extension_source_root": "<local unpacked extension root>",
+                    "overwrite_existing_files": false,
+                    "include_file_preview": true
+                },
+                "requires_authorization": true,
+                "writes_files": true,
+                "runs_node": false,
+                "launches_browser": false,
+                "dispatches_input": false
+            },
+            {
+                "step": "prepare_playwright_adapter",
+                "tool": AGENT_CHROME_PLAYWRIGHT_ADAPTER_TOOL_NAME,
+                "recommended_payload": {
+                    "root_mode": root_mode,
+                    "write_adapter_files": true,
+                    "include_script_preview": false
+                },
+                "requires_authorization": true,
+                "writes_files": true,
+                "runs_node": false,
+                "launches_browser": false,
+                "dispatches_input": false
+            },
+            {
+                "step": "inspect_runtime_status_again",
+                "tool": AGENT_PLUGIN_RUNTIME_STATUS_TOOL_NAME,
+                "recommended_payload": {
+                    "root_mode": root_mode,
+                    "include_bootstrap_readiness": true,
+                    "include_observability_profiles": true,
+                    "include_observability_digest": true,
+                    "include_runtime_green_proof_path": true,
+                    "include_runtime_green_claim_gate": true,
+                    "include_latest_handoff": true,
+                    "include_next_actions": true
+                },
+                "writes_files": false,
+                "runs_node": false,
+                "launches_browser": false,
+                "dispatches_input": false
+            },
+            {
+                "step": "final_windows_validation",
+                "manual_command": "just run",
+                "when": "only after managed asset status, adapter readiness, Browser/WebPreview receipts, managed Chrome receipts, and PC-use receipts are ready for a final runtime pass",
+                "writes_files": false,
+                "dispatches_input": "manual_validation_only"
+            }
+        ],
+        "safety": {
+            "recipe_is_metadata_only": true,
+            "never_write_to_real_browser_profiles": true,
+            "external_browser_launch_requires_later_permissioned_adapter_step": true,
+            "input_dispatch_requires_webpreview_or_future_executor_receipts": true
+        }
+    })
+}
+
+fn adapter_manifest_ready(path: &Path) -> bool {
+    let bytes = match std::fs::read(path) {
+        Ok(bytes) => bytes,
+        Err(_) => return false,
+    };
+    serde_json::from_slice::<Value>(&bytes)
+        .ok()
+        .and_then(|value| {
+            value
+                .get("schema")
+                .and_then(Value::as_str)
+                .map(str::to_owned)
+        })
+        .is_some_and(|schema| schema == AGENT_CHROME_PLAYWRIGHT_ADAPTER_MANIFEST_SCHEMA)
+}
+
+fn json_file_schema(path: &Path) -> Option<String> {
+    let bytes = std::fs::read(path).ok()?;
+    serde_json::from_slice::<Value>(&bytes)
+        .ok()?
+        .get("schema")
+        .and_then(Value::as_str)
+        .map(str::to_owned)
+}
+
+fn bootstrap_next_actions(status: &str) -> Vec<&'static str> {
+    match status {
+        "blocked_missing_host_dependencies" => vec![
+            "Install missing host dependencies first: Node.js, npm, and Chrome/Edge/Chromium.",
+            "Re-run list_agent_plugins with include_bootstrap_readiness=true before provisioning.",
+        ],
+        "ready_to_provision" => vec![
+            "Run prepare_agent_plugin_runtime with create_managed_roots=true and write_bootstrap_manifest=true to create the managed roots.",
+            "Install Playwright into the managed tools root.",
+            "Run prepare_managed_chrome_playwright_adapter with write_adapter_files=true.",
+            "Run prepare_agent_plugin_managed_assets to write an asset receipt or copy a local unpacked DX Chrome extension into the managed agent plugin root.",
+            "Keep managed Chrome profile data in the prepared profile root; never touch real user browser profiles.",
+        ],
+        _ => vec![
+            "Chrome plugin bootstrap assets are present.",
+            "Invoke the prepared Playwright adapter for safe actions, then inspect execution receipts before enabling input dispatch.",
+        ],
+    }
+}
+
+fn bootstrap_prepare_request(status: &str, workspace_available: bool) -> Value {
+    let root_mode = if workspace_available {
+        "workspace"
+    } else {
+        "zed_data"
+    };
+    let should_prepare = status == "ready_to_provision";
+
+    serde_json::json!({
+        "schema": AGENT_PLUGIN_BOOTSTRAP_PREPARE_REQUEST_SCHEMA,
+        "tool_name": PREPARE_AGENT_PLUGIN_RUNTIME_TOOL,
+        "readiness_status": status,
+        "should_call_prepare": should_prepare,
+        "authorization_required": should_prepare,
+        "recommended_payload": {
+            "root_mode": root_mode,
+            "create_managed_roots": should_prepare,
+            "write_bootstrap_manifest": should_prepare
+        },
+        "dry_run_payload": {
+            "root_mode": root_mode,
+            "create_managed_roots": false,
+            "write_bootstrap_manifest": false
+        },
+        "blocked_by": match status {
+            "blocked_missing_host_dependencies" => vec!["host_dependencies"],
+            "ready_for_managed_chrome_executor" => vec!["already_prepared"],
+            _ => Vec::new(),
+        },
+        "after_prepare_verification": {
+            "tool_name": AgentPluginCatalogTool::NAME,
+            "payload": {
+                "include_bootstrap_readiness": true,
+                "include_bootstrap_plan": true,
+                "include_planned_plugins": true
+            }
+        },
+        "safety": {
+            "writes_only_when_authorized": true,
+            "downloads_packages": false,
+            "launches_browser": false,
+            "touches_real_browser_profiles": false,
+            "workspace_preferred_when_available": true,
+        },
+    })
+}
+
+fn find_browser_executable() -> Option<PathBuf> {
+    find_executable(&[
+        "chrome",
+        "chrome.exe",
+        "google-chrome",
+        "google-chrome-stable",
+        "chromium",
+        "chromium-browser",
+        "msedge",
+        "msedge.exe",
+        "microsoft-edge",
+    ])
+    .or_else(|| existing_file(common_browser_candidates()))
+}
+
+fn common_browser_candidates() -> Vec<PathBuf> {
+    let mut candidates = Vec::new();
+
+    if cfg!(target_os = "windows") {
+        for env_name in ["PROGRAMFILES", "PROGRAMFILES(X86)", "LOCALAPPDATA"] {
+            if let Some(root) = env_path(env_name) {
+                candidates.push(
+                    root.join("Google")
+                        .join("Chrome")
+                        .join("Application")
+                        .join("chrome.exe"),
+                );
+                candidates.push(
+                    root.join("Microsoft")
+                        .join("Edge")
+                        .join("Application")
+                        .join("msedge.exe"),
+                );
+            }
+        }
+    } else if cfg!(target_os = "macos") {
+        candidates.push(
+            PathBuf::from("/Applications")
+                .join("Google Chrome.app")
+                .join("Contents")
+                .join("MacOS")
+                .join("Google Chrome"),
+        );
+        candidates.push(
+            PathBuf::from("/Applications")
+                .join("Microsoft Edge.app")
+                .join("Contents")
+                .join("MacOS")
+                .join("Microsoft Edge"),
+        );
+    }
+
+    candidates
+}
+
+fn find_executable(names: &[&str]) -> Option<PathBuf> {
+    let paths = env::var_os("PATH")?;
+    for dir in env::split_paths(&paths) {
+        for name in names {
+            let candidate = dir.join(name);
+            if candidate.is_file() {
+                return Some(candidate);
+            }
+        }
+    }
+    None
+}
+
+fn existing_file(candidates: Vec<PathBuf>) -> Option<PathBuf> {
+    candidates.into_iter().find(|candidate| candidate.is_file())
+}
+
+fn env_path(name: &str) -> Option<PathBuf> {
+    env::var_os(name).map(PathBuf::from)
+}
+
+fn path_string(path: impl AsRef<Path>) -> String {
+    path.as_ref().display().to_string()
+}
+
+fn capability(id: &str, state: &str, description: &str) -> Value {
+    serde_json::json!({
+        "id": id,
+        "state": state,
+        "description": description,
+    })
+}
+
+fn current_epoch_millis() -> u64 {
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map(|duration| duration.as_millis().min(u64::MAX as u128) as u64)
+        .unwrap_or_default()
+}
