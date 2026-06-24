@@ -262,7 +262,7 @@ members = [
 
     "tooling/compliance",
     "tooling/perf",
-    "tooling/xtask", "lobechat_icons_parser",
+    # "tooling/xtask", "lobechat_icons_parser",
 ]
 default-members = ["crates/zed"]
 
