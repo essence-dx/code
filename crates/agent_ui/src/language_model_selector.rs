@@ -115,6 +115,11 @@ fn all_models(cx: &App) -> GroupedModels {
         .take(MAX_SELECTOR_RECOMMENDED_MODELS)
         .collect();
 
+    let all = all
+        .into_iter()
+        .filter(|m| m.model.provider_id() != free_provider_id)
+        .collect();
+
     GroupedModels::new(all, recommended)
 }
 

@@ -2,7 +2,7 @@
 # v0 mangling scheme provides more detailed backtraces around closures
 rustflags = ["-C", "symbol-mangling-version=v0", "--cfg", "tokio_unstable"]
 # Keep Zed build artifacts on the G: drive for this active checkout.
-target-dir = "G:/Dx/code/target"
+target-dir = "target"
 
 [alias]
 xtask = "run --package xtask --"
