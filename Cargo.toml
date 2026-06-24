@@ -275,7 +275,7 @@ edition = "2024"
 #
 # Workspace member crates
 #
-
+dx_media = { package = "dx-media", git = "https://github.com/essence-dx/media", default-features = false }
 acp_tools = { path = "crates/acp_tools" }
 acp_thread = { path = "crates/acp_thread" }
 action_log = { path = "crates/action_log" }
@@ -333,7 +333,6 @@ dev_container = { path = "crates/dev_container" }
 diagnostics = { path = "crates/diagnostics" }
 dialoguer = { version = "0.12", default-features = false }
 dx_catalog = { path = "crates/dx_catalog" }
-dx_media = { package = "dx-media", path = "../media", default-features = false }
 editor = { path = "crates/editor" }
 encoding_selector = { path = "crates/encoding_selector" }
 env_var = { path = "crates/env_var" }
