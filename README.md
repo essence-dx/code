@@ -110,3 +110,5 @@ Now, does this work on other OS like macos and linux too correclty - if not then
 Now you can look that the at our "assets/web/whiteboard" and "assets/web/shader" project that its not nextjs project but a www framework project by me and its just complete html, css and just but its showing any previews at all - so what files and folder are you serving there?? as in both whiteboard and shader the html, css and js are relative paths for all the other 7 nextjs projects in the assets/web/ folders and also for the "G:\Dx\code\assets\web\whiteboard\index.html" and "G:\Dx\code\assets\web\shader\index.html" So please serve them correctly!!!
 
 Whiteboard Preview Active
+
+Jules are you there??
