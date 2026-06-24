@@ -200,6 +200,18 @@ impl StatusBar {
                                     // the screen to Browser (activating an existing Browser item
                                     // or creating a new one), ensuring the current screen is
                                     // closed before the webpreview tab appears.
+                                    let is_browser = workspace.active_item(cx)
+                                        .map(|item| item.screen_kind(cx))
+                                        == Some(crate::WorkspaceScreenKind::Browser);
+
+                                    if !is_browser {
+                                        let active_pane = workspace.active_pane().clone();
+                                        active_pane.update(cx, |pane, cx| {
+                                            pane.close_active_item(&Default::default(), window, cx)
+                                                .detach_and_log_err(cx);
+                                        });
+                                    }
+
                                     workspace.activate_screen_kind(
                                         crate::WorkspaceScreenKind::Browser,
                                         window,
