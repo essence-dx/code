@@ -67,6 +67,7 @@ pub fn init(cx: &mut App) {
                     cx.global::<agent_ui::agent_thread_www_preview::WebPreviewServerPort>().0;
                 format!("http://127.0.0.1:{}/{}", port, action.project)
             });
+            workspace.activate_screen_kind(workspace::WorkspaceScreenKind::Browser, window, cx);
             web_preview_view::WebPreviewView::open_url_in_active_pane(workspace, &url, window, cx);
         });
 
