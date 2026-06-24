@@ -194,18 +194,17 @@ impl StatusBar {
                         move |this, _, window, cx| {
                             let workspace = this.active_pane.read(cx).workspace();
                             if let Some(workspace) = workspace.upgrade() {
-                                workspace.update(cx, |_workspace, cx| {
-                                    // Dispatch OpenWebPreview with the tool id. Its registered
-                                    // handler (web_preview crate) calls `server::local_preview_url(id)`
-                                    // to start the Axum static server, then opens a WebPreview item
-                                    // in the active pane and activates it. Activating a WebPreview
-                                    // item switches the screen to Browser — so this works from ANY
-                                    // screen, not just when already in webpreview.
-                                    //
-                                    // We intentionally do NOT call activate_screen_kind(Browser)
-                                    // first: when no Browser item exists yet, that defers a
-                                    // NewWebPreview which races with this dispatch and can leave the
-                                    // webpreview opening on the wrong pane / not switching screens.
+                                workspace.update(cx, |workspace, cx| {
+                                    // Close the current screen first if not already on Browser,
+                                    // then open the web preview. activate_screen_kind switches
+                                    // the screen to Browser (activating an existing Browser item
+                                    // or creating a new one), ensuring the current screen is
+                                    // closed before the webpreview tab appears.
+                                    workspace.activate_screen_kind(
+                                        crate::WorkspaceScreenKind::Browser,
+                                        window,
+                                        cx,
+                                    );
                                     window.dispatch_action(
                                         Box::new(crate::OpenWebPreview { project: id.clone() }),
                                         cx,

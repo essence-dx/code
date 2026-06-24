@@ -94,9 +94,7 @@ fn all_models(cx: &App) -> GroupedModels {
             .insert(sel.model.clone().into());
     }
 
-    let recommended = Vec::new(); // User request: don't recommend any provider for now
-
-    let all = providers
+    let all: Vec<ModelInfo> = providers
         .iter()
         .flat_map(|provider| {
             provider
@@ -106,6 +104,15 @@ fn all_models(cx: &App) -> GroupedModels {
                 .map(|model| ModelInfo::new(&**provider, model, &favorites_index))
         })
         .take(MAX_SELECTOR_MODELS)
+        .collect();
+
+    // Free provider models (opencode) are shown as "Recommended" at the top of the dropdown.
+    let free_provider_id = LanguageModelProviderId::new("opencode");
+    let recommended: Vec<ModelInfo> = all
+        .iter()
+        .filter(|m| m.model.provider_id() == free_provider_id)
+        .cloned()
+        .take(MAX_SELECTOR_RECOMMENDED_MODELS)
         .collect();
 
     GroupedModels::new(all, recommended)
@@ -339,36 +346,7 @@ impl GroupedModels {
     ) -> Vec<LanguageModelPickerEntry> {
         let mut entries = Vec::new();
 
-        // The DX "Free" provider (opencode) is always surfaced at the very top of
-        // the model dropdown — above favorites/recommended — so users see the free
-        // DX AI models first. It is rendered as its own provider header group.
         let free_provider_id = LanguageModelProviderId::new("opencode");
-        if let Some(free_models) = self.all.get(&free_provider_id) {
-            if !free_models.is_empty() {
-                let collapsed = !force_provider_groups_expanded
-                    && collapsed_provider_groups.contains(&free_provider_id);
-                if push_picker_entry(
-                    &mut entries,
-                    LanguageModelPickerEntry::ProviderHeader(ProviderHeaderInfo {
-                        provider_id: free_provider_id.clone(),
-                        title: free_models[0].model.provider_name().0,
-                        model_count: free_models.len(),
-                        collapsed,
-                    }),
-                ) {
-                    if !collapsed {
-                        for info in free_models.iter().take(MAX_SELECTOR_MODELS_PER_PROVIDER) {
-                            if !push_picker_entry(
-                                &mut entries,
-                                LanguageModelPickerEntry::Model(info.clone()),
-                            ) {
-                                return entries;
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
         if !self.favorites.is_empty() {
             if !push_picker_entry(
