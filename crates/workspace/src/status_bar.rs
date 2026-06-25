@@ -195,11 +195,6 @@ impl StatusBar {
                             let workspace = this.active_pane.read(cx).workspace();
                             if let Some(workspace) = workspace.upgrade() {
                                 workspace.update(cx, |workspace, cx| {
-                                    workspace.activate_screen_kind(
-                                        crate::WorkspaceScreenKind::Browser,
-                                        window,
-                                        cx,
-                                    );
                                     window.dispatch_action(
                                         Box::new(crate::OpenWebPreview { project: id.clone() }),
                                         cx,

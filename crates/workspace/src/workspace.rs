@@ -6153,53 +6153,64 @@ impl Workspace {
             true
         } else {
             window.focus(&target_pane.focus_handle(cx), cx);
-            let target_pane = target_pane.downgrade();
-            cx.defer_in(window, move |workspace, window, cx| {
-                let Some(target_pane) = target_pane.upgrade() else {
-                    return;
-                };
 
-                workspace.set_active_pane(&target_pane, window, cx);
-                window.focus(&target_pane.focus_handle(cx), cx);
-
-                match kind {
-                    WorkspaceScreenKind::Agent => {
-                        window.dispatch_action(
-                            zed_actions::assistant::FocusAgentFullscreen.boxed_clone(),
-                            cx,
-                        );
-                    }
-                    WorkspaceScreenKind::Automations => {
-                        window.dispatch_action(
-                            zed_actions::assistant::OpenAutomations.boxed_clone(),
-                            cx,
-                        );
-                    }
-                    WorkspaceScreenKind::Connections => {
-                        window.dispatch_action(
-                            zed_actions::assistant::OpenConnections.boxed_clone(),
-                            cx,
-                        );
-                    }
-                    WorkspaceScreenKind::Tools => {
-                        window.dispatch_action(zed_actions::assistant::OpenTools.boxed_clone(), cx);
-                    }
-                    WorkspaceScreenKind::Editor => {
-                        window.dispatch_action(NewFile.boxed_clone(), cx);
-                    }
-                    WorkspaceScreenKind::Browser => {
-                        window.dispatch_action(NewWebPreview.boxed_clone(), cx);
-                    }
-                    WorkspaceScreenKind::Terminal => {
-                        window.dispatch_action(NewCenterTerminal::default().boxed_clone(), cx);
-                    }
-                    WorkspaceScreenKind::Onboarding => {
-                        // TODO(dx-onboarding): Re-enable after the fullscreen WebPreview
-                        // onboarding completion path is safe on Windows.
-                    }
-                    WorkspaceScreenKind::Other => {}
+            match kind {
+                WorkspaceScreenKind::Browser => {
+                    window.dispatch_action(NewWebPreview.boxed_clone(), cx);
                 }
-            });
+                _ => {
+                    let target_pane = target_pane.downgrade();
+                    cx.defer_in(window, move |workspace, window, cx| {
+                        let Some(target_pane) = target_pane.upgrade() else {
+                            return;
+                        };
+
+                        workspace.set_active_pane(&target_pane, window, cx);
+                        window.focus(&target_pane.focus_handle(cx), cx);
+
+                        match kind {
+                            WorkspaceScreenKind::Agent => {
+                                window.dispatch_action(
+                                    zed_actions::assistant::FocusAgentFullscreen.boxed_clone(),
+                                    cx,
+                                );
+                            }
+                            WorkspaceScreenKind::Automations => {
+                                window.dispatch_action(
+                                    zed_actions::assistant::OpenAutomations.boxed_clone(),
+                                    cx,
+                                );
+                            }
+                            WorkspaceScreenKind::Connections => {
+                                window.dispatch_action(
+                                    zed_actions::assistant::OpenConnections.boxed_clone(),
+                                    cx,
+                                );
+                            }
+                            WorkspaceScreenKind::Tools => {
+                                window.dispatch_action(
+                                    zed_actions::assistant::OpenTools.boxed_clone(),
+                                    cx,
+                                );
+                            }
+                            WorkspaceScreenKind::Editor => {
+                                window.dispatch_action(NewFile.boxed_clone(), cx);
+                            }
+                            WorkspaceScreenKind::Terminal => {
+                                window.dispatch_action(
+                                    NewCenterTerminal::default().boxed_clone(),
+                                    cx,
+                                );
+                            }
+                            WorkspaceScreenKind::Onboarding => {
+                                // TODO(dx-onboarding): Re-enable after the fullscreen WebPreview
+                                // onboarding completion path is safe on Windows.
+                            }
+                            WorkspaceScreenKind::Other => {}
+                        }
+                    });
+                }
+            }
             cx.notify();
             Audio::play_dx_sound(DxSoundEvent::ScreenLaunch, cx);
             true

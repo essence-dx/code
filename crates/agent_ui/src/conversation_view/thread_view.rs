@@ -4722,11 +4722,11 @@ impl ThreadView {
             .map(Self::render_composer_option_slot)
             .collect::<Vec<_>>();
 
-        if slots.len() > MAX_VISIBLE_PROFILE_OPTION_SLOTS {
-            let overflow_slots: &'static [ComposerOptionSlot] =
-                &slots[MAX_VISIBLE_PROFILE_OPTION_SLOTS..];
-            rendered.push(Self::render_composer_option_overflow(overflow_slots));
-        }
+        // if slots.len() > MAX_VISIBLE_PROFILE_OPTION_SLOTS {
+        //     let overflow_slots: &'static [ComposerOptionSlot] =
+        //         &slots[MAX_VISIBLE_PROFILE_OPTION_SLOTS..];
+        //     rendered.push(Self::render_composer_option_overflow(overflow_slots));
+        // }
 
         rendered
     }
@@ -4791,46 +4791,46 @@ impl ThreadView {
             .into_any_element()
     }
 
-    fn render_composer_option_overflow(slots: &'static [ComposerOptionSlot]) -> AnyElement {
-        PopoverMenu::new("agent-composer-profile-slots-more")
-            .trigger_with_tooltip(
-                IconButton::new(
-                    "agent-composer-profile-slots-more-trigger",
-                    IconName::Ellipsis,
-                )
-                .icon_size(IconSize::Small)
-                .icon_color(Color::Muted),
-                Tooltip::text("More profile options"),
-            )
-            .anchor(gpui::Anchor::BottomLeft)
-            .offset(gpui::Point {
-                x: px(0.0),
-                y: px(-2.0),
-            })
-            .menu(move |window, cx| {
-                Some(ContextMenu::build(
-                    window,
-                    cx,
-                    move |mut menu, _window, _cx| {
-                        menu = menu.header("More profile options");
-                        for slot in slots {
-                            let slot = *slot;
-                            menu = menu.header(slot.label);
-                            menu = menu
-                                .custom_row(move |_window, _cx| composer_slot_contract_row(slot));
-                            for option in slot.options {
-                                let option = *option;
-                                menu = menu.custom_row(move |_window, _cx| {
-                                    composer_option_menu_row(slot, option)
-                                });
-                            }
-                        }
-                        menu
-                    },
-                ))
-            })
-            .into_any_element()
-    }
+    // fn render_composer_option_overflow(slots: &'static [ComposerOptionSlot]) -> AnyElement {
+    //     PopoverMenu::new("agent-composer-profile-slots-more")
+    //         .trigger_with_tooltip(
+    //             IconButton::new(
+    //                 "agent-composer-profile-slots-more-trigger",
+    //                 IconName::Ellipsis,
+    //             )
+    //             .icon_size(IconSize::Small)
+    //             .icon_color(Color::Muted),
+    //             Tooltip::text("More profile options"),
+    //         )
+    //         .anchor(gpui::Anchor::BottomLeft)
+    //         .offset(gpui::Point {
+    //             x: px(0.0),
+    //             y: px(-2.0),
+    //         })
+    //         .menu(move |window, cx| {
+    //             Some(ContextMenu::build(
+    //                 window,
+    //                 cx,
+    //                 move |mut menu, _window, _cx| {
+    //                     menu = menu.header("More profile options");
+    //                     for slot in slots {
+    //                         let slot = *slot;
+    //                         menu = menu.header(slot.label);
+    //                         menu = menu
+    //                             .custom_row(move |_window, _cx| composer_slot_contract_row(slot));
+    //                         for option in slot.options {
+    //                             let option = *option;
+    //                             menu = menu.custom_row(move |_window, _cx| {
+    //                                 composer_option_menu_row(slot, option)
+    //                             });
+    //                         }
+    //                     }
+    //                     menu
+    //                 },
+    //             ))
+    //         })
+    //         .into_any_element()
+    // }
 
     fn render_mode_shortcuts(&self, cx: &mut Context<Self>) -> Vec<AnyElement> {
         let Some(mode_selector) = self.mode_selector.clone() else {

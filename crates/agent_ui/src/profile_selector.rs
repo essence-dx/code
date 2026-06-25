@@ -119,7 +119,7 @@ impl ProfileSelector {
             .into_iter()
             .filter(|(id, _)| {
                 let s = id.to_string().to_lowercase();
-                !s.contains("search") && !s.contains("media")
+                !s.contains("search") && !s.contains("media") && !s.contains("study")
             })
             .collect();
         if profiles.contains_key(&current_profile_id) {
