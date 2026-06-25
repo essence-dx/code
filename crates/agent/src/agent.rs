@@ -269,33 +269,20 @@ impl LanguageModels {
             .into_iter()
             .filter(|provider| provider.is_authenticated(cx))
             .collect::<Vec<_>>();
-        let native_provider_ids = providers
+        let _native_provider_ids = providers
             .iter()
             .map(|provider| provider.id().0.to_string())
             .collect::<HashSet<_>>();
 
         let mut language_model_list = IndexMap::default();
-        let mut recommended_models = HashSet::default();
         self.catalog_bridge =
             dx_catalog_agent_bridge::DxCatalogAgentBridge::load_from_environment();
 
-        let mut recommended = Vec::new();
-        for provider in &providers {
-            for model in provider.recommended_models(cx) {
-                recommended_models.insert((model.provider_id(), model.id()));
-                let mut model_info = Self::map_language_model_to_info(&model, provider);
-                self.enrich_model_info_from_catalog(&mut model_info);
-                recommended.push(model_info);
-            }
-        }
-        if !recommended.is_empty() {
-            language_model_list.insert(
-                acp_thread::AgentModelGroupName("Recommended".into()),
-                recommended,
-            );
-        }
-
         let mut models = HashMap::default();
+        // The OpenCode provider (`"opencode"`) is the built-in free tier, surfaced in the
+        // picker as the "Free" group. Pin it to the very top of the model list, ahead of every
+        // other provider, so the free models are most prominent.
+        const FREE_PROVIDER_ID: &str = "opencode";
         for provider in providers {
             let mut provider_models = Vec::new();
             for model in provider.provided_models(cx) {
@@ -305,18 +292,21 @@ impl LanguageModels {
                 provider_models.push(model_info);
                 models.insert(model_id, model);
             }
-            if !provider_models.is_empty() {
-                language_model_list.insert(
-                    acp_thread::AgentModelGroupName(provider.name().0.clone()),
-                    provider_models,
-                );
+            if provider_models.is_empty() {
+                continue;
+            }
+            let group_name = acp_thread::AgentModelGroupName(provider.name().0.clone());
+            if provider.id().0 == FREE_PROVIDER_ID {
+                language_model_list.shift_insert(0, group_name, provider_models);
+            } else {
+                language_model_list.insert(group_name, provider_models);
             }
         }
 
-        if let Some(catalog_bridge) = &self.catalog_bridge {
-            catalog_bridge
-                .append_catalog_provider_groups(&mut language_model_list, &native_provider_ids);
-        }
+        // Catalog provider groups are intentionally omitted.
+        // They would add hundreds of remote provider entries from the
+        // models.dev / litellm catalog to the model picker, which we
+        // do not want in the AI provider/model dropdown.
 
         self.models = models;
         self.model_list = acp_thread::AgentModelList::Grouped(language_model_list);

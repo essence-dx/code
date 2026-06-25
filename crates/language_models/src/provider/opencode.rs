@@ -238,7 +238,7 @@ impl LanguageModelProvider for OpenCodeLanguageModelProvider {
     }
 
     fn icon(&self) -> IconOrSvg {
-        IconOrSvg::Icon(IconName::AiOpenCode)
+        IconOrSvg::Icon(IconName::Sparkle)
     }
 
     fn default_model(&self, cx: &App) -> Option<Arc<dyn LanguageModel>> {
@@ -295,6 +295,9 @@ impl LanguageModelProvider for OpenCodeLanguageModelProvider {
 
         for model in opencode::Model::iter() {
             if matches!(model, opencode::Model::Custom { .. }) {
+                continue;
+            }
+            if matches!(model, opencode::Model::Nemotron3UltraFree) {
                 continue;
             }
             for &subscription in model.available_subscriptions() {
@@ -615,11 +618,23 @@ impl LanguageModel for OpenCodeLanguageModel {
     }
 
     fn name(&self) -> LanguageModelName {
-        LanguageModelName::from(format!(
-            "{}: {}",
-            self.subscription.display_name(),
-            self.model.display_name()
-        ))
+        if self.subscription == OpenCodeSubscription::Free {
+            let brand_name = match self.model {
+                opencode::Model::BigPickle => "xhigh",
+                opencode::Model::DeepSeekV4FlashFree => "high",
+                opencode::Model::MimoV2_5Free => "medium",
+                opencode::Model::MiniMaxM3Free => "low",
+                opencode::Model::Nemotron3SuperFree => "xlow",
+                _ => self.model.display_name(),
+            };
+            LanguageModelName::from(brand_name)
+        } else {
+            LanguageModelName::from(format!(
+                "{}: {}",
+                self.subscription.display_name(),
+                self.model.display_name()
+            ))
+        }
     }
 
     fn provider_id(&self) -> LanguageModelProviderId {
@@ -1187,7 +1202,6 @@ mod tests {
                 "mimo-v2.5-free",
                 "minimax-m3-free",
                 "nemotron-3-super-free",
-                "nemotron-3-ultra-free",
             ]
         );
     }

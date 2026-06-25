@@ -6688,7 +6688,7 @@ impl AgentPanel {
                                     "codex-acp" => Some(IconName::AiOpenAi),
                                     "github-copilot-acp" => Some(IconName::Copilot),
                                     "cursor-acp" => Some(IconName::EditorCursor),
-                                    "opencode-acp" => Some(IconName::AiOpenCode),
+                                    "opencode-acp" => Some(IconName::Sparkle),
                                     _ => None,
                                 }
                             };

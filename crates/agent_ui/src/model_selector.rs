@@ -103,6 +103,18 @@ impl ModelPickerDelegate {
                         this.update_in(cx, |this, window, cx| {
                             this.delegate.models = models.ok();
                             this.delegate.selected_model = selected_model.ok();
+                            if this.delegate.collapsed_model_groups.is_empty() {
+                                if let Some(AgentModelList::Grouped(groups)) = &this.delegate.models
+                                {
+                                    for group_name in groups.keys() {
+                                        if group_name.0 != "Free" {
+                                            this.delegate
+                                                .collapsed_model_groups
+                                                .insert(group_name.clone());
+                                        }
+                                    }
+                                }
+                            }
                             this.refresh(window, cx)
                         })
                     }
