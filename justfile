@@ -15,24 +15,27 @@ default:
 
 # Guard runnable builds before Cargo starts filling the incremental cache.
 ensure-build-headroom:
-    @$targetDir = "{{build_target_dir}}"; $zedBinary = Join-Path $targetDir "debug/dx.exe"; $requiredGb = if (Test-Path -LiteralPath $zedBinary) { [int64]{{min_incremental_free_gb}} } else { [int64]{{min_build_free_gb}} }; $driveName = (Split-Path -Qualifier $targetDir).TrimEnd(":"); $drive = Get-PSDrive -Name $driveName; $freeGb = [math]::Round($drive.Free / 1GB, 2); $minBytes = $requiredGb * 1GB; if ($drive.Free -lt $minBytes) { throw "Dx build target drive $($drive.Name): has only $freeGb GB free; need at least $requiredGb GB before running Cargo. Free rebuildable target/cache space on the configured G-drive target, then rerun this recipe." } else { Write-Host "Build target headroom OK: $freeGb GB free on $($drive.Name):" }
+    @$targetDir = "{{build_target_dir}}"; $zedBinary = Join-Path $targetDir "debug/dx-code.exe"; $requiredGb = if (Test-Path -LiteralPath $zedBinary) { [int64]{{min_incremental_free_gb}} } else { [int64]{{min_build_free_gb}} }; $driveName = (Split-Path -Qualifier $targetDir).TrimEnd(":"); $drive = Get-PSDrive -Name $driveName; $freeGb = [math]::Round($drive.Free / 1GB, 2); $minBytes = $requiredGb * 1GB; if ($drive.Free -lt $minBytes) { throw "Dx build target drive $($drive.Name): has only $freeGb GB free; need at least $requiredGb GB before running Cargo. Free rebuildable target/cache space on the configured G-drive target, then rerun this recipe." } else { Write-Host "Build target headroom OK: $freeGb GB free on $($drive.Name):" }
 
 launch-zed:
-    @$zed = "{{build_target_dir}}/debug/dx.exe"; if (!(Test-Path -LiteralPath $zed)) { throw "Built Dx binary not found at $zed" }; $startedAt = Get-Date; $logPath = Join-Path $env:LOCALAPPDATA "Dx/logs/Dx.log"; $launchPath = (Get-Location).ProviderPath; $process = Start-Process -FilePath $zed -ArgumentList @($launchPath) -WorkingDirectory (Get-Location) -WindowStyle Normal -PassThru; for ($i = 0; $i -lt 600; $i++) { Start-Sleep -Milliseconds 500; $process.Refresh(); if ($process.HasExited) { if ($process.ExitCode -eq 0 -and (Get-Process dx -ErrorAction SilentlyContinue)) { Write-Host "Dx launch request was handed to an existing process"; exit 0 }; throw "Dx exited during startup with code $($process.ExitCode)" }; if ($process.MainWindowHandle -ne [IntPtr]::Zero) { Start-Sleep -Seconds 3; $process.Refresh(); if ($process.HasExited) { throw "Dx exited during startup with code $($process.ExitCode)" }; Write-Host "Launched Dx process $($process.Id) for $launchPath and detected its main window"; exit 0 }; if (Test-Path -LiteralPath $logPath) { $renderedLine = Get-Content -Path $logPath -Tail 160 -ErrorAction SilentlyContinue | Where-Object { $_ -match "INFO\\s+\\[workspace\\]\\s+Rendered first frame" } | Select-Object -Last 1; if ($renderedLine -match "^([^ ]+)") { try { $renderedAt = [DateTimeOffset]::Parse($Matches[1]).LocalDateTime; if ($renderedAt -ge $startedAt.AddSeconds(-2)) { Start-Sleep -Seconds 3; $process.Refresh(); if ($process.HasExited) { if ($process.ExitCode -eq 0 -and (Get-Process dx -ErrorAction SilentlyContinue)) { Write-Host "Dx rendered first frame in an existing process"; exit 0 }; throw "Dx exited during startup with code $($process.ExitCode)" }; Write-Host "Launched Dx process $($process.Id) for $launchPath and observed Rendered first frame"; exit 0 } } catch {} } } }; throw "Dx process $($process.Id) stayed alive but did not report a main window or fresh first-frame log within 300s"
+    @$zed = "{{build_target_dir}}/release/dx-code.exe"; if (!(Test-Path -LiteralPath $zed)) { throw "Built Dx binary not found at $zed" }; $startedAt = Get-Date; $logPath = Join-Path $env:LOCALAPPDATA "Dx/logs/Dx.log"; $launchPath = (Get-Location).ProviderPath; $process = Start-Process -FilePath $zed -ArgumentList @($launchPath) -WorkingDirectory (Get-Location) -WindowStyle Normal -PassThru; for ($i = 0; $i -lt 600; $i++) { Start-Sleep -Milliseconds 500; $process.Refresh(); if ($process.HasExited) { if ($process.ExitCode -eq 0 -and (Get-Process dx -ErrorAction SilentlyContinue)) { Write-Host "Dx launch request was handed to an existing process"; exit 0 }; throw "Dx exited during startup with code $($process.ExitCode)" }; if ($process.MainWindowHandle -ne [IntPtr]::Zero) { Start-Sleep -Seconds 3; $process.Refresh(); if ($process.HasExited) { throw "Dx exited during startup with code $($process.ExitCode)" }; Write-Host "Launched Dx process $($process.Id) for $launchPath and detected its main window"; exit 0 }; if (Test-Path -LiteralPath $logPath) { $renderedLine = Get-Content -Path $logPath -Tail 160 -ErrorAction SilentlyContinue | Where-Object { $_ -match "INFO\\s+\\[workspace\\]\\s+Rendered first frame" } | Select-Object -Last 1; if ($renderedLine -match "^([^ ]+)") { try { $renderedAt = [DateTimeOffset]::Parse($Matches[1]).LocalDateTime; if ($renderedAt -ge $startedAt.AddSeconds(-2)) { Start-Sleep -Seconds 3; $process.Refresh(); if ($process.HasExited) { if ($process.ExitCode -eq 0 -and (Get-Process dx -ErrorAction SilentlyContinue)) { Write-Host "Dx rendered first frame in an existing process"; exit 0 }; throw "Dx exited during startup with code $($process.ExitCode)" }; Write-Host "Launched Dx process $($process.Id) for $launchPath and observed Rendered first frame"; exit 0 } } catch {} } } }; throw "Dx process $($process.Id) stayed alive but did not report a main window or fresh first-frame log within 300s"
 
 # RECOMMENDED: Fast local UI loop. Builds only the Zed app with incremental cache.
 run: ensure-build-headroom
     @echo "Running Dx with fast incremental G-drive build settings..."
-    @echo "Building the dx binary"
-    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "8" } else { $env:CARGO_BUILD_JOBS }; $incremental = if ([string]::IsNullOrWhiteSpace($env:CARGO_INCREMENTAL)) { "1" } else { $env:CARGO_INCREMENTAL }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = $incremental; Write-Host "Using Cargo config: locked Cargo.lock, $jobs job(s), G:/Dx/code/target, rust-lld linker, no debug info, incremental=$incremental"; cargo build --locked -p zed --bin dx
-    @echo "Build complete! Launching Dx once..."
+    @echo "Building the dx binary (release)"
+    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "8" } else { $env:CARGO_BUILD_JOBS }; $incremental = if ([string]::IsNullOrWhiteSpace($env:CARGO_INCREMENTAL)) { "1" } else { $env:CARGO_INCREMENTAL }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = $incremental; Write-Host "Using Cargo config: locked Cargo.lock, $jobs job(s), G:/Dx/code/target, rust-lld linker, no debug info, incremental=$incremental"; cargo build --release --locked -p zed --bin dx-code
+    @echo "Build complete! Copying binary to bin folder..."
+    @New-Item -ItemType Directory -Force -Path G:\Dx\bin | Out-Null
+    @Copy-Item "{{build_target_dir}}/release/dx-code.exe" G:\Dx\bin\dx-code.exe -Force
+    @echo "Launching Dx once..."
     @just launch-zed
 
 # Full validation path when the development CLI companion also needs rebuilding.
 run-full: ensure-build-headroom
     @echo "Running Dx with full incremental G-drive build settings..."
     @echo "Building the dx binary plus the development CLI companion"
-    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "8" } else { $env:CARGO_BUILD_JOBS }; $incremental = if ([string]::IsNullOrWhiteSpace($env:CARGO_INCREMENTAL)) { "1" } else { $env:CARGO_INCREMENTAL }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = $incremental; Write-Host "Using Cargo config: locked Cargo.lock, $jobs job(s), G:/Dx/code/target, rust-lld linker, no debug info, incremental=$incremental"; cargo build --locked -p zed --bin dx; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; cargo build --locked -p cli --bin cli
+    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "8" } else { $env:CARGO_BUILD_JOBS }; $incremental = if ([string]::IsNullOrWhiteSpace($env:CARGO_INCREMENTAL)) { "1" } else { $env:CARGO_INCREMENTAL }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = $incremental; Write-Host "Using Cargo config: locked Cargo.lock, $jobs job(s), G:/Dx/code/target, rust-lld linker, no debug info, incremental=$incremental"; cargo build --locked -p zed --bin dx-code; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; cargo build --locked -p cli --bin cli
     @echo "Build complete! Launching Dx once..."
     @just launch-zed
 
@@ -40,7 +43,7 @@ run-full: ensure-build-headroom
 run-cranelift: ensure-build-headroom
     @echo "Building with Cranelift backend (nightly required)..."
     @echo "Cranelift can reduce linker pressure on very large Rust builds"
-    $env:CARGO_INCREMENTAL = "0"; cargo +nightly build --locked -p zed --bin dx -Z codegen-backend
+    $env:CARGO_INCREMENTAL = "0"; cargo +nightly build --locked -p zed --bin dx-code -Z codegen-backend
     $env:CARGO_INCREMENTAL = "0"; cargo +nightly build --locked -p cli --bin cli -Z codegen-backend
     @echo "Build complete! Running Dx..."
     @just launch-zed
@@ -48,14 +51,14 @@ run-cranelift: ensure-build-headroom
 # Continue interrupted build
 continue: ensure-build-headroom
     @echo "Continuing interrupted build..."
-    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "8" } else { $env:CARGO_BUILD_JOBS }; $incremental = if ([string]::IsNullOrWhiteSpace($env:CARGO_INCREMENTAL)) { "1" } else { $env:CARGO_INCREMENTAL }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = $incremental; cargo build --locked -p zed --bin dx
+    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "8" } else { $env:CARGO_BUILD_JOBS }; $incremental = if ([string]::IsNullOrWhiteSpace($env:CARGO_INCREMENTAL)) { "1" } else { $env:CARGO_INCREMENTAL }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = $incremental; cargo build --locked -p zed --bin dx-code
     @echo "Build complete! Running Dx..."
     @just launch-zed
 
 # Build only (no run)
 build: ensure-build-headroom
-    @echo "Building Dx with balanced G-drive settings..."
-    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "8" } else { $env:CARGO_BUILD_JOBS }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = "1"; cargo build --locked -p zed --bin dx
+    @echo "Building Dx with balanced G-drive settings (release)..."
+    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "8" } else { $env:CARGO_BUILD_JOBS }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = "1"; cargo build --release --locked -p zed --bin dx-code
 
 # Check code without building
 check:
@@ -83,7 +86,7 @@ clean:
 # Clean only the final binary (keeps incremental cache)
 clean-binary:
     @echo "Cleaning only the final binary (keeps incremental build cache)..."
-    Remove-Item -LiteralPath "{{build_target_dir}}/debug/dx","{{build_target_dir}}/debug/dx.exe" -Force -ErrorAction SilentlyContinue
+    Remove-Item -LiteralPath "{{build_target_dir}}/debug/dx-code","{{build_target_dir}}/debug/dx-code.exe" -Force -ErrorAction SilentlyContinue
 
 # Install nightly Rust and Cranelift (one-time setup)
 setup-cranelift:

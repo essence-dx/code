@@ -6,7 +6,7 @@ version = "1.8.0"
 publish.workspace = true
 license = "GPL-3.0-or-later"
 authors = ["Zed Team <hi@zed.dev>"]
-default-run = "dx" # rebranded binary name
+default-run = "dx-code"
 
 [lints]
 workspace = true
@@ -54,8 +54,8 @@ visual-tests = [
 ]
 
 [[bin]]
-name = "dx"
-path = "src/main.rs" # rebranded from zed to dx (safely; crate remains zed for deps)
+name = "dx-code"
+path = "src/main.rs"
 
 [[bin]]
 name = "zed_visual_test_runner"
