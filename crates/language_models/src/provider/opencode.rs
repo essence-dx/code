@@ -627,7 +627,7 @@ impl LanguageModel for OpenCodeLanguageModel {
                 opencode::Model::Nemotron3SuperFree => "xlow",
                 _ => self.model.display_name(),
             };
-            LanguageModelName::from(brand_name)
+            LanguageModelName::from(brand_name.to_string())
         } else {
             LanguageModelName::from(format!(
                 "{}: {}",

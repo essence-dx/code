@@ -410,7 +410,11 @@ impl PickerDelegate for ModelPickerDelegate {
                     })
                 };
 
-                let model_cost = model_info.cost.clone();
+                let model_cost = model_info
+                    .cost
+                    .as_ref()
+                    .filter(|c| c.as_ref() != "Free")
+                    .map(|c| c.clone());
 
                 Some(
                     div()

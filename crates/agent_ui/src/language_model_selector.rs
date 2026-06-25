@@ -175,7 +175,10 @@ impl LanguageModelPickerDelegate {
     ) -> Self {
         let on_model_changed = Arc::new(on_model_changed);
         let models = all_models(cx);
-        let collapsed_provider_groups = HashSet::default();
+        let mut collapsed_provider_groups = HashSet::default();
+        for provider_id in models.all.keys().skip(1) {
+            collapsed_provider_groups.insert(provider_id.clone());
+        }
         let entries = models.entries(&collapsed_provider_groups, false);
 
         Self {
@@ -195,7 +198,13 @@ impl LanguageModelPickerDelegate {
                         | language_model::Event::AddedProvider(_)
                         | language_model::Event::RemovedProvider(_) => {
                             let query = picker.query(cx);
-                            picker.delegate.all_models = Arc::new(all_models(cx));
+                            let models = all_models(cx);
+                            let mut collapsed_provider_groups = HashSet::default();
+                            for provider_id in models.all.keys().skip(1) {
+                                collapsed_provider_groups.insert(provider_id.clone());
+                            }
+                            picker.delegate.collapsed_provider_groups = collapsed_provider_groups;
+                            picker.delegate.all_models = Arc::new(models);
                             // Update matches will automatically drop the previous task
                             // if we get a provider event again
                             picker.update_matches(query, window, cx)

@@ -239,7 +239,9 @@ impl Panel for DxForgePanel {
     }
 
     fn icon(&self, _: &Window, _: &App) -> Option<IconName> {
-        Some(dx_icon(DxUiIcon::Forge))
+        // Commented out per request - forge icon button hidden from status bar
+        // Some(dx_icon(DxUiIcon::Forge))
+        None
     }
 
     fn icon_tooltip(&self, _: &Window, _: &App) -> Option<&'static str> {
