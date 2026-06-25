@@ -1,0 +1,9 @@
+{
+  "enabled": true,
+  "strategy": "shell-first-deferred-boundaries",
+  "shell_bytes": 272,
+  "first_flush_html": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"></head><body><main class=\"dx-shell\" data-dx-stream-shell=\"true\" data-dx-route=\"/share/[token]/prototype\" data-dx-runtime=\"static\" data-dx-deferred-chunks=\"0\" data-dx-resumable-islands=\"0\"><h1>www route</h1></main>",
+  "deferred_chunks": [],
+  "resumable_islands": [],
+  "node_modules_required": false
+}

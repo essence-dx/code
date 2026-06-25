@@ -1,0 +1,46 @@
+{
+  "route_id": "/share/:token",
+  "source_path": "src/app/share/[token]/page.tsx",
+  "root_component_id": "app/page",
+  "components": {
+    "nodes": [
+      {
+        "id": "app/page",
+        "name": "Page",
+        "package_id": null,
+        "content_hash": "ee490088b5670dff1232f9856ec0c56cc8a4ff94e4382a8306106de40e2cb93f"
+      },
+      {
+        "id": "component/lucide-react",
+        "name": "lucide-react",
+        "package_id": null,
+        "content_hash": "b9b0a8debf22abe8d25a57298c9235c4a7fc8ac5f3fba4372cb8c96176238032"
+      },
+      {
+        "id": "component/button",
+        "name": "button",
+        "package_id": null,
+        "content_hash": "a045a54d4568e98d8a743f536757d85e3692f4be46c2473046e7b07b9fd1fb37"
+      },
+      {
+        "id": "component/shared-comment-handoff",
+        "name": "shared-comment-handoff",
+        "package_id": null,
+        "content_hash": "1bd4ee5f217aa1dcadccf2532b9ade827ef3c12e74177539da06539ba6fa7a44"
+      },
+      {
+        "id": "component/public-route-analytics-beacon",
+        "name": "public-route-analytics-beacon",
+        "package_id": null,
+        "content_hash": "e625d5faf9617e0ae0c20edc9eb41c40fb5f266494542883ce8f59ca2c36bae0"
+      }
+    ],
+    "edges": []
+  },
+  "styles": {
+    "tokens": [],
+    "classes": [],
+    "delivery": "generated-css"
+  },
+  "source_manifest_hash": null
+}

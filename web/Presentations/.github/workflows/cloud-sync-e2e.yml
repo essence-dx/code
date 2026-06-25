@@ -1,0 +1,108 @@
+name: Cloud Sync E2E Smoke
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/cloud-sync-e2e.yml"
+      - "package.json"
+      - "bun.lock"
+      - "scripts/cloud-sync-e2e-*.ts"
+      - "src/features/presentation/cloud-sync-*.ts"
+      - "src/features/presentation/components/cloud-*.tsx"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/cloud-sync-e2e.yml"
+      - "package.json"
+      - "bun.lock"
+      - "scripts/cloud-sync-e2e-*.ts"
+      - "src/features/presentation/cloud-sync-*.ts"
+      - "src/features/presentation/components/cloud-*.tsx"
+  workflow_dispatch:
+    inputs:
+      app_url:
+        description: "URL of a running Essence PowerPoint app with test data"
+        required: true
+        type: string
+      flow_id:
+        description: "Optional single cloud-sync flow id to run"
+        required: false
+        type: string
+      search_query:
+        description: "Optional cloud deck search query used by the open-deck flow"
+        required: false
+        type: string
+      storage_state_secret:
+        description: "Optional secret name containing Playwright storageState JSON"
+        required: false
+        type: string
+
+jobs:
+  cloud-sync-e2e-readiness:
+    name: Cloud sync e2e readiness
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      CLOUD_SYNC_E2E_URL: ${{ github.event_name == 'workflow_dispatch' && inputs.app_url || '' }}
+      CLOUD_SYNC_E2E_FLOW_ID: ${{ github.event_name == 'workflow_dispatch' && inputs.flow_id || '' }}
+      CLOUD_SYNC_E2E_REQUIRE_URL: ${{ github.event_name == 'workflow_dispatch' && 'true' || '' }}
+      CLOUD_SYNC_E2E_TIMEOUT_MS: "7000"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Validate cloud sync e2e contract
+        run: bun run test:cloud-sync-e2e:readiness
+
+  cloud-sync-e2e:
+    name: Cloud sync browser smoke
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    needs: cloud-sync-e2e-readiness
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CLOUD_SYNC_E2E_URL: ${{ inputs.app_url }}
+      CLOUD_SYNC_E2E_FLOW_ID: ${{ inputs.flow_id }}
+      CLOUD_SYNC_E2E_SEARCH_QUERY: ${{ inputs.search_query }}
+      CLOUD_SYNC_E2E_TIMEOUT_MS: "7000"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Install Playwright smoke dependency
+        run: |
+          bun add --dev @playwright/test
+          bunx playwright install --with-deps chromium
+
+      - name: Write optional storage state
+        if: ${{ inputs.storage_state_secret != '' }}
+        env:
+          STORAGE_STATE_JSON: ${{ secrets[inputs.storage_state_secret] }}
+        run: |
+          if [ -z "$STORAGE_STATE_JSON" ]; then
+            echo "Requested storage_state_secret was empty or unavailable." >&2
+            exit 1
+          fi
+          printf '%s' "$STORAGE_STATE_JSON" > storage-state.json
+
+      - name: Run cloud sync e2e smoke
+        env:
+          CLOUD_SYNC_E2E_STORAGE_STATE: ${{ inputs.storage_state_secret != '' && 'storage-state.json' || '' }}
+        run: bun run test:cloud-sync-e2e

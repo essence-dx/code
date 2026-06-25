@@ -1,0 +1,303 @@
+import "./globals.css";
+
+export const metadata = {
+  title: "Essence Figma",
+  description: "Private design workspace for Essence.",
+} as const;
+
+export default function Home() {
+  return (
+    <main
+      className="relative flex h-dvh min-h-0 flex-col overflow-hidden bg-background text-foreground"
+      data-dx-project="figma"
+      data-dx-route-source="src/app/page.tsx"
+      data-dx-source-component="EditorWorkspace"
+      data-dx-source-file="src/features/editor/components/editor-workspace.tsx"
+      data-dx-source-model="src/features/editor/default-document.ts"
+    >
+      <header className="flex min-h-12 shrink-0 flex-wrap items-center gap-2 border-b border-border bg-card/95 px-2 py-2 lg:h-12 lg:flex-nowrap lg:px-3 lg:py-0">
+        <div className="flex min-w-0 flex-1 items-center gap-3">
+          <div className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
+            <span className="font-mono text-xs font-bold">EF</span>
+          </div>
+          <div className="min-w-0">
+            <div className="truncate text-sm font-medium">DX WWW Design</div>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <span>Canvas</span>
+              <span className="rounded-sm bg-secondary px-1.5 py-0.5 text-[10px] text-secondary-foreground">
+                saved
+              </span>
+              <span>Local workspace</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex max-w-full min-w-0 flex-1 items-center justify-end gap-1 overflow-x-auto lg:flex-none lg:gap-2">
+          <button className="inline-flex h-7 items-center rounded-md bg-secondary px-2.5 text-[0.8rem] font-medium text-secondary-foreground" type="button">
+            File
+          </button>
+          <a className="inline-flex h-7 items-center rounded-md bg-secondary px-2.5 text-[0.8rem] font-medium text-secondary-foreground" href="/dashboard">
+            Dashboard
+          </a>
+          <button className="inline-flex h-7 items-center rounded-md bg-primary px-2.5 text-[0.8rem] font-medium text-primary-foreground" type="button">
+            Save
+          </button>
+          <button className="inline-flex h-7 items-center rounded-md bg-secondary px-2.5 text-[0.8rem] font-medium text-secondary-foreground" type="button">
+            Sync
+          </button>
+          <div className="flex size-8 items-center justify-center rounded-full border border-border bg-background text-xs font-medium">
+            DX
+          </div>
+        </div>
+      </header>
+
+      <nav className="pointer-events-auto absolute bottom-4 inset-x-4 z-40 mx-auto flex w-fit max-w-full items-center justify-center gap-1 overflow-x-auto rounded-lg border border-border bg-card/95 p-1 shadow-xl">
+        <div className="flex items-center gap-1 rounded-md border border-border bg-card p-1">
+          <button aria-label="Select" className="inline-flex h-8 min-w-8 items-center justify-center rounded-sm bg-secondary px-2 text-[11px] font-medium text-secondary-foreground" type="button">
+            V
+          </button>
+          <button aria-label="Pan" className="inline-flex h-8 min-w-8 items-center justify-center rounded-sm px-2 text-[11px] font-medium text-muted-foreground hover:bg-muted hover:text-foreground" type="button">
+            H
+          </button>
+          <button aria-label="Pen" className="inline-flex h-8 min-w-8 items-center justify-center rounded-sm px-2 text-[11px] font-medium text-muted-foreground hover:bg-muted hover:text-foreground" type="button">
+            P
+          </button>
+          <button aria-label="Frame" className="inline-flex h-8 min-w-8 items-center justify-center rounded-sm px-2 text-[11px] font-medium text-muted-foreground hover:bg-muted hover:text-foreground" type="button">
+            F
+          </button>
+          <button aria-label="Rectangle" className="inline-flex h-8 min-w-8 items-center justify-center rounded-sm px-2 text-[11px] font-medium text-muted-foreground hover:bg-muted hover:text-foreground" type="button">
+            □
+          </button>
+          <button aria-label="Text" className="inline-flex h-8 min-w-8 items-center justify-center rounded-sm px-2 text-[11px] font-medium text-muted-foreground hover:bg-muted hover:text-foreground" type="button">
+            T
+          </button>
+          <button aria-label="Comment" className="inline-flex h-8 min-w-8 items-center justify-center rounded-sm px-2 text-[11px] font-medium text-muted-foreground hover:bg-muted hover:text-foreground" type="button">
+            C
+          </button>
+        </div>
+
+        <div className="ml-2 flex items-center gap-1 rounded-md border border-border bg-card p-1">
+          <button aria-label="Undo" className="inline-flex h-8 min-w-8 items-center justify-center rounded-sm px-2 text-[11px] font-medium text-muted-foreground disabled:opacity-50" disabled type="button">
+            ↶
+          </button>
+          <button aria-label="Redo" className="inline-flex h-8 min-w-8 items-center justify-center rounded-sm px-2 text-[11px] font-medium text-muted-foreground disabled:opacity-50" disabled type="button">
+            ↷
+          </button>
+          <button aria-label="Paste" className="inline-flex h-8 min-w-8 items-center justify-center rounded-sm px-2 text-[11px] font-medium text-muted-foreground hover:bg-muted hover:text-foreground" type="button">
+            P
+          </button>
+          <button aria-label="Duplicate" className="inline-flex h-8 min-w-8 items-center justify-center rounded-sm px-2 text-[11px] font-medium text-muted-foreground disabled:opacity-50" disabled type="button">
+            D
+          </button>
+          <button aria-label="Component" className="inline-flex h-8 min-w-8 items-center justify-center rounded-sm px-2 text-[11px] font-medium text-muted-foreground disabled:opacity-50" disabled type="button">
+            ◇
+          </button>
+        </div>
+      </nav>
+
+      <div className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[minmax(11rem,22dvh)_minmax(20rem,1fr)_minmax(14rem,30dvh)] lg:grid-cols-[minmax(0,clamp(230px,18vw,292px))_minmax(0,1fr)_minmax(0,clamp(282px,22vw,360px))] lg:grid-rows-1">
+        <aside className="flex min-h-0 min-w-0 max-w-full flex-col overflow-hidden border-b border-border bg-card lg:border-b-0 lg:border-r">
+          <div className="flex h-11 items-center px-2">
+            <div className="grid h-9 w-full grid-cols-6 gap-1 rounded-lg bg-muted p-1">
+              <button aria-label="Files" className="inline-flex min-w-0 items-center justify-center rounded-md px-1 text-[10px] font-medium text-muted-foreground" type="button">
+                Files
+              </button>
+              <button aria-label="Layers" className="inline-flex min-w-0 items-center justify-center rounded-md bg-background px-1 text-[10px] font-medium text-foreground shadow-sm" type="button">
+                Layers
+              </button>
+              <button aria-label="Assets" className="inline-flex min-w-0 items-center justify-center rounded-md px-1 text-[10px] font-medium text-muted-foreground" type="button">
+                Assets
+              </button>
+              <button aria-label="Notes" className="inline-flex min-w-0 items-center justify-center rounded-md px-1 text-[10px] font-medium text-muted-foreground" type="button">
+                Notes
+              </button>
+              <button aria-label="Extensions" className="inline-flex min-w-0 items-center justify-center rounded-md px-1 text-[10px] font-medium text-muted-foreground" type="button">
+                Extensions
+              </button>
+              <button aria-label="Activity" className="inline-flex min-w-0 items-center justify-center rounded-md px-1 text-[10px] font-medium text-muted-foreground" type="button">
+                Activity
+              </button>
+            </div>
+          </div>
+
+          <div className="min-h-0 flex-1 overflow-auto border-t border-border">
+            <section className="border-b border-border p-2">
+              <div className="mb-2 flex h-7 items-center justify-between">
+                <span className="px-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  Files
+                </span>
+                <span className="rounded-sm bg-secondary px-1.5 py-0.5 text-[10px] text-secondary-foreground">
+                  1
+                </span>
+              </div>
+              <button className="w-full rounded-md border border-primary/40 bg-primary/10 px-2 py-2 text-left" type="button">
+                <span className="block truncate text-xs font-medium">
+                  DX WWW Design
+                </span>
+                <span className="mt-1 block text-[11px] text-muted-foreground">
+                  1 page / 3 layers
+                </span>
+              </button>
+            </section>
+
+            <section className="border-b border-border p-2">
+              <div className="mb-2 flex h-7 items-center justify-between">
+                <span className="px-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  Pages
+                </span>
+                <span className="rounded-sm bg-secondary px-1.5 py-0.5 text-[10px] text-secondary-foreground">
+                  1
+                </span>
+              </div>
+              <div className="rounded-md border border-border bg-background px-2 py-2">
+                <div className="truncate text-xs font-medium">Canvas</div>
+                <div className="mt-1 text-[11px] text-muted-foreground">
+                  3 layers
+                </div>
+              </div>
+            </section>
+
+            <section className="p-2">
+              <div className="mb-2 flex h-7 items-center justify-between">
+                <span className="px-1 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  Layers
+                </span>
+                <span className="rounded-sm bg-secondary px-1.5 py-0.5 text-[10px] text-secondary-foreground">
+                  3
+                </span>
+              </div>
+              <div className="space-y-1">
+                <button className="flex w-full min-w-0 items-center justify-between gap-2 rounded-md border border-border bg-background px-2 py-2 text-left text-xs" type="button">
+                  <span className="min-w-0 truncate">
+                    Workspace note
+                  </span>
+                  <span className="shrink-0 font-mono text-[10px] text-muted-foreground">
+                    text
+                  </span>
+                </button>
+                <button className="flex w-full min-w-0 items-center justify-between gap-2 rounded-md border border-border bg-background px-2 py-2 text-left text-xs" type="button">
+                  <span className="min-w-0 truncate">
+                    Start designing
+                  </span>
+                  <span className="shrink-0 font-mono text-[10px] text-muted-foreground">
+                    text
+                  </span>
+                </button>
+                <button className="flex w-full min-w-0 items-center justify-between gap-2 rounded-md border border-primary/40 bg-primary/10 px-2 py-2 text-left text-xs" type="button">
+                  <span className="min-w-0 truncate">
+                    DX Designer Board
+                  </span>
+                  <span className="shrink-0 font-mono text-[10px] text-muted-foreground">
+                    frame
+                  </span>
+                </button>
+              </div>
+            </section>
+          </div>
+        </aside>
+
+        <section className="relative min-h-0 overflow-hidden bg-muted/25">
+          <div className="flex h-11 items-center justify-between gap-3 border-b border-border bg-card/70 px-3 text-xs text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <span className="font-medium text-foreground">Canvas</span>
+              <span>86%</span>
+              <span>#0f0f10</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <button className="h-7 rounded-md border border-border bg-background px-2" type="button">
+                Present
+              </button>
+              <button className="h-7 rounded-md border border-border bg-background px-2" type="button">
+                Export
+              </button>
+            </div>
+          </div>
+
+          <div className="h-[calc(100%-2.75rem)] overflow-auto p-8">
+            <div className="figma-canvas-backdrop relative mx-auto grid min-h-[640px] w-[1120px] max-w-full place-items-center rounded-xl border border-border shadow-2xl shadow-black/25">
+              <div className="figma-canvas-stage relative origin-center overflow-visible" data-dx-canvas-page="Canvas">
+                <div className="figma-layer-frame absolute shadow-xl shadow-black/20 ring-2 ring-primary" data-dx-layer-name="DX Designer Board" data-dx-layer-type="frame" />
+                <div className="figma-layer-title absolute flex items-center overflow-hidden whitespace-pre-wrap" data-dx-layer-name="Start designing" data-dx-layer-type="text">
+                  Start designing
+                </div>
+                <div className="figma-layer-note absolute flex items-center overflow-hidden whitespace-pre-wrap" data-dx-layer-name="Workspace note" data-dx-layer-type="text">
+                  Create layers, tune properties, and keep the workspace moving.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside className="min-h-0 overflow-auto border-t border-border bg-card lg:border-l lg:border-t-0">
+          <div className="space-y-4 p-3">
+            <section className="space-y-2">
+              <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Properties
+              </h2>
+              <div className="rounded-md border border-border bg-background p-3">
+                <div className="truncate text-sm font-medium">
+                  DX Designer Board
+                </div>
+                <div className="mt-1 font-mono text-xs text-muted-foreground">
+                  960 x 560
+                </div>
+                <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
+                  <div className="rounded-md border border-border bg-card p-2">
+                    <span className="block text-muted-foreground">X</span>
+                    <span className="font-mono">160</span>
+                  </div>
+                  <div className="rounded-md border border-border bg-card p-2">
+                    <span className="block text-muted-foreground">Y</span>
+                    <span className="font-mono">120</span>
+                  </div>
+                  <div className="rounded-md border border-border bg-card p-2">
+                    <span className="block text-muted-foreground">Fill</span>
+                    <span className="font-mono">#f6f7f9</span>
+                  </div>
+                  <div className="rounded-md border border-border bg-card p-2">
+                    <span className="block text-muted-foreground">Stroke</span>
+                    <span className="font-mono">#d4d4d8</span>
+                  </div>
+                  <div className="rounded-md border border-border bg-card p-2">
+                    <span className="block text-muted-foreground">Radius</span>
+                    <span className="font-mono">12</span>
+                  </div>
+                  <div className="rounded-md border border-border bg-card p-2">
+                    <span className="block text-muted-foreground">Opacity</span>
+                    <span className="font-mono">100%</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Variables
+              </h2>
+              <div className="grid grid-cols-1 gap-2 text-xs">
+                <div className="rounded-md border border-border bg-background p-2">
+                  <span className="block truncate text-muted-foreground">
+                    color/surface
+                  </span>
+                  <span className="font-mono">#18181b</span>
+                </div>
+                <div className="rounded-md border border-border bg-background p-2">
+                  <span className="block truncate text-muted-foreground">
+                    color/accent
+                  </span>
+                  <span className="font-mono">#5eead4</span>
+                </div>
+                <div className="rounded-md border border-border bg-background p-2">
+                  <span className="block truncate text-muted-foreground">
+                    radius/default
+                  </span>
+                  <span className="font-mono">8</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </aside>
+      </div>
+    </main>
+  );
+}

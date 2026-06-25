@@ -1,0 +1,1 @@
+ALTER TABLE `deck_share` ADD `expires_at` integer;

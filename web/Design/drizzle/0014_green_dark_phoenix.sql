@@ -1,0 +1,1 @@
+ALTER TABLE `project_comment` ADD `mentions` text DEFAULT '[]' NOT NULL;

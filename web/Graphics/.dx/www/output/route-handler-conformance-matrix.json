@@ -1,0 +1,67 @@
+{
+  "schema": "dx.www.deploy.route_handler_conformance_matrix",
+  "schema_revision": 1,
+  "manifest_hash": "blake3:7a43c0c564813b653d0352eb1b4ec0c69c8f31ef745956b09486d5af14d3511a",
+  "path": "route-handler-conformance-matrix.json",
+  "release_ready": false,
+  "hosted_provider_proof": false,
+  "matrix_status": "local-route-handler-conformance-foundation",
+  "coverage": {
+    "route_handlers": 1,
+    "health_checks": 0,
+    "get_head_preview_checks": 0,
+    "automatic_options_cases": 1,
+    "method_not_allowed_cases": 1
+  },
+  "routes": [
+    {
+      "path": "/api/public-route-events",
+      "source_path": "src/app/api/public-route-events/route.ts",
+      "allowed_methods": [
+        "POST",
+        "OPTIONS"
+      ],
+      "declared_methods": [
+        "POST"
+      ],
+      "implicit_methods": [
+        "OPTIONS"
+      ],
+      "safe_build_methods": [],
+      "skipped_build_methods": [
+        "POST",
+        "OPTIONS"
+      ],
+      "local_replay_cases": [
+        {
+          "method": "POST",
+          "expected_status": "source handler response",
+          "proof": "route-handler-contract-metadata",
+          "execution_scope": "source-owned-route-handler-runtime",
+          "hosted_provider": false
+        },
+        {
+          "method": "OPTIONS",
+          "expected_status": "204 No Content",
+          "proof": "automatic_route_handler_options_response",
+          "execution_scope": "source-owned-dev-runtime",
+          "hosted_provider": false
+        }
+      ],
+      "method_not_allowed_case": {
+        "method": "PUT",
+        "expected_status": "405 Method Not Allowed",
+        "expectation_source": "source-owned-route-handler-method-guard-contract",
+        "proof_status": "expected-contract-not-hosted-replayed",
+        "hosted_provider": false
+      }
+    }
+  ],
+  "not_yet_proven": [
+    "provider-hosted GET/HEAD/OPTIONS/405 matrix",
+    "provider-hosted streaming body transport",
+    "multi-provider route-handler conformance replay",
+    "signed manifest promotion before hosted release"
+  ],
+  "rule": "This matrix is local deploy-contract and source-owned runtime evidence only; it is not hosted provider conformance proof."
+}

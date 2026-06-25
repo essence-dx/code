@@ -1,0 +1,346 @@
+{
+  "route_id": "/share/[token]/prototype",
+  "source_path": "src/app/share/[token]/prototype/page.tsx",
+  "root_component_id": "app/page",
+  "components": {
+    "nodes": [
+      {
+        "id": "app/page",
+        "name": "Page",
+        "package_id": null,
+        "content_hash": "52ad4d87acdf954a85249db85234e59df154ba6d15a18f09f029acb72a1eff53"
+      }
+    ],
+    "edges": []
+  },
+  "styles": {
+    "tokens": [
+      {
+        "name": "--accent",
+        "value": "oklch(0.97 0 0)"
+      },
+      {
+        "name": "--accent-foreground",
+        "value": "oklch(0.205 0 0)"
+      },
+      {
+        "name": "--background",
+        "value": "oklch(1 0 0)"
+      },
+      {
+        "name": "--border",
+        "value": "oklch(0.922 0 0)"
+      },
+      {
+        "name": "--card",
+        "value": "oklch(1 0 0)"
+      },
+      {
+        "name": "--card-foreground",
+        "value": "oklch(0.145 0 0)"
+      },
+      {
+        "name": "--chart-1",
+        "value": "oklch(0.87 0 0)"
+      },
+      {
+        "name": "--chart-2",
+        "value": "oklch(0.556 0 0)"
+      },
+      {
+        "name": "--chart-3",
+        "value": "oklch(0.439 0 0)"
+      },
+      {
+        "name": "--chart-4",
+        "value": "oklch(0.371 0 0)"
+      },
+      {
+        "name": "--chart-5",
+        "value": "oklch(0.269 0 0)"
+      },
+      {
+        "name": "--color-accent",
+        "value": "var(--accent)"
+      },
+      {
+        "name": "--color-accent-foreground",
+        "value": "var(--accent-foreground)"
+      },
+      {
+        "name": "--color-background",
+        "value": "var(--background)"
+      },
+      {
+        "name": "--color-border",
+        "value": "var(--border)"
+      },
+      {
+        "name": "--color-card",
+        "value": "var(--card)"
+      },
+      {
+        "name": "--color-card-foreground",
+        "value": "var(--card-foreground)"
+      },
+      {
+        "name": "--color-chart-1",
+        "value": "var(--chart-1)"
+      },
+      {
+        "name": "--color-chart-2",
+        "value": "var(--chart-2)"
+      },
+      {
+        "name": "--color-chart-3",
+        "value": "var(--chart-3)"
+      },
+      {
+        "name": "--color-chart-4",
+        "value": "var(--chart-4)"
+      },
+      {
+        "name": "--color-chart-5",
+        "value": "var(--chart-5)"
+      },
+      {
+        "name": "--color-destructive",
+        "value": "var(--destructive)"
+      },
+      {
+        "name": "--color-foreground",
+        "value": "var(--foreground)"
+      },
+      {
+        "name": "--color-input",
+        "value": "var(--input)"
+      },
+      {
+        "name": "--color-muted",
+        "value": "var(--muted)"
+      },
+      {
+        "name": "--color-muted-foreground",
+        "value": "var(--muted-foreground)"
+      },
+      {
+        "name": "--color-popover",
+        "value": "var(--popover)"
+      },
+      {
+        "name": "--color-popover-foreground",
+        "value": "var(--popover-foreground)"
+      },
+      {
+        "name": "--color-primary",
+        "value": "var(--primary)"
+      },
+      {
+        "name": "--color-primary-foreground",
+        "value": "var(--primary-foreground)"
+      },
+      {
+        "name": "--color-ring",
+        "value": "var(--ring)"
+      },
+      {
+        "name": "--color-secondary",
+        "value": "var(--secondary)"
+      },
+      {
+        "name": "--color-secondary-foreground",
+        "value": "var(--secondary-foreground)"
+      },
+      {
+        "name": "--color-sidebar",
+        "value": "var(--sidebar)"
+      },
+      {
+        "name": "--color-sidebar-accent",
+        "value": "var(--sidebar-accent)"
+      },
+      {
+        "name": "--color-sidebar-accent-foreground",
+        "value": "var(--sidebar-accent-foreground)"
+      },
+      {
+        "name": "--color-sidebar-border",
+        "value": "var(--sidebar-border)"
+      },
+      {
+        "name": "--color-sidebar-foreground",
+        "value": "var(--sidebar-foreground)"
+      },
+      {
+        "name": "--color-sidebar-primary",
+        "value": "var(--sidebar-primary)"
+      },
+      {
+        "name": "--color-sidebar-primary-foreground",
+        "value": "var(--sidebar-primary-foreground)"
+      },
+      {
+        "name": "--color-sidebar-ring",
+        "value": "var(--sidebar-ring)"
+      },
+      {
+        "name": "--destructive",
+        "value": "oklch(0.577 0.245 27.325)"
+      },
+      {
+        "name": "--font-heading",
+        "value": "\"Geist\", \"Geist Fallback\", ui-sans-serif, system-ui, sans-serif"
+      },
+      {
+        "name": "--font-mono",
+        "value": "\"Geist Mono\", \"Geist Mono Fallback\", ui-monospace, monospace"
+      },
+      {
+        "name": "--font-sans",
+        "value": "\"Geist\", \"Geist Fallback\", ui-sans-serif, system-ui, sans-serif"
+      },
+      {
+        "name": "--foreground",
+        "value": "oklch(0.145 0 0)"
+      },
+      {
+        "name": "--input",
+        "value": "oklch(0.922 0 0)"
+      },
+      {
+        "name": "--muted",
+        "value": "oklch(0.97 0 0)"
+      },
+      {
+        "name": "--muted-foreground",
+        "value": "oklch(0.556 0 0)"
+      },
+      {
+        "name": "--popover",
+        "value": "oklch(1 0 0)"
+      },
+      {
+        "name": "--popover-foreground",
+        "value": "oklch(0.145 0 0)"
+      },
+      {
+        "name": "--primary",
+        "value": "oklch(0.205 0 0)"
+      },
+      {
+        "name": "--primary-foreground",
+        "value": "oklch(0.985 0 0)"
+      },
+      {
+        "name": "--radius",
+        "value": "0.625rem"
+      },
+      {
+        "name": "--radius-2xl",
+        "value": "calc(var(--radius) * 1.8)"
+      },
+      {
+        "name": "--radius-3xl",
+        "value": "calc(var(--radius) * 2.2)"
+      },
+      {
+        "name": "--radius-4xl",
+        "value": "calc(var(--radius) * 2.6)"
+      },
+      {
+        "name": "--radius-lg",
+        "value": "var(--radius)"
+      },
+      {
+        "name": "--radius-md",
+        "value": "calc(var(--radius) * 0.8)"
+      },
+      {
+        "name": "--radius-sm",
+        "value": "calc(var(--radius) * 0.6)"
+      },
+      {
+        "name": "--radius-xl",
+        "value": "calc(var(--radius) * 1.4)"
+      },
+      {
+        "name": "--ring",
+        "value": "oklch(0.708 0 0)"
+      },
+      {
+        "name": "--secondary",
+        "value": "oklch(0.97 0 0)"
+      },
+      {
+        "name": "--secondary-foreground",
+        "value": "oklch(0.205 0 0)"
+      },
+      {
+        "name": "--sidebar",
+        "value": "oklch(0.985 0 0)"
+      },
+      {
+        "name": "--sidebar-accent",
+        "value": "oklch(0.97 0 0)"
+      },
+      {
+        "name": "--sidebar-accent-foreground",
+        "value": "oklch(0.205 0 0)"
+      },
+      {
+        "name": "--sidebar-border",
+        "value": "oklch(0.922 0 0)"
+      },
+      {
+        "name": "--sidebar-foreground",
+        "value": "oklch(0.145 0 0)"
+      },
+      {
+        "name": "--sidebar-primary",
+        "value": "oklch(0.205 0 0)"
+      },
+      {
+        "name": "--sidebar-primary-foreground",
+        "value": "oklch(0.985 0 0)"
+      },
+      {
+        "name": "--sidebar-ring",
+        "value": "oklch(0.708 0 0)"
+      }
+    ],
+    "classes": [
+      {
+        "name": "dark",
+        "rule": "--background: oklch(0.13 0 0); --foreground: oklch(0.97 0 0); --card: oklch(0.19 0 0); --card-foreground: oklch(0.985 0 0); --popover: oklch(0.19 0 0); --popover-foreground: oklch(0.985 0 0); --primary: oklch(0.78 0.13 176); --primary-foreground: oklch(0.12 0 0); --secondary: oklch(0.26 0 0); --secondary-foreground: oklch(0.985 0 0); --muted: oklch(0.24 0 0); --muted-foreground: oklch(0.72 0 0); --accent: oklch(0.3 0.04 176); --accent-foreground: oklch(0.985 0 0); --destructive: oklch(0.704 0.191 22.216); --border: oklch(1 0 0 / 10%); --input: oklch(1 0 0 / 15%); --ring: oklch(0.556 0 0); --chart-1: oklch(0.87 0 0); --chart-2: oklch(0.556 0 0); --chart-3: oklch(0.439 0 0); --chart-4: oklch(0.371 0 0); --chart-5: oklch(0.269 0 0); --sidebar: oklch(0.205 0 0); --sidebar-foreground: oklch(0.985 0 0); --sidebar-primary: oklch(0.488 0.243 264.376); --sidebar-primary-foreground: oklch(0.985 0 0); --sidebar-accent: oklch(0.269 0 0); --sidebar-accent-foreground: oklch(0.985 0 0); --sidebar-border: oklch(1 0 0 / 10%); --sidebar-ring: oklch(0.556 0 0);",
+        "source_hash": "7941ebd3b00c00f725cc1d300c7b8274b23a11742c77b695f6415d6b3cbcb856"
+      },
+      {
+        "name": "figma-canvas-backdrop",
+        "rule": "background-color: #0f0f10;",
+        "source_hash": "09dd15d97301bc4c6dbd78e727ac33b7ea19ffc1d8f090b488fdaeb9c458b39c"
+      },
+      {
+        "name": "figma-canvas-stage",
+        "rule": "height: 560px; width: 960px;",
+        "source_hash": "a10d0d174a296c8e7c1468ba8e903fa6637634bee685927b3c33f7ae5e668954"
+      },
+      {
+        "name": "figma-layer-frame",
+        "rule": "background-color: #f6f7f9; border: 1px solid #d4d4d8; border-radius: 12px; height: 560px; left: 0; opacity: 1; top: 0; width: 960px;",
+        "source_hash": "680d3108d78e902b1457af12e0620bce05bc3551ef8f2acc8d238567ea720404"
+      },
+      {
+        "name": "figma-layer-note",
+        "rule": "color: #18181b; font-family: Inter, Arial, sans-serif; font-size: 15px; font-weight: 400; height: 34px; left: 62px; letter-spacing: 0; line-height: 1.2; opacity: 1; text-align: left; top: 112px; width: 440px;",
+        "source_hash": "9e311f65f0581f152f84b5c0fc9cadbfcbe87dbeb2b8e9f640aceaec5ae070d3"
+      },
+      {
+        "name": "figma-layer-title",
+        "rule": "color: #18181b; font-family: Inter, Arial, sans-serif; font-size: 28px; font-weight: 700; height: 48px; left: 60px; letter-spacing: 0; line-height: 1.2; opacity: 1; text-align: left; top: 58px; width: 320px;",
+        "source_hash": "db172b926fb102452a612e2a220af75a9d7c110f0bb339e59e835121950e1f1a"
+      }
+    ],
+    "delivery": "generated-css"
+  },
+  "source_manifest_hash": null
+}

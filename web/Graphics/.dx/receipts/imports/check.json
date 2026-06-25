@@ -1,0 +1,53 @@
+{
+  "tool": "dx imports check",
+  "version": 2,
+  "generated_at": "2026-06-10T14:06:21.221182300+00:00",
+  "project": "G:/Figma",
+  "passed": true,
+  "wrote_files": false,
+  "source_hash": "blake3:c989210667d142cabfbd119f04a34569f49f5c1f14865c80e7967be54b127e98",
+  "entry_count": 670,
+  "public_barrel_entry_count": 664,
+  "used_symbol_count": 2688,
+  "typed_entry_count": 670,
+  "untyped_entry_count": 0,
+  "skipped_entry_count": 7,
+  "scan_roots": [
+    "src/components",
+    "src/features",
+    "src/lib"
+  ],
+  "used_roots": [
+    "src/app",
+    "src/components",
+    "src/features",
+    "src/lib",
+    "src/styles"
+  ],
+  "aliases": [
+    "#components",
+    "#imports"
+  ],
+  "used_only": true,
+  "files": {
+    "barrel": "src/components/auto-imports.ts",
+    "import_map": ".dx/imports/import-map.json",
+    "declarations": ".dx/imports/imports.d.ts"
+  },
+  "receipts": {
+    "sync_sr": ".dx/imports/sync.sr",
+    "check_sr": ".dx/imports/check.sr",
+    "legacy_json": ".dx/receipts/imports/check.json"
+  },
+  "stale_barrel": false,
+  "stale_import_map": false,
+  "stale_declarations": false,
+  "stale_sync_receipt": false,
+  "next_command": "dx imports sync",
+  "checked_files": [
+    "src/components/auto-imports.ts",
+    ".dx/imports/import-map.json",
+    ".dx/imports/imports.d.ts",
+    ".dx/imports/sync.sr"
+  ]
+}

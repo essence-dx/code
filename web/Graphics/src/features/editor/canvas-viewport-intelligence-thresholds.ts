@@ -1,0 +1,18 @@
+export const canvasViewportThresholds = {
+  reviewWindowLayerCount: 36,
+  blockedWindowLayerCount: 80,
+  reviewOffscreenLayerCount: 10,
+  blockedOffscreenLayerCount: 32,
+  reviewInteractionCost: 180,
+  blockedInteractionCost: 380,
+  reviewRenderCost: 220,
+  blockedRenderCost: 460,
+  reviewHitTestPairCount: 80,
+  blockedHitTestPairCount: 220,
+  reviewStackDepth: 6,
+  blockedStackDepth: 14,
+  reviewExpensiveLayerCount: 12,
+  blockedExpensiveLayerCount: 28,
+  maxExactHitTestLayers: 420,
+  maxEvidenceLayerIds: 36,
+} as const;

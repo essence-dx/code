@@ -1,0 +1,786 @@
+{
+  "schema": "dx.www.deploy.cache_manifest",
+  "schema_revision": 1,
+  "manifest_hash": "blake3:7a43c0c564813b653d0352eb1b4ec0c69c8f31ef745956b09486d5af14d3511a",
+  "public_runtime_artifacts": [
+    {
+      "path": "_dx/styles/react-route-b25c3009fdfa7c77.css",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "text/css; charset=utf-8",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "_dx/styles/react-route-b25c3009fdfa7c77.css.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "text/css; charset=utf-8",
+      "content_encoding": "br",
+      "encoded_from": "_dx/styles/react-route-b25c3009fdfa7c77.css",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "text/css; charset=utf-8"
+      }
+    },
+    {
+      "path": "_dx/styles/react-route-b25c3009fdfa7c77.css.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "text/css; charset=utf-8",
+      "content_encoding": "gzip",
+      "encoded_from": "_dx/styles/react-route-b25c3009fdfa7c77.css",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "text/css; charset=utf-8"
+      }
+    },
+    {
+      "path": "app/dashboard/index.dxpk",
+      "kind": "route-packet",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "app/dashboard/index.dxpk.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "br",
+      "encoded_from": "app/dashboard/index.dxpk",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "application/octet-stream"
+      }
+    },
+    {
+      "path": "app/dashboard/index.dxpk.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "gzip",
+      "encoded_from": "app/dashboard/index.dxpk",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "application/octet-stream"
+      }
+    },
+    {
+      "path": "app/dashboard/index.html",
+      "kind": "route-html",
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "text/html; charset=utf-8",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "app/embed/[token]/index.dxpk",
+      "kind": "route-packet",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "app/embed/[token]/index.dxpk.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "br",
+      "encoded_from": "app/embed/[token]/index.dxpk",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "application/octet-stream"
+      }
+    },
+    {
+      "path": "app/embed/[token]/index.dxpk.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "gzip",
+      "encoded_from": "app/embed/[token]/index.dxpk",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "application/octet-stream"
+      }
+    },
+    {
+      "path": "app/embed/[token]/index.html",
+      "kind": "route-html",
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "text/html; charset=utf-8",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "app/embed/[token]/server-data.json",
+      "kind": "server-data",
+      "cache_control": "no-store",
+      "content_type": "application/json; charset=utf-8",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "app/index.html",
+      "kind": "route-html",
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "text/html; charset=utf-8",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "app/share/[token]/index.dxpk",
+      "kind": "route-packet",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "app/share/[token]/index.dxpk.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "br",
+      "encoded_from": "app/share/[token]/index.dxpk",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "application/octet-stream"
+      }
+    },
+    {
+      "path": "app/share/[token]/index.dxpk.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "gzip",
+      "encoded_from": "app/share/[token]/index.dxpk",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "application/octet-stream"
+      }
+    },
+    {
+      "path": "app/share/[token]/index.html",
+      "kind": "route-html",
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "text/html; charset=utf-8",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "app/share/[token]/prototype/index.dxpk",
+      "kind": "route-packet",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "app/share/[token]/prototype/index.dxpk.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "br",
+      "encoded_from": "app/share/[token]/prototype/index.dxpk",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "application/octet-stream"
+      }
+    },
+    {
+      "path": "app/share/[token]/prototype/index.dxpk.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "gzip",
+      "encoded_from": "app/share/[token]/prototype/index.dxpk",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "application/octet-stream"
+      }
+    },
+    {
+      "path": "app/share/[token]/prototype/index.html",
+      "kind": "route-html",
+      "cache_control": "public, max-age=0, must-revalidate",
+      "content_type": "text/html; charset=utf-8",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "app/share/[token]/prototype/server-data.json",
+      "kind": "server-data",
+      "cache_control": "no-store",
+      "content_type": "application/json; charset=utf-8",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "app/share/[token]/server-data.json",
+      "kind": "server-data",
+      "cache_control": "no-store",
+      "content_type": "application/json; charset=utf-8",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "image-placeholders/public/next-df544db0b85b546a.placeholder.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "image-placeholders/public/next-df544db0b85b546a.placeholder.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "image-placeholders/public/next-df544db0b85b546a.placeholder.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "image-placeholders/public/next-df544db0b85b546a.placeholder.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "image-placeholders/public/next-df544db0b85b546a.placeholder.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/file-1fdb97c3121990de.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "public/file-1fdb97c3121990de.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/file-1fdb97c3121990de.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/file-1fdb97c3121990de.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/file-1fdb97c3121990de.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/file.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "public/file.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/file.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/file.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/file.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/globe-3d253d85af1b8544.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "public/globe-3d253d85af1b8544.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/globe-3d253d85af1b8544.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/globe-3d253d85af1b8544.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/globe-3d253d85af1b8544.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/globe.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "public/globe.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/globe.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/globe.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/globe.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/next-e3b3a22e1602686c.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "public/next-e3b3a22e1602686c.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/next-e3b3a22e1602686c.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/next-e3b3a22e1602686c.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/next-e3b3a22e1602686c.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/next.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "public/next.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/next.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/next.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/next.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/vercel-bcad5f0d811587a2.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "public/vercel-bcad5f0d811587a2.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/vercel-bcad5f0d811587a2.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/vercel-bcad5f0d811587a2.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/vercel-bcad5f0d811587a2.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/vercel.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "public/vercel.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/vercel.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/vercel.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/vercel.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/window-a7c216b765d88ad2.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "public/window-a7c216b765d88ad2.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/window-a7c216b765d88ad2.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/window-a7c216b765d88ad2.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/window-a7c216b765d88ad2.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/window.svg",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null,
+      "cdn_headers": {}
+    },
+    {
+      "path": "public/window.svg.br",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/window.svg",
+      "cdn_headers": {
+        "Content-Encoding": "br",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    },
+    {
+      "path": "public/window.svg.gz",
+      "kind": "immutable-asset",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/window.svg",
+      "cdn_headers": {
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+        "Content-Type": "image/svg+xml"
+      }
+    }
+  ],
+  "html_cache_control": "public, max-age=0, must-revalidate",
+  "immutable_cache_control": "public, max-age=31536000, immutable",
+  "precompressed_encodings": [
+    "br",
+    "gzip"
+  ],
+  "evidence_cache_control": "no-store"
+}

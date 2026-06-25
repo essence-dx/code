@@ -1,0 +1,34 @@
+{
+  "route_id": "/share/:token/prototype",
+  "source_path": "src/app/share/[token]/prototype/page.tsx",
+  "root_component_id": "app/page",
+  "components": {
+    "nodes": [
+      {
+        "id": "app/page",
+        "name": "Page",
+        "package_id": null,
+        "content_hash": "52ad4d87acdf954a85249db85234e59df154ba6d15a18f09f029acb72a1eff53"
+      },
+      {
+        "id": "component/prototype-preview",
+        "name": "prototype-preview",
+        "package_id": null,
+        "content_hash": "bdd4ceabc69abdbbbc7b448e062e5bbd624ddc0f812b2fd9de19dea9e75ebe90"
+      },
+      {
+        "id": "component/public-route-analytics-beacon",
+        "name": "public-route-analytics-beacon",
+        "package_id": null,
+        "content_hash": "e625d5faf9617e0ae0c20edc9eb41c40fb5f266494542883ce8f59ca2c36bae0"
+      }
+    ],
+    "edges": []
+  },
+  "styles": {
+    "tokens": [],
+    "classes": [],
+    "delivery": "generated-css"
+  },
+  "source_manifest_hash": null
+}

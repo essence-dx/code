@@ -1,0 +1,592 @@
+# Changelog
+
+## Unreleased
+
+- Added a private Spline import provider conformance API that verifies caller access, bridge health, and a real document-open attempt for a specific private editor-file URL without exposing bridge credentials.
+- Added a private Spline import API caller-token guard so configured authorized export bridges cannot be used as an open public proxy.
+- Added explicit authorized Spline export payload validation so private bridge providers must return a supported public/runtime URL payload before the API opens it as an editor document.
+- Added a local private Spline export bridge smoke harness that starts a tokened mock provider, probes bridge health, opens a private editor-file URL through the canonical API, and verifies the returned editor document.
+- Added a canonical Spline project open API that returns full editor documents plus source metadata for public exports and authorized private editor-file bridge imports, and moved the editor project-open action onto it.
+- Added a Spline import health endpoint with optional provider probing so deployments can distinguish public export readiness, configured private editor-file bridge status, and actual authorized exporter reachability.
+- Added Spline import capability reporting so the editor and API can show whether public exports and private editor-file bridge imports are currently enabled.
+- Added a server-side authorized Spline editor-file import adapter seam with env-backed exporter configuration, bearer-token forwarding, private file id extraction, and smoke coverage for converting approved exports into editor documents.
+- Added a full-document Spline public/export project opener API and Assets panel action so resolved Spline exports can replace the active editor document with a valid selected Spline project wrapper.
+- Added guarded Spline public/export opener API support with `.splinecode`, Viewer embed snippet, public URL, and JSON payload resolution, plus live viewport/shared-viewer Spline runtime surfaces and smoke coverage.
+- Added operator escalation status bridge for missing package signatures, missing CAD executables, failed fixture conversions, and stale customer fallback ETAs with owner routes, SLA acknowledgements, blocker aggregation, CSV/JSON exports, and smoke coverage.
+- Added fulfillment evidence attachment ledger that binds filesystem package verification, CAD execution transcripts, launch rehearsal, and customer status packets to release candidates with packet-hash matching, attachment receipts, CSV/JSON exports, and smoke coverage.
+- Added native CAD runtime process rehearsal runner that executes installed or bundled FreeCAD/OCCT fixture commands through the packaged adapter, persists transcript hashes, attaches storage receipts, and exports CSV/JSON evidence with smoke coverage.
+- Added signed package filesystem verification run packet that reads local output bytes, checks SHA256 matches, records signature command transcript hashes, probes upload destination reachability, captures owner acknowledgements, and exports CSV/JSON evidence with smoke coverage.
+- Added native fulfillment execution reality targeted smoke coverage across signed package artifact location, packaged CAD runtime execution, fulfillment rehearsal, and customer-facing status packets, completing the current set and opening the native artifact runtime integration set.
+- Added customer-facing native fulfillment status packet that derives exact download availability, CAD support status, ETA owners, fallback messages, and blocker routes from fulfillment evidence with CSV/JSON exports and smoke coverage.
+- Added native export fulfillment rehearsal that joins signed package verification, CAD fixture conversion, launch smoke evidence, and customer fallback checks into one operator run with CSV/JSON evidence and smoke coverage.
+- Added packaged CAD runtime execution adapter that resolves bundled FreeCAD/OCCT executables from installed desktop layouts, captures process transcripts, blocks missing packaged runtimes before execution, and exports CSV/JSON evidence with smoke coverage.
+- Added signed package artifact locator for native fulfillment execution reality, binding local/CI package outputs, certificate metadata, upload destinations, and missing-artifact blockers with CSV/JSON evidence and smoke coverage.
+- Added native runtime execution proof targeted smoke coverage across prerequisite detection, artifact verification commands, CAD runtime execution probes, and readiness packets, completing the runtime execution proof set and opening the native fulfillment execution reality set.
+- Added runtime execution readiness packet joining native toolchain prerequisites, artifact command verification, CAD runtime execution probes, and customer-facing blockers with CSV/JSON evidence and smoke coverage.
+- Added native CAD runtime execution probe for configured FreeCAD/OCCT fixture commands with missing-tool blockers, transcript hashes, bounded output excerpts, CSV/JSON exports, and smoke coverage.
+- Added external artifact verification command runner for real package paths, stdout/stderr transcript hashes, exit codes, release blockers, CSV/JSON exports, and smoke coverage.
+- Added local native toolchain prerequisite detector for signing CLIs, notarization tooling, package managers, and CAD conversion runtimes with CSV/JSON exports and smoke coverage.
+- Added native release enforcement targeted smoke coverage across release enforcement ledgers, CAD delivery verifiers, install evidence packets, and customer acceptance packets, completing the native release enforcement set and opening the native runtime execution proof set.
+- Added customer-facing release acceptance packet joining signed artifact enforcement, CAD runtime enforcement, install and launch evidence, and support routing with CSV/JSON exports and smoke coverage.
+- Added production install and launch evidence packet for desktop and mobile exports covering installer hashes, install transcripts, launch smoke proof, crash-free sessions, rollback routes, CSV/JSON exports, and smoke coverage.
+- Added native CAD kernel delivery enforcement verifier that confirms bundled conversion runtime availability, fixture execution, sandbox limit proof, and user-visible fallback routes with CSV/JSON exports and smoke coverage.
+- Added certificate-backed native release enforcement ledger that blocks release unless signed package hashes, certificate fingerprints, timestamp authority proof, clear revocation evidence, and owners are present with CSV/JSON exports and smoke coverage.
+- Added release attestation targeted smoke coverage across history ledgers, replay verifiers, distribution packets, and revocation workflows, completing the native release attestation set and opening the native release enforcement set.
+- Added release attestation revocation workflow for superseded certifications, revocation owner approval, customer notification routes, and replacement evidence with CSV/JSON exports and smoke coverage.
+- Added operator-facing release attestation distribution packet that joins attestation history, replay verification, recipient routes, and acknowledgement requirements with CSV/JSON exports and smoke coverage.
+- Added release attestation replay verifier that recomputes certification packet, renewal monitor, and exception-ledger hashes to flag attestation drift with CSV/JSON exports and smoke coverage.
+- Added release attestation history ledger that records certification packet hashes, renewal monitor hashes, attestation owners, and certificate version lineage with CSV/JSON exports and smoke coverage.
+- Added release certification targeted smoke coverage across intake checklists, exception ledgers, certification packets, and renewal monitors, completing the native release certification set and opening the next native release attestation set.
+- Added release certification renewal monitor for certificate/signing freshness, archive retention renewal, and CAD runtime proof renewal with CSV/JSON exports and smoke coverage.
+- Added operator-facing release certification packet that joins intake readiness, exception posture, archive custody, and continuity status into one certification go/no-go decision.
+- Added release certification exception ledger for approved deviations, owner sign-off, expiry, remediation routes, and release-blocking status with CSV/JSON exports and smoke coverage.
+- Added release certification intake checklist that verifies continuity dashboard approval, archive retention, native artifact custody, and external runtime reality before certification can start.
+- Added release continuity targeted smoke coverage across continuity evidence indexes, regression monitors, dashboard packets, and archive manifests, completing the native release continuity set and opening the next native release certification set.
+- Added release continuity archive manifest for accepted packet hashes, storage URLs, retention windows, and restoration proof with CSV/JSON exports and smoke coverage.
+- Added operator-facing release continuity dashboard packet that summarizes continuity readiness, owner acknowledgement, blocker routing, and go/no-go rationale with CSV/JSON exports and smoke coverage.
+- Added release continuity regression monitor that compares the current continuity evidence index against the last accepted release and flags missing evidence, score drops, and evidence hash changes with CSV/JSON exports and smoke coverage.
+- Added release continuity evidence index that joins custody approval, attachment approval, evidence drill, and external runtime reality packets into one searchable continuity map with CSV/JSON exports and smoke coverage.
+- Added native release custody targeted smoke coverage across signed artifact custody, CAD runtime custody, attachment custody drift, and final custody approval packets, completing the native release evidence custody set and opening the next native release continuity set.
+- Added operator-facing native release custody approval packet that joins signed artifact custody, CAD runtime custody, and attachment custody drift into one release evidence continuity go/no-go decision with CSV/JSON exports and smoke coverage.
+- Added attachment custody drift monitor that compares attachment approval packets against signed artifact and CAD runtime custody ledgers, flags stale owners, expired retention, and changed evidence hashes, and exports CSV/JSON smoke-covered evidence.
+- Added CAD runtime custody ledger for FreeCAD/OCCT bundle owners, fixture corpus retention windows, output evidence renewal proof, fallback approval custody, CSV/JSON exports, and smoke coverage.
+- Added signed artifact custody ledger for Windows, macOS, and Linux storage owners, retention windows, checksum renewal evidence, certificate evidence custody, CSV/JSON exports, and smoke coverage.
+- Added native release attachment targeted smoke coverage across signed artifact rehearsals, CAD runtime rehearsals, readiness diffs, and final approval packets, completing the native release evidence attachment set and opening the next native release evidence custody set.
+- Added operator-facing native release attachment approval packet that joins signed artifact attachments, CAD runtime attachments, and readiness diffs into one go/no-go release approval decision with CSV/JSON exports and smoke coverage.
+- Added attachment readiness diff report that compares signed artifact and CAD runtime attachment rehearsals against the accepted native release evidence drill packet, flags missing artifact or CAD evidence, and exports CSV/JSON smoke-covered evidence.
+- Added CAD runtime attachment rehearsal packet for packaged FreeCAD/OCCT bundle paths, fixture corpus artifacts, output evidence URLs, fallback owner approvals, CSV/JSON exports, and smoke coverage.
+- Added signed artifact attachment rehearsal packet for Windows, macOS, and Linux release artifact URLs, local fixture paths, checksum confirmations, certificate evidence owners, CSV/JSON exports, and smoke coverage.
+- Added native release evidence drill targeted smoke coverage across signed artifact drills, CAD conversion drills, drill comparisons, and final drill packets, completing the release evidence drill set and opening the native release evidence attachment set.
+- Added native release evidence drill packet that joins signed artifact drills, CAD conversion drills, and comparison regressions into one operator go/no-go decision with CSV/JSON exports and smoke coverage.
+- Added release evidence drill comparison report that compares signed artifact and CAD fixture drill status, scores, and hashes against prior accepted runtime evidence with regression flags, CSV/JSON exports, and smoke coverage.
+- Added CAD conversion fixture drill runner for FreeCAD/OCCT command plans, fixture corpus coverage, output hashes, failure transcripts, stable CSV/JSON evidence, and smoke coverage.
+- Added signed artifact fixture drill runner for Windows, macOS, and Linux package verification command plans, dry-run transcripts, stable CSV/JSON evidence, and smoke coverage.
+- Added external runtime reality targeted smoke coverage across certificate-backed artifact verification, CAD process evidence collection, evidence freshness monitoring, and the final reality packet, completing the external runtime reality set and opening the next native release evidence drill set.
+- Added operator-facing external runtime reality packet joining signed package verification, CAD process evidence, and freshness blockers into one release decision with shadcn-styled dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added external artifact evidence freshness monitor for signing, revocation, notarization, download, and CAD transcript evidence with expiry windows, verification age checks, release-approval blocking, CSV/JSON exports, and smoke coverage.
+- Added native CAD runtime process evidence collector for packaged FreeCAD/OCCT command transcripts, fixture input/output hashes, stdout/stderr transcript hashes, sandbox profiles, CSV/JSON exports, and smoke coverage.
+- Added certificate-backed package artifact reality verifier for real Windows Authenticode, macOS codesign/notarization, and Linux signing evidence with artifact URLs, checksums, certificate fingerprints, revocation checks, verification transcript hashes, CSV/JSON exports, and smoke coverage.
+- Added native artifact fulfillment targeted smoke coverage that verifies signed artifact intake, CAD runtime bundle verification, artifact attachment workflow, and fulfillment acceptance packet ready/blocked paths with stable CSV/JSON evidence, completing the native artifact fulfillment set and opening the next native external runtime reality set.
+- Added native external artifact acceptance packet joining signed artifact intake, CAD runtime bundle verification, artifact attachment release approval, and customer download readiness into one final fulfillment decision with stable CSV/JSON evidence, shadcn-styled dashboard visibility, and smoke coverage.
+- Added native release candidate artifact attachment workflow that promotes signed artifact attachments into updater manifests, verifies manifest checksum alignment and required channel readiness, blocks release approval until every required platform is attached, and exports stable CSV/JSON workflow evidence with smoke coverage.
+- Added native CAD runtime bundle installer verification for packaged FreeCAD/OCCT desktop layouts with executable discovery, command rehearsal transcripts, fixture output proof, sandbox profiles, CSV/JSON exports, shadcn-styled dashboard visibility, stable verification hashes, and smoke coverage.
+- Added signed native artifact intake queue for certificate-backed Windows, macOS, and Linux package uploads with checksum, signer, timestamp, revocation, owner readiness, CSV/JSON exports, shadcn-styled dashboard visibility, stable intake hashes, and smoke coverage.
+- Added aggregate native artifact runtime closeout smoke coverage across signed artifact handoff closeout, CAD runtime closeout, release blocker matrix, and remediation queue ready/blocked paths, completing the closeout set and opening the next native artifact fulfillment set.
+- Added native artifact runtime remediation queue for unresolved signed artifact and CAD runtime blockers with owner readiness, due-date validation, escalation routes, evidence packet exports, shadcn-styled dashboard visibility, stable queue hashes, and smoke coverage.
+- Added native artifact runtime release blocker matrix tying signed package readiness, updater distribution proof, CAD runtime closeout, and release approval into one go/no-go packet with CSV/JSON exports, shadcn-styled dashboard visibility, stable matrix hashes, and smoke coverage.
+- Added native CAD kernel runtime closeout evidence for bundled FreeCAD/OCCT runtime paths, conversion fixtures, sandbox limits, customer-visible fallback messaging, CSV/JSON exports, shadcn-styled dashboard visibility, stable closeout hashes, and smoke coverage.
+- Added native signed artifact external handoff closeout for external certificate-backed artifact attachment locations, owner acknowledgement, blocked release gates, evidence packet links, CSV/JSON exports, shadcn-styled dashboard visibility, stable closeout hashes, and smoke coverage.
+- Added aggregate native release distribution proof smoke coverage across signed package manifests, updater download rehearsals, rollback distribution proof, and customer package availability monitoring, completing the distribution proof set and opening the next native artifact runtime closeout set.
+- Added customer-facing native package availability monitoring for public download pages, updater endpoints, and self-hosted archive mirrors with reachable, TLS, checksum, latency, CSV/JSON exports, shadcn-styled dashboard visibility, stable monitor hashes, and smoke coverage.
+- Added native release rollback distribution proof linking previous stable artifacts, channel restore commands, post-rollback updater verification, CSV/JSON exports, shadcn-styled dashboard visibility, stable rollback hashes, and smoke coverage.
+- Added native updater download rehearsal evidence for Windows, macOS, and Linux with byte-range resume, checksum verification, expired-link handling, final byte counts, CSV/JSON exports, shadcn-styled dashboard visibility, stable rehearsal hashes, and smoke coverage.
+- Added native signed package distribution manifest proof that binds hosted artifacts, updater manifests, release channels, and per-platform checksum attestations with CSV/JSON exports, shadcn-styled dashboard visibility, stable proof hashes, and smoke coverage.
+- Added native production fulfillment coverage for fulfillment ledger scoring, artifact storage handoff readiness, CAD transcript ingestion, and promotion rehearsal gating across ready and blocked paths with CSV/JSON exports, shadcn-styled dashboard visibility, stable coverage hashes, smoke coverage, and the next native release distribution proof set.
+- Added native release channel promotion rehearsal for staging-to-stable moves with rollback evidence, operator acknowledgement, stale approval invalidation, CSV/JSON exports, shadcn-styled dashboard visibility, stable rehearsal hashes, and smoke coverage.
+- Added CAD worker artifact transcript ingestion for FreeCAD/OCCT fixture outputs, sandbox diagnostics, output artifact hashes, regression hash comparisons, CSV/JSON exports, shadcn-styled dashboard visibility, stable transcript hashes, and smoke coverage.
+- Added native artifact storage handoff evidence for Vercel Blob or equivalent signed package hosting with retention readiness, checksum proof, updater manifest linkage, CSV/JSON exports, shadcn-styled dashboard visibility, stable handoff hashes, and smoke coverage.
+- Added native release fulfillment ledgers that tie signed artifacts, install rehearsals, exception routes, and approval renewal into one release-candidate decision packet with CSV/JSON exports, shadcn-styled dashboard visibility, stable ledger hashes, and smoke coverage.
+- Added native artifact execution evidence coverage that cross-checks artifact validation, CAD worker evidence scoring, install rehearsal readiness, and native exception route eligibility across ready and blocked scenarios, completing the native artifact execution evidence set and opening the next native production fulfillment set.
+- Added native runtime exception routing for missing signatures, failed CAD worker execution, install rehearsal regressions, and stale artifact approvals with owner routes, escalation scoring, CSV/JSON exports, shadcn-styled dashboard visibility, stable routing hashes, and smoke coverage.
+- Added desktop package install rehearsal packets for Windows, macOS, and Linux archive/install flows with updater metadata linkage, smoke evidence, rollback checks, CSV/JSON exports, shadcn-styled dashboard visibility, stable packet hashes, and smoke coverage.
+- Added native CAD worker execution evidence for FreeCAD/OCCT command availability, fixture command output, sandbox limits, failure diagnostics, CSV/JSON exports, shadcn-styled dashboard visibility, stable evidence hashes, and smoke coverage.
+- Added native artifact execution receipt validation for uploaded signed artifacts against updater manifests, certificate fingerprints, release-channel expectations, updater signatures, CSV/JSON exports, shadcn-styled dashboard visibility, stable validation hashes, and smoke coverage.
+- Added runtime release automation verification coverage for runbook state transitions, promotion rehearsal scoring, and notification route eligibility with traceable scenario rows, CSV/JSON exports, stable verification hashes, smoke coverage, and the next native artifact execution evidence set.
+- Added runtime release automation notification routing for overdue operator queue rows, stale approvals, and comparison regressions with workspace role/preference-aware email and in-app routes, CSV/JSON exports, shadcn-styled dashboard visibility, stable routing hashes, and smoke coverage.
+- Added runtime release promotion rehearsal packets that simulate alias moves, post-promote smoke checks, rollback drills, and operator acknowledgements with coverage-aware scoring, CSV/JSON exports, shadcn-styled dashboard visibility, stable packet hashes, and smoke coverage.
+- Added runtime release automation command center controls for ready, blocked, rollback-ready, and archived release candidates with primary operator actions, risk-weighted scoring, CSV/JSON exports, shadcn-styled dashboard visibility, stable command-center hashes, and smoke coverage.
+- Added runtime release automation runbooks that link approved handoff bundles to production promotion commands, post-promote smoke commands, rollback commands, rollback guardrails, CSV/JSON exports, shadcn-styled dashboard visibility, stable runbook hashes, smoke coverage, and the next automation checkpoint.
+- Added runtime release operator workflow verification for approval transitions, stale approval invalidation, and release candidate diff summaries with traceable scenario ids, CSV/JSON exports, smoke coverage, and the next editor release automation feature set.
+- Added audit-safe runtime release handoff bundles that package approval, operator queue, and candidate comparison evidence into Markdown/CSV/JSON exports with redacted reviewer email evidence, shadcn-styled download controls, stable bundle hashes, and smoke coverage.
+- Added runtime release candidate comparison packets that diff current gate, approval, and operator queue evidence against the last approved release with regression/watch scoring, CSV/JSON exports, shadcn-styled dashboard visibility, and smoke coverage.
+- Added runtime release operator queue controls for blocked runtime gates with owner assignment, due dates, overdue escalation, evidence packet downloads, CSV/JSON exports, shadcn-styled dashboard visibility, and smoke coverage.
+- Added runtime release approval checklist state that links runtime gate status, reviewer identity, approval notes, expiration windows, CSV/JSON exports, shadcn-styled dashboard visibility, smoke coverage, and the next operator workflow checkpoint.
+- Added release-blocking runtime evidence gates for failed p95 budgets, deterministic replay mismatches, material/post-process drift, and missing browser screenshots with shadcn-styled dashboard visibility, CSV/JSON exports, smoke coverage, and the next editor release operator workflow set.
+- Added editor-facing runtime evidence dashboard download controls for runtime QA and deploy verification packets with shadcn-styled Markdown/CSV/JSON actions, stable evidence hashes, and smoke coverage.
+- Added runtime deploy verification history for runtime evidence reports with production alias, deployment URL, commit hash, runtime QA packet hash, smoke status drift, CSV/JSON exports, and smoke coverage.
+- Added exportable runtime QA packets that combine material parity, packaged playback, performance budgets, and deterministic replay into one reviewer-ready Markdown/CSV/JSON artifact with stable packet hashes and smoke coverage.
+- Added browser runtime release evidence that links editor, public viewer, embed, and app package captures to the same scene/version hash with screenshot hashes, console error counts, CSV/JSON exports, and smoke coverage.
+- Added editor performance budget evidence for large-scene selection, transforms, timeline scrubbing, and published viewer startup with p95 timing budgets, CSV/JSON exports, smoke coverage, and the next runtime release evidence feature set.
+- Added packaged-scene runtime smoke playback evidence for public viewer, embed, and app package routes with deterministic interaction replay, frame timing budgets, CSV/JSON exports, and smoke coverage.
+- Added material and post-process parity previews that compare editor and viewer resolved material layers, bump and roughness maps, scene lighting, and post-process settings with CSV/JSON exports, editor overlay visibility, and smoke coverage.
+- Added deterministic runtime replay validation for viewport traces with expected variable, timeline, selection, and object-state assertions plus CSV/JSON report exports and smoke coverage.
+- Added viewport interaction trace recording for pointer, keyboard, camera-control, and selection events with replayable runtime steps, JSON export, editor trace controls, and smoke coverage.
+- Added native CAD kernel execution runner wiring for controlled FreeCAD/OCCT adapter execution with output diagnostics, sandbox evidence, dashboard visibility, CSV/JSON exports, smoke coverage, and the next editor runtime fidelity feature set.
+- Added rollback rehearsal evidence that links production aliases, known-good deployments, alias move proof, release approval records, and post-rollback smoke status with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added screenshot-backed visual parity evidence for editor, public viewer, embed, and package download surfaces with stored hashes, diff summaries, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added production parity history snapshots with gate score drift, blocker drift, status-change evidence, CSV/JSON exports, dashboard visibility, and smoke coverage.
+- Added certificate-backed native artifact ingestion for Windows, macOS, and Linux release outputs with artifact hashes, signer identities, timestamp evidence, certificate fingerprints, revocation checks, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added live production parity evidence dashboards that summarize editor QA, public sharing, exports, desktop signing, CAD runtime, deployment verification, and native release approval in one release gate with CSV/JSON exports and smoke coverage.
+- Added native release promotion approval workflows that link signed package readiness, CAD runtime acceptance, operator approval, and rollback evidence with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added CAD conversion fixture corpus acceptance for deterministic STEP/IGES/SAT samples, expected mesh stats, regression deltas, fixture hashes, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added CAD kernel worker health checks for FreeCAD/OCCT availability, version drift, sandbox limits, and fixture execution evidence with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added native artifact signing execution receipts that ingest signed desktop artifact hashes, certificate fingerprints, timestamp evidence, signer identity, and updater signatures with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added CAD runtime acceptance packets that combine capability matrix, conversion execution, runtime diagnostics, and export-readiness recommendations with dashboard visibility, CSV/JSON exports, smoke coverage, and the next native runtime delivery feature set.
+- Added signed native package readiness packets that combine artifact provenance, signing evidence, updater metadata, and release recommendations with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added CAD conversion execution queues with kernel adapter contracts, retry state, diagnostic hashes, operator-visible failure reasons, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added native CAD kernel capability matrices for STEP, IGES, SAT, and STL coverage with unit handling, tessellation quality, unsupported feature explanations, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added signed native artifact provenance ledgers for desktop updater manifests, OS signing plans, fixture validation, and release-channel promotion evidence with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive governance automation executive packets that combine trigger register, runbook, failure ledger, audit trail, and release recommendations with dashboard visibility, CSV/JSON exports, smoke coverage, and the next native artifact and CAD runtime parity set.
+- Added archive governance automation audit trails that link generated packets to trigger evidence, operator actions, and board acknowledgement with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive governance automation failure ledgers for missed triggers, stale recommendations, blocked owners, and remediation approval with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive governance automation runbooks with scheduler cadence, escalation windows, retry policy, operator handoff evidence, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive governance automation trigger registers for ownership renewal, quorum refresh, drift review, and executive packet regeneration with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Scoped desktop release bundle discovery for Vercel tracing so production deploys no longer ask Turbopack to trace a dynamically resolved project root, with focused smoke coverage.
+- Added archive governance executive packets that combine charter, owner matrix, quorum tracker, policy drift monitor, and release recommendations with dashboard visibility, CSV/JSON exports, smoke coverage, and the next governance automation feature set.
+- Added archive governance policy drift monitors that compare active governance rules against packet and quorum recommendations with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive governance exception quorum trackers for board-approved risk acceptance, abstentions, and renewal thresholds with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive governance control owner matrices that assign accountability, escalation paths, review cadence, and evidence obligations with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive governance policy charters that map stewardship packet outcomes to board decision rights, required approvals, risk acceptance, and release authority with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive stewardship executive packets that combine ownership rotation, evidence aging, exception budget, continuity rehearsal, and release recommendations with dashboard visibility, CSV/JSON exports, smoke coverage, and the next archive governance feature set.
+- Added archive stewardship continuity rehearsals that verify owner handoff, packet recovery, and governance review resumption timing with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive stewardship exception budget ledgers that track accepted risk, expiry windows, board approvals, and burn-down with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive stewardship evidence aging forecasts that predict renewal pressure, stale hash risk, and reviewer capacity with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive stewardship ownership rotation planners for renewal, quality, distribution, replay, and executive health owners with handoff hashes, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive oversight executive health packets that combine exception renewals, evidence quality, board distribution, incident replay, and release recommendations with dashboard visibility, CSV/JSON exports, smoke coverage, and the next archive stewardship feature set.
+- Added archive oversight incident replay drills for custody access failures, retention unlocks, and restore drift with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive oversight board distribution digests that package evidence quality status for recurring board, audit, records, and executive governance reviews with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive oversight evidence quality monitors that score stale hashes, missing attestations, and reviewer drift with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive oversight exception renewal calendars for custody, retention, access, restore, and closeout evidence with renewal due dates, evidence hashes, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive custody executive closeout digests that combine chain-of-control, retention lock, access review, restore rehearsal, and release recommendations with dashboard visibility, CSV/JSON exports, smoke coverage, and the next archive oversight feature set.
+- Added archive custody restore rehearsal packets that prove accepted verification evidence can be reconstructed from archived hashes with drift/missing detection, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive custody access review queues for board, auditor, partner, and internal recipients with expiry checks, revocation evidence, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive custody retention lock workflows that freeze accepted packets, proof bundles, timeline exports, and executive recommendations with retention hashes, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive custody chain-of-control ledgers for accepted verification packets with owner handoffs, timestamps, custody hashes, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive verification final acceptance packets that combine validator output, exception register, distribution proof, readiness timeline, and executive recommendation with dashboard visibility, CSV/JSON exports, smoke coverage, and the next archive custody feature set.
+- Added archive verification readiness timelines that order certificate, replay, auditor, revocation, exception, and distribution events for board review with timeline hashes, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive verification distribution proof bundles with signed recipient access, acknowledgement trails, expired-link evidence hashes, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive verification exception registers for unresolved attestation and signature-chain blockers with owners, expiry windows, board approval evidence, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive verification signature chain validators that link executive attestation roots, certificate history ledger hashes, external auditor packet hashes, and revocation workflow hashes with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive certification executive attestation digests that combine certificate history, replay verification, external auditor packets, and revocation workflow state into executive memos, attestation hashes, dashboard visibility, CSV/JSON exports, smoke coverage, and the next archive verification feature set.
+- Added archive certification revocation workflows for stale certificates, failed replay audits, blocked auditor packets, superseded evidence bundles, revocation hashes, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive certification external auditor packets with scoped redactions, access expiry, source hashes, acknowledgement proof hashes, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive certification evidence replay verifiers that recompute certificate source hashes, compare history-ledger certificate hashes, flag drift or missing evidence, expose CSV/JSON exports, and render dashboard coverage with smoke tests.
+- Added archive certification history ledgers with versioned certificate hashes, parent hashes, issuer notes, revocation state, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive assurance final closeout certificates with digest, notarization, distribution, and post-release audit evidence hashes, certificate recommendations, dashboard visibility, CSV/JSON exports, smoke coverage, and the next archive certification feature set.
+- Added archive assurance post-release audit checklists with reviewer acknowledgement completion, renewal closure proof, immutable proof hashes, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive assurance distribution matrices with audience-specific handoff routes, acknowledgement deadlines, expiry coverage, immutable coverage hashes, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive assurance notarization registers with digest hashes, reviewer packet hashes, renewal hashes, immutable export manifests, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive assurance decision memos with handoff digest recommendations, residual blocker owners, board-ready approval guidance, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive evidence release handoff digests that merge vault integrity, diff drift, reviewer packet readiness, and renewal risk with executive memos, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive evidence exception renewal scheduling for expiring exception notes, stale packet hash sign-offs, reviewer acknowledgement windows, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive evidence reviewer packets with redacted external views, source hashes, acknowledgement windows, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive evidence diff snapshots that compare saved vault bundles against current archive intelligence automation state with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive evidence retention vault manifests that seal packet, digest, approval, notification, and command-center evidence bundles with immutable hashes, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added archive intelligence automation digests that summarize trend, approval, notification, and remediation follow-through signals with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added an archive intelligence automation command center that joins packet history, notification routes, approval workflow state, and remediation work with dashboard visibility, CSV exports, and smoke coverage.
+- Added archive intelligence approval workflows with reviewer acknowledgement, exception note requirements, packet hash sign-off checks, dashboard visibility, CSV exports, and smoke coverage.
+- Added archive intelligence notification routing for blocked packet recommendations with workspace role/preference eligibility, dashboard visibility, CSV exports, and smoke coverage.
+- Added persisted board release archive intelligence packet history with actor attribution, guarded workspace APIs, packet hash snapshots, dashboard save/history controls, JSON/CSV downloads, schema coverage, and smoke coverage.
+- Added board release archive intelligence packets that combine index, anomaly, trend, replay, and governance-update recommendations with executive memo, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release archive replay simulator reports that compare prior final decisions against later anomaly and trend evidence, clean-evidence simulations, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release archive trend digest reports for closeout score movement, recurring blocker categories, and owner follow-through summaries with dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release archive anomaly review reports for repeated hold/defer decisions, stale remediation evidence, and archive bundle drift with hashed findings, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release archive intelligence index reports that correlate executive packet hashes, remediation hashes, archive bundle hashes, section evidence, and final decision outcomes with dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release closeout executive packets with gate, acknowledgement, archive, remediation, final decision summaries, executive memos, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release closeout variance remediation plans with owner assignment, severity, due windows, source hashes, completion evidence, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release closeout archive manifests with immutable hashes for observability, distribution, operations, and evidence archive records plus bundle checksums, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release closeout owner acknowledgements with role coverage, due windows, signer evidence, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release closeout readiness gates that combine observability digest, distribution readiness, signed export packets, and evidence archive state with dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release observability executive digest exports for event health, incident notes, trend snapshots, alert routing, and release closeout summaries with dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release observability alert routing that fans incident and trend alerts through workspace notification preferences, role eligibility, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release observability trend snapshots for readiness score, blocked filters, retry load, and timeline closure with dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release observability incident notes with owner assignment, severity, due windows, project-incident correlation, CSV/JSON downloads, dashboard visibility, and smoke coverage.
+- Added board release observability event health monitors for stale packets, stuck acknowledgements, delayed retries, and unresolved variance closure with dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added a board release distribution readiness dashboard with recipient, route, acknowledgement, retry, and audit timeline filters, readiness scoring, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added a board release distribution audit timeline joining export packets, delivery routes, acknowledgements, retries, and variance closure with dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release distribution retry planning for suppressed, missing, blocked, and expired acknowledgement routes with retry actions, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release distribution acknowledgement capture with signer status, due windows, hash evidence, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release distribution recipient manifests with role, channel, packet access, acknowledgement requirements, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release operations dashboard filters for blocked, watch, ready, and archived entries across history, review queue, approval snapshots, and signed export packets with CSV/JSON downloads and smoke coverage.
+- Added board release operations export packets with signed archive manifests, notification route evidence, variance summaries, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release operations approval snapshots comparing current promotion gate status against prior operations history, with drift classification, approval recommendations, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added a board release operations review queue with owner assignment, due windows, closeout transitions, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board release operations history records that preserve promotion gates, archive hashes, variance summaries, notification route counts, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board evidence release closeout notifications for signers, packet owners, and admins using workspace notification preferences, with channel eligibility, suppression reasons, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board evidence release variance comparison between sealed archive records and current closeout/readiness state, including hash drift, status drift, score deltas, unresolved risk checks, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board evidence release archive records with immutable closeout hashes, promotion-gate hashes, actor attribution, dashboard visibility, CSV/JSON downloads, and smoke coverage.
+- Added board evidence release promotion gates that block release promotion when closeout exports, packet locks, escalation routes, or signer handoff readiness are unresolved, with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added board evidence release approval handoff with signer assignment, due windows, packet-lock dependency checks, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added board evidence closeout report exports that merge readiness digest, acceptance audit trail, verification checks, attachment manifest files, and packet lock evidence with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added board evidence packet lock controls that freeze accepted evidence rows before release promotion with deterministic lock hashes, promotion blockers, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added board evidence escalation routing for blocked readiness risks using workspace notification preferences and role coverage, with dashboard visibility, CSV evidence, and smoke coverage.
+- Added board evidence readiness snapshot records with actor attribution, trend history, audit hashes, dashboard visibility, JSON/CSV downloads, and smoke coverage.
+- Added a board evidence command center that groups manifest, verification, acceptance, and readiness actions into one operator workflow with dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added a board audit evidence readiness digest with packet score trend, unresolved attachment risk, carry-forward recommendations, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added a board audit evidence reviewer acceptance workflow with per-owner acknowledgement, rejection reasons, audit trail rows, dashboard visibility, CSV/JSON exports, and smoke coverage.
+- Added board audit evidence verification scoring for missing exported files, stale source hashes, duplicate attachments, and unsigned exports with dashboard visibility, CSV evidence, and smoke coverage.
+- Added a board audit evidence attachment manifest that links audit tasks, closeout notes, source hashes, and exported packet files with dashboard visibility, CSV/JSON evidence, missing-evidence scoring, and smoke coverage.
+- Added a board audit completion digest with saved task trend history, closure score movement, overdue reminder route counts, unresolved-risk carry-forward, dashboard visibility, CSV evidence, and smoke coverage.
+- Added board audit reminder routing for overdue follow-up tasks with workspace notification preference filtering, role-aware email and in-app eligibility, dashboard visibility, CSV evidence, and smoke coverage.
+- Added persisted board audit follow-up task state with owner assignment, due-date overrides, closeout notes, guarded workspace APIs, CSV/JSON record downloads, dashboard JSON exports, schema coverage, and smoke coverage.
+- Added board audit follow-up task generation from digest blockers, stale evidence, overloaded reviewers, unassigned work, and unresolved decisions with due dates, severity scoring, dashboard visibility, CSV evidence, and smoke coverage.
+- Added board governance executive digest exports that summarize control score, unresolved decision risk, evidence freshness, and reviewer workload into executive memos, dashboard rows, CSV/JSON evidence, and smoke coverage.
+- Added board reviewer workload balancing across agenda ownership, packet reviews, route acknowledgements, and exception sign-offs with overload detection, unassigned-work blocking, dashboard visibility, CSV evidence, and smoke coverage.
+- Added a board evidence freshness monitor for stale packets, old replay snapshots, pending reviewer acknowledgements, and aging notification route evidence with scoring, source hashes, dashboard visibility, CSV evidence, and smoke coverage.
+- Added a board governance decision ledger linking agenda decisions, packet approvals, exception scopes, audit export sections, and closeout controls with source hashes, scoring, dashboard visibility, CSV evidence, and smoke coverage.
+- Added persisted board operations review cycle history with owner closeout state, audit hashes, control-center snapshots, guarded workspace APIs, dashboard save/history controls, CSV/JSON downloads, schema coverage, and smoke coverage.
+- Added a board operations control center with saved review cycles, agenda readiness, packet status, route health, closeout reports, CSV evidence, dashboard visibility, and smoke coverage.
+- Added board assurance audit exports that merge notification routing, reviewer acknowledgement history, variance dashboards, evidence bundles, and replay snapshots into hashed JSON/CSV closeout packets with dashboard visibility and smoke coverage.
+- Added board approval scenario forecasts for exception expiry, runbook completion, blocker drift, and incident recurrence risk with projected impact scoring, CSV evidence, dashboard visibility, and smoke coverage.
+- Added board evidence acceptance campaigns with owner attestations across bundle files, replay blockers, and exception scopes, including acceptance scoring, CSV evidence, dashboard visibility, and smoke coverage.
+- Added persisted board assurance notification delivery history with recipient acknowledgement state, route diffs, retry evidence, guarded workspace APIs, dashboard save/history controls, JSON/CSV downloads, schema coverage, and smoke coverage.
+- Added board assurance notification routing for replay blockers, expiring exceptions, and evidence bundle readiness with role/preference-aware email and in-app routes, dashboard visibility, CSV evidence, and smoke coverage.
+- Added board release variance dashboards for approval-score decline, blocker drift, incident recurrence, runbook follow-through, replay trend points, CSV evidence, dashboard visibility, and smoke coverage.
+- Added board assurance evidence bundles that join approval history, replay audits, replay snapshots, incident postmortems, runbook completion proof, exception workflows, hashed JSON/CSV downloads, dashboard visibility, and smoke coverage.
+- Added board assurance exception workflows that turn replay blockers into expiry-bound exception scopes with approver sign-off, release-gate checks, dashboard visibility, CSV evidence, and smoke coverage.
+- Added persisted board decision replay audit snapshots with actor attribution, replay score trend history, guarded workspace APIs, dashboard save/history controls, JSON/CSV downloads, schema coverage, and smoke coverage.
+- Added board decision replay audits that compare active signed approval packets against later incidents, release evidence drift, and release runbook outcomes with dashboard visibility, CSV evidence, and smoke coverage.
+- Added reviewer-specific board approval packet circulation queues tied to redaction templates, recipient purpose, expiry windows, saved packet history, revocation state, dashboard visibility, CSV evidence, and smoke coverage.
+- Added board approval SLA reminder rows for unresolved sign-off gaps with overdue/due-soon severity, dashboard visibility, CSV evidence, workspace notification email planning, Brevo-ready delivery job queueing, and smoke coverage.
+- Added one-click board post-approval promotion into persisted release runbook records and additive workspace release calendar milestones, with dashboard controls, guarded API persistence, CSV evidence, and smoke coverage.
+- Added persisted board post-approval action history with actor attribution, source-key deduplication, refresh audit trails, guarded workspace APIs, dashboard save/history controls, schema guards, and smoke coverage.
+- Added a board post-approval action tracker that converts blocked and watched sign-off gaps into release runbook records, release calendar milestones, dashboard rows, CSV evidence, and smoke coverage.
+- Added external board reviewer redaction policy templates for investor, client, partner, and internal board views, with audience-specific rules, redacted packet previews, CSV export, dashboard visibility, and smoke coverage.
+- Added board packet diffing against saved approval packet history and executive release snapshots, with score, blocker, sign-off, checksum, critical-path drift, dashboard visibility, CSV export, and smoke coverage.
+- Added a board approval meeting agenda builder that turns packet sign-offs, control-room events, owner actions, and scenario recommendations into timed agenda rows, required attendees, dashboard visibility, CSV export, and smoke coverage.
+- Added persisted board approval packet history with recipient purpose, actor attribution, revocation state, guarded JSON/CSV downloads, dashboard controls, schema guards, and smoke coverage.
+- Added board-ready approval packets with redacted board summaries, critical-path rows, source checksums, sign-off state, JSON/CSV downloads, dashboard visibility, and smoke coverage.
+- Added persisted executive release intelligence snapshots with guarded workspace APIs, dashboard save/history controls, JSON/CSV downloads, release-window trend deltas, schema guards, and smoke coverage.
+- Added a release control-room timeline dashboard that merges deploy, webhook, incident, runbook, and owner-action updates with CSV export and smoke coverage.
+- Added a release scenario comparison dashboard that ranks public launch, maintenance release, desktop campaign, and incident rollback paths with owner actions, cost/risk/drill scores, CSV export, and smoke coverage.
+- Added an executive action ownership matrix that maps critical-path release signals to accountable owners, due windows, runbook/calendar evidence links, dashboard scoring, and CSV export.
+- Added executive release intelligence that combines launch, governance, automation, cost, risk, incident, and evidence signals into one scored dashboard report with CSV/JSON evidence and smoke coverage.
+- Added operational anomaly detection that correlates collaboration runtime, release webhooks, email delivery, CAD workers, and public-surface health into a scored dashboard report with CSV evidence and smoke coverage.
+- Added signed compliance packet sharing links with expiring recipient URLs, public download pages, persisted audit trails, revocation, guarded workspace APIs, dashboard controls, CSV evidence, and smoke coverage.
+- Added a workspace policy simulator for permission, retention, release, quota, and webhook enforcement changes with preflight blockers, approval signals, dashboard scoring, CSV export, and smoke coverage.
+- Added persisted release readiness webhook history with HMAC provider signature validation, stale/duplicate replay rejection, retry/exhaustion evidence, a workspace ingestion API, dashboard history summaries, migration/runtime schema coverage, and smoke coverage.
+- Added release readiness webhooks with provider event normalization for Vercel deploys, Turso migrations, Brevo delivery events, and desktop updater promotions, plus dashboard scoring, deduped CSV evidence, and smoke coverage.
+- Added signed audit evidence packet verification with Ed25519 detached signature checks, packet hash validation, trusted public-key rotation metadata, env-backed signature/key configuration, dashboard scoring, and smoke coverage.
+- Added workspace member import/export with CSV/JSON directory exports, import previews, duplicate/member/invite checks, role-safety gates, and guarded bulk invite creation.
+- Added granular scene permission policy templates for viewer, embed, API, and app-package surfaces with dashboard coverage, CSV evidence, and project share-menu application.
+- Added persisted role-access review campaign attestations and reminder delivery history with deterministic campaign hashes, owner/admin API actions, dashboard history state, and migration coverage.
+- Added role-access review campaigns with member/project/folder grant review rows, attestation status, reminder state, dashboard scoring, and CSV export.
+- Added a cost and quota forecast simulator for maintenance, public launch, and desktop campaign scenarios using free-tier guardrails, release calendar pressure, and deployment drift signals.
+- Added a deployment environment drift monitor for Vercel env vars, Turso targets, Brevo sender identity, and desktop updater endpoints with dashboard scoring and smoke coverage.
+- Added a workspace evidence graph linking policies, audit events, release packets, artifacts, incidents, and source records for reviewer traceability.
+- Added a governance exception workflow that turns policy and timeline risks into scoped exception rows with expiry dates, owner notes, reviewer sign-off state, and dashboard scoring.
+- Added a governance timeline that correlates audit events, SLO rows, incidents, postmortems, release drills, and resource guardrails into one reviewer-ready chronology.
+- Added policy-as-code checks for publish permissions, retention windows, release approvals, and public surface guardrails with dashboard scoring and smoke coverage.
+- Added a workspace maintenance command center for stale projects, inactive members, old artifacts, expiring evidence, and cleanup task queues.
+- Added reviewer handoff packets with redacted external summaries, deterministic checksum verification, and owner attestation status.
+- Added a release archive explorer that unifies evidence bundles, incident postmortems, drill history, restore rehearsals, and free-tier resource guardrail snapshots.
+- Added free-tier resource monitoring for Vercel, Turso, Brevo email, storage artifacts, and background worker queue guardrails.
+- Added runtime version watchlist scoring for Next.js, Bun, Tauri, Better Auth, Drizzle, Turso/libSQL, and Three.js upgrade readiness.
+- Added incident postmortem templates that connect project incidents to failed smoke checks, saved release drills, completed runbook remediation evidence, and follow-up actions.
+- Added workspace backup and restore rehearsal scoring for project snapshots, artifact registry entries, audit logs, release runbooks, and release evidence packets with dashboard visibility.
+- Added persisted release drill history with owners, last-run outcomes, due dates, evidence links, and JSON/CSV downloads.
+- Added release drill simulation for rollback, certificate expiry, deploy-smoke failure, and CAD worker outage scenarios with evidence-derived readiness scoring.
+- Added artifact provenance verification for uploaded certificates, desktop bundles, CAD outputs, and public assets with launch evidence scoring and dashboard visibility.
+- Added a workspace SLO dashboard for public surfaces, collaboration runtime, email delivery, and CAD workers with observed/target percentages, budget usage, status sorting, and next-action guidance.
+- Added release evidence diffing between saved release evidence or offline desktop handoff JSON and the current launch state, with blocker/readiness drift summaries and downloadable baselines.
+- Added persisted regression watchlist snapshots with owner triage states, 24-hour snooze windows, saved snapshot history, and CSV/JSON downloads.
+- Added a regression watchlist dashboard that unifies recurring public surface failures, CAD conversion failures, signing blockers, and incident recurrence into one launch-readiness surface.
+- Added offline desktop handoff kit exports with Tauri updater manifests, updater env rows, signing checklists, app package readiness, CAD worker outputs, and release metadata in one hashed packet.
+- Added a deploy promotion decision board that combines workspace risk score, post-deploy smoke history, release calendar milestones, and runbook completion into one release decision surface.
+- Added release evidence bundle exports that package risk digest JSON, audit CSV, project compliance reports, public health snapshots, release runbook records, native signing evidence, and CAD conversion summaries into a hashed JSON handoff packet.
+- Added persisted workspace risk digest packet history with content hashes, actor snapshots, JSON/CSV downloads, audit-event CSV downloads, guarded workspace APIs, and dashboard history controls.
+- Added workspace risk digest exports that combine trust, public health, release runbooks, incidents, and audit evidence into JSON/CSV compliance packets.
+- Added native CAD conversion worker adapters for FreeCAD and OCCT with queued jobs, diagnostics, logs, retryable failures, API transitions, and dashboard visibility.
+- Added native app package certificate ingestion and validation for Windows, macOS, Linux, Android, and visionOS package records with dashboard and compliance rollup coverage.
+- Added release runbook status transitions with owner reassignment, comments, attachments, and project audit-event writes.
+- Added public viewer and embed screenshot capture jobs with stored artifact metadata and baseline diff summaries.
+- Added persisted release runbook execution records with owners, due dates, checklist evidence, blockers, and audit-log links.
+- Added persisted public surface health snapshots for viewer, embed, API, and app package targets with per-batch dashboard history.
+- Added workspace security and compliance dashboard rollups for member roles, grants, retention coverage, review gates, export lineage, and artifact signing blockers.
+- Added a persisted project artifact registry for signed app bundles, public assets, compliance exports, and lineage snapshots.
+- Added approval-gated retention purge dry-run manifests with exportable deletion plans for audit events, comments, versions, and deleted asset tombstone redactions.
+- Added project-level data retention controls with persisted admin policy windows, dry-run review counts, and coverage for audit logs, comments, versions, and deleted asset tombstones.
+- Added export artifact lineage across compliance reports, public links, embeds, API payloads, and app package manifests.
+- Added persisted workspace release calendar milestones that unify review gates, app package readiness, desktop channels, and post-deploy synthetic checks.
+- Added role-aware workspace notification email delivery jobs with saved preference routing, Brevo dispatch support, and retry attempt logs.
+- Added persisted workspace scene QA baselines with deployment-to-deployment drift trends for public viewer, embed, API payload, and template launch surfaces.
+- Added scene QA snapshot comparisons for public viewer, embed, API payload, and template-generated launch surfaces.
+- Added workspace notification delivery preferences for inbox, health, review, and release events with in-app filtering and persisted email channel choices.
+- Added admin workspace audit search with category, status, project, date, text filters, and saved JSON/CSV export presets for compliance reviews.
+- Added project-level incident history for failed exports, failed post-deploy checks, and blocked review gates.
+- Added persisted post-deploy smoke report history with admin dashboard trend visibility.
+- Added a post-deploy synthetic smoke runner for public viewer, embed, API helper, and authenticated compliance download URLs.
+- Added a collaboration inbox dashboard panel for review requests, user mentions, remote collaboration review batches, and recently resolved comments.
+- Added workspace template usage analytics, last-used metadata, version history, schema guards, and migration coverage.
+- Added an admin release readiness dashboard panel backed by the deployment checklist engine, with CLI source command visibility and targeted smoke coverage.
+- Added persisted per-user health notification read, dismiss, and snooze state with dashboard controls and migration coverage.
+- Added a project health notification center for failed exports, blocked review gates, stale comments, missing assets, and release readiness blockers.
+- Added a release deployment checklist CLI with smoke coverage for required env vars, Turso connectivity, Brevo sender configuration, and Vercel project linkage.
+- Added dashboard production smoke coverage for seeded auth readiness, template-backed project creation, review-gate blocking, and compliance export downloads.
+- Added committed Drizzle migration artifacts and migration coverage smoke checks for audit events, workspace templates, review gates, and workspace defaults.
+- Added workspace-saved custom templates with create-from-project, edit, refresh, clone, delete, and create-project flows.
+- Added advanced dashboard project templates with scene starters, review policy presets, export presets, workspace folder defaults, and authenticated template creation.
+- Added persistent immutable project audit events with actor snapshots, mutation route writes, deleted-resource tombstones, and compliance/audit-log visibility.
+- Added project dashboard analytics for workspace activity, project health, comment closure rate, export readiness, and release blockers.
+- Added authenticated project compliance JSON exports with audit events, review gates, permissions, release readiness, and export capability snapshots.
+- Added review approval gates for project publishing, shared public scenes, embeds, public API/code routes, and downloadable app package surfaces.
+- Added project audit logs for permissions, publishing, export readiness, comments, versions, release review states, and lifecycle events on project cards.
+- Added a persisted team review workflow for public links, embeds, desktop releases, and app package approval states on project cards.
+- Added an imported model repair wizard for unit scale, CAD orientation, texture fallback, heavy-runtime relaxation, and GLTF clip playback normalization.
+- Added a scene performance profiler for draw-call, geometry, texture, interaction, animation, physics, and post-processing hot-spot diagnostics.
+- Added a release operations dashboard for desktop updater channel readiness, target coverage, artifact history, and generated updater environment rows.
+- Added desktop release-channel promotion checks for signed artifact coverage, unsigned artifact blockers, HTTPS delivery, version ordering, release metadata, and updater signatures.
+- Added CAD conversion validation for source-unit detection, tessellation budgets, mesh complexity diagnostics, external asset risk warnings, and persisted imported-model diagnostics.
+- Added persistent mesh selection sets and reusable modifier presets with typed scene persistence, inspector save/apply/rename/delete controls, and targeted smoke coverage.
+- Added multi-scene app package export validation with scene manifests, route-level validation guards, and package smoke coverage across every app preset.
+- Added fixture-backed signed desktop artifact validation with shared manifest payload generation for Windows, macOS, and Linux updater release outputs.
+- Added an OS-specific desktop signing readiness planner with CLI reporting, generated package checklist reuse, and smoke coverage for Windows, macOS, and Linux release workflows.
+- Added free local CAD conversion plans with FreeCAD/Blender command generation, script templates, asset-panel guidance, and targeted smoke coverage.
+- Added mesh selection spans so vertex, edge, and face operations can affect contiguous editable regions with inspector controls and targeted smoke coverage.
+- Added scene-scoped collaboration baseline handling so active-scene switches keep applied ledgers, stream recovery, live-publish signatures, and saved-scene comparisons isolated per scene.
+- Added full-batch acknowledgement promotion after clean partial CRDT applies so fully covered remote operation sets move into the applied batch ledger and stop replaying across reconnects.
+- Added document-aware CRDT lifecycle cascades so remote parent-object deletes remove descendants, stale descendant field writes, descendant order entries, active camera references, and descendant animation tracks during collaboration apply.
+- Added CRDT object-order convergence for simultaneous collaboration batches so concurrent order writes retain surviving objects from older order snapshots, include concurrent upserts, and remove tombstoned object ids before live apply.
+- Added a lightweight collaboration WebSocket smoke harness that exercises health, rejected upgrades, authenticated connect, publish acknowledgement, fan-out broadcast, refresh fan-out, and close bookkeeping.
+- Added collaboration WebSocket runtime health snapshots for readiness checks, socket/project activity, fan-out counters, delivery counters, and last-error visibility.
+- Added adaptive distributed collaboration fan-out so multi-instance WebSocket deployments catch persisted operation batches through the shared operation log without a paid broker.
+- Added a Bun collaboration WebSocket runtime entrypoint with authenticated upgrades, session heartbeats, publish handling, and project peer broadcast.
+- Added authenticated WebSocket collaboration session primitives for connect, heartbeat, replay, publish acknowledgement, and operation-batch messages.
+- Added a shared client WebSocket collaboration channel so an open live stream socket can publish operation batches before falling back to a dedicated WebSocket or HTTP.
+- Added a server-side WebSocket publish handler that validates shared publish envelopes, persists operation batches through the guarded collaboration service, and returns protocol acknowledgements or rejections.
+- Added shared publish acknowledgement and rejection envelopes so WebSocket and API collaboration publish paths can confirm the same operation batch protocol.
+- Added a WebSocket-aware outbound collaboration publisher that sends live local-operation batches over the socket protocol when available and falls back to the idempotent API path.
+- Added a debounced live local-operation publish queue so active cloud projects can sync editor deltas before the next save without republishing those deltas on save.
+- Added object-scoped partial-operation acknowledgement summaries so clean CRDT applies show which document/object targets are already merged.
+- Added a baseline-scoped partial-operation acknowledgement ledger so clean CRDT applies stay suppressed across collaboration panel remounts and reconnects.
+- Added conflict-scoped CRDT apply planning so clean remote operations can merge live while risky remote operations stay review-gated.
+- Wired CRDT apply previews into the actual remote collaboration apply payload so previewed deterministic operations are the operations applied to the editor.
+- Added deterministic CRDT-style merge planning for remote collaboration batches so register writes, object lifecycle changes, and order updates converge before conflict review.
+- Added applied-frontier acknowledgements for remote collaboration batches so reconnects preserve which causal histories have already merged locally.
+- Added transport replay checkpoints across operation fetches, server-sent streams, and WebSocket messages so collaboration reconnects can persist acknowledged cursors and causal frontiers.
+- Added client-side causal publish recovery that realigns the local collaboration sequence clock after server gap rejection and retries the operation batch once.
+- Added a server-side causal sequence continuity guard so collaboration operation logs reject forward gaps after a known client frontier.
+- Added visible collaboration stream recovery status for persisted causal cursors and stream resume points.
+- Added persisted stream recovery state for collaboration causal cursors and stream resume points.
+- Added ready-prefix auto-apply signatures so blocked-tail recovery noise does not retrigger safe collaboration merges.
+- Added causal replay compaction so harmless duplicate stream and reconnect batches do not block convergence.
+- Added causal-ready prefix live application so safe remote collaboration batches can merge while later histories recover.
+- Added automatic causal gap recovery for missing remote histories before live collaboration operations are applied.
+- Added client-preserved causal frontier summaries for collaboration refreshes, stream reconnects, and live-apply visibility.
+- Added server-returned causal cursor frontiers for collaboration operation responses and stream events.
+- Added causal cursor replay support for operation fetch, server-sent streams, and optional WebSocket transport.
+- Added causal remote batch sorting and apply gating for incomplete per-client collaboration histories.
+- Added per-client causal sequence metadata for durable collaboration operation batches.
+- Added register-style collaboration operation normalization before remote conflict detection and apply.
+- Added optional WebSocket collaboration transport with server-sent stream fallback for operation batches.
+- Added conflict-safe live application of clean remote operation batches from the collaboration stream.
+- Added bounded previous/next mesh selection stepping for vertex, edge, and face selections.
+- Completed the full mesh-editing checklist item with selectable vertex, edge, and face workflows across extrude, inset, bevel, bridge, and loop cut.
+- Added viewport click-picking for mesh vertex, edge, and face selections with non-indexed editable geometry.
+- Added exportable loop-cut topology splitting at the chosen cut plane before groove deformation.
+- Added selection-scoped mesh bevel deformation with generated side faces for selected edge and face regions.
+- Added selection-scoped mesh extrude and inset deformation with falloff for vertex, edge, and face selections.
+- Added remote-aware collaboration publish baselines after applying collaborator batches locally.
+- Added remote-operation republish suppression after applying collaborator batches locally.
+- Added signature-based remote review confirmation reset when unapplied batches or conflict details change.
+- Added deterministic same-time collaboration operation ordering and duplicate-suppressed stream cursor overlap.
+- Added concurrent collaboration operation retry recovery after duplicate batch insert races.
+- Added collaboration operation replay validation so reused batch ids must match the original payload.
+- Added idempotent client batch ids for collaboration operation publishing retries.
+- Added stale applied remote-batch ledger pruning when a project save baseline changes.
+- Added browser-local applied remote-batch persistence so collaboration activity stays applied across cloud-panel remounts.
+- Added review-gated remote conflict application with visible collaboration conflict details.
+- Added cursor-aware collaboration stream reconnects so live activity resumes after the newest known operation batch.
+- Added collaboration stream health and polling fallback status to the cloud panel.
+- Added applied remote-batch tracking so the same collaboration operations are not applied repeatedly before the next save baseline.
+- Added an authenticated server-sent collaboration operation stream for cross-browser activity refresh.
+- Added a same-browser collaboration broadcast bridge so open editor tabs refresh operation activity after saved sync batches.
+- Added conflict awareness for remote collaboration operation batches before applying them to the editor scene.
+- Added cloud-panel application of remote collaboration operation batches into the current scene.
+- Added remote collaboration activity polling with stable per-browser client ids and cloud-panel sync summaries.
+- Added durable project collaboration operation logs with API sync endpoints and save-time operation batch publishing.
+- Added local collaboration operation drafts with document/object field diffs, object lifecycle changes, ordering changes, and cloud-panel sync summaries.
+- Added remote cloud drift warnings when the loaded cloud project timestamp is newer than the editor baseline.
+- Added local-vs-cloud save state summaries with changed-object counts in the cloud project panel.
+- Added object names to cloud-save merge conflict summaries so collaboration recovery is easier to inspect.
+- Added readable cloud-save merge summaries for resolved document and object conflicts during collaboration recovery.
+- Added object-level export readiness drilldowns for visible objects with simplified or unsupported format coverage.
+- Added per-object export support matrices to the export manifest and surfaced format-note counts in the export readiness panel.
+- Added export-time compatibility notices for GLB, STL, and USDZ so partial format coverage is visible before download.
+- Added an in-editor export readiness panel for JSON, Web, GLB, STL, and USDZ using the export manifest compatibility data.
+- Added export manifest downloads with scene summaries, asset payload metadata, capability flags, optimization data, and JSON/GLB/STL/USDZ/Web readiness notes.
+- Added exportable cut/groove loop-cut controls with axis, position, width, depth, viewport preview, and primitive geometry deformation.
+- Added primitive bridge geometry between selected vertex, edge, or face regions with target selection, radius, segment controls, viewport markers, and exportable merged geometry.
+- Added direct vertex, edge, and face selection nudge editing with falloff, saved offsets, viewport selection previews, and exportable primitive geometry deformation.
+- Added basic sculpting brushes for primitive geometry with smooth, inflate, flatten, and grab modes, brush radius/strength/falloff controls, X symmetry, brush preview overlays, and exportable deformations.
+- Added first mesh-edit modifier controls for primitive objects with selection modes, extrude, inset, bevel, loop cuts, topology estimates, viewport topology overlays, and exportable geometry changes.
+- Added 3D Gaussian splat import and rendering with `.splat` upload support, embedded asset loading, and model inspector controls.
+- Added signing-ready standalone Tauri package exports with updater signature checks, signing environment examples, release checklist, and CI workflow starter.
+- Added source-linked 3D shape fills for 2D compositions with fit, scale, offset, depth controls, editor rendering, and shared-viewer rendering.
+- Added ordered 2D post-process filter chains with backdrop blur, brightness, contrast, saturation, hue, and grayscale effects in the editor and shared viewer.
+- Added visionOS spatial preview app package exports with SwiftUI, WKWebView, RealityKit preview panel, scene metadata, and web companion files.
+- Added first-class Android APK and AAB app package exports with Capacitor build scripts, artifact-specific README files, and signing examples.
+- Added shape blending for compatible 2D shape objects with inspector target controls, viewer rendering, and GLB export support.
+- Added 2D UI primitives for editable button, input, and card compositions with toolbar and command-palette creation commands.
+- Added built-in editable sample objects with bunny-style and teapot-style grouped reference entries in the template library.
+- Added expanded variable-control actions with numeric subtract/multiply operations and text/color cycling for editor play mode and shared viewers.
+- Added standalone published-scene app package exports with downloadable Web, Tauri, and Capacitor starter ZIPs.
+- Added configurable Hana-style embed publishing settings for responsive/watermark-free embeds, transparent backgrounds, navigation, grid, and camera controls.
+- Added advanced 2D layer effect controls with blend modes, blur/tint/glass filters, and shared editor/viewer rendering.
+- Added basic 2D layer effects with rounded rectangle geometry, configurable drop shadows, and shared editor/viewer rendering.
+- Added visual 2D frame/page clipping masks in the editor and shared viewer using inherited clipping planes for child scene materials.
+- Added functional 2D layout application and parent alignment commands for page/frame children using the existing 2D constraint metadata.
+- Added a first Hana-style 2D editor slice with a 2D canvas mode, page/frame creation commands, typed 2D layer metadata, scene-tree labeling, and dedicated inspector controls.
+- Added desktop release manifest tooling that discovers signed Tauri updater artifacts and generates platform-specific Vercel updater environment values.
+- Added CAD-oriented model import polish with direct STL rendering and import preflight feedback for STEP, IGES, FBX, DAE, and other conversion-first CAD sources.
+- Added Tauri desktop updater wiring with updater/process plugins, signed updater artifact config, Vercel release manifest endpoint, and an in-app desktop update action.
+- Added non-destructive boolean stacks for solid primitives with union, subtract, and intersect controls, CSG viewport evaluation, and export geometry support.
+- Added automatic object-level merge recovery for stale cloud saves, including structured conflict responses, saved-scene baselines, and merged retry saves.
+- Added workspace-scoped project and folder ownership so dashboard scenes, folders, and creation flows are separated by the active workspace.
+- Added multi-workspace creation and switching with per-workspace member, invite, and access-grant context in the dashboard.
+- Added an authenticated integration QA page that validates every generated embed, API helper, platform preset, and native code snippet against sample public URLs.
+- Added a Wix Studio-specific platform embed preset that fills the Wix HTML embed container with a responsive Essence Spline iframe.
+- Added Figma preview scene objects with URL import, persisted embed metadata, inspector sizing controls, and live editor/shared-viewer rendering.
+- Added an asset cleanup panel that audits duplicate embedded payloads and removes duplicate or unused saved material/audio library entries.
+- Added a built-in editable scene template browser with product, interface, lighting, and showcase compositions that place grouped objects into the scene.
+- Added image-backed bump map and roughness map material layers across the editor, shared viewer material renderer, GLB export material creation, and self-hosted viewer export.
+- Added reusable audio asset libraries with save/place/delete controls and portable `.essenceaudio` import/export files.
+- Added reusable saved material libraries with save/apply/delete controls and portable `.essencematerials` import/export files.
+- Added texture optimization controls for resizing and compressing scene image textures to WebP or JPEG without detaching the active cloud project.
+- Added GLTF/GLB morph target controls for imported models with target name/index selection, manual weight, and optional animated weight playback.
+- Added live comment polling and collaboration-aware version activity metadata showing snapshot actor, active collaborators, and open/total comment counts in version history.
+- Added an export optimization analyzer in the assets panel for estimated draw calls, triangle count, texture payload, scene weight, and export risk warnings.
+- Added group physics bodies that derive collision bounds from visible descendants and keep child bodies from double-simulating under physics-enabled ancestors.
+- Added per-clone animation delay and forward, reverse, center, or random stagger ordering for cloner transform and material-opacity animation playback.
+- Added saved cloner tools for renderable objects with linear, radial, grid, and deterministic random distributions in editor and shared viewer rendering.
+- Added runtime rigid-body physics with dynamic, static, and trigger bodies, gravity, damping, collision response, bounce, friction, and play/reset state in editor play mode and shared viewers.
+- Added runtime toggle-property actions for wireframe, light shadows, video loop/mute, and audio autoplay/loop/mute in editor play mode and shared viewers.
+- Added a timeline editor panel with scrubber-based keyframe creation, duration scaling, loop/easing controls, keyframe time editing, delete controls, and curve previews.
+- Added safe numeric variable expressions for variable actions and runtime property bindings.
+- Added runtime variable bindings for object transform axes, material values, light values, and text content in editor play mode and shared viewers.
+- Added API-updated and webhook-called completion triggers that can drive follow-up interactions after network actions finish.
+- Added game-control interaction triggers for keyboard WASD/arrow input and browser gamepad directions/buttons in editor play mode and shared viewers.
+- Added keyboard interaction events for key down, key up, and held key press with repeat timing controls.
+- Added pointer-event interaction triggers for click, down, up, press, hover enter, and hover exit in editor play mode and shared viewers.
+- Added runtime-derived variables for time, clock, timer, stopwatch, counter, and random values in editor play mode and shared viewers.
+- Added scene reordering controls to the multi-scene editor panel.
+- Added public multi-scene navigation with scene-specific share, embed, public API, code export, viewer package, and self-hosted export URLs.
+- Added multi-scene editor files with a Scenes panel, scene snapshots, scene switching, duplication, renaming, and deletion.
+- Added project collaboration presence with heartbeat polling, live cursor overlays, selection indicators, and conflict-safe cloud save checks.
+- Added project and folder access grants with role-based API guards for viewer, editor, admin, and owner workflows.
+- Added workspace member roles, pending invite management, revocation, and invite acceptance links.
+- Simplified `TODO.md` into a truth-first Spline parity audit with a focused missing-feature build queue.
+- Added portable component library bundles so saved scene components can be exported, shared, and imported across projects.
+- Added Brevo-backed email verification OTP delivery and a verification step to the sign-in/sign-up flow.
+- Added a seeded admin account script for the production database.
+- Reworked the authenticated projects area into a dashboard with project, website, and admin user management views.
+- Added a small tablecn-inspired data table layer for dashboard management tables.
+- Removed product-facing technical filler from project documentation and metadata.
+- Added Apple platform code exports with copyable SwiftUI WKWebView embeds and Swift URLSession scene-fetch helpers.
+- Added Android code exports with copyable Jetpack Compose WebView embeds and Kotlin scene API fetch helpers.
+- Added platform embed presets for Framer, Webflow, Notion, Shopify, Play, Wix, Typedream, Tome, Toddle, and Instant-style publishing.
+- Added scene post-processing controls for bloom and depth of field in the editor, shared viewer, and self-hosted exports.
+- Added state-based animation creation from saved scene states into reusable transform keyframe tracks.
+- Added animated GLB/GLTF import playback with autoplay, loop, clip-name, and speed controls in the model inspector.
+- Added path curve modes for smooth, linear, and Bezier tube paths across editor rendering, GLB export, and self-hosted exports.
+- Added keyboard-triggered interactions for editor play mode and public shared scenes.
+- Added start-triggered interactions for editor play mode and public shared scenes.
+- Added resize-triggered interactions for editor play mode and public shared scenes.
+- Added directional scroll-triggered interactions with minimum delta and cooldown controls for editor play mode and public shared scenes.
+- Added variable-change-triggered interactions with optional variable targeting and cooldown controls for editor play mode and public shared scenes.
+- Added state-change-triggered interactions with optional saved-state targeting and cooldown controls for editor play mode and public shared scenes.
+- Added distance-triggered interactions for enter, inside, and exit proximity events in editor play mode and public shared scenes.
+- Added trigger-area interactions for viewer-camera or object enter, inside, and exit proximity volumes in editor play mode and public shared scenes.
+- Added Orbit controls event interactions for start, change, and end camera-control gestures in public shared scenes and editor runtime canvases.
+- Added runtime look-at behavior for facing the viewer camera or another scene object in editor play mode and public shared scenes.
+- Added runtime follow behavior with target offset and smoothing in editor play mode and public shared scenes.
+- Added physics-collider collision triggers for enter, inside, and exit interactions in editor play mode and public shared scenes.
+- Added runtime drag/drop interactions for draggable scene objects with start, drag, and drop trigger events in editor play mode and public shared scenes.
+- Added interaction API update actions with variable interpolation for runtime HTTP requests in editor play mode and public shared scenes.
+- Added interaction webhook actions with JSON event payloads and optional variable snapshots in editor play mode and public shared scenes.
+- Added a real-time embed runtime API for scene state reads, variable updates, camera switching, visibility changes, runtime reset, object interactions, and `postMessage` control.
+- Added client-side USDZ export for Quick Look-compatible Apple AR scene packages using the shared export-scene conversion path.
+- Added client-side binary STL export for 3D-print-oriented scene mesh output using the shared export-scene conversion path.
+- Added client-side GLB export for scene hierarchy, primitive meshes, paths, lights, cameras, text/image planes, and embedded material textures.
+- Added video material layers with per-layer video upload, repeat controls, live VideoTexture mapping, and self-hosted export support.
+- Added image material layers with per-layer image upload, repeat controls, live material mapping, and self-hosted export support.
+- Added camera-depth material layers with a small shader renderer in the editor, shared viewer, and self-hosted exports.
+- Added lighting material layers for specular, clearcoat, roughness, and emissive response in editor rendering and self-hosted exports.
+- Added matcap material layers with procedural matcap texture generation in the editor, shared viewer, and self-hosted exports.
+- Added outline material layers with inflated back-face shell rendering in the editor, shared viewer, and self-hosted exports.
+- Added procedural displacement material layers with generated height maps in editor rendering and self-hosted exports.
+- Added procedural mask material layers with alpha-map cutouts in editor rendering and self-hosted exports.
+- Added procedural normal-detail material layers with bump texture generation in editor rendering and self-hosted exports.
+- Added procedural checker pattern material layers with scale controls, editor rendering, and self-hosted export support.
+- Added fresnel material layers using physical clearcoat/specular controls for edge-like highlights in editor and self-hosted exports.
+- Added rainbow material layers using MeshPhysicalMaterial iridescence with tint, film control, editor rendering, and self-hosted export support.
+- Added procedural noise material layers with deterministic canvas textures in the editor and self-hosted exports.
+- Added glass material layers with tint, transmission, physical material rendering, and self-hosted export support.
+- Added toon material layers with flat-shaded rendering in the editor, shared viewer, and self-hosted exports.
+
+## 2026-05-13
+
+- Initialized the `essence-spline` project scaffold.
+- Added the base component system for the editor shell.
+- Added Three.js, react-three-fiber, drei, and Zustand for a functional browser 3D editor foundation.
+- Added account, database, and API route foundations for email/password auth and project persistence.
+- Created the cloud database and wrote local credentials to ignored `.env.local`.
+- Added desktop shell files for local desktop development.
+- Replaced the starter page with a real editor workspace: viewport, object creation, scene tree, inspector, undo/redo, local autosave, and JSON import/export.
+- Added `TODO.md` with the full non-AI Spline feature gap and current completion score.
+- Added authenticated cloud project persistence for creating, listing, opening, saving, and deleting scenes from the editor top bar.
+- Added viewport transform gizmos for moving, rotating, and scaling selected objects.
+- Added text scene objects with content, size, width, transform, material, and viewport rendering support.
+- Added command palette and keyboard shortcuts for common editor actions.
+- Added point, directional, and spot light scene objects with viewport markers and inspector controls.
+- Added scene camera objects with active-camera selection, FOV/clip controls, viewport markers, and preview mode.
+- Added an auth-gated projects dashboard and direct scene opening with `?projectId=...` editor URLs.
+- Added a material preset library that applies materials to selected editable objects.
+- Added PNG viewport image export from the live WebGL canvas.
+- Added logical object groups with nested scene tree rendering, grouped viewport transforms, group/ungroup commands, and descendant-safe duplicate/delete.
+- Added authenticated cloud project duplication from the project sheet.
+- Added project trash/archive with restore support and active/trash dashboard views.
+- Added project folders, dashboard folder filters, folder creation/deletion, and per-project folder assignment.
+- Added public view-only share links with publish/unpublish controls and a read-only WebGL scene viewer.
+- Added project version history with save snapshots and restore support from the cloud project sheet.
+- Added feedback comments with 3D viewport pins, selected-object placement, resolve/reopen, and delete controls.
+- Added image texture uploads for materials with scene persistence, viewport rendering, shared viewer rendering, and asset counts.
+- Added GLB/GLTF model import with scene persistence, editor rendering, shared viewer rendering, inspector metadata, and asset counts.
+- Added scene environment settings for background color, ambient light color/intensity, and fog across the editor and shared viewer.
+- Added play mode with a clean viewport, top-bar and command-palette toggles, Escape-to-exit, and hidden editor markers.
+- Added object pivot/origin controls for mesh, text, model, and group objects with persistent scene data and shared viewer rendering.
+- Added light shadow controls for shadow casting, softness, and bias across the editor and shared viewer.
+- Added parametric primitive geometry controls for boxes, spheres, cylinders, cones, torus objects, and planes with shared viewer rendering.
+- Added per-object transform axis locks for move, rotate, and scale gizmos.
+- Added a reusable scene component library for saving selected objects or hierarchies and placing persisted component instances from the asset panel.
+- Added basic transform keyframe animation for position, rotation, and scale with play-mode and shared viewer playback.
+- Added basic click-link interactions for play mode and public shared scenes.
+- Added first-class image object import with scene persistence, selectable viewport rendering, shared viewer rendering, and inspector sizing controls.
+- Added first-class video object import with scene persistence, looping/muted playback, shared viewer rendering, and inspector sizing/playback controls.
+- Added first-class audio object import with scene persistence, selectable sound markers, click/autoplay playback, shared viewer support, and inspector playback controls.
+- Added OBJ mesh import through the model pipeline with scene persistence, editor rendering, shared viewer rendering, and inspector format metadata.
+- Added SVG vector import with scene persistence, vector geometry rendering, shared viewer support, and inspector sizing/fill controls.
+- Added 3D path objects with tube-curve rendering, editable path points, material controls, and shared viewer rendering.
+- Added scene variables with typed number, boolean, text, and color values plus scene/local scoping in the inspector.
+- Added variable-driven click actions for setting, incrementing, and toggling scene values in play mode and shared scenes.
+- Added browser-local persistence for local-scope variables in editor project loads and shared scene sessions.
+- Added basic switch-camera click actions with transient runtime camera state in the editor and shared viewer.
+- Added basic reset-scene click actions that restore runtime camera and variables to the play-session baseline.
+- Added basic clear-local-storage click actions for browser-stored local variables in editor play mode and shared scenes.
+- Added basic audio/video playback click actions for play, pause, toggle, and restart in editor play mode and shared scenes.
+- Added basic conditional click interactions gated by scene/local variable comparisons in editor play mode and shared scenes.
+- Added basic runtime object visibility click actions for showing, hiding, and toggling scene objects in editor play mode and shared scenes.
+- Added first-class particle emitter objects with animated point-cloud rendering, inspector controls, editor rendering, and shared viewer support.
+- Added basic particle control click actions for start, stop, toggle, and set operations in editor play mode and shared scenes.
+- Added basic runtime object instance click actions for creating, destroying, and toggling temporary copies in editor play mode and shared scenes.
+- Added basic animation playback click actions for start, pause, toggle, and restart operations in editor play mode and shared scenes.
+- Added basic transform transition click actions for moving, rotating, and scaling objects in editor play mode and shared scenes.
+- Added saved scene states plus scene transition click actions for moving into captured object, visibility, environment, and camera states in editor play mode and shared scenes.
+- Added input controls that expose scene variables as runtime sliders, toggles, text fields, and color controls in editor play mode and shared scenes.
+- Added a material layer stack with color, opacity, roughness, metalness, and emissive layers resolved in editor and shared scene rendering.
+- Added watermark-free public embeds with a full-viewport `/embed/[shareId]` route and dashboard iframe snippet copy support.
+- Added a public scene JSON API for published scenes with dashboard API URL copy support.
+- Added public code export snippets for iframe embeds, React components, and scene-fetch helpers.
+- Added a downloadable viewer HTML package export for published scenes.
+- Added native scene open/save and PNG export dialogs with browser fallbacks.
+- Set the desktop production strategy to a hosted workspace.
+- Added native `.essencescene` file association metadata and startup scene loading for desktop launches from scene files.
+- Added granular public share permissions for view pages, embeds, scene API access, code snippets, and viewer downloads.
+- Added a self-hosted single-file HTML export with embedded scene JSON and a lightweight Three.js runtime.
+- Added WebM viewport video export from the live editor canvas.
+- Added PNG image sequence export from the live editor canvas.
+- Added basic 2D rectangle, ellipse, triangle, and star primitives with inspector controls and shared viewer/self-hosted rendering.
+- Added gradient material layers with start/end colors, angle control, editor/shared viewer rendering, and self-hosted export support.
+- Added persistent per-object physics properties for collider kind, mass, friction, bounce, and gravity.
+- Added optional extrusion depth for rectangle, ellipse, triangle, and star shapes across editor, shared viewer, and self-hosted exports.
+- Added an animatable property registry and material opacity keyframes for mesh primitives in editor play mode and shared scenes.

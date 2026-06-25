@@ -1,0 +1,1403 @@
+{
+  "version": 1,
+  "deployment_kind": "dx-www-hosted-preview-bundle",
+  "provider": "dx-www-cloud-local",
+  "adapter_kind": "account-free-preview",
+  "generated": "2026-06-10T14:06:24.496658900+00:00",
+  "requires_provider_account": false,
+  "account_bound": false,
+  "network_required": false,
+  "secrets_required": false,
+  "node_modules_required": false,
+  "package_installs_executed": false,
+  "lifecycle_scripts_executed": false,
+  "build": {
+    "dir": ".dx/build",
+    "manifest_hash": "blake3:7a43c0c564813b653d0352eb1b4ec0c69c8f31ef745956b09486d5af14d3511a",
+    "route_count": 5,
+    "immutable_asset_count": 60,
+    "server_action_count": 0,
+    "observability_path": "observability.json"
+  },
+  "deploy_adapter": {
+    "path": "deploy-adapter.json",
+    "adapter": "dx-www-static-hosting",
+    "no_node_modules_required": true,
+    "cache_headers": [
+      {
+        "glob": "**/*.html",
+        "cache_control": "public, max-age=0, must-revalidate"
+      },
+      {
+        "glob": "**/*.dxpk",
+        "cache_control": "public, max-age=31536000, immutable"
+      },
+      {
+        "glob": "public/**/*",
+        "cache_control": "public, max-age=31536000, immutable"
+      }
+    ]
+  },
+  "provider_adapter": {
+    "path": "provider-adapter.dx-cloud.json",
+    "provider": "dx-www-cloud-local",
+    "requires_provider_account": false,
+    "network_required": false
+  },
+  "forge": {
+    "root": "forge",
+    "source_manifest": null,
+    "template_manifest": null,
+    "package_count": 0,
+    "receipt_count": 0,
+    "receipts_copied": false,
+    "receipts": [],
+    "source_owned": true,
+    "package_installs_executed": false,
+    "lifecycle_scripts_executed": false
+  },
+  "routes": [
+    {
+      "path": "/",
+      "html": "app/index.html",
+      "execution_contract": "app/app-router-execution.json"
+    },
+    {
+      "path": "/dashboard",
+      "html": "app/dashboard/index.html",
+      "packet": "app/dashboard/index.dxpk",
+      "execution_contract": "app/dashboard/app-router-execution.json",
+      "streaming_plan": "app/dashboard/streaming-plan.json"
+    },
+    {
+      "path": "/embed/[token]",
+      "html": "app/embed/[token]/index.html",
+      "packet": "app/embed/[token]/index.dxpk",
+      "execution_contract": "app/embed/[token]/app-router-execution.json",
+      "streaming_plan": "app/embed/[token]/streaming-plan.json",
+      "server_data": "app/embed/[token]/server-data.json"
+    },
+    {
+      "path": "/share/[token]",
+      "html": "app/share/[token]/index.html",
+      "packet": "app/share/[token]/index.dxpk",
+      "execution_contract": "app/share/[token]/app-router-execution.json",
+      "streaming_plan": "app/share/[token]/streaming-plan.json",
+      "server_data": "app/share/[token]/server-data.json"
+    },
+    {
+      "path": "/share/[token]/prototype",
+      "html": "app/share/[token]/prototype/index.html",
+      "packet": "app/share/[token]/prototype/index.dxpk",
+      "execution_contract": "app/share/[token]/prototype/app-router-execution.json",
+      "streaming_plan": "app/share/[token]/prototype/streaming-plan.json",
+      "server_data": "app/share/[token]/prototype/server-data.json"
+    }
+  ],
+  "server_actions": [],
+  "health_checks": [],
+  "immutable_assets": [
+    {
+      "path": "_dx/styles/react-route-b25c3009fdfa7c77.css",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "text/css; charset=utf-8",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "_dx/styles/react-route-b25c3009fdfa7c77.css.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "text/css; charset=utf-8",
+      "content_encoding": "br",
+      "encoded_from": "_dx/styles/react-route-b25c3009fdfa7c77.css"
+    },
+    {
+      "path": "_dx/styles/react-route-b25c3009fdfa7c77.css.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "text/css; charset=utf-8",
+      "content_encoding": "gzip",
+      "encoded_from": "_dx/styles/react-route-b25c3009fdfa7c77.css"
+    },
+    {
+      "path": "app/dashboard/index.dxpk",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "app/dashboard/index.dxpk.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "br",
+      "encoded_from": "app/dashboard/index.dxpk"
+    },
+    {
+      "path": "app/dashboard/index.dxpk.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "gzip",
+      "encoded_from": "app/dashboard/index.dxpk"
+    },
+    {
+      "path": "app/embed/[token]/index.dxpk",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "app/embed/[token]/index.dxpk.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "br",
+      "encoded_from": "app/embed/[token]/index.dxpk"
+    },
+    {
+      "path": "app/embed/[token]/index.dxpk.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "gzip",
+      "encoded_from": "app/embed/[token]/index.dxpk"
+    },
+    {
+      "path": "app/share/[token]/index.dxpk",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "app/share/[token]/index.dxpk.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "br",
+      "encoded_from": "app/share/[token]/index.dxpk"
+    },
+    {
+      "path": "app/share/[token]/index.dxpk.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "gzip",
+      "encoded_from": "app/share/[token]/index.dxpk"
+    },
+    {
+      "path": "app/share/[token]/prototype/index.dxpk",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "app/share/[token]/prototype/index.dxpk.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "br",
+      "encoded_from": "app/share/[token]/prototype/index.dxpk"
+    },
+    {
+      "path": "app/share/[token]/prototype/index.dxpk.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "application/octet-stream",
+      "content_encoding": "gzip",
+      "encoded_from": "app/share/[token]/prototype/index.dxpk"
+    },
+    {
+      "path": "image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg"
+    },
+    {
+      "path": "image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg"
+    },
+    {
+      "path": "image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg"
+    },
+    {
+      "path": "image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg"
+    },
+    {
+      "path": "image-placeholders/public/next-df544db0b85b546a.placeholder.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "image-placeholders/public/next-df544db0b85b546a.placeholder.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "image-placeholders/public/next-df544db0b85b546a.placeholder.svg"
+    },
+    {
+      "path": "image-placeholders/public/next-df544db0b85b546a.placeholder.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "image-placeholders/public/next-df544db0b85b546a.placeholder.svg"
+    },
+    {
+      "path": "image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg"
+    },
+    {
+      "path": "image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg"
+    },
+    {
+      "path": "image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg"
+    },
+    {
+      "path": "image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg"
+    },
+    {
+      "path": "public/file-1fdb97c3121990de.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "public/file-1fdb97c3121990de.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/file-1fdb97c3121990de.svg"
+    },
+    {
+      "path": "public/file-1fdb97c3121990de.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/file-1fdb97c3121990de.svg"
+    },
+    {
+      "path": "public/file.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "public/file.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/file.svg"
+    },
+    {
+      "path": "public/file.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/file.svg"
+    },
+    {
+      "path": "public/globe-3d253d85af1b8544.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "public/globe-3d253d85af1b8544.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/globe-3d253d85af1b8544.svg"
+    },
+    {
+      "path": "public/globe-3d253d85af1b8544.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/globe-3d253d85af1b8544.svg"
+    },
+    {
+      "path": "public/globe.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "public/globe.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/globe.svg"
+    },
+    {
+      "path": "public/globe.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/globe.svg"
+    },
+    {
+      "path": "public/next-e3b3a22e1602686c.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "public/next-e3b3a22e1602686c.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/next-e3b3a22e1602686c.svg"
+    },
+    {
+      "path": "public/next-e3b3a22e1602686c.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/next-e3b3a22e1602686c.svg"
+    },
+    {
+      "path": "public/next.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "public/next.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/next.svg"
+    },
+    {
+      "path": "public/next.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/next.svg"
+    },
+    {
+      "path": "public/vercel-bcad5f0d811587a2.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "public/vercel-bcad5f0d811587a2.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/vercel-bcad5f0d811587a2.svg"
+    },
+    {
+      "path": "public/vercel-bcad5f0d811587a2.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/vercel-bcad5f0d811587a2.svg"
+    },
+    {
+      "path": "public/vercel.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "public/vercel.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/vercel.svg"
+    },
+    {
+      "path": "public/vercel.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/vercel.svg"
+    },
+    {
+      "path": "public/window-a7c216b765d88ad2.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "public/window-a7c216b765d88ad2.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/window-a7c216b765d88ad2.svg"
+    },
+    {
+      "path": "public/window-a7c216b765d88ad2.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/window-a7c216b765d88ad2.svg"
+    },
+    {
+      "path": "public/window.svg",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": null,
+      "encoded_from": null
+    },
+    {
+      "path": "public/window.svg.br",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "br",
+      "encoded_from": "public/window.svg"
+    },
+    {
+      "path": "public/window.svg.gz",
+      "cache_control": "public, max-age=31536000, immutable",
+      "content_type": "image/svg+xml",
+      "content_encoding": "gzip",
+      "encoded_from": "public/window.svg"
+    }
+  ],
+  "rollback": {
+    "metadata_path": "rollback.json",
+    "strategy": "manifest-pinned-asset-rollback"
+  },
+  "observability": {
+    "metadata_path": "observability.json",
+    "ready_path": "/.dx/ready",
+    "metrics_path": "/.dx/observability",
+    "collects_secrets": false,
+    "collects_request_headers": false,
+    "collects_request_payloads": false,
+    "cache_control": "no-store"
+  },
+  "forge_hosting_manifest": {
+    "path": "forge-hosting-manifest.json",
+    "manifest_kind": "dx-www-forge-hosting-release-gate",
+    "coverage_score": 100,
+    "account_free_preview_ready": true,
+    "hosted_release_ready": false,
+    "provider_portability": true,
+    "cache_header_count": 3,
+    "observability_metadata_path": "observability.json",
+    "rollback_metadata_path": "rollback.json"
+  },
+  "bundle": {
+    "format": "directory-manifest",
+    "root": ".dx/build",
+    "artifact_count": 93,
+    "artifacts": [
+      {
+        "path": "_dx/styles/react-route-b25c3009fdfa7c77.css",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "_dx/styles/react-route-b25c3009fdfa7c77.css.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "_dx/styles/react-route-b25c3009fdfa7c77.css.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/app-router-execution.json",
+        "kind": "app-router-execution",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/dashboard/app-router-execution.json",
+        "kind": "app-router-execution",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/dashboard/index.dxpk",
+        "kind": "route-packet",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/dashboard/index.dxpk.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/dashboard/index.dxpk.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/dashboard/index.html",
+        "kind": "route-html",
+        "cache_control": "public, max-age=0, must-revalidate",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/dashboard/streaming-plan.json",
+        "kind": "streaming-plan",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/embed/[token]/app-router-execution.json",
+        "kind": "app-router-execution",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/embed/[token]/index.dxpk",
+        "kind": "route-packet",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/embed/[token]/index.dxpk.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/embed/[token]/index.dxpk.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/embed/[token]/index.html",
+        "kind": "route-html",
+        "cache_control": "public, max-age=0, must-revalidate",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/embed/[token]/server-data.json",
+        "kind": "server-data",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/embed/[token]/streaming-plan.json",
+        "kind": "streaming-plan",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/index.html",
+        "kind": "route-html",
+        "cache_control": "public, max-age=0, must-revalidate",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/share/[token]/app-router-execution.json",
+        "kind": "app-router-execution",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/share/[token]/index.dxpk",
+        "kind": "route-packet",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/share/[token]/index.dxpk.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/share/[token]/index.dxpk.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/share/[token]/index.html",
+        "kind": "route-html",
+        "cache_control": "public, max-age=0, must-revalidate",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/share/[token]/prototype/app-router-execution.json",
+        "kind": "app-router-execution",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/share/[token]/prototype/index.dxpk",
+        "kind": "route-packet",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/share/[token]/prototype/index.dxpk.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/share/[token]/prototype/index.dxpk.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/share/[token]/prototype/index.html",
+        "kind": "route-html",
+        "cache_control": "public, max-age=0, must-revalidate",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/share/[token]/prototype/server-data.json",
+        "kind": "server-data",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/share/[token]/prototype/streaming-plan.json",
+        "kind": "streaming-plan",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/share/[token]/server-data.json",
+        "kind": "server-data",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "app/share/[token]/streaming-plan.json",
+        "kind": "streaming-plan",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "deploy-adapter.json",
+        "kind": "deploy-contract",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "forge-hosting-manifest.json",
+        "kind": "forge-hosting-manifest",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "hosted-preview.json",
+        "kind": "hosted-preview-contract",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/next-df544db0b85b546a.placeholder.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/next-df544db0b85b546a.placeholder.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/next-df544db0b85b546a.placeholder.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "import-resolution.json",
+        "kind": "import-resolution",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "manifest.json",
+        "kind": "build-manifest",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "next-familiar-compatibility-evidence.json",
+        "kind": "next-familiar-compatibility-evidence",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "next-familiar-fixtures.json",
+        "kind": "next-familiar-fixtures",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "next-migration-proof.json",
+        "kind": "next-migration-proof",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "observability.json",
+        "kind": "production-observability",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "provider-adapter.dx-cloud.json",
+        "kind": "provider-adapter",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/file-1fdb97c3121990de.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/file-1fdb97c3121990de.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/file-1fdb97c3121990de.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/file.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/file.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/file.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/globe-3d253d85af1b8544.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/globe-3d253d85af1b8544.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/globe-3d253d85af1b8544.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/globe.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/globe.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/globe.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/next-e3b3a22e1602686c.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/next-e3b3a22e1602686c.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/next-e3b3a22e1602686c.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/next.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/next.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/next.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/vercel-bcad5f0d811587a2.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/vercel-bcad5f0d811587a2.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/vercel-bcad5f0d811587a2.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/vercel.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/vercel.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/vercel.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/window-a7c216b765d88ad2.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/window-a7c216b765d88ad2.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/window-a7c216b765d88ad2.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/window.svg",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/window.svg.br",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "public/window.svg.gz",
+        "kind": "immutable-asset",
+        "cache_control": "public, max-age=31536000, immutable",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "rollback.json",
+        "kind": "rollback-metadata",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "server-action-protocols.json",
+        "kind": "server-action-protocols",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "server-action-runtime.json",
+        "kind": "server-action-runtime",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "server-contracts.json",
+        "kind": "server-contracts",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "source-build-manifest.json",
+        "kind": "source-build-manifest",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      },
+      {
+        "path": "source-build-receipt.json",
+        "kind": "source-build-receipt",
+        "cache_control": "no-store",
+        "account_required": false,
+        "network_required": false,
+        "package_installs_executed": false,
+        "lifecycle_scripts_executed": false
+      }
+    ]
+  },
+  "release_gate": {
+    "account_free_preview_ready": true,
+    "hosted_release_ready": false,
+    "manifest_signature_required": true,
+    "manifest_signed": false,
+    "rollback_metadata_required": true,
+    "forge_receipts_copied": false,
+    "no_node_modules": true
+  },
+  "next_commands": [
+    "dx preview --production-contract",
+    "dx promote --key <private-key.json>",
+    "dx rollback verify --previous-build <path> --current-build .dx/build"
+  ]
+}

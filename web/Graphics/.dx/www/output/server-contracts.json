@@ -1,0 +1,26 @@
+[
+  {
+    "kind": "route-handler",
+    "source_path": "src/app/api/auth/[...all]/route.ts",
+    "endpoint": "/api/auth/[...all]",
+    "exports": [],
+    "execution_model": "analyze-only",
+    "lifecycle_scripts_executed": false
+  },
+  {
+    "kind": "route-handler",
+    "source_path": "src/app/api/public-route-events/route.ts",
+    "endpoint": "/api/public-route-events",
+    "exports": [
+      {
+        "name": "POST",
+        "http_method": "POST",
+        "async_export": true,
+        "request_serialization": "web-request",
+        "response_serialization": "web-response"
+      }
+    ],
+    "execution_model": "analyze-only",
+    "lifecycle_scripts_executed": false
+  }
+]

@@ -1,0 +1,332 @@
+{
+  "version": 1,
+  "fixture_family": "next-familiar-app-router-compatibility",
+  "source_framework": "nextjs-app-router",
+  "project_contract": "dx-www-react-familiar-forge-first",
+  "node_modules_required": false,
+  "node_modules_present": false,
+  "package_installs_executed": false,
+  "lifecycle_scripts_executed": false,
+  "routes": [
+    {
+      "route": "/",
+      "source_path": "src/app/page.tsx",
+      "route_groups": [],
+      "visible_segments": [],
+      "dynamic_segments": [],
+      "metadata": {
+        "title": "Essence Figma",
+        "description": "Private design workspace for Essence.",
+        "canonical": null
+      },
+      "html": "app/index.html",
+      "packet": "app/index.dxpk",
+      "server_data": null,
+      "output_kind": "static",
+      "compiled": false,
+      "node_modules_required": false
+    },
+    {
+      "route": "/dashboard",
+      "source_path": "src/app/dashboard/page.tsx",
+      "route_groups": [],
+      "visible_segments": [
+        "dashboard"
+      ],
+      "dynamic_segments": [],
+      "metadata": {
+        "title": null,
+        "description": null,
+        "canonical": null
+      },
+      "html": "app/dashboard/index.html",
+      "packet": "app/dashboard/index.dxpk",
+      "server_data": null,
+      "output_kind": "static",
+      "compiled": true,
+      "node_modules_required": false
+    },
+    {
+      "route": "/embed/[token]",
+      "source_path": "src/app/embed/[token]/page.tsx",
+      "route_groups": [],
+      "visible_segments": [
+        "embed",
+        "[token]"
+      ],
+      "dynamic_segments": [
+        {
+          "name": "token",
+          "kind": "dynamic",
+          "segment": "[token]"
+        }
+      ],
+      "metadata": {
+        "title": null,
+        "description": null,
+        "canonical": null
+      },
+      "html": "app/embed/[token]/index.html",
+      "packet": "app/embed/[token]/index.dxpk",
+      "server_data": "app/embed/[token]/server-data.json",
+      "output_kind": "server",
+      "compiled": true,
+      "node_modules_required": false
+    },
+    {
+      "route": "/share/[token]",
+      "source_path": "src/app/share/[token]/page.tsx",
+      "route_groups": [],
+      "visible_segments": [
+        "share",
+        "[token]"
+      ],
+      "dynamic_segments": [
+        {
+          "name": "token",
+          "kind": "dynamic",
+          "segment": "[token]"
+        }
+      ],
+      "metadata": {
+        "title": null,
+        "description": null,
+        "canonical": null
+      },
+      "html": "app/share/[token]/index.html",
+      "packet": "app/share/[token]/index.dxpk",
+      "server_data": "app/share/[token]/server-data.json",
+      "output_kind": "server",
+      "compiled": true,
+      "node_modules_required": false
+    },
+    {
+      "route": "/share/[token]/prototype",
+      "source_path": "src/app/share/[token]/prototype/page.tsx",
+      "route_groups": [],
+      "visible_segments": [
+        "share",
+        "[token]",
+        "prototype"
+      ],
+      "dynamic_segments": [
+        {
+          "name": "token",
+          "kind": "dynamic",
+          "segment": "[token]"
+        }
+      ],
+      "metadata": {
+        "title": null,
+        "description": null,
+        "canonical": null
+      },
+      "html": "app/share/[token]/prototype/index.html",
+      "packet": "app/share/[token]/prototype/index.dxpk",
+      "server_data": "app/share/[token]/prototype/server-data.json",
+      "output_kind": "server",
+      "compiled": true,
+      "node_modules_required": false
+    }
+  ],
+  "route_handlers": [
+    {
+      "route": "/api/auth/[...all]",
+      "source_path": "src/app/api/auth/[...all]/route.ts",
+      "route_groups": [],
+      "visible_segments": [
+        "api",
+        "auth",
+        "[...all]"
+      ],
+      "dynamic_segments": [
+        {
+          "name": "all",
+          "kind": "catchall",
+          "segment": "[...all]"
+        }
+      ],
+      "methods": [],
+      "build_safe_requestless_methods": [],
+      "adapter_boundary": true,
+      "materialized_as": "adapter-boundary-review",
+      "node_modules_required": false
+    },
+    {
+      "route": "/api/public-route-events",
+      "source_path": "src/app/api/public-route-events/route.ts",
+      "route_groups": [],
+      "visible_segments": [
+        "api",
+        "public-route-events"
+      ],
+      "dynamic_segments": [],
+      "methods": [
+        "POST"
+      ],
+      "build_safe_requestless_methods": [],
+      "adapter_boundary": true,
+      "materialized_as": "adapter-boundary-review",
+      "node_modules_required": false
+    }
+  ],
+  "route_handler_count": 2,
+  "dynamic_routes": [
+    {
+      "route": "/embed/[token]",
+      "source_path": "src/app/embed/[token]/page.tsx",
+      "route_groups": [],
+      "visible_segments": [
+        "embed",
+        "[token]"
+      ],
+      "dynamic_segments": [
+        {
+          "name": "token",
+          "kind": "dynamic",
+          "segment": "[token]"
+        }
+      ],
+      "metadata": {
+        "title": null,
+        "description": null,
+        "canonical": null
+      },
+      "html": "app/embed/[token]/index.html",
+      "packet": "app/embed/[token]/index.dxpk",
+      "server_data": "app/embed/[token]/server-data.json",
+      "output_kind": "server",
+      "compiled": true,
+      "node_modules_required": false
+    },
+    {
+      "route": "/share/[token]",
+      "source_path": "src/app/share/[token]/page.tsx",
+      "route_groups": [],
+      "visible_segments": [
+        "share",
+        "[token]"
+      ],
+      "dynamic_segments": [
+        {
+          "name": "token",
+          "kind": "dynamic",
+          "segment": "[token]"
+        }
+      ],
+      "metadata": {
+        "title": null,
+        "description": null,
+        "canonical": null
+      },
+      "html": "app/share/[token]/index.html",
+      "packet": "app/share/[token]/index.dxpk",
+      "server_data": "app/share/[token]/server-data.json",
+      "output_kind": "server",
+      "compiled": true,
+      "node_modules_required": false
+    },
+    {
+      "route": "/share/[token]/prototype",
+      "source_path": "src/app/share/[token]/prototype/page.tsx",
+      "route_groups": [],
+      "visible_segments": [
+        "share",
+        "[token]",
+        "prototype"
+      ],
+      "dynamic_segments": [
+        {
+          "name": "token",
+          "kind": "dynamic",
+          "segment": "[token]"
+        }
+      ],
+      "metadata": {
+        "title": null,
+        "description": null,
+        "canonical": null
+      },
+      "html": "app/share/[token]/prototype/index.html",
+      "packet": "app/share/[token]/prototype/index.dxpk",
+      "server_data": "app/share/[token]/prototype/server-data.json",
+      "output_kind": "server",
+      "compiled": true,
+      "node_modules_required": false
+    }
+  ],
+  "route_groups": [],
+  "metadata_files": [
+    {
+      "kind": "favicon",
+      "source_path": "src/app/favicon.ico",
+      "route_scope": "/",
+      "node_modules_required": false,
+      "materialized_as": "explicit-metadata-build-input"
+    }
+  ],
+  "middleware_redirects": [],
+  "mixed_output": {
+    "has_static_routes": true,
+    "has_server_routes": true,
+    "static_routes": [
+      {
+        "route": "/",
+        "html": "app/index.html",
+        "packet": "app/index.dxpk",
+        "cache_control": "public, max-age=0, must-revalidate"
+      },
+      {
+        "route": "/dashboard",
+        "html": "app/dashboard/index.html",
+        "packet": "app/dashboard/index.dxpk",
+        "cache_control": "public, max-age=0, must-revalidate"
+      }
+    ],
+    "server_routes": [
+      {
+        "route": "/embed/[token]",
+        "html": "app/embed/[token]/index.html",
+        "packet": "app/embed/[token]/index.dxpk",
+        "server_data": "app/embed/[token]/server-data.json",
+        "cache_control": "no-store for server data, immutable packet assets"
+      },
+      {
+        "route": "/share/[token]",
+        "html": "app/share/[token]/index.html",
+        "packet": "app/share/[token]/index.dxpk",
+        "server_data": "app/share/[token]/server-data.json",
+        "cache_control": "no-store for server data, immutable packet assets"
+      },
+      {
+        "route": "/share/[token]/prototype",
+        "html": "app/share/[token]/prototype/index.html",
+        "packet": "app/share/[token]/prototype/index.dxpk",
+        "server_data": "app/share/[token]/prototype/server-data.json",
+        "cache_control": "no-store for server data, immutable packet assets"
+      }
+    ],
+    "node_modules_required": false
+  },
+  "strict_runtime_proof": {
+    "checks": {
+      "dynamic_routes": true,
+      "route_groups": false,
+      "metadata_files": true,
+      "route_handlers": true,
+      "middleware_redirects": false,
+      "mixed_static_server_output": true,
+      "no_node_modules": true
+    },
+    "score": 80,
+    "blocked_runtime_imports": [],
+    "runtime_node_modules_required": false
+  },
+  "score": 80,
+  "review_before_materialization": [
+    "Middleware is materialized as hosting redirect rules, not a hidden runtime worker.",
+    "Dynamic routes are compiled as source-owned route contracts with visible params.",
+    "Route handlers are inventoried with method-level adapter boundaries before hosted promotion.",
+    "Metadata files are inventoried as explicit build inputs before hosted promotion."
+  ]
+}

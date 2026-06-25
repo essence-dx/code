@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Essence Excel icon">
+  <rect width="512" height="512" rx="112" fill="#052e16"/>
+  <rect x="104" y="104" width="304" height="304" rx="42" fill="#f8fafc"/>
+  <rect x="136" y="136" width="240" height="240" rx="20" fill="#16a34a"/>
+  <path d="M168 184h176v32H168zm0 56h176v32H168zm0 56h176v32H168z" fill="#dcfce7"/>
+  <path d="M216 152h32v224h-32zm80 0h32v224h-32z" fill="#052e16" opacity=".9"/>
+  <path d="M168 184h176v32H168zm0 56h176v32H168zm0 56h176v32H168z" fill="#052e16" opacity=".42"/>
+</svg>

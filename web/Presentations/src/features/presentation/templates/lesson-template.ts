@@ -1,0 +1,158 @@
+import {
+  shape,
+  table,
+  text,
+  title,
+  type TemplateConfig,
+} from "./template-builders"
+
+export const lessonTemplate: TemplateConfig<"lesson"> = {
+  id: "lesson",
+  name: "Lesson plan",
+  deckTitle: "Lesson plan",
+  description: "Objectives, concept, example, activity, and recap.",
+  accent: "#dc2626",
+  slideCount: 5,
+  theme: "signal",
+  master: {
+    showFooter: true,
+    footerText: "Lesson notes",
+    showSlideNumbers: true,
+    color: "#991b1b",
+  },
+  slides: [
+    {
+      title: "Lesson title",
+      sectionTitle: "Lesson",
+      layout: "title",
+      background: "#fef2f2",
+      elements: [
+        title("Teach one clear idea", {
+          x: 8,
+          y: 20,
+          width: 76,
+          height: 14,
+          fontSize: 40,
+        }),
+        text("A practical lesson structure for explanation and practice.", {
+          x: 9,
+          y: 43,
+          width: 62,
+          height: 12,
+          fontSize: 22,
+          color: "#7f1d1d",
+        }),
+      ],
+    },
+    {
+      title: "Objectives",
+      layout: "title-body",
+      elements: [
+        title("By the end, learners can", {
+          x: 7,
+          y: 8,
+          width: 76,
+          height: 10,
+          fontSize: 32,
+        }),
+        text(
+          "Explain the core idea\nApply it to a real example\nCheck their own work",
+          {
+            x: 9,
+            y: 28,
+            width: 72,
+            height: 32,
+            listStyle: "bullet",
+            fontSize: 24,
+            lineHeight: 1.35,
+          },
+        ),
+      ],
+    },
+    {
+      title: "Concept",
+      layout: "two-content",
+      background: "#f8fafc",
+      elements: [
+        title("Core concept", {
+          x: 7,
+          y: 8,
+          width: 76,
+          height: 10,
+          fontSize: 32,
+        }),
+        text("Definition\nWhy it matters\nCommon mistake", {
+          x: 9,
+          y: 27,
+          width: 36,
+          height: 32,
+          listStyle: "bullet",
+          fontSize: 22,
+        }),
+        shape({
+          x: 55,
+          y: 29,
+          width: 30,
+          height: 24,
+          background: "#fee2e2",
+          shapeKind: "rounded",
+          shapeStrokeColor: "#fca5a5",
+          radius: 10,
+        }),
+      ],
+    },
+    {
+      title: "Practice",
+      layout: "title-body",
+      background: "#fff7ed",
+      elements: [
+        title("Guided practice", {
+          x: 7,
+          y: 8,
+          width: 76,
+          height: 10,
+          fontSize: 32,
+        }),
+        table(
+          [
+            "Step",
+            "Prompt",
+            "Check",
+            "1",
+            "Try the example",
+            "Show work",
+            "2",
+            "Compare answer",
+            "Fix one error",
+          ],
+          { x: 9, y: 25, width: 78, height: 34, tableRows: 3, tableColumns: 3 },
+        ),
+      ],
+    },
+    {
+      title: "Recap",
+      layout: "section",
+      background: "#111827",
+      elements: [
+        title("Recap", {
+          x: 8,
+          y: 20,
+          width: 72,
+          height: 13,
+          fontSize: 40,
+          color: "#ffffff",
+        }),
+        text("One sentence summary\nOne common trap\nOne next exercise", {
+          x: 9,
+          y: 41,
+          width: 70,
+          height: 24,
+          listStyle: "bullet",
+          fontSize: 24,
+          color: "#fee2e2",
+          background: "transparent",
+        }),
+      ],
+    },
+  ],
+}

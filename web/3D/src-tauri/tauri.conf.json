@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Essence Spline",
+  "version": "0.1.0",
+  "identifier": "app.essencefromexistence.spline",
+  "build": {
+    "beforeDevCommand": "bun run dev",
+    "devUrl": "http://localhost:3000",
+    "beforeBuildCommand": null,
+    "frontendDist": "https://essence-spline.vercel.app"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Essence Spline",
+        "width": 1440,
+        "height": 920,
+        "minWidth": 1024,
+        "minHeight": 720,
+        "resizable": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "createUpdaterArtifacts": true,
+    "fileAssociations": [
+      {
+        "ext": ["essencescene"],
+        "mimeType": "application/json",
+        "name": "Essence Spline Scene",
+        "role": "Editor",
+        "rank": "Owner",
+        "exportedType": {
+          "identifier": "app.essencefromexistence.spline.scene",
+          "conformsTo": ["public.json"]
+        }
+      }
+    ],
+    "targets": "all"
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDYzOEE2N0I3NkE1MjZENDQKUldSRWJWSnF0MmVLWTJCbGVxOXpETTNLUGU4MEFHcVpoWVhIUEN2VXltVGxQbW1vNUI0N3kyQXkK",
+      "endpoints": ["https://essence-spline.vercel.app/api/desktop/releases/{{target}}/{{arch}}/{{current_version}}"],
+      "windows": {
+        "installMode": "passive"
+      }
+    }
+  }
+}

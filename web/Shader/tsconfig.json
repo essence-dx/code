@@ -1,0 +1,1 @@
+{ "compilerOptions": { "jsx": "preserve", "strict": true }, "include": ["dx.d.ts", "app/**/*.tsx", "components/**/*.tsx"] }

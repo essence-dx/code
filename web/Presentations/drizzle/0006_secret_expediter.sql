@@ -1,0 +1,1 @@
+ALTER TABLE `slide` ADD `section_title` text DEFAULT '' NOT NULL;

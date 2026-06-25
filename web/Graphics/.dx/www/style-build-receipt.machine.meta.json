@@ -1,0 +1,13 @@
+{
+  "cache_schema": "dx.www.json_receipt",
+  "cache_version": 2,
+  "cache_kind": 3,
+  "source_path": "G:\\Figma\\.dx/receipts/style/build.json",
+  "source_len": 199108,
+  "source_modified_unix_ms": 1781100265818,
+  "source_blake3": "a1a119b8d46e3f4a0fd1564db489ae63e17bb78d19565efa9cd21e145a044a46",
+  "machine_path": "G:\\Figma\\.dx\\www\\style-build-receipt.machine",
+  "machine_payload_len": 212616,
+  "machine_archive_len": 212616,
+  "machine_payload_blake3": "45f12840bcbbd70e57ae7eef765107c616e7e1d65881ab4c82f38e0db9726962"
+}

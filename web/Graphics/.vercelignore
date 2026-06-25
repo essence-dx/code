@@ -1,0 +1,7 @@
+artifacts/
+.next/
+node_modules/
+src-tauri/target/
+*.tsbuildinfo
+.env*
+!.env.example

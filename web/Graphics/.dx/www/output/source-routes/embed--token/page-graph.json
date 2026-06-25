@@ -1,0 +1,34 @@
+{
+  "route_id": "/embed/:token",
+  "source_path": "src/app/embed/[token]/page.tsx",
+  "root_component_id": "app/page",
+  "components": {
+    "nodes": [
+      {
+        "id": "app/page",
+        "name": "Page",
+        "package_id": null,
+        "content_hash": "b3d1f0542b0529be80dfbc59fafb3d0da4f6dab090c40b443e94152f2ecffb5d"
+      },
+      {
+        "id": "component/lucide-react",
+        "name": "lucide-react",
+        "package_id": null,
+        "content_hash": "b9b0a8debf22abe8d25a57298c9235c4a7fc8ac5f3fba4372cb8c96176238032"
+      },
+      {
+        "id": "component/public-route-analytics-beacon",
+        "name": "public-route-analytics-beacon",
+        "package_id": null,
+        "content_hash": "e625d5faf9617e0ae0c20edc9eb41c40fb5f266494542883ce8f59ca2c36bae0"
+      }
+    ],
+    "edges": []
+  },
+  "styles": {
+    "tokens": [],
+    "classes": [],
+    "delivery": "generated-css"
+  },
+  "source_manifest_hash": null
+}

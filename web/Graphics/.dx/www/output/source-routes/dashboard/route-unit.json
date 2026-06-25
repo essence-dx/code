@@ -1,0 +1,390 @@
+{
+  "version": 1,
+  "route": "/dashboard",
+  "source_path": "src/app/dashboard/page.tsx",
+  "shell": {
+    "fallback": {
+      "html": "<!doctype html><html lang=\"en\" class=\"dark\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/public/favicon.svg\" type=\"image/svg+xml\"><link rel=\"apple-touch-icon\" href=\"/public/icon.svg\"><title>Essence Figma</title></head><body class=\"dx-template\"><main class=\"starter-shell\" data-dx-template=\"minimal\" data-dx-runtime=\"static\" data-dx-page-graph=\"src/app/dashboard/page\" data-dx-packet-sections=\"5\" data-dx-layouts=\"0\" data-dx-templates=\"0\" data-dx-boundaries=\"\" data-dx-conditionals=\"28\" data-dx-lists=\"2\" data-dx-keys=\"4\" data-dx-streaming=\"shell-first\" data-dx-deferred-chunks=\"0\" data-dx-resumable-islands=\"0\"><section class=\"starter-card\" aria-labelledby=\"starter-title\"><img class=\"starter-logo\" src=\"/public/logo.svg\" alt=\"Dx WWW\" width=\"40\" height=\"40\"><p class=\"starter-kicker\">Dx WWW</p><h1 id=\"starter-title\">Essence Figma</h1><p>Private design workspace</p><div class=\"starter-actions\" data-dx-proof-links=\"state-runtime islands\" aria-label=\"Starter proof routes\"><a class=\"starter-link\" href=\"/state-runtime\">Open state runtime proof</a><a class=\"starter-link\" href=\"/islands\">Open island proof</a></div><form class=\"starter-form\" action=\"/state-runtime\" method=\"get\" data-dx-no-js-fallback=\"preserved\"><p class=\"starter-form-label\" id=\"starter-proof-route-label\">No-JS proof target</p><div class=\"starter-form-panel\"><input class=\"starter-input\" name=\"note\" aria-labelledby=\"starter-proof-route-label\" placeholder=\"Optional proof note\"><button class=\"starter-action-button\" id=\"starter-proof-route\" aria-describedby=\"starter-proof-route-label\" type=\"submit\">Continue without JavaScript</button></div></form></section></main></body></html>",
+      "bytes": 1723,
+      "crawlable": true,
+      "accessibility_warnings": []
+    },
+    "style_hrefs": [],
+    "streaming_strategy": "shell-first-deferred-boundaries",
+    "first_flush_bytes": 262,
+    "runtime_required": false
+  },
+  "graph": {
+    "route_id": "/dashboard",
+    "source_path": "src/app/dashboard/page.tsx",
+    "root_component_id": "app/page",
+    "components": {
+      "nodes": [
+        {
+          "id": "app/page",
+          "name": "Page",
+          "package_id": null,
+          "content_hash": "0e48b2dcf9b1bdc3896e7cb1531e0c6c0280b444447c70a8905c5b2afa9b366b"
+        },
+        {
+          "id": "component/auth-panel",
+          "name": "auth-panel",
+          "package_id": null,
+          "content_hash": "aa373267e6eaf065e6bbf1a5f5d9234d353bd4a678406a947281c8ab79704fc3"
+        },
+        {
+          "id": "component/button",
+          "name": "button",
+          "package_id": null,
+          "content_hash": "a045a54d4568e98d8a743f536757d85e3692f4be46c2473046e7b07b9fd1fb37"
+        },
+        {
+          "id": "component/card",
+          "name": "card",
+          "package_id": null,
+          "content_hash": "62d56c5e9cb9789f9b05b00fd6ba0d6485abbd75b2c3c004647eef6f4a1e0b14"
+        },
+        {
+          "id": "component/admin-dashboard",
+          "name": "admin-dashboard",
+          "package_id": null,
+          "content_hash": "d0089ef0a2fef07216dd290e550d01c473952e011303bd7c3e973c98d33fd817"
+        }
+      ],
+      "edges": []
+    },
+    "styles": {
+      "tokens": [],
+      "classes": [],
+      "delivery": "generated-css"
+    },
+    "source_manifest_hash": null
+  },
+  "state": {
+    "default_scope": "local",
+    "global_stores": [],
+    "slots": [
+      {
+        "id": "state-c8a307570b68-0",
+        "name": "mode",
+        "setter": "setMode",
+        "scope": "local",
+        "source_path": "src/components/auth/auth-panel.tsx",
+        "initial_source": "\"sign-in\"",
+        "value_kind": "string"
+      },
+      {
+        "id": "state-c8a307570b68-1",
+        "name": "error",
+        "setter": "setError",
+        "scope": "local",
+        "source_path": "src/components/auth/auth-panel.tsx",
+        "initial_source": "null",
+        "value_kind": "unknown"
+      },
+      {
+        "id": "state-c8a307570b68-2",
+        "name": "notice",
+        "setter": "setNotice",
+        "scope": "local",
+        "source_path": "src/components/auth/auth-panel.tsx",
+        "initial_source": "null",
+        "value_kind": "unknown"
+      },
+      {
+        "id": "state-c8a307570b68-3",
+        "name": "verificationEmail",
+        "setter": "setVerificationEmail",
+        "scope": "local",
+        "source_path": "src/components/auth/auth-panel.tsx",
+        "initial_source": "\"\"",
+        "value_kind": "string"
+      },
+      {
+        "id": "state-71cb6c357471-0",
+        "name": "message",
+        "setter": "setMessage",
+        "scope": "local",
+        "source_path": "src/features/admin/components/admin-dashboard.tsx",
+        "initial_source": "null",
+        "value_kind": "unknown"
+      },
+      {
+        "id": "state-71cb6c357471-1",
+        "name": "actionError",
+        "setter": "setActionError",
+        "scope": "local",
+        "source_path": "src/features/admin/components/admin-dashboard.tsx",
+        "initial_source": "null",
+        "value_kind": "unknown"
+      },
+      {
+        "id": "state-71cb6c357471-2",
+        "name": "userQuery",
+        "setter": "setUserQuery",
+        "scope": "local",
+        "source_path": "src/features/admin/components/admin-dashboard.tsx",
+        "initial_source": "\"\"",
+        "value_kind": "string"
+      },
+      {
+        "id": "state-71cb6c357471-3",
+        "name": "shareQuery",
+        "setter": "setShareQuery",
+        "scope": "local",
+        "source_path": "src/features/admin/components/admin-dashboard.tsx",
+        "initial_source": "\"\"",
+        "value_kind": "string"
+      },
+      {
+        "id": "state-71cb6c357471-4",
+        "name": "fileQuery",
+        "setter": "setFileQuery",
+        "scope": "local",
+        "source_path": "src/features/admin/components/admin-dashboard.tsx",
+        "initial_source": "\"\"",
+        "value_kind": "string"
+      },
+      {
+        "id": "state-71cb6c357471-5",
+        "name": "userReviewFilter",
+        "setter": "setUserReviewFilter",
+        "scope": "local",
+        "source_path": "src/features/admin/components/admin-dashboard.tsx",
+        "initial_source": "\"all\"",
+        "value_kind": "string"
+      },
+      {
+        "id": "state-71cb6c357471-6",
+        "name": "shareReviewFilter",
+        "setter": "setShareReviewFilter",
+        "scope": "local",
+        "source_path": "src/features/admin/components/admin-dashboard.tsx",
+        "initial_source": "\"all\"",
+        "value_kind": "string"
+      },
+      {
+        "id": "state-71cb6c357471-7",
+        "name": "fileReviewFilter",
+        "setter": "setFileReviewFilter",
+        "scope": "local",
+        "source_path": "src/features/admin/components/admin-dashboard.tsx",
+        "initial_source": "\"all\"",
+        "value_kind": "string"
+      }
+    ],
+    "derived_slots": [
+      {
+        "id": "derived-c8a307570b68-message",
+        "name": "message",
+        "expression": "response.error.message ?? \"Authentication failed.\"",
+        "dependencies": [
+          "error"
+        ],
+        "source_path": "src/components/auth/auth-panel.tsx"
+      },
+      {
+        "id": "derived-c8a307570b68-email",
+        "name": "email",
+        "expression": "verificationEmail.trim()",
+        "dependencies": [
+          "verificationEmail"
+        ],
+        "source_path": "src/components/auth/auth-panel.tsx"
+      },
+      {
+        "id": "derived-c8a307570b68-message",
+        "name": "message",
+        "expression": "(error as { message?: unknown }).message",
+        "dependencies": [
+          "error"
+        ],
+        "source_path": "src/components/auth/auth-panel.tsx"
+      }
+    ],
+    "event_slots": [
+      {
+        "id": "event-c8a307570b68-0",
+        "source_path": "src/components/auth/auth-panel.tsx",
+        "element": "form",
+        "event": "submit",
+        "handler": "handleSubmit",
+        "state_dependencies": [],
+        "action": null
+      },
+      {
+        "id": "event-c8a307570b68-1",
+        "source_path": "src/components/auth/auth-panel.tsx",
+        "element": "Input",
+        "event": "change",
+        "handler": "mode === \"verify\"\n                  ? (event) => setVerificationEmail(event.currentTarget.value)\n                  : undefined",
+        "state_dependencies": [
+          "mode"
+        ],
+        "action": null
+      },
+      {
+        "id": "event-c8a307570b68-2",
+        "source_path": "src/components/auth/auth-panel.tsx",
+        "element": "Button",
+        "event": "click",
+        "handler": "resendVerificationCode",
+        "state_dependencies": [],
+        "action": null
+      },
+      {
+        "id": "event-c8a307570b68-3",
+        "source_path": "src/components/auth/auth-panel.tsx",
+        "element": "Button",
+        "event": "click",
+        "handler": "() => {\n                setError(null);\n                setNotice(null);\n                setMode((current) =>\n                  current === \"sign-in\" ? \"sign-up\" : \"sign-in\",\n                );\n              }",
+        "state_dependencies": [],
+        "action": null
+      },
+      {
+        "id": "event-71cb6c357471-0",
+        "source_path": "src/features/admin/components/admin-dashboard.tsx",
+        "element": "Button",
+        "event": "click",
+        "handler": "() =>\n              runAction(\n                () => verifyAdminUser({ userId: row.original.id }),\n                `${row.original.email} is verified.`,\n              )",
+        "state_dependencies": [],
+        "action": null
+      },
+      {
+        "id": "event-71cb6c357471-1",
+        "source_path": "src/features/admin/components/admin-dashboard.tsx",
+        "element": "Button",
+        "event": "click",
+        "handler": "() =>\n            runAction(\n              () => revokeAdminUserSessions({ userId: row.original.id }),\n              `${row.original.email} sessions revoked.`,\n            )",
+        "state_dependencies": [],
+        "action": null
+      },
+      {
+        "id": "event-71cb6c357471-2",
+        "source_path": "src/features/admin/components/admin-dashboard.tsx",
+        "element": "Button",
+        "event": "click",
+        "handler": "() =>\n          row.original.disabledAt\n            ? runAction(\n                () => restoreAdminShare({ shareId: row.original.id }),\n                `${row.original.fileName} share restored.`,\n              )\n            : runAction(\n                () => disableAdminShare({ shareId: row.original.id }),\n                `${row.original.fileName} share disabled.`,\n              )",
+        "state_dependencies": [],
+        "action": null
+      },
+      {
+        "id": "event-71cb6c357471-9",
+        "source_path": "src/features/admin/components/admin-dashboard.tsx",
+        "element": "Button",
+        "event": "click",
+        "handler": "() => exportAuditCsv(data.auditEvents)",
+        "state_dependencies": [],
+        "action": null
+      }
+    ],
+    "effects": [],
+    "server_actions": []
+  },
+  "packet": {
+    "kind": "route",
+    "bytes": 1058,
+    "payload_bytes": 806,
+    "section_count": 5,
+    "roundtrip_matches": true
+  },
+  "receipt": {
+    "source_manifest_hash": null,
+    "node_modules_required": false,
+    "client_island_abi": null,
+    "source_paths": [
+      "src/app/dashboard/page.tsx",
+      "src/components/auth/auth-panel.tsx",
+      "src/components/ui/button.tsx",
+      "src/components/ui/card.tsx",
+      "src/features/admin/components/admin-dashboard.tsx"
+    ],
+    "forge_package_ids": []
+  },
+  "runtime_report": {
+    "selected_mode": "Static",
+    "tiny_static_route_proof": {
+      "selected": true,
+      "output_mode": "tiny-static",
+      "js": "required-or-fallback-only",
+      "html_bytes": 1723,
+      "css_bytes": 0,
+      "total_public_bytes": 1723,
+      "script_tag_count": 0,
+      "runtime_required": false,
+      "no_js_capable": false,
+      "meaningful_html": true,
+      "semantic_landmark_present": true,
+      "link_count": 2,
+      "form_count": 1,
+      "seo_title_present": true,
+      "accessibility_signal_count": 5,
+      "browser_api_required": true,
+      "astro_parity_status": "not_yet_claimed"
+    },
+    "candidates": [
+      {
+        "mode": "Static",
+        "estimated_bytes": 1723,
+        "selected": true,
+        "reason": "HTML/CSS shell with no browser runtime"
+      },
+      {
+        "mode": "MicroJs",
+        "estimated_bytes": 2419,
+        "selected": false,
+        "reason": "generated event/state JavaScript for tiny islands"
+      },
+      {
+        "mode": "ServerFragment",
+        "estimated_bytes": 2043,
+        "selected": false,
+        "reason": "server-rendered fragment endpoint path"
+      },
+      {
+        "mode": "WasmCore",
+        "estimated_bytes": 10281,
+        "selected": false,
+        "reason": "DXPK plus shared WASM core runtime"
+      },
+      {
+        "mode": "WasmSplit",
+        "estimated_bytes": 4281,
+        "selected": false,
+        "reason": "DXPK plus split boot runtime"
+      }
+    ],
+    "rejected_modes": [
+      {
+        "mode": "MicroJs",
+        "estimated_bytes": 2419,
+        "reason": "estimated bytes are higher than the selected route mode"
+      },
+      {
+        "mode": "ServerFragment",
+        "estimated_bytes": 2043,
+        "reason": "estimated bytes are higher than the selected route mode"
+      },
+      {
+        "mode": "WasmCore",
+        "estimated_bytes": 10281,
+        "reason": "estimated bytes are higher than the selected route mode"
+      },
+      {
+        "mode": "WasmSplit",
+        "estimated_bytes": 4281,
+        "reason": "estimated bytes are higher than the selected route mode"
+      }
+    ],
+    "reasons": [
+      "selected static from 12 state slot(s), 8 event slot(s), 0 server action edge(s)",
+      "no client state or event slots require browser runtime",
+      "source-only no-JS shell; Astro parity is not claimed by route-unit proof"
+    ],
+    "warnings": [
+      "runtime bytes, DXPK bytes, generated CSS, and shell bytes must be counted together",
+      "unsupported React-style event attribute src/features/admin/components/admin-dashboard.tsx:onQueryChange; no listener is attached and React synthetic event parity is not claimed",
+      "unsupported React-style event attribute src/features/admin/components/admin-dashboard.tsx:onValueChange; no listener is attached and React synthetic event parity is not claimed"
+    ]
+  }
+}

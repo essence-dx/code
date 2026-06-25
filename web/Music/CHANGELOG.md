@@ -1,0 +1,719 @@
+# Changelog
+
+## 0.1.0 - In Progress
+
+- Initialized the Essence Suno plan as a real Next.js, Bun, Tailwind, shadcn/ui, Tauri, Better Auth, Drizzle, Turso, and Vercel AI SDK project.
+- Created the Turso database `essence-suno`.
+- Added a clear TODO inventory that separates real non-AI features, AI SDK features, and music-model-blocked features.
+- Added Better Auth email/password route wiring, Drizzle schema, migration generation, and Turso migration.
+- Added Vercel AI SDK v6 routes for chat streaming, lyrics, style prompts, structured song briefs, hook captions, cover art, transcription, and external audio jobs.
+- Added the first usable app shell with local upload storage, library search, liked songs, global player, waveform rendering, crop/fade export, lyrics/style editing, auth panel, and provider-aware AI controls.
+- Added authenticated Turso-backed library metadata sync, playlist CRUD APIs, add-selected-track playlist flow, library filters, sorting, track download, and JSON export.
+- Added Vercel AI SDK structured output routes and UI for song metadata suggestions and playlist inspiration.
+- Added song share metadata columns, owner publish API, link-only/public visibility controls, and public metadata share pages.
+- Added public profile pages for public songs and linked shared song pages back to the creator profile.
+- Added browser audio recording into the local library and Studio split export for creating two edited tracks from one source.
+- Added a local Studio project store, multitrack mixer UI, persisted volume/pan/mute/solo controls, and Web Audio auditioning.
+- Added playlist detail loading, track removal, local availability states, and active playlist playback queues for previous/next navigation.
+- Added Studio full-song export and selected-range WAV export.
+- Added local Studio autosave versions with capped history and restore controls.
+- Added free-first Turso audio storage for small synced files and shared-page audio playback through a public audio route.
+- Added AI job history diagnostics and updated streaming/text/audio jobs to update their original job rows instead of creating noisy duplicate success rows.
+- Added audio job status lookup, provider callback contract, generated audio asset recording, and in-panel audio job status checks.
+- Added release readiness diagnostics for environment, provider, storage, and deployment state.
+- Replaced the scaffold README with Essence Suno setup notes, expanded `.env.example`, and added a release checklist.
+- Added optional Vercel Blob large-audio upload support and shared playback from Blob URLs.
+- Added optional audio provider health configuration and a health-check API route.
+- Added a Settings readiness action for checking the live audio provider health endpoint.
+- Added composer playback for audio returned by configured external audio providers.
+- Added local library saving for completed external audio job results.
+- Added a same-origin audio result endpoint for external provider playback and saving.
+- Fixed the player audio element so the empty-library state no longer renders an empty `src`.
+- Added Vercel deployment ignore rules so local env files are never uploaded.
+- Deployed production to `https://essence-suno.vercel.app`.
+- Documented the live production URL and current free-first deployment mode in the README and release checklist.
+- Added Groq as the default free-first text AI provider with separate fast text and structured-output models.
+- Synced Groq text AI defaults into the production environment without committing local secrets.
+- Hardened AI provider configuration against hidden BOM and surrounding whitespace in environment values.
+- Removed internal auth, database, hosting, and provider names from product-facing UI copy.
+- Replaced the overstated 100/100 project score with an honest production-readiness score and remaining gap list.
+- Added accessible labels to icon-only player, library, playlist, chat, and mixer controls.
+- Split release readiness into core launch readiness and full optional-upgrade coverage.
+- Added a repeatable production smoke command for root, readiness, AI status, stack-copy leakage, and Groq lyric generation.
+- Added production security headers for HSTS, frame blocking, MIME sniffing, referrer behavior, and high-risk browser permissions.
+- Expanded the production smoke command to verify security headers without disabling microphone recording.
+- Added a deep production smoke mode for style expansion, structured song briefs, cover prompts, and disabled music-provider behavior.
+- Added a browser production smoke command for live UI navigation, key product surfaces, and console/page error checks.
+- Hardened audio-job status responses so clients receive safe playback summaries instead of raw stored generation content.
+- Added a machine-readable health endpoint for production uptime probes with safe deployment metadata and core readiness status.
+- Added an authenticated production API smoke command for temporary account creation, protected song APIs, playlist APIs, and cleanup.
+- Added an authenticated browser production smoke command for real UI account creation, active session state, protected API session reuse, and cleanup.
+- Added a one-command production verification runner for typecheck plus API, AI, auth, and browser smoke checks.
+- Added a protected daily Vercel Cron health monitor that records safe readiness and audio-provider health events.
+- Added a production cron smoke command for the protected health monitor and wired it into the release verifier.
+- Added scheduled monitor configuration to release readiness diagnostics.
+- Added a local creation draft vault for saving, applying, deleting, and exporting AI composer direction.
+- Added selected-track release readiness scoring with actionable checklist details.
+- Added library release readiness badges, filters, and sorting.
+- Added actions for applying AI metadata titles and tags to the selected track.
+- Added hook-caption generation, editing, and copy actions to the AI composer.
+- Added actions for applying generated song brief titles and tags to the selected track.
+- Added actions for creating and copying playlists from AI playlist ideas.
+- Added cover prompt copy and generated cover image download actions.
+- Added recording review controls for previewing and discarding takes before saving.
+- Upgraded library JSON export into a versioned release manifest with readiness data.
+- Added direct library share-link copy actions for already shared tracks.
+- Added upload intake summaries for accepted audio files and skipped non-audio files.
+- Added dated manifest filenames for library exports.
+- Added player mute/unmute controls with last-volume memory.
+- Added Studio range and split reset controls.
+- Added selected-track lyrics and style prompt copy actions.
+- Added player loop-current-track and playback speed controls.
+- Added Studio region and split nudge controls for 500ms precision edits.
+- Added complete library source filters for AI results, recordings, and imports.
+- Added player 10-second review seek controls with duration clamping.
+- Added selected-track handoff actions for Library, Studio, and AI workflows.
+- Hardened player queue context so next/previous falls back to the full library when a selected track is outside the active playlist queue.
+- Added OTP email verification backed by the production email delivery provider.
+- Added a shadcn-style dashboard with user, website, and admin management views.
+- Added tablecn-style user management powered by TanStack Table.
+- Seeded the verified `admin@mail.com` admin account.
+- Removed stack-name-heavy copy from user-facing project language.
+- Added BOM-safe environment normalization for deployment credentials, auth origins, and email settings.
+- Added safe library manifest metadata restore for existing local tracks.
+- Kept manifest restore scoped to editable metadata so missing audio and stale share links are not recreated.
+- Simplified `TODO.md` into an active Suno-parity roadmap with completed history left in the changelog.
+- Added the next missing-feature loops for Reuse Prompt, My Taste, Inspire, public playlists, Hooks, safety, Studio controls, and provider capability mapping.
+- Ignored local screenshot artifacts so release captures do not keep cluttering git status.
+- Added Reuse Prompt actions for selected tracks and library rows.
+- Added typed reuse-prompt handoffs into the AI composer with editable lyrics, style, theme, cover prompt, and audio prompt fields.
+- Added automatic local creation-draft saving for reused prompts without copying or recreating audio.
+- Added creation-draft change notifications so externally saved reused prompts appear in the drafts panel.
+- Added a local My Taste profile derived from liked, public, release-ready, and reused creative signals.
+- Added Settings controls to edit, disable, reset, and export the local taste profile.
+- Added taste-aware style expansion so the style wand can include local taste context when enabled.
+- Added playlist Inspire fingerprints for mood, tempo, instrumentation, genre, and structure.
+- Added local storage for playlist fingerprints and a first-class handoff into the AI composer.
+- Kept playlist-inspired audio generation provider-gated instead of faking music output.
+- Added playlist visibility controls for private, link-only, and public playlist pages.
+- Added public playlist pages with playable synced public/link-only tracks.
+- Added public playlist links to creator profile pages while keeping link-only playlists out of public discovery.
+- Added a public Discover route with searchable public tracks and playlists.
+- Added featured and new music surfaces that only include explicitly public, shareable records.
+- Added a Discover entry point to the main workspace navigation.
+- Added Hook Video Lite with selected-song clip range controls, uploaded video preview, lyric overlay, and browser WebM export.
+- Added a dedicated Hooks workspace surface without requiring a paid rendering service.
+- Added database-backed public reporting for songs, playlists, and profiles.
+- Added admin moderation review actions for reviewing, hiding, restoring, and dismissing reported targets.
+- Added public moderation filtering and pre-publication metadata checks for public song discovery.
+- Added persisted Studio session controls for BPM, pitch, and time signature.
+- Added arrangement markers, take lanes, and Studio session metadata export.
+- Added a provider capability matrix for text, media, music, voice, persona, remaster, stem, and audio-to-MIDI readiness.
+- Added provider capability scoring to AI status and release readiness diagnostics.
+- Added authenticated social actions for public likes, creator follows, and song reposts.
+- Added public Remix Draft handoff that saves a reusable composer draft from a shared song.
+- Added authenticated public comments for shared songs and playlists.
+- Added comment reports, creator hide/delete controls, threaded replies, and public comment counts.
+- Added editable public profile bios, social links, featured tracks, featured playlists, profile comments, and creator block controls.
+- Generated and applied the public profile controls and user block migration.
+- Added a creation queue surface for provider-backed music jobs directly in the AI workspace.
+- Added grouped multi-take generation metadata, provider-gated variant controls, and reusable variant-set creation drafts.
+- Added local usage accounting for writing, image, transcription, and music-generation requests.
+- Added daily/monthly usage totals, export/reset controls, and configurable local music-generation soft limits in Settings.
+- Added a local persona library for vibe, style, vocal character, energy, rights confirmation, and export.
+- Added persona-aware creation drafts, Reuse Prompt handoffs, and composer direction while keeping real persona generation provider-gated.
+- Added local voice profiles with rights confirmation, sample metadata capture, export, and profile management.
+- Added voice-profile attachments for creation drafts, audio job requests, and creation queue summaries while keeping generated voice actions provider-gated.
+- Added Studio MIDI export for manually authored arrangement markers with BPM and time-signature metadata.
+- Added song rights and license metadata with source provenance, commercial-use tracking, release notes, public-publish warnings, and manifest/Studio export coverage.
+- Added a persisted local hook feed with saved WebM previews, public/private state, likes, comments, share text, downloads, remix drafts, and local report/moderation state.
+- Added cloud hook publishing with synced hook posts, public hook pages, discoverable hook feed, authenticated hook comments, social actions, reports, moderation targets, and optional Blob-backed large video storage.
+- Added a provider-gated stem extraction shell with durable stem jobs, secure callbacks, stem asset proxying, library and Studio request actions, status review, and save-back into the local library when real provider files arrive.
+- Added a provider-gated remaster shell with durable remaster jobs, secure callbacks, result playback, Library full-track requests, Studio region requests, and save-back into the local library when a real provider returns audio.
+- Added a provider-gated cover/remix shell with durable jobs, secure callbacks, result playback, Library remix requests, Studio region remix requests, AI composer remix handoffs, and save-back into the local library when a real provider returns audio.
+- Added a provider-gated extend-song shell with durable jobs, secure callbacks, result playback, Library end-of-song requests, Studio split-point requests, and save-back into the local library when a real provider returns a continuation.
+- Added a provider-gated replace-section shell with durable jobs, secure callbacks, result playback, Studio region requests, and save-back into the local library when a real provider returns audio.
+- Added a provider-gated audio-to-MIDI shell with durable jobs, secure callbacks, result downloads, Library track requests, Studio region requests, stem-output requests, and MIDI asset persistence when a real provider returns files.
+- Added a provider-gated generated-vocals shell with durable jobs, secure callbacks, result playback, Library track requests, Studio region requests, AI composer handoffs, and save-back into the local library when a verified voice provider returns audio.
+- Added a provider-gated generated-instrumental shell with durable jobs, secure callbacks, result playback, Library track requests, Studio region requests, AI composer handoffs, and save-back into the local library when a real music provider returns audio.
+- Added a provider-gated persona-generation shell with durable jobs, secure callbacks, result metadata review, Library/AI handoffs, and save-back into the local persona library when a real persona provider returns metadata.
+- Added a provider-gated custom model training shell with durable jobs, secure callbacks, Settings/Library handoffs, reusable model cards, and AI composer constraint attachment when a real training provider returns metadata.
+- Added a provider-gated stem-variation shell with durable jobs, secure callbacks, result playback, stem-result and Studio region handoffs, and save-back into the local library when a real provider returns audio.
+- Added a local creation-draft archive preview before confirmed imports.
+- Verified creation draft archive preview with `bun run typecheck`.
+- Verified the batch with `bun run typecheck`.
+- Verified the cloud sync, playlist, and metadata AI batch with `bun run typecheck`.
+- Generated and applied the share metadata migration with Drizzle, then verified with `bun run typecheck`.
+- Verified the public profile batch with `bun run typecheck`.
+- Verified the recording and split-edit batch with `bun run typecheck`.
+- Verified the Studio project mixer batch with `bun run typecheck`.
+- Verified the playlist detail queue batch with `bun run typecheck`.
+- Verified the Studio export batch with `bun run typecheck`.
+- Verified the Studio autosave versions batch with `bun run typecheck`.
+- Generated and applied the Turso audio storage migration, then verified with `bun run typecheck`.
+- Verified the AI job diagnostics batch with `bun run typecheck`.
+- Verified the audio provider callback/status batch with `bun run typecheck`.
+- Verified the release readiness diagnostics batch with `bun run typecheck`.
+- Verified the release docs batch with `bun run typecheck`.
+- Verified the Vercel Blob large-audio storage batch with `bun run typecheck`.
+- Verified the audio provider health batch with `bun run typecheck`.
+- Verified the settings health check batch with `bun run typecheck`.
+- Verified the audio-result playback batch with `bun run typecheck`.
+- Verified the AI-result library save batch with `bun run typecheck`.
+- Verified the audio result proxy batch with `bun run typecheck`.
+- Verified the Groq provider integration with `bun run typecheck` and a local AI route smoke for status, lyrics, and structured song brief generation.
+- Verified the production Groq deployment with public AI status, lyric generation, structured song brief generation, and a fresh screenshot.
+- Verified AI env normalization with `bun run typecheck` and a direct BOM-value config smoke.
+- Verified product-facing copy cleanup with `bun run typecheck` and a source search for leaked stack names in UI copy.
+- Verified the production copy-cleanup deploy with `--archive=tgz`, public root/AI/readiness smoke, and a fresh screenshot.
+- Verified readiness scoring with `bun run typecheck` and a direct core/full summary smoke.
+- Verified the production readiness split after deploy: core `100/100`, full optional-upgrade coverage `50/100`.
+- Verified the live deployment with `bun run smoke:production`.
+- Verified the production security-header batch with `bun run typecheck`.
+- Verified the production security-header deployment with `bun run smoke:production` and a fresh screenshot.
+- Verified the deep production AI/API smoke with `bun run smoke:production:deep`.
+- Verified the browser production UI smoke with `bun run smoke:production:browser`.
+- Verified the audio-job status hardening with `bun run typecheck`.
+- Verified the health endpoint implementation with `bun run typecheck`; production deployment is pending the Vercel daily deployment limit reset.
+- Verified the authenticated production API smoke with `bun run smoke:production:auth`.
+- Verified the authenticated browser production smoke with `bun run smoke:production:browser-auth`.
+- Verified the full production suite with `bun run verify:production`.
+- Verified the daily production monitor wiring with `bun run typecheck`.
+- Verified the production cron smoke command with pending-deployment handling.
+- Verified the scheduled monitor readiness check with `bun run typecheck`.
+- Verified the local creation draft vault with `bun run typecheck`.
+- Verified the selected-track release readiness scoring with `bun run typecheck`.
+- Verified the library release audit filters with `bun run typecheck`.
+- Verified the AI metadata apply kit with `bun run typecheck`.
+- Verified the hook caption workbench with `bun run typecheck`.
+- Verified the AI brief apply kit with `bun run typecheck`.
+- Verified the AI playlist idea actions with `bun run typecheck`.
+- Verified the cover asset export kit with `bun run typecheck`.
+- Verified the recording review controls with `bun run typecheck`.
+- Verified the library release manifest export with `bun run typecheck`.
+- Verified the share link copy actions with `bun run typecheck`.
+- Verified the upload intake summary with `bun run typecheck`.
+- Verified dated manifest downloads with `bun run typecheck`.
+- Verified player mute memory with `bun run typecheck`.
+- Verified Studio range reset controls with `bun run typecheck`.
+- Verified selected-track text copy with `bun run typecheck`.
+- Verified the player transport, Studio precision, and library source filter batch with `bun run typecheck`.
+- Verified player review seek controls with `bun run typecheck`.
+- Verified selected-track workspace handoffs with `bun run typecheck`.
+- Verified queue-context fallback with `bun run typecheck`.
+- Verified OTP verification, admin dashboard, table management, and product copy cleanup with `bun run typecheck`.
+- Verified admin seeding with `bun run db:seed-admin`.
+- Verified deployment environment normalization with `bun run typecheck`.
+- Verified library manifest metadata restore with `bun run typecheck`.
+- Verified the simplified Suno-parity roadmap update with `bun run typecheck`.
+- Verified the Reuse Prompt command center with `bun run typecheck`.
+- Verified the local My Taste loop with `bun run typecheck`.
+- Verified playlist Inspire fingerprints with `bun run typecheck`.
+- Verified public playlist pages with `bun run typecheck`.
+- Verified public discovery with `bun run typecheck`.
+- Verified Hook Video Lite with `bun run typecheck`.
+- Verified community safety and reporting with `bun run typecheck`.
+- Verified Studio session controls with `bun run typecheck`.
+- Verified provider capability matrix with `bun run typecheck`.
+- Verified social listening actions with `bun run typecheck`.
+- Verified public comments with `bun run typecheck`.
+- Verified public profile controls with `bun run typecheck`.
+- Verified creation queue and variants with `bun run typecheck`.
+- Verified usage accounting with `bun run typecheck`.
+- Verified persona library shell with `bun run typecheck`.
+- Verified voice profile management with `bun run typecheck`.
+- Verified manual MIDI export with `bun run typecheck`.
+- Verified rights and license metadata with `bun run typecheck`.
+- Verified the local hooks feed with `bun run typecheck`.
+- Verified cloud hook publishing with `bun run typecheck`.
+- Verified the stem extraction provider shell with `bun run typecheck`.
+- Verified the remaster provider shell with `bun run typecheck`.
+- Verified the cover/remix provider shell with `bun run typecheck`.
+- Verified the extend-song provider shell with `bun run typecheck`.
+- Verified the final local browser smoke with a Chrome screenshot.
+- Verified the final production build with `bun run build`.
+- Verified the Vercel production deploy and public smoke for root, AI status, readiness, and screenshot.
+- Added a provider-gated remove-FX shell with durable jobs, secure callbacks, Library/Studio handoffs, result playback, and save-back into the local library when a real cleanup provider returns audio.
+- Verified the remove-FX provider shell with `bun run typecheck`.
+- Added a provider-gated warp-marker shell with durable jobs, secure callbacks, Studio whole-track/region handoffs, marker review, and apply-to-session support for Studio metadata/MIDI export.
+- Verified the warp-marker provider shell with `bun run typecheck`.
+- Added a provider-gated Suno Sounds-style sample shell with prompt/style/duration requests, rights-safe source context, AI and Library queue actions, secure callbacks, result playback, and save-back into the library.
+- Verified the sample provider shell with `bun run typecheck`.
+- Added provider-declared creative controls for weirdness, structure, and reference influence across music generation, samples, remix, extend, and replace-section requests.
+- Saved creative-control choices in reusable creation drafts and generated audio asset provenance.
+- Verified creative-control provider parameters with `bun run typecheck`.
+- Added provider contract details for generation controls without rendering internal environment names in product UI.
+- Added provider support snapshots to audio, sample, remix, extend, replace-section, vocal, and instrumental job records.
+- Verified provider capability contract details with `bun run typecheck`.
+- Added a generation job provenance review surface with sanitized request context, readiness snapshots, saved asset metadata previews, and copy/export actions.
+- Verified generation job provenance review with `bun run typecheck`.
+- Added generation replay drafts from safe provider-job context for music, sample, remix, extend, replace-section, vocal, and instrumental jobs.
+- Preserved creative controls, voice metadata, style, prompt, lyrics, and title in replay draft handoffs when the original job saved enough context.
+- Kept replay draft actions disabled for jobs that only have incomplete provenance.
+- Verified generation replay drafts with `bun run typecheck`.
+- Added source metadata and quality scoring for reusable creation drafts.
+- Added searchable draft filtering for replay, reuse, playlist, persona, voice, variant, and weak-context drafts.
+- Added two-step cleanup for weak visible drafts while keeping the draft vault local-first.
+- Verified creation draft quality review with `bun run typecheck`.
+- Added a local draft apply preview that shows composer field changes before applying a saved draft.
+- Added selective draft handoff toggles for prompt, lyrics, style, title, persona, voice, and creative controls.
+- Kept draft handoffs local-first; draft contents are only applied to composer state, not sent to providers.
+- Verified draft-to-create handoff audit with `bun run typecheck`.
+- Added capped local composer snapshots for draft, playlist, reuse, and replay handoffs.
+- Added conflict detection that snapshots meaningful composer fields before handoff overwrites.
+- Added a composer snapshot panel with the latest protected state, recent handoff history, and manual snapshot action.
+- Verified composer draft conflict safety with `bun run typecheck`.
+- Added selective composer snapshot restore using the same handoff preview as creation drafts.
+- Added individual snapshot delete controls without clearing the full local history.
+- Added snapshot restore context for origin, changed fields, and timestamp before applying selected fields.
+- Verified composer snapshot restore with `bun run typecheck`.
+- Added versioned composer snapshot JSON exports and validated local imports without replacing existing snapshots.
+- Verified composer snapshot import/export with `bun run typecheck`.
+- Added local composer snapshot timeline search, origin filters, and hidden-result counts.
+- Verified composer snapshot timeline filters with `bun run typecheck`.
+- Added guarded bulk selection and delete cleanup for visible composer snapshots.
+- Verified composer snapshot bulk cleanup with `bun run typecheck`.
+- Added editable local notes for composer snapshots with search, export, import, and restore-preview coverage.
+- Verified composer snapshot notes with `bun run typecheck`.
+- Added a read-only composer snapshot compare view before entering selective restore.
+- Verified composer snapshot compare view with `bun run typecheck`.
+- Added local composer snapshot pinning with pinned-first sorting and bulk-delete protection.
+- Verified composer snapshot pinning with `bun run typecheck`.
+- Added accessible labels and discoverable titles for composer snapshot filters, bulk cleanup, and icon actions.
+- Verified composer snapshot keyboard flow with `bun run typecheck`.
+- Added a local composer snapshot retention summary with cap status and export-before-cleanup action.
+- Verified composer snapshot retention review with `bun run typecheck`.
+- Added a local creation draft retention summary with draft-cap status and export-before-cleanup action.
+- Verified creation draft retention review with `bun run typecheck`.
+- Added validated local JSON imports for versioned creation-draft archives.
+- Verified creation draft import with `bun run typecheck`.
+- Added local creation draft pinning with pinned-first sorting, export/import coverage, and weak-cleanup protection.
+- Verified creation draft pinning with `bun run typecheck`.
+- Added editable local notes for creation drafts with search, export, import, and handoff-review coverage.
+- Verified creation draft notes with `bun run typecheck`.
+- Added a read-only creation draft compare view before selective apply review.
+- Verified creation draft compare with `bun run typecheck`.
+- Added accessible titles and labels for creation draft compare, apply, note, import/export, filter, and cleanup controls.
+- Verified creation draft keyboard flow with `bun run typecheck`.
+- Added creation draft bulk selection with pinned-draft protection and a guarded selected-delete review.
+- Verified creation draft bulk retention review with `bun run typecheck`.
+- Added selected visible creation-draft export with an expanded retention/export summary.
+- Verified creation draft export review with `bun run typecheck`.
+- Added scoped creation-draft archive metadata, legacy archive tolerance, and detailed import summaries.
+- Verified creation draft archive compatibility with `bun run typecheck`.
+- Added pre-import creation-draft recovery snapshots and current-vault export from archive review.
+- Verified creation draft archive recovery with `bun run typecheck`.
+- Added guarded creation-draft recovery restore review with current-vault export before replacement.
+- Verified creation draft archive restore review with `bun run typecheck`.
+- Added guarded dismissal for stale creation-draft recovery snapshots without touching current drafts.
+- Verified creation draft recovery cleanup with `bun run typecheck`.
+- Added recovery snapshot context for archive reason, scope, version, and metadata-rich export filenames.
+- Verified creation draft recovery context with `bun run typecheck`.
+- Added a metadata-only local archive timeline for creation-draft import, recovery restore, recovery export, and recovery dismiss events.
+- Verified creation draft archive timeline with `bun run typecheck`.
+- Added metadata-only JSON export for the creation-draft archive timeline.
+- Verified creation draft archive timeline export with `bun run typecheck`.
+- Added local event-type filters and hidden-result counts to the creation-draft archive timeline.
+- Verified creation draft archive timeline filters with `bun run typecheck`.
+- Added compact metadata totals for archive timeline events and drafts touched by import/restore actions.
+- Verified creation draft archive timeline summary with `bun run typecheck`.
+- Added metadata-only search for archive timeline event type, scope, version, recovery reason, and counts.
+- Verified creation draft archive timeline search with `bun run typecheck`.
+- Added a local reset action for archive timeline search and event filters.
+- Verified creation draft archive timeline reset with `bun run typecheck`.
+- Added visible versus total event counts to archive timeline filters.
+- Verified creation draft archive timeline visible counts with `bun run typecheck`.
+- Clarified that archive timeline export uses the full metadata history.
+- Verified archive timeline export label with `bun run typecheck`.
+- Surfaced the local archive timeline retention limit beside timeline history.
+- Verified archive timeline retention limit with `bun run typecheck`.
+- Added archive timeline capacity messaging for reached caps and remaining local slots.
+- Verified archive timeline capacity messaging with `bun run typecheck`.
+- Added a compact export nudge when the archive timeline reaches its local history cap.
+- Verified archive timeline export nudge with `bun run typecheck`.
+- Added a reset action to the empty filtered archive timeline state.
+- Verified archive timeline empty-state reset with `bun run typecheck`.
+- Added a newest-visible marker to archive timeline entries after filtering or search.
+- Verified archive timeline newest-visible marker with `bun run typecheck`.
+- Added a compact result-window count when more archive timeline events match than are displayed.
+- Verified archive timeline result-window count with `bun run typecheck`.
+- Added a guarded review step before clearing metadata-only archive timeline history.
+- Verified archive timeline clear review with `bun run typecheck`.
+- Added an export-first shortcut inside the archive timeline clear review.
+- Verified archive timeline export-first shortcut with `bun run typecheck`.
+- Added full-history versus visible-count context to the archive timeline clear review.
+- Verified archive timeline clear scope context with `bun run typecheck`.
+- Tightened hidden-event wording in the archive timeline clear review.
+- Verified archive timeline hidden-count wording with `bun run typecheck`.
+- Added explicit action titles to archive timeline clear-review controls.
+- Verified archive timeline clear-review action titles with `bun run typecheck`.
+- Condensed archive timeline clear-review copy for small screens while preserving full-history scope.
+- Verified archive timeline clear-review focus copy with `bun run typecheck`.
+- Added total, visible, and hidden event metrics to the archive timeline clear review.
+- Verified archive timeline clear-review metrics with `bun run typecheck`.
+- Added export-state feedback that keeps the archive timeline clear review open after exporting.
+- Verified archive timeline clear-review export state with `bun run typecheck`.
+- Added a repeat-export label for the archive timeline clear review after exporting once.
+- Verified archive timeline repeat-export label with `bun run typecheck`.
+- Added a local timestamp for the latest archive timeline clear-review export.
+- Verified archive timeline clear-review export timestamp with `bun run typecheck`.
+- Added a per-review export count for repeated archive timeline clear-review exports.
+- Verified archive timeline clear-review export count with `bun run typecheck`.
+- Consolidated archive timeline clear-review export confirmation into a reusable summary helper.
+- Verified archive timeline clear-review export summary helper with `bun run typecheck`.
+- Marked archive timeline clear-review export confirmation as a polite status update.
+- Verified archive timeline clear-review export announcement with `bun run typecheck`.
+- Grouped archive timeline clear-review action controls with an explicit accessible label.
+- Verified archive timeline clear-review action grouping with `bun run typecheck`.
+- Added state-aware accessible labeling for the archive timeline clear-review export action.
+- Verified archive timeline clear-review export action state with `bun run typecheck`.
+- Added an accessible label clarifying that Keep history closes the archive timeline clear review.
+- Verified archive timeline clear-review keep action state with `bun run typecheck`.
+- Added an accessible label clarifying the archive timeline clear action closes review and resets timeline filters.
+- Verified archive timeline clear-review clear action state with `bun run typecheck`.
+- Added a visible clear-review safety label confirming draft vaults and recovery snapshots stay preserved.
+- Verified archive timeline clear-review safety label with `bun run typecheck`.
+- Added a compact scope label for archive timeline clear-review full-history context.
+- Verified archive timeline clear-review scope label with `bun run typecheck`.
+- Added a compact counts label for archive timeline clear-review total, visible, and hidden metrics.
+- Verified archive timeline clear-review metrics label with `bun run typecheck`.
+- Linked archive timeline clear-review export status feedback into the action context.
+- Verified archive timeline clear-review status linkage with `bun run typecheck`.
+- Moved archive timeline clear-review action context IDs into a small helper.
+- Verified archive timeline clear-review context helper with `bun run typecheck`.
+- Moved archive timeline clear-review described-by IDs into named constants.
+- Verified archive timeline clear-review ID constants with `bun run typecheck`.
+- Moved archive timeline clear-review action labels into named constants and a state helper.
+- Verified archive timeline clear-review label constants with `bun run typecheck`.
+- Backed archive timeline clear-review export action labels with a named state map.
+- Verified archive timeline clear-review export label testability with `bun run typecheck`.
+- Named archive timeline clear-review export label states explicitly.
+- Verified archive timeline clear-review export state names with `bun run typecheck`.
+- Selected archive timeline clear-review export label state from the export timestamp helper.
+- Verified archive timeline clear-review export state helper with `bun run typecheck`.
+- Moved archive timeline clear-review visible export button text behind the export label state.
+- Verified archive timeline clear-review export button text with `bun run typecheck`.
+- Consolidated archive timeline clear-review export action labels and button text into one state-keyed copy helper.
+- Verified archive timeline clear-review export copy helper with `bun run typecheck`.
+- Made archive timeline clear-review export copy shape and state map explicitly reusable.
+- Verified archive timeline clear-review export copy type with `bun run typecheck`.
+- Added an explicit function type for archive timeline clear-review export copy lookup.
+- Verified archive timeline clear-review export copy lookup with `bun run typecheck`.
+- Added an explicit resolver type for archive timeline clear-review export label state selection.
+- Verified archive timeline clear-review export state return type with `bun run typecheck`.
+- Shared a named archive timeline clear-review export timestamp type across state and export helpers.
+- Verified archive timeline clear-review export resolver type with `bun run typecheck`.
+- Tightened the archive timeline clear-review export timestamp type naming across state and helpers.
+- Added mobile web install readiness with a manifest, product icon, and conservative service worker.
+- Verified mobile install readiness with `bun run typecheck`.
+- Added a Settings mobile install status surface with browser-safe install prompt handling.
+- Verified mobile install status surface with `bun run typecheck`.
+- Added an offline workspace shell and in-app network status banner for installed/mobile web sessions.
+- Verified offline workspace shell with `bun run typecheck` and a targeted service-worker policy scan.
+- Added offline recovery actions with retry, local-safe work guidance, and connection-required messaging.
+- Verified offline recovery actions with `bun run typecheck` and a targeted source scan.
+- Moved offline recovery wording into a typed copy helper for future guardrail work.
+- Verified offline recovery copy helpers with `bun run typecheck` and a targeted source scan.
+- Added shared offline action guardrails for library sync, sharing, playlists, and AI generation surfaces.
+- Verified offline action guardrails with `bun run typecheck` and a targeted source scan.
+- Consolidated offline guardrail action titles into typed sync, sharing, and generation helpers.
+- Verified offline guardrail titles with `bun run typecheck` and a targeted source scan.
+- Expanded offline guardrail titles across AI composer provider actions, image generation, audio status checks, and creative controls.
+- Verified offline guardrail control coverage with `bun run typecheck` and a targeted source scan.
+- Added shared offline/provider context to composer chat while keeping local message drafting available.
+- Verified offline chat guardrail coverage with `bun run typecheck` and a targeted source scan.
+- Added shared offline guardrail handling for provider job refresh/save panels while preserving completed result review.
+- Verified offline job-panel guardrails with `bun run typecheck` and a targeted source scan.
+- Added shared offline guardrails to Studio region provider actions and Project mixer marker analysis while leaving local editing/export controls available.
+- Verified offline Studio action guardrails with `bun run typecheck` and a targeted source scan.
+- Added account/profile offline guardrails for auth, email verification, profile saving, and unblock actions while leaving local drafting available.
+- Verified offline settings guardrails with `bun run typecheck` and a targeted source scan.
+- Added refresh-level offline guardrails for release readiness, provider capability status, audio-provider health checks, and the creation queue.
+- Verified offline readiness refresh guardrails with `bun run typecheck` and a targeted source scan.
+- Added hook-feed and playlist refresh offline guardrails while preserving local hook comments, likes, remix drafts, downloads, and library review.
+- Verified offline feed refresh guardrails with `bun run typecheck` and a targeted source scan.
+- Split share-page opening from local link copy so known song and playlist URLs can still be copied offline while network-only open actions stay guarded.
+- Verified offline share action guardrails with `bun run typecheck` and a targeted source scan.
+- Added mobile safe-area layout wrappers, responsive player controls, and public-page overflow protection for native phone and installed web views.
+- Replaced the app mark with a centered calligraphic E and regenerated web, desktop, Android, and iOS icon assets from the same source.
+- Hardened mobile dashboard overflow by making shared data tables horizontally scroll inside their panels and wrapping dashboard tabs on phone widths.
+- Replaced the text-rendered app letter with a centered vector monogram so favicons and native icons keep the same clean shape across platforms.
+- Made shared dialogs and sheets safe-area aware, height-capped, and scrollable on short native/mobile screens.
+- Added a native mobile viewport fallback that supplies safe-area and height variables when Android WebView or installed app shells do not expose CSS env insets reliably.
+- Added shared public-interaction offline guardrails for comments, social actions, reports, and blocks while keeping remix draft reuse local.
+- Added a local pending queue and retry surface for offline public comments and reactions.
+- Added inline queued comment previews, queued social-action badges, and retry failure details for pending public interactions.
+- Added per-item retry and discard controls for pending public interactions with safer local queue updates.
+- Added scoped replay refresh for pending public interactions so synced comments and social counts update without a page reload.
+- Added age/stale messaging, duplicate social-action protection, and editable queued comment drafts for pending public interactions.
+- Consolidated pending public interaction queue UI so public pages keep one detailed queue panel while social actions retain compact queued badges.
+- Added accessible labels, readable queued badges, and polite pending-status text for public interaction queue controls.
+- Added a lightweight targeted test script for public interaction queue dedupe, editable comments, and scoped replay summaries.
+- Added a scoped public-route refresh hook so queued comment replay can update local state first and refresh App Router data as a fallback.
+- Added scoped replay result messages that distinguish synced comments from synced social actions in public interaction queue toasts.
+- Added scoped queue empty states so public pages reveal when pending actions belong to other pages.
+- Added grouped public interaction queue sections for comments, likes, follows, and reposts while preserving per-item controls.
+- Added readable target context to queued public action rows with compact ids for long targets.
+- Added offline recovery hints for queued public actions so disabled retries explain when reconnecting is required.
+- Added reconnect readiness hints so queued public actions clearly show when they are ready to sync.
+- Added an active sync state for the public interaction queue that suppresses competing readiness and offline hints.
+- Added a failed-action summary at the top of the public interaction queue for retry errors.
+- Added last-attempt context to failed queued public actions so retry errors show when they were last tried.
+- Added failed counts to public interaction queue group headers so retry issues are visible by section.
+- Prioritized failed queued public actions within each queue group while preserving stable order for the rest.
+- Prioritized stale queued public actions behind failed actions within each public interaction queue group.
+- Added stale counts to public interaction queue group headers without double-counting failed actions.
+- Added a stale-action review summary at the top of the public interaction queue.
+- Added a stale retry guard that requires reviewing stale queued public actions before bulk sync.
+- Kept stale queue review acceptance stable across queued comment edits while resetting it when queue membership changes.
+- Added reviewed-at status copy for stale public queue reviews.
+- Updated bulk sync copy so reviewed stale public actions are described before syncing.
+- Reset stale queue review timestamps after successful reviewed bulk syncs.
+- Kept reviewed stale queue status visible when a reviewed bulk sync leaves failed public actions.
+- Improved failed-review badge wrapping for compact public queue layouts.
+- Updated per-item retry copy for failed public actions that came from a reviewed stale sync.
+- Added reviewed-stale context to single-item retry toast messages.
+- Kept reviewed retry toast copy grammatical when sync errors omit punctuation.
+- Added reviewed-stale retry context to failed public queue item status lines.
+- Let failed public queue item status lines wrap cleanly for long provider errors and review context.
+- Stabilized public queue item action alignment when failed status text wraps.
+- Clarified public queue item action button labels for multi-line rows and reviewed retry states.
+- Added responsive wrapping for longer public queue item action button labels.
+- Stabilized queued-comment save and cancel button sizing beside longer action labels.
+- Constrained queued-comment editing textareas so they fit narrow public queue rows.
+- Grouped queued-comment editing controls so growing textareas keep save and cancel actions visually connected.
+- Added an accessible queued-comment edit form label tied to the textarea and edit controls.
+- Made the queued-comment edit form label more compact while keeping the accessible label relationship.
+- Let queued public comment previews wrap safely across two lines for long drafts and URLs.
+- Let public queue target labels wrap safely across two lines for long target text.
+- Let queued age and stale-review text wrap cleanly on narrow public queue rows.
+- Added grouped accessible labels for queued age and stale-review text in public queue rows.
+- Moved queued public interaction age status copy into tested queue domain helpers.
+- Reused the queued age status helper for stale review text inside public queue rows.
+- Consolidated public queue row status class names for target, preview, and failed retry text.
+- Moved failed public queue item error display copy into tested queue domain helpers.
+- Reused failed public queue item error status copy in single-item retry toasts.
+- Reused failed public queue item error status copy in bulk sync failure toasts.
+- Covered multi-item bulk failure toast copy so real errors keep the failed-action count visible.
+- Covered bulk failure toast fallback copy when failed queue items do not include an error.
+- Covered mixed bulk sync toast copy when some queued public actions sync and others fail.
+- Grouped public queue single-item and bulk toast helpers together for easier maintenance.
+- Covered replay summary boundaries so generic summaries stay count-focused while toast helpers decorate errors.
+- Added typed replay summary fixtures for public queue tests so failure and synced comment scenarios stay readable.
+- Added typed synced social-action fixtures for public queue replay summary tests.
+- Covered empty replay summary fixture behavior for the no-pending public actions state.
+- Renamed public queue replay fixture helpers so summary scenarios scan clearly.
+- Moved public queue replay summary fixture helpers beside the summary assertions they support.
+- Extracted public queue replay summary fixtures into a shared local test helper.
+- Let public queue failed-item test fixtures accept explicit last-attempt timing.
+- Kept default failed public queue test fixtures from inventing retry timing for count-only summaries.
+- Clarified the public queue fixture timing assertion with a named failed-action fixture.
+- Renamed the default failed queued-like fixture variable to match the queue scenario under test.
+- Grouped public queue domain imports before local fixture imports in the queue test.
+- Moved public queue test fixtures under a stable `scripts/test-fixtures` import path.
+- Verified old public queue fixture import paths are no longer referenced.
+- Kept public queue test fixtures consolidated in one scoped fixture module to avoid test helper sprawl.
+- Rechecked the public queue fixture import scan against the stable test-fixtures path.
+- Removed the unused replay summary fixture total override so queue test helpers stay scenario-scoped.
+- Covered derived replay summary fixture totals for mixed failed and synced public queue items.
+- Renamed the mixed public queue replay fixture summary to match its bulk-toast scenario.
+- Verified public queue fixture helpers import only exported queue contracts as types.
+- Added a lightweight public queue fixture import scan script.
+- Included the public queue fixture import scan in the standard lightweight queue test script.
+- Renamed the public queue fixture import scan script from `test` to `check` naming.
+- Verified the old public queue fixture test script name is no longer referenced.
+- Ordered public queue package scripts so the fixture check appears before the queue test.
+- Added a targeted public queue script-order check and wired it into the queue test command.
+- Recorded that public queue script-order coverage is part of the queue test command.
+- Made public queue script-order failures show the expected and current package script order.
+- Added targeted tests for public queue script-order failure copy and split the order check into a pure helper.
+- Moved the public queue script-order helper under `scripts/lib` so entry-point scripts stay thin.
+- Verified public queue script-order entry points import the scoped `scripts/lib` helper.
+- Added a lightweight public queue helper import guard and wired it into the queue test chain.
+- Added a product-facing provider setup checklist for the highest-impact locked Suno parity paths.
+- Added compact overflow copy when additional provider-backed paths remain locked below the setup shortlist.
+- Added a lightweight provider setup test covering shortlist priority and overflow counts.
+- Added accessible locked-status text to provider setup checklist cards.
+- Reframed provider setup checklist cards around music creation outcomes instead of implementation wording.
+- Expanded provider setup tests to cover each prioritized music creation outcome.
+- Added a compact provider setup ready state when every creation path is connected.
+- Covered provider setup ready-state copy and secret-name leakage with the lightweight provider setup test.
+- Shortened provider setup checklist copy so locked-path cards stay compact on mobile Settings layouts.
+- Added lightweight length coverage for prioritized provider setup outcome copy.
+- Added a provider setup pending state for when capability data has not loaded yet.
+- Shortened the provider setup pending-state copy for compact Settings layouts.
+- Added a compact provider setup status summary for locked, ready, and pending creation paths.
+- Recorded provider setup status summary coverage for loading, ready, and locked states.
+- Grouped provider setup priority paths by creation outcome in the Settings capability panel.
+- Expanded provider setup grouping tests across studio, voice, and fallback unlock groups.
+- Added semantic labels for provider setup unlock groups in the Settings capability panel.
+- Recorded provider setup group header coverage in the lightweight provider setup test.
+- Scoped provider setup status summaries to priority creation paths when they are available.
+- Recorded provider setup priority-scope coverage for mixed priority and non-priority paths.
+- Fixed provider setup fallback summaries so non-priority-only capabilities are not labeled as priority paths.
+- Recorded provider setup fallback summary coverage for ready and locked non-priority paths.
+- Tightened provider setup locked-count summaries so singular and plural states read consistently.
+- Covered provider setup locked-count summaries for plural fallback paths.
+- Renamed provider setup priority, group, and outcome maps to make capability-id ownership clear.
+- Recorded provider setup helper naming coverage through the lightweight setup tests.
+- Added provider setup summary badges to pending and ready states for consistent Settings scanning.
+- Recorded provider setup summary visibility coverage for pending, locked, and ready branches.
+- Shortened provider setup summary badges while preserving fuller status text for accessible labels and hover details.
+- Recorded provider setup badge label coverage so compact labels stay wired through the Settings capability panel.
+- Covered every provider setup panel branch so compact badges keep the full status summary attached for accessible reading.
+- Paired provider setup badge labels and full summaries in one domain helper so Settings badges cannot drift from accessible status text.
+- Recorded paired provider setup badge helper coverage for checking, ready, and locked priority-path states.
+- Covered paired provider setup badge output for fallback-only locked and ready provider paths.
+- Consolidated provider setup summary and badge expectations into scan-friendly copy cases.
+- Added a typed provider setup copy-case fixture and assertion helper for easier future provider-state coverage.
+- Added provider setup copy-case inventory markers for pending, priority, fallback, ready, and locked status coverage.
+- Made provider setup copy-case names structured and covered their uniqueness.
+- Centralized provider setup copy-case inventory assertions behind a named helper.
+- Added explicit provider setup copy-case group ordering from pending to priority to fallback states.
+- Added a typed provider setup copy inventory key helper for group/state assertions.
+- Added provider setup copy-case group-count coverage for pending, priority, and fallback balance.
+- Added provider setup copy-case state-count coverage for pending, ready, and locked balance.
+- Reused one typed provider setup copy-count helper for both group and state balance checks.
+- Covered provider setup copy-count key order for explicit group and state ordering.
+- Centralized provider setup copy-count key order checks behind a named assertion helper.
+- Added named provider setup copy-count assertions for group and state balance checks.
+- Split provider setup copy inventory checks into named assertions for names, ordering, counts, and inventory keys.
+- Added a reusable provider setup copy-case name helper for uniqueness checks.
+- Added duplicate-name diagnostics for provider setup copy-case coverage.
+- Added a named provider setup duplicate-name regression guard.
+- Replaced brittle provider setup duplicate-name fixture indexes with named fixture lookups.
+- Added explicit provider setup fixture lookup failure coverage.
+- Moved provider setup diagnostic checks into the inventory assertion flow they protect.
+- Split provider setup inventory assertions into fixture validity, shape, and balance phases.
+- Renamed the provider setup inventory shape phase to structure for clearer assertion flow.
+- Added a lightweight source-order guard for provider setup inventory phases.
+- Added actionable provider setup source-order guard diagnostics with expected and actual phase flow.
+- Split provider setup source-order guard logic into small phase-position and message helpers.
+- Moved provider setup phase-position typing next to the source guard helpers that own it.
+- Added a lightweight source-marker placement guard for provider setup phase guard helpers.
+- Added source-marker failure coverage for provider setup phase guard helper drift.
+- Grouped provider setup source guard assertions behind one readable entry point.
+- Added provider setup source guard entry coverage to prevent direct top-level bypasses.
+- Added descriptive provider setup source guard entry diagnostics for direct top-level calls.
+- Centralized provider setup source guard direct-call names for future guard helpers.
+- Added a reusable provider setup source guard entry fixture builder for direct-call diagnostics.
+- Covered provider setup source guard entry fixtures for multiple direct-call bypasses.
+- Reused provider setup source guard call formatting for entry and direct-call regex checks.
+- Added explicit provider setup source guard call-pattern coverage for exact top-level calls.
+- Tied provider setup source guard call-pattern coverage to every guarded direct-call name.
+- Added separate provider setup source guard call-pattern coverage for the grouped entry point.
+- Reused one provider setup source guard call-pattern assertion helper for grouped and direct calls.
+- Renamed provider setup source guard call-pattern assertion options by match behavior.
+- Extracted provider setup source guard call-pattern assertion options into a named type.
+- Moved provider setup source guard call-pattern option typing next to its helper.
+- Added a source-order guard for the provider setup guard pattern helper cluster.
+- Added missing-marker diagnostics for provider setup guard pattern helper placement.
+- Reused one provider setup source-marker order helper across source guard helper clusters.
+- Covered provider setup source-marker order diagnostics for each helper cluster label.
+- Reused a provider setup reversed-marker fixture helper for marker-order diagnostics.
+- Reused provider setup source-marker order failure copy across assertions and diagnostics.
+- Reused provider setup missing-marker failure copy across source assertions and diagnostics.
+- Kept the provider setup missing-marker pattern helper readable after introducing escaped diagnostics.
+- Covered provider setup missing-marker regex escaping with metacharacter-heavy marker text.
+- Scoped the provider setup regex literal escape helper name to the provider setup test.
+- Added direct provider setup regex literal escaping coverage for diagnostic patterns.
+- Split provider setup source guard diagnostic checks behind a dedicated helper entrypoint.
+- Added a source guard entrypoint order check for provider setup diagnostics.
+- Covered provider setup source guard entrypoint order failure diagnostics.
+- Covered provider setup source guard entrypoint missing-call diagnostics.
+- Reused provider setup source guard entrypoint fixtures for order diagnostics.
+- Reused provider setup source guard entrypoint missing-call fixtures.
+- Reused provider setup source guard entrypoint missing-call failure messages.
+- Named the provider setup source guard diagnostics entrypoint call once for reuse.
+- Named the provider setup source guard reordered entrypoint diagnostic fixture.
+- Reused provider setup source guard entrypoint order failure message matching.
+- Named the provider setup source guard entrypoint order failure prefix once.
+- Reused provider setup source guard missing entrypoint call failure message matching.
+- Covered provider setup source guard missing entrypoint call message pattern matching.
+- Covered provider setup source guard entrypoint order message pattern matching.
+- Grouped provider setup source guard entrypoint pattern diagnostics behind one helper.
+- Guarded provider setup entrypoint pattern diagnostics so they stay before mutation fixtures.
+- Covered provider setup source guard entrypoint diagnostic order failures.
+- Reused provider setup source guard entrypoint diagnostic order failure fixtures.
+- Named the provider setup source guard entrypoint function once for reuse.
+- Covered provider setup source guard entrypoint function-name reuse.
+- Reused provider setup source guard entrypoint declaration matching.
+- Covered provider setup source guard entrypoint declaration pattern matching.
+- Reused provider setup source guard entrypoint declaration fixtures.
+- Reused provider setup source guard mismatched declaration fixtures.
+- Grouped provider setup source guard entrypoint declaration diagnostics.
+- Grouped provider setup source guard entrypoint name diagnostics.
+- Reused provider setup source guard entrypoint call expectations.
+- Covered provider setup source guard entrypoint expected-call formatting.
+- Reused provider setup source guard alternate entrypoint-name fixtures.
+- Reused provider setup source guard alternate entrypoint call fixtures.
+- Grouped provider setup source guard entrypoint expected-call diagnostics.
+- Named provider setup source guard entrypoint expected-call fixtures explicitly.
+- Reused provider setup source guard entrypoint expected-call matching.
+- Covered provider setup source guard expected-call pattern rejection.
+- Grouped provider setup source guard expected-call pattern diagnostics.
+- Grouped provider setup source guard expected-call equality diagnostics.
+- Named provider setup source guard generated expected calls.
+- Named provider setup source guard alternate entrypoint calls.
+- Named provider setup source guard mismatched entrypoint declarations.
+- Grouped provider setup source guard entrypoint declaration match diagnostics.
+- Named provider setup source guard entrypoint declaration source fixtures.
+- Covered provider setup source guard entrypoint declaration source fixtures.
+- Covered provider setup source guard entrypoint declaration source fixture rejection.
+- Grouped provider setup source guard entrypoint declaration source fixture diagnostics.
+- Reused provider setup source guard entrypoint declaration source inclusion checks.
+- Clarified provider setup source guard entrypoint declaration source inclusion naming.
+- Named provider setup source guard entrypoint declaration source inclusion assertions.
+- Grouped provider setup source guard entrypoint declaration source inclusion assertions.
+- Grouped provider setup source guard entrypoint declaration pattern diagnostics.
+- Clarified provider setup source guard entrypoint declaration source match diagnostics.
+- Named provider setup source guard entrypoint declaration source pattern assertions.
+- Reused provider setup source guard entrypoint declaration pattern fixtures.
+- Covered provider setup source guard entrypoint declaration pattern fixtures.
+- Covered provider setup source guard entrypoint declaration pattern fixture rejection.
+- Grouped provider setup source guard entrypoint declaration pattern fixture diagnostics.
+- Reused provider setup source guard entrypoint declaration pattern fixture match checks.
+- Clarified provider setup source guard entrypoint declaration pattern fixture match naming.
+- Made provider setup source guard entrypoint declaration pattern fixture rejection explicit.
+- Split provider setup source guard entrypoint declaration pattern assertions.
+- Reused provider setup source guard entrypoint declaration pattern match checks.
+- Clarified provider setup source guard entrypoint declaration pattern match naming.
+- Named provider setup source guard entrypoint declaration expected pattern fixtures.
+- Covered provider setup source guard entrypoint declaration expected pattern fixtures.
+- Covered provider setup source guard entrypoint declaration expected pattern fixture rejection.
+- Grouped provider setup source guard entrypoint declaration expected pattern fixture diagnostics.
+- Reused provider setup source guard entrypoint declaration expected pattern fixture match checks.
+- Clarified provider setup source guard entrypoint declaration expected pattern fixture match naming.
+- Clarified provider setup source guard entrypoint declaration expected pattern fixture negative assertions.
+- Named provider setup source guard entrypoint declaration expected pattern mismatch fixtures.
+- Covered provider setup source guard entrypoint declaration expected pattern mismatch fixtures.
+- Grouped provider setup source guard entrypoint declaration expected pattern mismatch diagnostics.
+- Reused provider setup source guard entrypoint declaration expected pattern mismatch match checks.
+- Clarified provider setup source guard entrypoint declaration expected pattern mismatch match naming.
+- Clarified provider setup source guard entrypoint declaration expected pattern mismatch assertion naming.
+- Made provider setup source guard entrypoint declaration expected pattern mismatch negative assertion explicit.
+- Made provider setup source guard entrypoint declaration expected pattern mismatch positive assertion explicit.
+- Shortened provider setup source guard expected mismatch equality helper naming.
+- Covered provider setup source guard expected mismatch equality helpers.
+- Reused provider setup source guard expected mismatch equality fixture values.
+- Covered provider setup source guard expected mismatch equality fixture values.
+- Covered provider setup source guard expected mismatch equality fixture rejection.
+- Grouped provider setup source guard expected mismatch equality fixture diagnostics.
+- Clarified provider setup source guard expected mismatch fixture case naming.
+- Narrowed provider setup source guard expected mismatch case assertions.
+- Clarified provider setup source guard expected mismatch case labels.
+- Stabilized provider setup source guard expected mismatch case order.
+- Reused provider setup source guard expected mismatch labels from the canonical order.
+- Made provider setup source guard expected mismatch label assertions explicit.
+- Tuple-typed provider setup source guard expected mismatch label order.
+- Tuple-returned provider setup source guard expected mismatch cases.
+- Made provider setup source guard expected mismatch case assertions readonly-friendly.
+- Made provider setup source guard expected mismatch case constants explicit.
+- Asserted provider setup source guard expected mismatch case constants explicitly.
+- Clarified provider setup source guard expected mismatch case constant names.
+- Clarified provider setup source guard expected mismatch fixture helper names.
+- Made provider setup source guard expected mismatch fixture assertions explicit.
+- Clarified provider setup source guard expected mismatch fixture assertion names.
+- Made provider setup source guard expected mismatch equality assertions explicit.
+- Clarified provider setup source guard expected mismatch equality assertion names.
+- Clarified provider setup source guard expected pattern mismatched equality assertion names.

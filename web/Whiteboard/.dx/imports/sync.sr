@@ -1,0 +1,17 @@
+tool="dx imports"
+command="sync"
+passed=true
+source_hash="blake3:370b5e32b04b7df0e361deef306a8ee4c6886fbfa4a190c514f69556350f665d"
+entry_count=50
+public_barrel_entry_count=24
+used_symbol_count=27
+typed_entry_count=48
+untyped_entry_count=2
+skipped_entry_count=0
+scan_roots=["components", "composables", "utils"]
+used_roots=["app", "components", "lib", "server", "styles"]
+aliases=["#components", "#imports"]
+barrel="components/auto-imports.ts"
+import_map=".dx/imports/import-map.json"
+declarations=".dx/imports/imports.d.ts"
+legacy_json=".dx/receipts/imports/sync.json"

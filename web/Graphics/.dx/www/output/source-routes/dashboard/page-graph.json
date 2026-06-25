@@ -1,0 +1,46 @@
+{
+  "route_id": "/dashboard",
+  "source_path": "src/app/dashboard/page.tsx",
+  "root_component_id": "app/page",
+  "components": {
+    "nodes": [
+      {
+        "id": "app/page",
+        "name": "Page",
+        "package_id": null,
+        "content_hash": "0e48b2dcf9b1bdc3896e7cb1531e0c6c0280b444447c70a8905c5b2afa9b366b"
+      },
+      {
+        "id": "component/auth-panel",
+        "name": "auth-panel",
+        "package_id": null,
+        "content_hash": "aa373267e6eaf065e6bbf1a5f5d9234d353bd4a678406a947281c8ab79704fc3"
+      },
+      {
+        "id": "component/button",
+        "name": "button",
+        "package_id": null,
+        "content_hash": "a045a54d4568e98d8a743f536757d85e3692f4be46c2473046e7b07b9fd1fb37"
+      },
+      {
+        "id": "component/card",
+        "name": "card",
+        "package_id": null,
+        "content_hash": "62d56c5e9cb9789f9b05b00fd6ba0d6485abbd75b2c3c004647eef6f4a1e0b14"
+      },
+      {
+        "id": "component/admin-dashboard",
+        "name": "admin-dashboard",
+        "package_id": null,
+        "content_hash": "d0089ef0a2fef07216dd290e550d01c473952e011303bd7c3e973c98d33fd817"
+      }
+    ],
+    "edges": []
+  },
+  "styles": {
+    "tokens": [],
+    "classes": [],
+    "delivery": "generated-css"
+  },
+  "source_manifest_hash": null
+}

@@ -1,0 +1,1 @@
+ALTER TABLE `slide` ADD `comments` text DEFAULT '[]' NOT NULL;

@@ -1,0 +1,34 @@
+[
+  {
+    "importer_path": "app/layout.tsx",
+    "specifier": "../styles/dx-shader.css",
+    "kind": "relative-local",
+    "resolved_path": "styles/dx-shader.css",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "app/layout.tsx",
+    "specifier": "../styles/globals.css",
+    "kind": "relative-local",
+    "resolved_path": "styles/globals.css",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "app/layout.tsx",
+    "specifier": "../styles/theme.css",
+    "kind": "relative-local",
+    "resolved_path": "styles/theme.css",
+    "package_id": null,
+    "requires_node_modules": false
+  },
+  {
+    "importer_path": "app/page.tsx",
+    "specifier": "../components/icons/icon",
+    "kind": "relative-local",
+    "resolved_path": "components/icons/icon",
+    "package_id": null,
+    "requires_node_modules": false
+  }
+]

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Essence Suno">
+  <rect width="512" height="512" rx="112" fill="#020617"/>
+  <rect x="42" y="42" width="428" height="428" rx="88" fill="none" stroke="#34d399" stroke-opacity=".28" stroke-width="18"/>
+  <path d="M184 372 C166 312 166 202 184 140" fill="none" stroke="#ecfdf5" stroke-linecap="round" stroke-width="34"/>
+  <path d="M200 155 C250 130 326 132 366 160" fill="none" stroke="#ecfdf5" stroke-linecap="round" stroke-width="36"/>
+  <path d="M188 256 C242 238 312 242 352 264" fill="none" stroke="#a7f3d0" stroke-linecap="round" stroke-width="34"/>
+  <path d="M202 356 C254 382 326 382 370 354" fill="none" stroke="#ecfdf5" stroke-linecap="round" stroke-width="36"/>
+</svg>

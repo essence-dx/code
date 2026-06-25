@@ -1,0 +1,2547 @@
+{
+  "schema": "dx.build.zedHandoff",
+  "schema_revision": 1,
+  "status": "source-route-shell-and-module-graph-ready",
+  "project_root": "G:/Figma",
+  "source_build_manifest": ".dx/www/output/source-build-manifest.json",
+  "source_build_receipt": ".dx/www/output/source-build-receipt.json",
+  "canonical_build_receipt": ".dx/receipts/build/latest.json",
+  "graph_receipt": ".dx/receipts/graph/latest.json",
+  "graph_consumer_snapshot": ".dx/receipts/graph/consumer-snapshot.json",
+  "build_readiness": ".dx/receipts/build/readiness.json",
+  "image_metadata_receipt": ".dx/receipts/build/image-metadata.json",
+  "content_docs_receipt": ".dx/receipts/build/content-docs.json",
+  "installed_binary_smoke_receipt": ".dx/receipts/build/installed-binary-smoke-latest.json",
+  "route_handlers": [
+    {
+      "route": "/api/auth/+all",
+      "path": "src/app/api/auth/[...all]/route.ts",
+      "methods": [
+        "GET",
+        "POST"
+      ],
+      "execution_model": "source-owned-route-handler-contract",
+      "lifecycle_scripts_executed": false,
+      "node_modules_required": false
+    },
+    {
+      "route": "/api/public-route-events",
+      "path": "src/app/api/public-route-events/route.ts",
+      "methods": [
+        "POST"
+      ],
+      "execution_model": "source-owned-route-handler-contract",
+      "lifecycle_scripts_executed": false,
+      "node_modules_required": false
+    }
+  ],
+  "route_shell_chunks": 5,
+  "source_module_chunks": 396,
+  "style_optimization": {
+    "style_node_count": 0,
+    "original_rule_count": 0,
+    "retained_rule_count": 0,
+    "pruned_rule_count": 0,
+    "minified_style_count": 0,
+    "source_map_count": 0,
+    "source_map_source_count": 0,
+    "source_map_source_hash_count": 0,
+    "source_map_entry_style_source_count": 0,
+    "source_map_flattened_import_source_count": 0,
+    "source_map_retained_import_source_count": 0,
+    "source_map_segment_count": 0,
+    "source_map_exact_segment_map_count": 0,
+    "source_map_evidence_only_count": 0,
+    "source_map_link_count": 0,
+    "source_map_hash_count": 0,
+    "flattened_import_count": 0,
+    "retained_import_count": 0,
+    "asset_reference_count": 0,
+    "entry_style_asset_reference_count": 0,
+    "flattened_import_asset_reference_count": 0,
+    "retained_import_asset_reference_count": 0
+  },
+  "content_pipeline": {
+    "document_count": 0,
+    "mdx_document_count": 0,
+    "hash_manifest": ".dx/receipts/build/content-docs.json#hash_manifest",
+    "consumer_snapshot": ".dx/receipts/build/content-docs.json#consumer_snapshot",
+    "freshness": {
+      "schema": "dx.www.contentDocsFreshnessStatus",
+      "hash_algorithm": "blake3-16",
+      "status": "current-at-build",
+      "comparison": "manifest-self-check",
+      "checked_document_count": 0,
+      "current": true,
+      "stale_paths": [],
+      "missing_paths": [],
+      "unsafe_paths": [],
+      "safe_path_roots": [
+        "docs",
+        "content"
+      ],
+      "unsafe_path_policy": "reject absolute, parent, and non-docs/content receipt paths before hashing source bytes",
+      "runtime_proof": false,
+      "receipt_section": "content-docs.json#freshness_contract",
+      "consumer_action": "compare content-docs hash_manifest.document_hashes against current source bytes and reject unsafe receipt paths before trusting older receipts"
+    },
+    "node_modules_required": false,
+    "runtime_proof": false,
+    "full_mdx_pipeline_parity": false,
+    "status": "source-metadata-only"
+  },
+  "image_pipeline": {
+    "image_asset_count": 5,
+    "metadata_asset_count": 5,
+    "optimized_variant_count": 0,
+    "placeholder_count": 5,
+    "placeholder_artifact_count": 5,
+    "placeholder_artifact_bytes": 835,
+    "placeholder_artifact_outputs": [
+      ".dx/www/output/image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg",
+      ".dx/www/output/image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg",
+      ".dx/www/output/image-placeholders/public/next-df544db0b85b546a.placeholder.svg",
+      ".dx/www/output/image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg",
+      ".dx/www/output/image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg"
+    ],
+    "route_reference_count": 0,
+    "formats": {
+      "svg": 5
+    },
+    "dimension_sources": {
+      "svg-viewbox": 5
+    },
+    "status": "metadata-plus-placeholder-artifacts-boundary",
+    "full_pipeline_parity": false
+  },
+  "routes": [
+    {
+      "route": "/dashboard",
+      "source_path": "src/app/dashboard/page.tsx",
+      "html_output": ".dx/www/output/source-routes/dashboard/index.html",
+      "shell_chunk_output": ".dx/www/output/source-routes/dashboard/route-shell-18dc52a44f0fbeb0.mjs",
+      "entry_module_chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-app-dashboard-page-tsx-0e48b2dcf9b1bdc3.mjs",
+      "source_module_chunks": [
+        {
+          "source_path": "src/app/dashboard/page.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-app-dashboard-page-tsx-0e48b2dcf9b1bdc3.mjs",
+          "kind": "tsx",
+          "hash": "0e48b2dcf9b1bdc3"
+        },
+        {
+          "source_path": "src/components/auth/auth-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-auth-auth-panel-tsx-aa373267e6eaf065.mjs",
+          "kind": "tsx",
+          "hash": "aa373267e6eaf065"
+        },
+        {
+          "source_path": "src/components/tablecn/data-table-column-header.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-tablecn-data-table-column-header-tsx-10eec5622bbe153a.mjs",
+          "kind": "tsx",
+          "hash": "10eec5622bbe153a"
+        },
+        {
+          "source_path": "src/components/tablecn/data-table-pagination.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-tablecn-data-table-pagination-tsx-c158ad35e99f6b60.mjs",
+          "kind": "tsx",
+          "hash": "c158ad35e99f6b60"
+        },
+        {
+          "source_path": "src/components/tablecn/data-table.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-tablecn-data-table-tsx-185d9f07f1e5e5d8.mjs",
+          "kind": "tsx",
+          "hash": "185d9f07f1e5e5d8"
+        },
+        {
+          "source_path": "src/components/ui/alert.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-ui-alert-tsx-2d34801893b59373.mjs",
+          "kind": "tsx",
+          "hash": "2d34801893b59373"
+        },
+        {
+          "source_path": "src/components/ui/badge.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-ui-badge-tsx-5f9c9bdbd1c68d30.mjs",
+          "kind": "tsx",
+          "hash": "5f9c9bdbd1c68d30"
+        },
+        {
+          "source_path": "src/components/ui/button.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-ui-button-tsx-a045a54d4568e98d.mjs",
+          "kind": "tsx",
+          "hash": "a045a54d4568e98d"
+        },
+        {
+          "source_path": "src/components/ui/card.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-ui-card-tsx-62d56c5e9cb9789f.mjs",
+          "kind": "tsx",
+          "hash": "62d56c5e9cb9789f"
+        },
+        {
+          "source_path": "src/components/ui/dropdown-menu.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-ui-dropdown-menu-tsx-30cb5107608c70e3.mjs",
+          "kind": "tsx",
+          "hash": "30cb5107608c70e3"
+        },
+        {
+          "source_path": "src/components/ui/input.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-ui-input-tsx-5c00dcef4bc2ae59.mjs",
+          "kind": "tsx",
+          "hash": "5c00dcef4bc2ae59"
+        },
+        {
+          "source_path": "src/components/ui/label.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-ui-label-tsx-e0903213582531e3.mjs",
+          "kind": "tsx",
+          "hash": "e0903213582531e3"
+        },
+        {
+          "source_path": "src/components/ui/number-input.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-ui-number-input-tsx-3171f8b602462d96.mjs",
+          "kind": "tsx",
+          "hash": "3171f8b602462d96"
+        },
+        {
+          "source_path": "src/components/ui/select.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-ui-select-tsx-cb5ef19f5a25e2e4.mjs",
+          "kind": "tsx",
+          "hash": "cb5ef19f5a25e2e4"
+        },
+        {
+          "source_path": "src/components/ui/separator.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-ui-separator-tsx-ce29dff12ce11a0a.mjs",
+          "kind": "tsx",
+          "hash": "ce29dff12ce11a0a"
+        },
+        {
+          "source_path": "src/components/ui/table.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-ui-table-tsx-723a47e2cdc85add.mjs",
+          "kind": "tsx",
+          "hash": "723a47e2cdc85add"
+        },
+        {
+          "source_path": "src/components/ui/tabs.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-ui-tabs-tsx-fdd301abce49d992.mjs",
+          "kind": "tsx",
+          "hash": "fdd301abce49d992"
+        },
+        {
+          "source_path": "src/components/ui/textarea.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-components-ui-textarea-tsx-e9e5c08778d4836d.mjs",
+          "kind": "tsx",
+          "hash": "e9e5c08778d4836d"
+        },
+        {
+          "source_path": "src/db/client.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-db-client-ts-b11a4f30c3f08fac.mjs",
+          "kind": "ts",
+          "hash": "b11a4f30c3f08fac"
+        },
+        {
+          "source_path": "src/db/schema.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-db-schema-ts-24b183fcc50e5ffb.mjs",
+          "kind": "ts",
+          "hash": "24b183fcc50e5ffb"
+        },
+        {
+          "source_path": "src/features/admin/actions.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-actions-ts-7a34f9e31ee697de.mjs",
+          "kind": "ts",
+          "hash": "7a34f9e31ee697de"
+        },
+        {
+          "source_path": "src/features/admin/admin-accessibility-privacy-release-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-accessibility-privacy-release-export-ts-79c2d7c8535505e8.mjs",
+          "kind": "ts",
+          "hash": "79c2d7c8535505e8"
+        },
+        {
+          "source_path": "src/features/admin/admin-accessibility-privacy-release.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-accessibility-privacy-release-ts-efffa0375e28232c.mjs",
+          "kind": "ts",
+          "hash": "efffa0375e28232c"
+        },
+        {
+          "source_path": "src/features/admin/admin-automation-runbook-center-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-automation-runbook-center-export-ts-23b98a75feec787f.mjs",
+          "kind": "ts",
+          "hash": "23b98a75feec787f"
+        },
+        {
+          "source_path": "src/features/admin/admin-automation-runbook-center.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-automation-runbook-center-ts-114bd9123729fed6.mjs",
+          "kind": "ts",
+          "hash": "114bd9123729fed6"
+        },
+        {
+          "source_path": "src/features/admin/admin-branch-review-inbox-builders.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-branch-review-inbox-builders-ts-389ab1da73a71b18.mjs",
+          "kind": "ts",
+          "hash": "389ab1da73a71b18"
+        },
+        {
+          "source_path": "src/features/admin/admin-branch-review-inbox-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-branch-review-inbox-export-ts-8fb27bb65d43f5f8.mjs",
+          "kind": "ts",
+          "hash": "8fb27bb65d43f5f8"
+        },
+        {
+          "source_path": "src/features/admin/admin-branch-review-inbox-rows.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-branch-review-inbox-rows-ts-ed3726790627a29a.mjs",
+          "kind": "ts",
+          "hash": "ed3726790627a29a"
+        },
+        {
+          "source_path": "src/features/admin/admin-branch-review-inbox.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-branch-review-inbox-ts-bb696183754124d3.mjs",
+          "kind": "ts",
+          "hash": "bb696183754124d3"
+        },
+        {
+          "source_path": "src/features/admin/admin-collaboration-event-ingestion-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-collaboration-event-ingestion-export-ts-506603c07997fb6f.mjs",
+          "kind": "ts",
+          "hash": "506603c07997fb6f"
+        },
+        {
+          "source_path": "src/features/admin/admin-collaboration-event-ingestion.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-collaboration-event-ingestion-ts-a3476d0e7dee628d.mjs",
+          "kind": "ts",
+          "hash": "a3476d0e7dee628d"
+        },
+        {
+          "source_path": "src/features/admin/admin-collaboration-handoff-actions.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-collaboration-handoff-actions-ts-f80c7a02c2111ee1.mjs",
+          "kind": "ts",
+          "hash": "f80c7a02c2111ee1"
+        },
+        {
+          "source_path": "src/features/admin/admin-collaboration-handoff-operations-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-collaboration-handoff-operations-export-ts-a50c25aaf31f6af9.mjs",
+          "kind": "ts",
+          "hash": "a50c25aaf31f6af9"
+        },
+        {
+          "source_path": "src/features/admin/admin-collaboration-handoff-operations-presenter.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-collaboration-handoff-operations-presenter-ts-6672d98787c3bbfd.mjs",
+          "kind": "ts",
+          "hash": "6672d98787c3bbfd"
+        },
+        {
+          "source_path": "src/features/admin/admin-collaboration-handoff-operations-rows.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-collaboration-handoff-operations-rows-ts-be564f6bb4dce4c3.mjs",
+          "kind": "ts",
+          "hash": "be564f6bb4dce4c3"
+        },
+        {
+          "source_path": "src/features/admin/admin-collaboration-handoff-operations-utils.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-collaboration-handoff-operations-utils-ts-209009d154bed0cc.mjs",
+          "kind": "ts",
+          "hash": "209009d154bed0cc"
+        },
+        {
+          "source_path": "src/features/admin/admin-collaboration-handoff-operations.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-collaboration-handoff-operations-ts-d37dbb12df577dc4.mjs",
+          "kind": "ts",
+          "hash": "d37dbb12df577dc4"
+        },
+        {
+          "source_path": "src/features/admin/admin-collaboration-notification-preference-center-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-collaboration-notification-preference-center-export-ts-ca99c31802f866dd.mjs",
+          "kind": "ts",
+          "hash": "ca99c31802f866dd"
+        },
+        {
+          "source_path": "src/features/admin/admin-collaboration-notification-preference-center.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-collaboration-notification-preference-center-ts-dfddf90738eb5196.mjs",
+          "kind": "ts",
+          "hash": "dfddf90738eb5196"
+        },
+        {
+          "source_path": "src/features/admin/admin-collaboration-recovery-packets-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-collaboration-recovery-packets-export-ts-5a8320fc578dfd1e.mjs",
+          "kind": "ts",
+          "hash": "5a8320fc578dfd1e"
+        },
+        {
+          "source_path": "src/features/admin/admin-collaboration-recovery-packets.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-collaboration-recovery-packets-ts-b0f0afcda38978d1.mjs",
+          "kind": "ts",
+          "hash": "b0f0afcda38978d1"
+        },
+        {
+          "source_path": "src/features/admin/admin-command-center-search.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-command-center-search-ts-18c872779332963b.mjs",
+          "kind": "ts",
+          "hash": "18c872779332963b"
+        },
+        {
+          "source_path": "src/features/admin/admin-comment-reaction-workflows-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-comment-reaction-workflows-export-ts-d951fea5d2dab72d.mjs",
+          "kind": "ts",
+          "hash": "d951fea5d2dab72d"
+        },
+        {
+          "source_path": "src/features/admin/admin-comment-reaction-workflows.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-comment-reaction-workflows-ts-226285fbc5d420fc.mjs",
+          "kind": "ts",
+          "hash": "226285fbc5d420fc"
+        },
+        {
+          "source_path": "src/features/admin/admin-cursor-chat-room-messages-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-cursor-chat-room-messages-export-ts-35fa925f392672a4.mjs",
+          "kind": "ts",
+          "hash": "35fa925f392672a4"
+        },
+        {
+          "source_path": "src/features/admin/admin-cursor-chat-room-messages.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-cursor-chat-room-messages-ts-2d302d51d9622837.mjs",
+          "kind": "ts",
+          "hash": "2d302d51d9622837"
+        },
+        {
+          "source_path": "src/features/admin/admin-data-loss-prevention-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-data-loss-prevention-export-ts-ac6234965ed3d70f.mjs",
+          "kind": "ts",
+          "hash": "ac6234965ed3d70f"
+        },
+        {
+          "source_path": "src/features/admin/admin-data-loss-prevention.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-data-loss-prevention-ts-b44dda5002d18e56.mjs",
+          "kind": "ts",
+          "hash": "b44dda5002d18e56"
+        },
+        {
+          "source_path": "src/features/admin/admin-data.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-data-ts-9e629658d07b3486.mjs",
+          "kind": "ts",
+          "hash": "9e629658d07b3486"
+        },
+        {
+          "source_path": "src/features/admin/admin-design-branches.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-design-branches-ts-8cacfdfb6e7eec88.mjs",
+          "kind": "ts",
+          "hash": "8cacfdfb6e7eec88"
+        },
+        {
+          "source_path": "src/features/admin/admin-desktop-update-channel-core.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-desktop-update-channel-core-ts-5519652f907bd2e4.mjs",
+          "kind": "ts",
+          "hash": "5519652f907bd2e4"
+        },
+        {
+          "source_path": "src/features/admin/admin-desktop-update-channel-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-desktop-update-channel-export-ts-34b6b151ecd26928.mjs",
+          "kind": "ts",
+          "hash": "34b6b151ecd26928"
+        },
+        {
+          "source_path": "src/features/admin/admin-desktop-update-channel-packages.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-desktop-update-channel-packages-ts-a7cb0c3758904aef.mjs",
+          "kind": "ts",
+          "hash": "a7cb0c3758904aef"
+        },
+        {
+          "source_path": "src/features/admin/admin-desktop-update-channel.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-desktop-update-channel-ts-e4385a36bdf0e82d.mjs",
+          "kind": "ts",
+          "hash": "e4385a36bdf0e82d"
+        },
+        {
+          "source_path": "src/features/admin/admin-embed-route-analytics-join.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-embed-route-analytics-join-ts-0a6cab72d53f9d85.mjs",
+          "kind": "ts",
+          "hash": "0a6cab72d53f9d85"
+        },
+        {
+          "source_path": "src/features/admin/admin-embed-security-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-embed-security-export-ts-eedf2fd421dba283.mjs",
+          "kind": "ts",
+          "hash": "eedf2fd421dba283"
+        },
+        {
+          "source_path": "src/features/admin/admin-embed-security.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-embed-security-ts-50c4ed72eb15c12c.mjs",
+          "kind": "ts",
+          "hash": "50c4ed72eb15c12c"
+        },
+        {
+          "source_path": "src/features/admin/admin-external-comment-notification-workflows-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-external-comment-notification-workflows-export-ts-ac8e78526848f35c.mjs",
+          "kind": "ts",
+          "hash": "ac8e78526848f35c"
+        },
+        {
+          "source_path": "src/features/admin/admin-external-comment-notification-workflows.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-external-comment-notification-workflows-ts-87f29566aee9e5d9.mjs",
+          "kind": "ts",
+          "hash": "87f29566aee9e5d9"
+        },
+        {
+          "source_path": "src/features/admin/admin-file-browser-depth-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-file-browser-depth-export-ts-d3ad0ebc07c3480b.mjs",
+          "kind": "ts",
+          "hash": "d3ad0ebc07c3480b"
+        },
+        {
+          "source_path": "src/features/admin/admin-file-browser-depth.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-file-browser-depth-ts-1427d1853333a018.mjs",
+          "kind": "ts",
+          "hash": "1427d1853333a018"
+        },
+        {
+          "source_path": "src/features/admin/admin-library-release-gates-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-library-release-gates-export-ts-f89f4ae5c41e2d25.mjs",
+          "kind": "ts",
+          "hash": "f89f4ae5c41e2d25"
+        },
+        {
+          "source_path": "src/features/admin/admin-library-release-gates.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-library-release-gates-ts-e3b91fc8fe0d24a7.mjs",
+          "kind": "ts",
+          "hash": "e3b91fc8fe0d24a7"
+        },
+        {
+          "source_path": "src/features/admin/admin-library-rollout-monitor-analysis.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-library-rollout-monitor-analysis-ts-0ae85dcdbf2f4491.mjs",
+          "kind": "ts",
+          "hash": "0ae85dcdbf2f4491"
+        },
+        {
+          "source_path": "src/features/admin/admin-library-rollout-monitor-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-library-rollout-monitor-export-ts-eb93aed0d71645c3.mjs",
+          "kind": "ts",
+          "hash": "eb93aed0d71645c3"
+        },
+        {
+          "source_path": "src/features/admin/admin-library-rollout-monitor-rows.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-library-rollout-monitor-rows-ts-ddacf1467a817c36.mjs",
+          "kind": "ts",
+          "hash": "ddacf1467a817c36"
+        },
+        {
+          "source_path": "src/features/admin/admin-library-rollout-monitor.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-library-rollout-monitor-ts-cb3d256bad9e030a.mjs",
+          "kind": "ts",
+          "hash": "cb3d256bad9e030a"
+        },
+        {
+          "source_path": "src/features/admin/admin-live-review-sessions-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-live-review-sessions-export-ts-b54578704c2d2e40.mjs",
+          "kind": "ts",
+          "hash": "b54578704c2d2e40"
+        },
+        {
+          "source_path": "src/features/admin/admin-live-review-sessions.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-live-review-sessions-ts-13d45ddcedb31b04.mjs",
+          "kind": "ts",
+          "hash": "13d45ddcedb31b04"
+        },
+        {
+          "source_path": "src/features/admin/admin-multiplayer-presence-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-multiplayer-presence-export-ts-2c3ccaded3aedbfa.mjs",
+          "kind": "ts",
+          "hash": "2c3ccaded3aedbfa"
+        },
+        {
+          "source_path": "src/features/admin/admin-multiplayer-presence.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-multiplayer-presence-ts-9f296806313437c1.mjs",
+          "kind": "ts",
+          "hash": "9f296806313437c1"
+        },
+        {
+          "source_path": "src/features/admin/admin-notification-digest-subscriptions-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-notification-digest-subscriptions-export-ts-ad40032762addce4.mjs",
+          "kind": "ts",
+          "hash": "ad40032762addce4"
+        },
+        {
+          "source_path": "src/features/admin/admin-notification-digest-subscriptions.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-notification-digest-subscriptions-ts-8b02b8ed3a24e9ab.mjs",
+          "kind": "ts",
+          "hash": "8b02b8ed3a24e9ab"
+        },
+        {
+          "source_path": "src/features/admin/admin-offline-vault-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-offline-vault-export-ts-c5a449b3c1264f75.mjs",
+          "kind": "ts",
+          "hash": "c5a449b3c1264f75"
+        },
+        {
+          "source_path": "src/features/admin/admin-offline-vault.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-offline-vault-ts-541ad33debff3ec5.mjs",
+          "kind": "ts",
+          "hash": "541ad33debff3ec5"
+        },
+        {
+          "source_path": "src/features/admin/admin-operational-incidents-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-operational-incidents-export-ts-3fde56e8791f2d69.mjs",
+          "kind": "ts",
+          "hash": "3fde56e8791f2d69"
+        },
+        {
+          "source_path": "src/features/admin/admin-operational-incidents.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-operational-incidents-ts-647015b9fdcb96e0.mjs",
+          "kind": "ts",
+          "hash": "647015b9fdcb96e0"
+        },
+        {
+          "source_path": "src/features/admin/admin-operator-onboarding-recovery-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-operator-onboarding-recovery-export-ts-fceed13707da8221.mjs",
+          "kind": "ts",
+          "hash": "fceed13707da8221"
+        },
+        {
+          "source_path": "src/features/admin/admin-operator-onboarding-recovery.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-operator-onboarding-recovery-ts-c9a3a13cbd8d9af2.mjs",
+          "kind": "ts",
+          "hash": "c9a3a13cbd8d9af2"
+        },
+        {
+          "source_path": "src/features/admin/admin-operator-rehearsal-core.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-operator-rehearsal-core-ts-fa5f260ae178bc81.mjs",
+          "kind": "ts",
+          "hash": "fa5f260ae178bc81"
+        },
+        {
+          "source_path": "src/features/admin/admin-operator-rehearsal-package-runs.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-operator-rehearsal-package-runs-ts-31551611cc41d6a7.mjs",
+          "kind": "ts",
+          "hash": "31551611cc41d6a7"
+        },
+        {
+          "source_path": "src/features/admin/admin-operator-rehearsal-release-runs.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-operator-rehearsal-release-runs-ts-6345e949e231589d.mjs",
+          "kind": "ts",
+          "hash": "6345e949e231589d"
+        },
+        {
+          "source_path": "src/features/admin/admin-operator-rehearsals-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-operator-rehearsals-export-ts-ccb10d61b84e3480.mjs",
+          "kind": "ts",
+          "hash": "ccb10d61b84e3480"
+        },
+        {
+          "source_path": "src/features/admin/admin-operator-rehearsals.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-operator-rehearsals-ts-0c054348e50d4b51.mjs",
+          "kind": "ts",
+          "hash": "0c054348e50d4b51"
+        },
+        {
+          "source_path": "src/features/admin/admin-organization-audit-intelligence.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-organization-audit-intelligence-ts-f0b2d8379cac4225.mjs",
+          "kind": "ts",
+          "hash": "f0b2d8379cac4225"
+        },
+        {
+          "source_path": "src/features/admin/admin-permission-migration-review-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-permission-migration-review-export-ts-7f244287498f1ca9.mjs",
+          "kind": "ts",
+          "hash": "7f244287498f1ca9"
+        },
+        {
+          "source_path": "src/features/admin/admin-permission-migration-review.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-permission-migration-review-ts-24468f57733e9803.mjs",
+          "kind": "ts",
+          "hash": "24468f57733e9803"
+        },
+        {
+          "source_path": "src/features/admin/admin-permissions.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-permissions-ts-495c7e44a1e970ef.mjs",
+          "kind": "ts",
+          "hash": "495c7e44a1e970ef"
+        },
+        {
+          "source_path": "src/features/admin/admin-plugin-permission-governance-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-plugin-permission-governance-export-ts-f9383879366162ea.mjs",
+          "kind": "ts",
+          "hash": "f9383879366162ea"
+        },
+        {
+          "source_path": "src/features/admin/admin-plugin-permission-governance.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-plugin-permission-governance-ts-063a3d35f4a91f66.mjs",
+          "kind": "ts",
+          "hash": "063a3d35f4a91f66"
+        },
+        {
+          "source_path": "src/features/admin/admin-production-monitoring-digest-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-production-monitoring-digest-export-ts-164b32cce149f6b9.mjs",
+          "kind": "ts",
+          "hash": "164b32cce149f6b9"
+        },
+        {
+          "source_path": "src/features/admin/admin-production-monitoring-digest.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-production-monitoring-digest-ts-d24267d7cc90030c.mjs",
+          "kind": "ts",
+          "hash": "d24267d7cc90030c"
+        },
+        {
+          "source_path": "src/features/admin/admin-public-link-observability-builders.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-public-link-observability-builders-ts-7d24ae1e2f38645e.mjs",
+          "kind": "ts",
+          "hash": "7d24ae1e2f38645e"
+        },
+        {
+          "source_path": "src/features/admin/admin-public-link-observability-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-public-link-observability-export-ts-e1a08d529ff1effa.mjs",
+          "kind": "ts",
+          "hash": "e1a08d529ff1effa"
+        },
+        {
+          "source_path": "src/features/admin/admin-public-link-observability-rows.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-public-link-observability-rows-ts-05b7aedae85efee6.mjs",
+          "kind": "ts",
+          "hash": "05b7aedae85efee6"
+        },
+        {
+          "source_path": "src/features/admin/admin-public-link-observability-utils.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-public-link-observability-utils-ts-187fbd80a04533e3.mjs",
+          "kind": "ts",
+          "hash": "187fbd80a04533e3"
+        },
+        {
+          "source_path": "src/features/admin/admin-public-link-observability.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-public-link-observability-ts-fb10a4367904e5ad.mjs",
+          "kind": "ts",
+          "hash": "fb10a4367904e5ad"
+        },
+        {
+          "source_path": "src/features/admin/admin-public-route-analytics-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-public-route-analytics-export-ts-2d48d72171057efd.mjs",
+          "kind": "ts",
+          "hash": "2d48d72171057efd"
+        },
+        {
+          "source_path": "src/features/admin/admin-public-route-analytics-utils.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-public-route-analytics-utils-ts-b09cb0ba7a5d7bf6.mjs",
+          "kind": "ts",
+          "hash": "b09cb0ba7a5d7bf6"
+        },
+        {
+          "source_path": "src/features/admin/admin-public-route-analytics.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-public-route-analytics-ts-696cd325b6ccbbca.mjs",
+          "kind": "ts",
+          "hash": "696cd325b6ccbbca"
+        },
+        {
+          "source_path": "src/features/admin/admin-publish-channel-manager-builders.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-publish-channel-manager-builders-ts-fdd67abfdb04aad9.mjs",
+          "kind": "ts",
+          "hash": "fdd67abfdb04aad9"
+        },
+        {
+          "source_path": "src/features/admin/admin-publish-channel-manager-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-publish-channel-manager-export-ts-c61ab8b462f97174.mjs",
+          "kind": "ts",
+          "hash": "c61ab8b462f97174"
+        },
+        {
+          "source_path": "src/features/admin/admin-publish-channel-manager-rows.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-publish-channel-manager-rows-ts-214f3986446ffe79.mjs",
+          "kind": "ts",
+          "hash": "214f3986446ffe79"
+        },
+        {
+          "source_path": "src/features/admin/admin-publish-channel-manager.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-publish-channel-manager-ts-4fb3866e04106773.mjs",
+          "kind": "ts",
+          "hash": "4fb3866e04106773"
+        },
+        {
+          "source_path": "src/features/admin/admin-realtime-health-monitor-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-realtime-health-monitor-export-ts-b7005984ad75283d.mjs",
+          "kind": "ts",
+          "hash": "b7005984ad75283d"
+        },
+        {
+          "source_path": "src/features/admin/admin-realtime-health-monitor.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-realtime-health-monitor-ts-c414b7a0b4cc9215.mjs",
+          "kind": "ts",
+          "hash": "c414b7a0b4cc9215"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-approval-snapshots-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-approval-snapshots-export-ts-ddfbe0746969c2b1.mjs",
+          "kind": "ts",
+          "hash": "ddfbe0746969c2b1"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-approval-snapshots.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-approval-snapshots-ts-9a144c718762b608.mjs",
+          "kind": "ts",
+          "hash": "9a144c718762b608"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-archive-retention-core.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-archive-retention-core-ts-e5470a1e1adb5640.mjs",
+          "kind": "ts",
+          "hash": "e5470a1e1adb5640"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-archive-retention-current.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-archive-retention-current-ts-4ef09d74fef5db2d.mjs",
+          "kind": "ts",
+          "hash": "4ef09d74fef5db2d"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-archive-retention-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-archive-retention-export-ts-c12d2c97ffeb7d54.mjs",
+          "kind": "ts",
+          "hash": "c12d2c97ffeb7d54"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-archive-retention-packages.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-archive-retention-packages-ts-535a9aef7734f853.mjs",
+          "kind": "ts",
+          "hash": "535a9aef7734f853"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-archive-retention.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-archive-retention-ts-97128a5c013a9037.mjs",
+          "kind": "ts",
+          "hash": "97128a5c013a9037"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-artifact-manifest-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-artifact-manifest-export-ts-128db9274d09b79d.mjs",
+          "kind": "ts",
+          "hash": "128db9274d09b79d"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-artifact-manifest.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-artifact-manifest-ts-358c5d368b398820.mjs",
+          "kind": "ts",
+          "hash": "358c5d368b398820"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-channels-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-channels-export-ts-491a92fe2a073ee4.mjs",
+          "kind": "ts",
+          "hash": "491a92fe2a073ee4"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-channels.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-channels-ts-6c7ccfcf61c384bf.mjs",
+          "kind": "ts",
+          "hash": "6c7ccfcf61c384bf"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-incident-timeline-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-incident-timeline-export-ts-806ed7cd6d953764.mjs",
+          "kind": "ts",
+          "hash": "806ed7cd6d953764"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-incident-timeline.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-incident-timeline-ts-4a47f39fb9d56d09.mjs",
+          "kind": "ts",
+          "hash": "4a47f39fb9d56d09"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-publication-gates-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-publication-gates-export-ts-62a0f132368ab297.mjs",
+          "kind": "ts",
+          "hash": "62a0f132368ab297"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-publication-gates.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-publication-gates-ts-9b050c53b64294df.mjs",
+          "kind": "ts",
+          "hash": "9b050c53b64294df"
+        },
+        {
+          "source_path": "src/features/admin/admin-release-risk-timeline.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-release-risk-timeline-ts-ef41d9b582f80cc0.mjs",
+          "kind": "ts",
+          "hash": "ef41d9b582f80cc0"
+        },
+        {
+          "source_path": "src/features/admin/admin-retention-privacy-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-retention-privacy-export-ts-ef90e0f4e6be7dda.mjs",
+          "kind": "ts",
+          "hash": "ef90e0f4e6be7dda"
+        },
+        {
+          "source_path": "src/features/admin/admin-retention-privacy.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-retention-privacy-ts-ba9ee2978fb1a8ec.mjs",
+          "kind": "ts",
+          "hash": "ba9ee2978fb1a8ec"
+        },
+        {
+          "source_path": "src/features/admin/admin-review-model.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-review-model-ts-8eac4123f1331053.mjs",
+          "kind": "ts",
+          "hash": "8eac4123f1331053"
+        },
+        {
+          "source_path": "src/features/admin/admin-review-room-audio-readiness-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-review-room-audio-readiness-export-ts-4e656c6aaa0635ed.mjs",
+          "kind": "ts",
+          "hash": "4e656c6aaa0635ed"
+        },
+        {
+          "source_path": "src/features/admin/admin-review-room-audio-readiness.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-review-room-audio-readiness-ts-02cf73fd7dd06d91.mjs",
+          "kind": "ts",
+          "hash": "02cf73fd7dd06d91"
+        },
+        {
+          "source_path": "src/features/admin/admin-role-change-actions.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-role-change-actions-ts-20f115cc1bb47ec2.mjs",
+          "kind": "ts",
+          "hash": "20f115cc1bb47ec2"
+        },
+        {
+          "source_path": "src/features/admin/admin-role-change-approval.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-role-change-approval-ts-323e96da34f25655.mjs",
+          "kind": "ts",
+          "hash": "323e96da34f25655"
+        },
+        {
+          "source_path": "src/features/admin/admin-rollback-readiness-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-rollback-readiness-export-ts-a85f94d34130a53d.mjs",
+          "kind": "ts",
+          "hash": "a85f94d34130a53d"
+        },
+        {
+          "source_path": "src/features/admin/admin-rollback-readiness.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-rollback-readiness-ts-f4aed6a3512f5f60.mjs",
+          "kind": "ts",
+          "hash": "f4aed6a3512f5f60"
+        },
+        {
+          "source_path": "src/features/admin/admin-scoped-publication-approvals-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-scoped-publication-approvals-export-ts-cd02b1a6e624e6d8.mjs",
+          "kind": "ts",
+          "hash": "cd02b1a6e624e6d8"
+        },
+        {
+          "source_path": "src/features/admin/admin-scoped-publication-approvals.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-scoped-publication-approvals-ts-e84e6bfd0340fbe9.mjs",
+          "kind": "ts",
+          "hash": "e84e6bfd0340fbe9"
+        },
+        {
+          "source_path": "src/features/admin/admin-self-hosted-backup-readiness-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-self-hosted-backup-readiness-export-ts-fd7b67349e5c23d3.mjs",
+          "kind": "ts",
+          "hash": "fd7b67349e5c23d3"
+        },
+        {
+          "source_path": "src/features/admin/admin-self-hosted-backup-readiness.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-self-hosted-backup-readiness-ts-7b882c293618fc99.mjs",
+          "kind": "ts",
+          "hash": "7b882c293618fc99"
+        },
+        {
+          "source_path": "src/features/admin/admin-self-hosted-sync-diagnostics-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-self-hosted-sync-diagnostics-export-ts-508ceb20670be401.mjs",
+          "kind": "ts",
+          "hash": "508ceb20670be401"
+        },
+        {
+          "source_path": "src/features/admin/admin-self-hosted-sync-diagnostics.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-self-hosted-sync-diagnostics-ts-8aff1c94d64a5f7f.mjs",
+          "kind": "ts",
+          "hash": "8aff1c94d64a5f7f"
+        },
+        {
+          "source_path": "src/features/admin/admin-slides-sites-publish-approval-workflow.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-slides-sites-publish-approval-workflow-ts-64fe498dd612f640.mjs",
+          "kind": "ts",
+          "hash": "64fe498dd612f640"
+        },
+        {
+          "source_path": "src/features/admin/admin-support-bundle-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-support-bundle-export-ts-3bfd84759f23cb09.mjs",
+          "kind": "ts",
+          "hash": "3bfd84759f23cb09"
+        },
+        {
+          "source_path": "src/features/admin/admin-support-bundle-filters.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-support-bundle-filters-ts-211706294a55da8b.mjs",
+          "kind": "ts",
+          "hash": "211706294a55da8b"
+        },
+        {
+          "source_path": "src/features/admin/admin-support-bundle.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-support-bundle-ts-2a29f1c66a1cb4bf.mjs",
+          "kind": "ts",
+          "hash": "2a29f1c66a1cb4bf"
+        },
+        {
+          "source_path": "src/features/admin/admin-workspace-access-budget-domains.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-workspace-access-budget-domains-ts-d096f3da2de42987.mjs",
+          "kind": "ts",
+          "hash": "d096f3da2de42987"
+        },
+        {
+          "source_path": "src/features/admin/admin-workspace-access-budget-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-workspace-access-budget-export-ts-2bd877141458edae.mjs",
+          "kind": "ts",
+          "hash": "2bd877141458edae"
+        },
+        {
+          "source_path": "src/features/admin/admin-workspace-access-budget-rows.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-workspace-access-budget-rows-ts-d0ecbf93e7009ea2.mjs",
+          "kind": "ts",
+          "hash": "d0ecbf93e7009ea2"
+        },
+        {
+          "source_path": "src/features/admin/admin-workspace-access-budget-utils.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-workspace-access-budget-utils-ts-287335243048509d.mjs",
+          "kind": "ts",
+          "hash": "287335243048509d"
+        },
+        {
+          "source_path": "src/features/admin/admin-workspace-access-budget.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-workspace-access-budget-ts-299211dd64c03384.mjs",
+          "kind": "ts",
+          "hash": "299211dd64c03384"
+        },
+        {
+          "source_path": "src/features/admin/admin-workspace-capacity-forecast.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-workspace-capacity-forecast-ts-698c976653d2a3cf.mjs",
+          "kind": "ts",
+          "hash": "698c976653d2a3cf"
+        },
+        {
+          "source_path": "src/features/admin/admin-workspace-operations-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-workspace-operations-export-ts-342ad40333c2d165.mjs",
+          "kind": "ts",
+          "hash": "342ad40333c2d165"
+        },
+        {
+          "source_path": "src/features/admin/admin-workspace-operations-rows.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-workspace-operations-rows-ts-d4122855166854ae.mjs",
+          "kind": "ts",
+          "hash": "d4122855166854ae"
+        },
+        {
+          "source_path": "src/features/admin/admin-workspace-operations-utils.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-workspace-operations-utils-ts-d690ef4b2a2e106a.mjs",
+          "kind": "ts",
+          "hash": "d690ef4b2a2e106a"
+        },
+        {
+          "source_path": "src/features/admin/admin-workspace-operations.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-workspace-operations-ts-c6baedd4d6bfd586.mjs",
+          "kind": "ts",
+          "hash": "c6baedd4d6bfd586"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-accessibility-privacy-release-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-accessibility-privacy-release-panel-tsx-5aece3c70d82520e.mjs",
+          "kind": "tsx",
+          "hash": "5aece3c70d82520e"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-automation-runbook-center-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-automation-runbook-center-panel-tsx-dd8b54c5ddeb2ad9.mjs",
+          "kind": "tsx",
+          "hash": "dd8b54c5ddeb2ad9"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-branch-review-inbox-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-branch-review-inbox-panel-tsx-68bbf78a2ca517db.mjs",
+          "kind": "tsx",
+          "hash": "68bbf78a2ca517db"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-collaboration-event-ingestion-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-collaboration-event-ingestion-panel-tsx-3b86ef06fd47f79e.mjs",
+          "kind": "tsx",
+          "hash": "3b86ef06fd47f79e"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-collaboration-handoff-operations-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-collaboration-handoff-operations-panel-tsx-2ee158c691806845.mjs",
+          "kind": "tsx",
+          "hash": "2ee158c691806845"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-collaboration-notification-preference-center-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-collaboration-notification-preference-center-panel-tsx-449c0da17c044dc3.mjs",
+          "kind": "tsx",
+          "hash": "449c0da17c044dc3"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-collaboration-recovery-packets-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-collaboration-recovery-packets-panel-tsx-dcef9c7a28055d6b.mjs",
+          "kind": "tsx",
+          "hash": "dcef9c7a28055d6b"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-command-center-search-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-command-center-search-panel-tsx-05fd92b881d9beea.mjs",
+          "kind": "tsx",
+          "hash": "05fd92b881d9beea"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-comment-reaction-workflows-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-comment-reaction-workflows-panel-tsx-f9aa235256781464.mjs",
+          "kind": "tsx",
+          "hash": "f9aa235256781464"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-cursor-chat-room-messages-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-cursor-chat-room-messages-panel-tsx-b4f6b656c13f51df.mjs",
+          "kind": "tsx",
+          "hash": "b4f6b656c13f51df"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-dashboard.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-dashboard-tsx-d0089ef0a2fef072.mjs",
+          "kind": "tsx",
+          "hash": "d0089ef0a2fef072"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-data-loss-prevention-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-data-loss-prevention-panel-tsx-c2a3344bfcfb8303.mjs",
+          "kind": "tsx",
+          "hash": "c2a3344bfcfb8303"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-design-branches-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-design-branches-panel-tsx-afd2631ba53ddb5b.mjs",
+          "kind": "tsx",
+          "hash": "afd2631ba53ddb5b"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-desktop-update-channel-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-desktop-update-channel-panel-tsx-c8a5db3bc0c5f9cf.mjs",
+          "kind": "tsx",
+          "hash": "c8a5db3bc0c5f9cf"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-embed-route-analytics-join-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-embed-route-analytics-join-panel-tsx-f619a3fd2aea7d1b.mjs",
+          "kind": "tsx",
+          "hash": "f619a3fd2aea7d1b"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-embed-security-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-embed-security-panel-tsx-29de269ba5ed79c7.mjs",
+          "kind": "tsx",
+          "hash": "29de269ba5ed79c7"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-external-comment-notification-workflows-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-external-comment-notification-workflows-panel-tsx-45414173b5c85a51.mjs",
+          "kind": "tsx",
+          "hash": "45414173b5c85a51"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-file-browser-depth-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-file-browser-depth-panel-tsx-b059fc8236aa09f1.mjs",
+          "kind": "tsx",
+          "hash": "b059fc8236aa09f1"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-library-release-gates-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-library-release-gates-panel-tsx-c309bc67e16c25ea.mjs",
+          "kind": "tsx",
+          "hash": "c309bc67e16c25ea"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-library-rollout-monitor-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-library-rollout-monitor-panel-tsx-2f33f6d194d3aac0.mjs",
+          "kind": "tsx",
+          "hash": "2f33f6d194d3aac0"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-live-review-sessions-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-live-review-sessions-panel-tsx-068623cf38496bdd.mjs",
+          "kind": "tsx",
+          "hash": "068623cf38496bdd"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-multiplayer-presence-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-multiplayer-presence-panel-tsx-ad07d853f1909b16.mjs",
+          "kind": "tsx",
+          "hash": "ad07d853f1909b16"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-notification-columns.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-notification-columns-tsx-385f5b085dd510b9.mjs",
+          "kind": "tsx",
+          "hash": "385f5b085dd510b9"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-notification-digest-subscriptions-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-notification-digest-subscriptions-panel-tsx-d8bec51b3d48e02c.mjs",
+          "kind": "tsx",
+          "hash": "d8bec51b3d48e02c"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-offline-vault-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-offline-vault-panel-tsx-b59ea113f603cbe8.mjs",
+          "kind": "tsx",
+          "hash": "b59ea113f603cbe8"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-operational-incidents-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-operational-incidents-panel-tsx-4ada14b3787a8463.mjs",
+          "kind": "tsx",
+          "hash": "4ada14b3787a8463"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-operator-onboarding-recovery-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-operator-onboarding-recovery-panel-tsx-5734c4e0bfa12318.mjs",
+          "kind": "tsx",
+          "hash": "5734c4e0bfa12318"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-operator-rehearsals-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-operator-rehearsals-panel-tsx-2f1763650cc0a0cf.mjs",
+          "kind": "tsx",
+          "hash": "2f1763650cc0a0cf"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-organization-audit-intelligence-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-organization-audit-intelligence-panel-tsx-340fc8481e7152ad.mjs",
+          "kind": "tsx",
+          "hash": "340fc8481e7152ad"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-permission-migration-review-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-permission-migration-review-panel-tsx-53d84ff17a113eb0.mjs",
+          "kind": "tsx",
+          "hash": "53d84ff17a113eb0"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-plugin-permission-governance-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-plugin-permission-governance-panel-tsx-4d2dae6fa5d84b54.mjs",
+          "kind": "tsx",
+          "hash": "4d2dae6fa5d84b54"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-post-deploy-smoke-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-post-deploy-smoke-panel-tsx-f985a2f0aa03872c.mjs",
+          "kind": "tsx",
+          "hash": "f985a2f0aa03872c"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-production-monitoring-digest-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-production-monitoring-digest-panel-tsx-5e787fa6f0f967b6.mjs",
+          "kind": "tsx",
+          "hash": "5e787fa6f0f967b6"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-public-link-observability-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-public-link-observability-panel-tsx-5731b8728d22e096.mjs",
+          "kind": "tsx",
+          "hash": "5731b8728d22e096"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-public-route-analytics-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-public-route-analytics-panel-tsx-ea53681259de33a5.mjs",
+          "kind": "tsx",
+          "hash": "ea53681259de33a5"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-publish-channel-manager-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-publish-channel-manager-panel-tsx-8f00906423152699.mjs",
+          "kind": "tsx",
+          "hash": "8f00906423152699"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-realtime-health-monitor-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-realtime-health-monitor-panel-tsx-94e19160386a0621.mjs",
+          "kind": "tsx",
+          "hash": "94e19160386a0621"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-release-approval-snapshots-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-release-approval-snapshots-panel-tsx-97a5aab1b8df2ef6.mjs",
+          "kind": "tsx",
+          "hash": "97a5aab1b8df2ef6"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-release-archive-retention-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-release-archive-retention-panel-tsx-0fe998317610bdfb.mjs",
+          "kind": "tsx",
+          "hash": "0fe998317610bdfb"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-release-artifact-manifest-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-release-artifact-manifest-panel-tsx-6ea07ca173350ad9.mjs",
+          "kind": "tsx",
+          "hash": "6ea07ca173350ad9"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-release-channels-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-release-channels-panel-tsx-9f36346c5eda877f.mjs",
+          "kind": "tsx",
+          "hash": "9f36346c5eda877f"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-release-incident-timeline-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-release-incident-timeline-panel-tsx-25b33769a36eadb0.mjs",
+          "kind": "tsx",
+          "hash": "25b33769a36eadb0"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-release-publication-gates-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-release-publication-gates-panel-tsx-36fc6c92a5971c00.mjs",
+          "kind": "tsx",
+          "hash": "36fc6c92a5971c00"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-release-risk-timeline-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-release-risk-timeline-panel-tsx-23c012391c8af5ab.mjs",
+          "kind": "tsx",
+          "hash": "23c012391c8af5ab"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-retention-privacy-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-retention-privacy-panel-tsx-7c3bbc08376598f3.mjs",
+          "kind": "tsx",
+          "hash": "7c3bbc08376598f3"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-review-filters.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-review-filters-tsx-335eba2dcf8e93c0.mjs",
+          "kind": "tsx",
+          "hash": "335eba2dcf8e93c0"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-review-room-audio-readiness-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-review-room-audio-readiness-panel-tsx-367808fa1f37da8f.mjs",
+          "kind": "tsx",
+          "hash": "367808fa1f37da8f"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-role-change-approval-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-role-change-approval-panel-tsx-6c9db5d1368667f6.mjs",
+          "kind": "tsx",
+          "hash": "6c9db5d1368667f6"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-rollback-readiness-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-rollback-readiness-panel-tsx-5079959284f023d8.mjs",
+          "kind": "tsx",
+          "hash": "5079959284f023d8"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-scoped-publication-approvals-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-scoped-publication-approvals-panel-tsx-d6193f6d5974e3c7.mjs",
+          "kind": "tsx",
+          "hash": "d6193f6d5974e3c7"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-self-hosted-backup-readiness-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-self-hosted-backup-readiness-panel-tsx-8e9b3fa31274ce46.mjs",
+          "kind": "tsx",
+          "hash": "8e9b3fa31274ce46"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-self-hosted-sync-diagnostics-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-self-hosted-sync-diagnostics-panel-tsx-08c97bc8529e7d18.mjs",
+          "kind": "tsx",
+          "hash": "08c97bc8529e7d18"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-slides-sites-publish-approval-workflow-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-slides-sites-publish-approval-workflow-panel-tsx-798a921378934a25.mjs",
+          "kind": "tsx",
+          "hash": "798a921378934a25"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-support-bundle-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-support-bundle-panel-tsx-b9e9be46bc4d4785.mjs",
+          "kind": "tsx",
+          "hash": "b9e9be46bc4d4785"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-workspace-access-budget-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-workspace-access-budget-panel-tsx-d01c9f8434bef472.mjs",
+          "kind": "tsx",
+          "hash": "d01c9f8434bef472"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-workspace-capacity-forecast-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-workspace-capacity-forecast-panel-tsx-55a1845cd49cd421.mjs",
+          "kind": "tsx",
+          "hash": "55a1845cd49cd421"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-workspace-operations-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-workspace-operations-panel-tsx-f87f31edb83c0d88.mjs",
+          "kind": "tsx",
+          "hash": "f87f31edb83c0d88"
+        },
+        {
+          "source_path": "src/features/admin/components/admin-workspace-policy-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-admin-workspace-policy-panel-tsx-c6d988e5931cadc7.mjs",
+          "kind": "tsx",
+          "hash": "c6d988e5931cadc7"
+        },
+        {
+          "source_path": "src/features/admin/components/deploy-environment-preflight-panel.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-components-deploy-environment-preflight-panel-tsx-a33776a782eae19f.mjs",
+          "kind": "tsx",
+          "hash": "a33776a782eae19f"
+        },
+        {
+          "source_path": "src/features/admin/deploy-environment-preflight-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-deploy-environment-preflight-export-ts-e29d190facbf437e.mjs",
+          "kind": "ts",
+          "hash": "e29d190facbf437e"
+        },
+        {
+          "source_path": "src/features/admin/deploy-environment-preflight.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-deploy-environment-preflight-ts-f6153cb226d8bd02.mjs",
+          "kind": "ts",
+          "hash": "f6153cb226d8bd02"
+        },
+        {
+          "source_path": "src/features/admin/workspace-policy-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-workspace-policy-export-ts-fd3e1bc77834564e.mjs",
+          "kind": "ts",
+          "hash": "fd3e1bc77834564e"
+        },
+        {
+          "source_path": "src/features/admin/workspace-policy.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-workspace-policy-ts-1328e128ed00d73c.mjs",
+          "kind": "ts",
+          "hash": "1328e128ed00d73c"
+        },
+        {
+          "source_path": "src/features/editor/accessibility-audit.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-accessibility-audit-ts-6060a7b8ab68a612.mjs",
+          "kind": "ts",
+          "hash": "6060a7b8ab68a612"
+        },
+        {
+          "source_path": "src/features/editor/activity-conflict-review.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-activity-conflict-review-ts-f07c5a271cb9f63a.mjs",
+          "kind": "ts",
+          "hash": "f07c5a271cb9f63a"
+        },
+        {
+          "source_path": "src/features/editor/activity-operation-conflicts.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-activity-operation-conflicts-ts-40cf3fb3fa8c2477.mjs",
+          "kind": "ts",
+          "hash": "40cf3fb3fa8c2477"
+        },
+        {
+          "source_path": "src/features/editor/auto-layout.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-auto-layout-ts-a5e7e051e98c177e.mjs",
+          "kind": "ts",
+          "hash": "a5e7e051e98c177e"
+        },
+        {
+          "source_path": "src/features/editor/collaboration-room-state.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-collaboration-room-state-ts-3ff3220a5bfda107.mjs",
+          "kind": "ts",
+          "hash": "3ff3220a5bfda107"
+        },
+        {
+          "source_path": "src/features/editor/collaboration-sync-replay.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-collaboration-sync-replay-ts-3a3ef7473bdedcba.mjs",
+          "kind": "ts",
+          "hash": "3a3ef7473bdedcba"
+        },
+        {
+          "source_path": "src/features/editor/color-contrast.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-color-contrast-ts-fd45c4a737ad3504.mjs",
+          "kind": "ts",
+          "hash": "fd45c4a737ad3504"
+        },
+        {
+          "source_path": "src/features/editor/component-analytics.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-component-analytics-ts-6d341d58b5af3d16.mjs",
+          "kind": "ts",
+          "hash": "6d341d58b5af3d16"
+        },
+        {
+          "source_path": "src/features/editor/component-documentation-readiness.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-component-documentation-readiness-ts-d0bd51a2a65eb7b7.mjs",
+          "kind": "ts",
+          "hash": "d0bd51a2a65eb7b7"
+        },
+        {
+          "source_path": "src/features/editor/component-instance-review.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-component-instance-review-ts-4669e9aae781b7e6.mjs",
+          "kind": "ts",
+          "hash": "4669e9aae781b7e6"
+        },
+        {
+          "source_path": "src/features/editor/component-library-manifest.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-component-library-manifest-ts-444971281a505d23.mjs",
+          "kind": "ts",
+          "hash": "444971281a505d23"
+        },
+        {
+          "source_path": "src/features/editor/component-library.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-component-library-ts-635a3c4a20b03a75.mjs",
+          "kind": "ts",
+          "hash": "635a3c4a20b03a75"
+        },
+        {
+          "source_path": "src/features/editor/component-properties.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-component-properties-ts-dd9412b976db9b22.mjs",
+          "kind": "ts",
+          "hash": "dd9412b976db9b22"
+        },
+        {
+          "source_path": "src/features/editor/component-slots.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-component-slots-ts-6b9558251016056a.mjs",
+          "kind": "ts",
+          "hash": "6b9558251016056a"
+        },
+        {
+          "source_path": "src/features/editor/component-variable-coverage.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-component-variable-coverage-ts-dfe8b461570365ce.mjs",
+          "kind": "ts",
+          "hash": "dfe8b461570365ce"
+        },
+        {
+          "source_path": "src/features/editor/components/library-release-panel-shared.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-components-library-release-panel-shared-tsx-185476f4669a07c8.mjs",
+          "kind": "tsx",
+          "hash": "185476f4669a07c8"
+        },
+        {
+          "source_path": "src/features/editor/constraints.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-constraints-ts-a1ccfa44870c46fc.mjs",
+          "kind": "ts",
+          "hash": "a1ccfa44870c46fc"
+        },
+        {
+          "source_path": "src/features/editor/document-stats.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-document-stats-ts-a755d567b350cb73.mjs",
+          "kind": "ts",
+          "hash": "a755d567b350cb73"
+        },
+        {
+          "source_path": "src/features/editor/document-utils.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-document-utils-ts-1de3e47e0f5b178c.mjs",
+          "kind": "ts",
+          "hash": "1de3e47e0f5b178c"
+        },
+        {
+          "source_path": "src/features/editor/editor-plugin-api.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-editor-plugin-api-ts-bc630d1a7d02d822.mjs",
+          "kind": "ts",
+          "hash": "bc630d1a7d02d822"
+        },
+        {
+          "source_path": "src/features/editor/exporters/svg-exporter.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-exporters-svg-exporter-ts-efc4c8cf16561b46.mjs",
+          "kind": "ts",
+          "hash": "efc4c8cf16561b46"
+        },
+        {
+          "source_path": "src/features/editor/layer-codegen.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-layer-codegen-ts-9d8d9402bfc49e8c.mjs",
+          "kind": "ts",
+          "hash": "9d8d9402bfc49e8c"
+        },
+        {
+          "source_path": "src/features/editor/layout-grids.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-layout-grids-ts-469857abba2c9d06.mjs",
+          "kind": "ts",
+          "hash": "469857abba2c9d06"
+        },
+        {
+          "source_path": "src/features/editor/library-publish-readiness.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-library-publish-readiness-ts-17559085fa982749.mjs",
+          "kind": "ts",
+          "hash": "17559085fa982749"
+        },
+        {
+          "source_path": "src/features/editor/paint-stack.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-paint-stack-ts-4d3d558a3fdd301f.mjs",
+          "kind": "ts",
+          "hash": "4d3d558a3fdd301f"
+        },
+        {
+          "source_path": "src/features/editor/production-deploy-smoke.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-production-deploy-smoke-ts-348cb06733cd614e.mjs",
+          "kind": "ts",
+          "hash": "348cb06733cd614e"
+        },
+        {
+          "source_path": "src/features/editor/prototype-flow-diagnostics.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-prototype-flow-diagnostics-ts-ea80d97ae57e141d.mjs",
+          "kind": "ts",
+          "hash": "ea80d97ae57e141d"
+        },
+        {
+          "source_path": "src/features/editor/runtime-observability.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-runtime-observability-ts-358aa81f0970aab3.mjs",
+          "kind": "ts",
+          "hash": "358aa81f0970aab3"
+        },
+        {
+          "source_path": "src/features/editor/variable-bindings.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-variable-bindings-ts-f3a3411dc696a830.mjs",
+          "kind": "ts",
+          "hash": "f3a3411dc696a830"
+        },
+        {
+          "source_path": "src/features/editor/variable-usage-audit.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-variable-usage-audit-ts-be6fd8319d8346d2.mjs",
+          "kind": "ts",
+          "hash": "be6fd8319d8346d2"
+        },
+        {
+          "source_path": "src/features/editor/visual-fixture-document.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-editor-visual-fixture-document-ts-a255e909ea18af1b.mjs",
+          "kind": "ts",
+          "hash": "a255e909ea18af1b"
+        },
+        {
+          "source_path": "src/features/embed-security/policy.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-embed-security-policy-ts-29323cc2cf6b1c59.mjs",
+          "kind": "ts",
+          "hash": "29323cc2cf6b1c59"
+        },
+        {
+          "source_path": "src/features/embed-security/types.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-embed-security-types-ts-df937802b141ce92.mjs",
+          "kind": "ts",
+          "hash": "df937802b141ce92"
+        },
+        {
+          "source_path": "src/features/files/permissions.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-files-permissions-ts-619c9a7eeb3a33f6.mjs",
+          "kind": "ts",
+          "hash": "619c9a7eeb3a33f6"
+        },
+        {
+          "source_path": "src/features/public-route-analytics/retention.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-public-route-analytics-retention-ts-a6d4fe8b428fb7a8.mjs",
+          "kind": "ts",
+          "hash": "a6d4fe8b428fb7a8"
+        },
+        {
+          "source_path": "src/features/public-route-analytics/types.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-public-route-analytics-types-ts-5f30779d6cf45d67.mjs",
+          "kind": "ts",
+          "hash": "5f30779d6cf45d67"
+        },
+        {
+          "source_path": "src/lib/auth-client.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-auth-client-ts-cb0514e33f1d1021.mjs",
+          "kind": "ts",
+          "hash": "cb0514e33f1d1021"
+        },
+        {
+          "source_path": "src/lib/auth.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-auth-ts-de3814526e1d4ec2.mjs",
+          "kind": "ts",
+          "hash": "de3814526e1d4ec2"
+        },
+        {
+          "source_path": "src/lib/brevo-email.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-brevo-email-ts-8d89dcbf81714307.mjs",
+          "kind": "ts",
+          "hash": "8d89dcbf81714307"
+        },
+        {
+          "source_path": "src/lib/forge/auth/better-auth.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-forge-auth-better-auth-ts-72f111a6b1ee1c29.mjs",
+          "kind": "ts",
+          "hash": "72f111a6b1ee1c29"
+        },
+        {
+          "source_path": "src/lib/forge/db/drizzle-orm.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-forge-db-drizzle-orm-ts-03b4cc666c52123e.mjs",
+          "kind": "ts",
+          "hash": "03b4cc666c52123e"
+        },
+        {
+          "source_path": "src/lib/forge/db/libsql-client.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-forge-db-libsql-client-ts-de1158ecfb2e1166.mjs",
+          "kind": "ts",
+          "hash": "de1158ecfb2e1166"
+        },
+        {
+          "source_path": "src/lib/forge/db/libsql.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-forge-db-libsql-ts-e8f762d509b3db09.mjs",
+          "kind": "ts",
+          "hash": "e8f762d509b3db09"
+        },
+        {
+          "source_path": "src/lib/forge/db/sqlite-core.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-forge-db-sqlite-core-ts-b21da59e31504108.mjs",
+          "kind": "ts",
+          "hash": "b21da59e31504108"
+        },
+        {
+          "source_path": "src/lib/forge/icons/lucide-react.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-forge-icons-lucide-react-tsx-b9b0a8debf22abe8.mjs",
+          "kind": "tsx",
+          "hash": "b9b0a8debf22abe8"
+        },
+        {
+          "source_path": "src/lib/forge/radix-ui/radix-ui.tsx",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-forge-radix-ui-radix-ui-tsx-6774b7bf6fcb9322.mjs",
+          "kind": "tsx",
+          "hash": "6774b7bf6fcb9322"
+        },
+        {
+          "source_path": "src/lib/forge/tanstack/react-table.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-forge-tanstack-react-table-ts-b5b6a0b0f37dee31.mjs",
+          "kind": "ts",
+          "hash": "b5b6a0b0f37dee31"
+        },
+        {
+          "source_path": "src/lib/forge/utils/clsx.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-forge-utils-clsx-ts-6507f063f69574a3.mjs",
+          "kind": "ts",
+          "hash": "6507f063f69574a3"
+        },
+        {
+          "source_path": "src/lib/forge/utils/nanoid.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-forge-utils-nanoid-ts-eb21cd53da2dc635.mjs",
+          "kind": "ts",
+          "hash": "eb21cd53da2dc635"
+        },
+        {
+          "source_path": "src/lib/forge/utils/tailwind-merge.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-forge-utils-tailwind-merge-ts-e9ef36427daeabce.mjs",
+          "kind": "ts",
+          "hash": "e9ef36427daeabce"
+        },
+        {
+          "source_path": "src/lib/forge/utils/zod.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-forge-utils-zod-ts-ec597ab057171bf2.mjs",
+          "kind": "ts",
+          "hash": "ec597ab057171bf2"
+        },
+        {
+          "source_path": "src/lib/forge/variants/class-variance-authority.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-forge-variants-class-variance-authority-ts-357cdf6d80c9f9e9.mjs",
+          "kind": "ts",
+          "hash": "357cdf6d80c9f9e9"
+        },
+        {
+          "source_path": "src/lib/tablecn-data-table.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-tablecn-data-table-ts-9bf4c9e4016e109e.mjs",
+          "kind": "ts",
+          "hash": "9bf4c9e4016e109e"
+        },
+        {
+          "source_path": "src/lib/utils.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-utils-ts-cb488a6352482fc7.mjs",
+          "kind": "ts",
+          "hash": "cb488a6352482fc7"
+        },
+        {
+          "source_path": "src/lib/www/cache.ts",
+          "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-lib-www-cache-ts-6cfaa52cf0643257.mjs",
+          "kind": "ts",
+          "hash": "6cfaa52cf0643257"
+        }
+      ],
+      "fallback_hash": "18dc52a44f0fbeb0"
+    },
+    {
+      "route": "/embed/:token",
+      "source_path": "src/app/embed/[token]/page.tsx",
+      "html_output": ".dx/www/output/source-routes/embed--token/index.html",
+      "shell_chunk_output": ".dx/www/output/source-routes/embed--token/route-shell-fcf34dc8fdf6beab.mjs",
+      "entry_module_chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-app-embed--token--page-tsx-b3d1f0542b0529be.mjs",
+      "source_module_chunks": [
+        {
+          "source_path": "src/app/embed/[token]/page.tsx",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-app-embed--token--page-tsx-b3d1f0542b0529be.mjs",
+          "kind": "tsx",
+          "hash": "b3d1f0542b0529be"
+        },
+        {
+          "source_path": "src/db/client.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-db-client-ts-b11a4f30c3f08fac.mjs",
+          "kind": "ts",
+          "hash": "b11a4f30c3f08fac"
+        },
+        {
+          "source_path": "src/db/schema.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-db-schema-ts-24b183fcc50e5ffb.mjs",
+          "kind": "ts",
+          "hash": "24b183fcc50e5ffb"
+        },
+        {
+          "source_path": "src/features/admin/workspace-policy-data.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-admin-workspace-policy-data-ts-a401a257eb083d93.mjs",
+          "kind": "ts",
+          "hash": "a401a257eb083d93"
+        },
+        {
+          "source_path": "src/features/admin/workspace-policy.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-admin-workspace-policy-ts-1328e128ed00d73c.mjs",
+          "kind": "ts",
+          "hash": "1328e128ed00d73c"
+        },
+        {
+          "source_path": "src/features/editor/auto-layout.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-editor-auto-layout-ts-a5e7e051e98c177e.mjs",
+          "kind": "ts",
+          "hash": "a5e7e051e98c177e"
+        },
+        {
+          "source_path": "src/features/editor/collaboration-room-state.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-editor-collaboration-room-state-ts-3ff3220a5bfda107.mjs",
+          "kind": "ts",
+          "hash": "3ff3220a5bfda107"
+        },
+        {
+          "source_path": "src/features/editor/comment-notifications.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-editor-comment-notifications-ts-900c288da3d37028.mjs",
+          "kind": "ts",
+          "hash": "900c288da3d37028"
+        },
+        {
+          "source_path": "src/features/editor/component-library-manifest.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-editor-component-library-manifest-ts-444971281a505d23.mjs",
+          "kind": "ts",
+          "hash": "444971281a505d23"
+        },
+        {
+          "source_path": "src/features/editor/component-library.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-editor-component-library-ts-635a3c4a20b03a75.mjs",
+          "kind": "ts",
+          "hash": "635a3c4a20b03a75"
+        },
+        {
+          "source_path": "src/features/editor/component-properties.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-editor-component-properties-ts-dd9412b976db9b22.mjs",
+          "kind": "ts",
+          "hash": "dd9412b976db9b22"
+        },
+        {
+          "source_path": "src/features/editor/component-slots.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-editor-component-slots-ts-6b9558251016056a.mjs",
+          "kind": "ts",
+          "hash": "6b9558251016056a"
+        },
+        {
+          "source_path": "src/features/editor/default-document.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-editor-default-document-ts-af4d71354b0b6430.mjs",
+          "kind": "ts",
+          "hash": "af4d71354b0b6430"
+        },
+        {
+          "source_path": "src/features/editor/document-stats.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-editor-document-stats-ts-a755d567b350cb73.mjs",
+          "kind": "ts",
+          "hash": "a755d567b350cb73"
+        },
+        {
+          "source_path": "src/features/editor/document-utils.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-editor-document-utils-ts-1de3e47e0f5b178c.mjs",
+          "kind": "ts",
+          "hash": "1de3e47e0f5b178c"
+        },
+        {
+          "source_path": "src/features/editor/exporters/svg-exporter.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-editor-exporters-svg-exporter-ts-efc4c8cf16561b46.mjs",
+          "kind": "ts",
+          "hash": "efc4c8cf16561b46"
+        },
+        {
+          "source_path": "src/features/editor/paint-stack.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-editor-paint-stack-ts-4d3d558a3fdd301f.mjs",
+          "kind": "ts",
+          "hash": "4d3d558a3fdd301f"
+        },
+        {
+          "source_path": "src/features/editor/shortcut-preferences.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-editor-shortcut-preferences-ts-56dec907d5414dec.mjs",
+          "kind": "ts",
+          "hash": "56dec907d5414dec"
+        },
+        {
+          "source_path": "src/features/editor/variable-bindings.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-editor-variable-bindings-ts-f3a3411dc696a830.mjs",
+          "kind": "ts",
+          "hash": "f3a3411dc696a830"
+        },
+        {
+          "source_path": "src/features/files/access-control.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-files-access-control-ts-26b077d1507cb8c5.mjs",
+          "kind": "ts",
+          "hash": "26b077d1507cb8c5"
+        },
+        {
+          "source_path": "src/features/files/actions.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-files-actions-ts-61b6d2d04803c056.mjs",
+          "kind": "ts",
+          "hash": "61b6d2d04803c056"
+        },
+        {
+          "source_path": "src/features/files/current-user.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-files-current-user-ts-38880e1486ff6baa.mjs",
+          "kind": "ts",
+          "hash": "38880e1486ff6baa"
+        },
+        {
+          "source_path": "src/features/files/permissions.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-files-permissions-ts-619c9a7eeb3a33f6.mjs",
+          "kind": "ts",
+          "hash": "619c9a7eeb3a33f6"
+        },
+        {
+          "source_path": "src/features/public-route-analytics/components/public-route-analytics-beacon.tsx",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-features-public-route-analytics-components-public-route-analytics-beacon-tsx-e625d5faf9617e0a.mjs",
+          "kind": "tsx",
+          "hash": "e625d5faf9617e0a"
+        },
+        {
+          "source_path": "src/lib/auth.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-lib-auth-ts-de3814526e1d4ec2.mjs",
+          "kind": "ts",
+          "hash": "de3814526e1d4ec2"
+        },
+        {
+          "source_path": "src/lib/brevo-email.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-lib-brevo-email-ts-8d89dcbf81714307.mjs",
+          "kind": "ts",
+          "hash": "8d89dcbf81714307"
+        },
+        {
+          "source_path": "src/lib/forge/auth/better-auth.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-lib-forge-auth-better-auth-ts-72f111a6b1ee1c29.mjs",
+          "kind": "ts",
+          "hash": "72f111a6b1ee1c29"
+        },
+        {
+          "source_path": "src/lib/forge/db/drizzle-orm.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-lib-forge-db-drizzle-orm-ts-03b4cc666c52123e.mjs",
+          "kind": "ts",
+          "hash": "03b4cc666c52123e"
+        },
+        {
+          "source_path": "src/lib/forge/db/libsql-client.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-lib-forge-db-libsql-client-ts-de1158ecfb2e1166.mjs",
+          "kind": "ts",
+          "hash": "de1158ecfb2e1166"
+        },
+        {
+          "source_path": "src/lib/forge/db/libsql.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-lib-forge-db-libsql-ts-e8f762d509b3db09.mjs",
+          "kind": "ts",
+          "hash": "e8f762d509b3db09"
+        },
+        {
+          "source_path": "src/lib/forge/db/sqlite-core.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-lib-forge-db-sqlite-core-ts-b21da59e31504108.mjs",
+          "kind": "ts",
+          "hash": "b21da59e31504108"
+        },
+        {
+          "source_path": "src/lib/forge/icons/lucide-react.tsx",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-lib-forge-icons-lucide-react-tsx-b9b0a8debf22abe8.mjs",
+          "kind": "tsx",
+          "hash": "b9b0a8debf22abe8"
+        },
+        {
+          "source_path": "src/lib/forge/utils/nanoid.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-lib-forge-utils-nanoid-ts-eb21cd53da2dc635.mjs",
+          "kind": "ts",
+          "hash": "eb21cd53da2dc635"
+        },
+        {
+          "source_path": "src/lib/forge/utils/zod.ts",
+          "chunk_output": ".dx/www/output/source-routes/embed--token/modules/src-lib-forge-utils-zod-ts-ec597ab057171bf2.mjs",
+          "kind": "ts",
+          "hash": "ec597ab057171bf2"
+        }
+      ],
+      "fallback_hash": "fcf34dc8fdf6beab"
+    },
+    {
+      "route": "/",
+      "source_path": "src/app/page.tsx",
+      "html_output": ".dx/www/output/source-routes/root/index.html",
+      "shell_chunk_output": ".dx/www/output/source-routes/root/route-shell-7d7e4ccd4aa6ebab.mjs",
+      "entry_module_chunk_output": ".dx/www/output/source-routes/root/modules/src-app-page-tsx-65965fbf121a339b.mjs",
+      "source_module_chunks": [
+        {
+          "source_path": "src/app/page.tsx",
+          "chunk_output": ".dx/www/output/source-routes/root/modules/src-app-page-tsx-65965fbf121a339b.mjs",
+          "kind": "tsx",
+          "hash": "65965fbf121a339b"
+        }
+      ],
+      "fallback_hash": "7d7e4ccd4aa6ebab"
+    },
+    {
+      "route": "/share/:token",
+      "source_path": "src/app/share/[token]/page.tsx",
+      "html_output": ".dx/www/output/source-routes/share--token/index.html",
+      "shell_chunk_output": ".dx/www/output/source-routes/share--token/route-shell-9197fa8906a2b6b0.mjs",
+      "entry_module_chunk_output": ".dx/www/output/source-routes/share--token/modules/src-app-share--token--page-tsx-ee490088b5670dff.mjs",
+      "source_module_chunks": [
+        {
+          "source_path": "src/app/share/[token]/page.tsx",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-app-share--token--page-tsx-ee490088b5670dff.mjs",
+          "kind": "tsx",
+          "hash": "ee490088b5670dff"
+        },
+        {
+          "source_path": "src/components/ui/button.tsx",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-components-ui-button-tsx-a045a54d4568e98d.mjs",
+          "kind": "tsx",
+          "hash": "a045a54d4568e98d"
+        },
+        {
+          "source_path": "src/components/ui/input.tsx",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-components-ui-input-tsx-5c00dcef4bc2ae59.mjs",
+          "kind": "tsx",
+          "hash": "5c00dcef4bc2ae59"
+        },
+        {
+          "source_path": "src/db/client.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-db-client-ts-b11a4f30c3f08fac.mjs",
+          "kind": "ts",
+          "hash": "b11a4f30c3f08fac"
+        },
+        {
+          "source_path": "src/db/schema.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-db-schema-ts-24b183fcc50e5ffb.mjs",
+          "kind": "ts",
+          "hash": "24b183fcc50e5ffb"
+        },
+        {
+          "source_path": "src/features/admin/workspace-policy-data.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-admin-workspace-policy-data-ts-a401a257eb083d93.mjs",
+          "kind": "ts",
+          "hash": "a401a257eb083d93"
+        },
+        {
+          "source_path": "src/features/admin/workspace-policy.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-admin-workspace-policy-ts-1328e128ed00d73c.mjs",
+          "kind": "ts",
+          "hash": "1328e128ed00d73c"
+        },
+        {
+          "source_path": "src/features/editor/auto-layout.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-auto-layout-ts-a5e7e051e98c177e.mjs",
+          "kind": "ts",
+          "hash": "a5e7e051e98c177e"
+        },
+        {
+          "source_path": "src/features/editor/canvas-annotation-summary.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-canvas-annotation-summary-ts-fc5320adc1c54bfc.mjs",
+          "kind": "ts",
+          "hash": "fc5320adc1c54bfc"
+        },
+        {
+          "source_path": "src/features/editor/collaboration-room-state.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-collaboration-room-state-ts-3ff3220a5bfda107.mjs",
+          "kind": "ts",
+          "hash": "3ff3220a5bfda107"
+        },
+        {
+          "source_path": "src/features/editor/comment-export.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-comment-export-ts-bc4016a468c68e44.mjs",
+          "kind": "ts",
+          "hash": "bc4016a468c68e44"
+        },
+        {
+          "source_path": "src/features/editor/comment-notifications.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-comment-notifications-ts-900c288da3d37028.mjs",
+          "kind": "ts",
+          "hash": "900c288da3d37028"
+        },
+        {
+          "source_path": "src/features/editor/component-analytics.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-component-analytics-ts-6d341d58b5af3d16.mjs",
+          "kind": "ts",
+          "hash": "6d341d58b5af3d16"
+        },
+        {
+          "source_path": "src/features/editor/component-integrity-review.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-component-integrity-review-ts-fbd7632489c1ed1c.mjs",
+          "kind": "ts",
+          "hash": "fbd7632489c1ed1c"
+        },
+        {
+          "source_path": "src/features/editor/component-library-manifest.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-component-library-manifest-ts-444971281a505d23.mjs",
+          "kind": "ts",
+          "hash": "444971281a505d23"
+        },
+        {
+          "source_path": "src/features/editor/component-library.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-component-library-ts-635a3c4a20b03a75.mjs",
+          "kind": "ts",
+          "hash": "635a3c4a20b03a75"
+        },
+        {
+          "source_path": "src/features/editor/component-properties.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-component-properties-ts-dd9412b976db9b22.mjs",
+          "kind": "ts",
+          "hash": "dd9412b976db9b22"
+        },
+        {
+          "source_path": "src/features/editor/component-slots.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-component-slots-ts-6b9558251016056a.mjs",
+          "kind": "ts",
+          "hash": "6b9558251016056a"
+        },
+        {
+          "source_path": "src/features/editor/component-variable-binding-review.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-component-variable-binding-review-ts-d142cac4569df1b3.mjs",
+          "kind": "ts",
+          "hash": "d142cac4569df1b3"
+        },
+        {
+          "source_path": "src/features/editor/component-variable-coverage.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-component-variable-coverage-ts-dfe8b461570365ce.mjs",
+          "kind": "ts",
+          "hash": "dfe8b461570365ce"
+        },
+        {
+          "source_path": "src/features/editor/components/shared-comment-handoff.tsx",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-components-shared-comment-handoff-tsx-1bd4ee5f217aa1dc.mjs",
+          "kind": "tsx",
+          "hash": "1bd4ee5f217aa1dc"
+        },
+        {
+          "source_path": "src/features/editor/connector-review.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-connector-review-ts-6a53618535017a08.mjs",
+          "kind": "ts",
+          "hash": "6a53618535017a08"
+        },
+        {
+          "source_path": "src/features/editor/default-document.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-default-document-ts-af4d71354b0b6430.mjs",
+          "kind": "ts",
+          "hash": "af4d71354b0b6430"
+        },
+        {
+          "source_path": "src/features/editor/document-stats.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-document-stats-ts-a755d567b350cb73.mjs",
+          "kind": "ts",
+          "hash": "a755d567b350cb73"
+        },
+        {
+          "source_path": "src/features/editor/document-utils.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-document-utils-ts-1de3e47e0f5b178c.mjs",
+          "kind": "ts",
+          "hash": "1de3e47e0f5b178c"
+        },
+        {
+          "source_path": "src/features/editor/exporters/svg-exporter.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-exporters-svg-exporter-ts-efc4c8cf16561b46.mjs",
+          "kind": "ts",
+          "hash": "efc4c8cf16561b46"
+        },
+        {
+          "source_path": "src/features/editor/facilitation-review.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-facilitation-review-ts-b177ae2657b5d4fe.mjs",
+          "kind": "ts",
+          "hash": "b177ae2657b5d4fe"
+        },
+        {
+          "source_path": "src/features/editor/paint-stack.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-paint-stack-ts-4d3d558a3fdd301f.mjs",
+          "kind": "ts",
+          "hash": "4d3d558a3fdd301f"
+        },
+        {
+          "source_path": "src/features/editor/shortcut-preferences.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-shortcut-preferences-ts-56dec907d5414dec.mjs",
+          "kind": "ts",
+          "hash": "56dec907d5414dec"
+        },
+        {
+          "source_path": "src/features/editor/variable-bindings.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-variable-bindings-ts-f3a3411dc696a830.mjs",
+          "kind": "ts",
+          "hash": "f3a3411dc696a830"
+        },
+        {
+          "source_path": "src/features/editor/variable-usage-audit.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-editor-variable-usage-audit-ts-be6fd8319d8346d2.mjs",
+          "kind": "ts",
+          "hash": "be6fd8319d8346d2"
+        },
+        {
+          "source_path": "src/features/files/access-control.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-files-access-control-ts-26b077d1507cb8c5.mjs",
+          "kind": "ts",
+          "hash": "26b077d1507cb8c5"
+        },
+        {
+          "source_path": "src/features/files/actions.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-files-actions-ts-61b6d2d04803c056.mjs",
+          "kind": "ts",
+          "hash": "61b6d2d04803c056"
+        },
+        {
+          "source_path": "src/features/files/current-user.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-files-current-user-ts-38880e1486ff6baa.mjs",
+          "kind": "ts",
+          "hash": "38880e1486ff6baa"
+        },
+        {
+          "source_path": "src/features/files/permissions.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-files-permissions-ts-619c9a7eeb3a33f6.mjs",
+          "kind": "ts",
+          "hash": "619c9a7eeb3a33f6"
+        },
+        {
+          "source_path": "src/features/public-route-analytics/components/public-route-analytics-beacon.tsx",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-features-public-route-analytics-components-public-route-analytics-beacon-tsx-e625d5faf9617e0a.mjs",
+          "kind": "tsx",
+          "hash": "e625d5faf9617e0a"
+        },
+        {
+          "source_path": "src/lib/auth.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-auth-ts-de3814526e1d4ec2.mjs",
+          "kind": "ts",
+          "hash": "de3814526e1d4ec2"
+        },
+        {
+          "source_path": "src/lib/brevo-email.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-brevo-email-ts-8d89dcbf81714307.mjs",
+          "kind": "ts",
+          "hash": "8d89dcbf81714307"
+        },
+        {
+          "source_path": "src/lib/forge/auth/better-auth.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-forge-auth-better-auth-ts-72f111a6b1ee1c29.mjs",
+          "kind": "ts",
+          "hash": "72f111a6b1ee1c29"
+        },
+        {
+          "source_path": "src/lib/forge/db/drizzle-orm.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-forge-db-drizzle-orm-ts-03b4cc666c52123e.mjs",
+          "kind": "ts",
+          "hash": "03b4cc666c52123e"
+        },
+        {
+          "source_path": "src/lib/forge/db/libsql-client.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-forge-db-libsql-client-ts-de1158ecfb2e1166.mjs",
+          "kind": "ts",
+          "hash": "de1158ecfb2e1166"
+        },
+        {
+          "source_path": "src/lib/forge/db/libsql.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-forge-db-libsql-ts-e8f762d509b3db09.mjs",
+          "kind": "ts",
+          "hash": "e8f762d509b3db09"
+        },
+        {
+          "source_path": "src/lib/forge/db/sqlite-core.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-forge-db-sqlite-core-ts-b21da59e31504108.mjs",
+          "kind": "ts",
+          "hash": "b21da59e31504108"
+        },
+        {
+          "source_path": "src/lib/forge/icons/lucide-react.tsx",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-forge-icons-lucide-react-tsx-b9b0a8debf22abe8.mjs",
+          "kind": "tsx",
+          "hash": "b9b0a8debf22abe8"
+        },
+        {
+          "source_path": "src/lib/forge/radix-ui/radix-ui.tsx",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-forge-radix-ui-radix-ui-tsx-6774b7bf6fcb9322.mjs",
+          "kind": "tsx",
+          "hash": "6774b7bf6fcb9322"
+        },
+        {
+          "source_path": "src/lib/forge/utils/clsx.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-forge-utils-clsx-ts-6507f063f69574a3.mjs",
+          "kind": "ts",
+          "hash": "6507f063f69574a3"
+        },
+        {
+          "source_path": "src/lib/forge/utils/nanoid.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-forge-utils-nanoid-ts-eb21cd53da2dc635.mjs",
+          "kind": "ts",
+          "hash": "eb21cd53da2dc635"
+        },
+        {
+          "source_path": "src/lib/forge/utils/tailwind-merge.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-forge-utils-tailwind-merge-ts-e9ef36427daeabce.mjs",
+          "kind": "ts",
+          "hash": "e9ef36427daeabce"
+        },
+        {
+          "source_path": "src/lib/forge/utils/zod.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-forge-utils-zod-ts-ec597ab057171bf2.mjs",
+          "kind": "ts",
+          "hash": "ec597ab057171bf2"
+        },
+        {
+          "source_path": "src/lib/forge/variants/class-variance-authority.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-forge-variants-class-variance-authority-ts-357cdf6d80c9f9e9.mjs",
+          "kind": "ts",
+          "hash": "357cdf6d80c9f9e9"
+        },
+        {
+          "source_path": "src/lib/utils.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token/modules/src-lib-utils-ts-cb488a6352482fc7.mjs",
+          "kind": "ts",
+          "hash": "cb488a6352482fc7"
+        }
+      ],
+      "fallback_hash": "9197fa8906a2b6b0"
+    },
+    {
+      "route": "/share/:token/prototype",
+      "source_path": "src/app/share/[token]/prototype/page.tsx",
+      "html_output": ".dx/www/output/source-routes/share--token-prototype/index.html",
+      "shell_chunk_output": ".dx/www/output/source-routes/share--token-prototype/route-shell-accd4f775213b4f2.mjs",
+      "entry_module_chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-app-share--token--prototype-page-tsx-52ad4d87acdf954a.mjs",
+      "source_module_chunks": [
+        {
+          "source_path": "src/app/share/[token]/prototype/page.tsx",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-app-share--token--prototype-page-tsx-52ad4d87acdf954a.mjs",
+          "kind": "tsx",
+          "hash": "52ad4d87acdf954a"
+        },
+        {
+          "source_path": "src/components/ui/button.tsx",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-components-ui-button-tsx-a045a54d4568e98d.mjs",
+          "kind": "tsx",
+          "hash": "a045a54d4568e98d"
+        },
+        {
+          "source_path": "src/db/client.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-db-client-ts-b11a4f30c3f08fac.mjs",
+          "kind": "ts",
+          "hash": "b11a4f30c3f08fac"
+        },
+        {
+          "source_path": "src/db/schema.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-db-schema-ts-24b183fcc50e5ffb.mjs",
+          "kind": "ts",
+          "hash": "24b183fcc50e5ffb"
+        },
+        {
+          "source_path": "src/features/admin/workspace-policy-data.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-admin-workspace-policy-data-ts-a401a257eb083d93.mjs",
+          "kind": "ts",
+          "hash": "a401a257eb083d93"
+        },
+        {
+          "source_path": "src/features/admin/workspace-policy.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-admin-workspace-policy-ts-1328e128ed00d73c.mjs",
+          "kind": "ts",
+          "hash": "1328e128ed00d73c"
+        },
+        {
+          "source_path": "src/features/editor/auto-layout.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-auto-layout-ts-a5e7e051e98c177e.mjs",
+          "kind": "ts",
+          "hash": "a5e7e051e98c177e"
+        },
+        {
+          "source_path": "src/features/editor/collaboration-room-state.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-collaboration-room-state-ts-3ff3220a5bfda107.mjs",
+          "kind": "ts",
+          "hash": "3ff3220a5bfda107"
+        },
+        {
+          "source_path": "src/features/editor/comment-notifications.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-comment-notifications-ts-900c288da3d37028.mjs",
+          "kind": "ts",
+          "hash": "900c288da3d37028"
+        },
+        {
+          "source_path": "src/features/editor/component-library-manifest.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-component-library-manifest-ts-444971281a505d23.mjs",
+          "kind": "ts",
+          "hash": "444971281a505d23"
+        },
+        {
+          "source_path": "src/features/editor/component-library.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-component-library-ts-635a3c4a20b03a75.mjs",
+          "kind": "ts",
+          "hash": "635a3c4a20b03a75"
+        },
+        {
+          "source_path": "src/features/editor/component-properties.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-component-properties-ts-dd9412b976db9b22.mjs",
+          "kind": "ts",
+          "hash": "dd9412b976db9b22"
+        },
+        {
+          "source_path": "src/features/editor/component-slots.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-component-slots-ts-6b9558251016056a.mjs",
+          "kind": "ts",
+          "hash": "6b9558251016056a"
+        },
+        {
+          "source_path": "src/features/editor/components/prototype-preview.tsx",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-components-prototype-preview-tsx-bdd4ceabc69abdbb.mjs",
+          "kind": "tsx",
+          "hash": "bdd4ceabc69abdbb"
+        },
+        {
+          "source_path": "src/features/editor/default-document.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-default-document-ts-af4d71354b0b6430.mjs",
+          "kind": "ts",
+          "hash": "af4d71354b0b6430"
+        },
+        {
+          "source_path": "src/features/editor/document-utils.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-document-utils-ts-1de3e47e0f5b178c.mjs",
+          "kind": "ts",
+          "hash": "1de3e47e0f5b178c"
+        },
+        {
+          "source_path": "src/features/editor/exporters/svg-exporter.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-exporters-svg-exporter-ts-efc4c8cf16561b46.mjs",
+          "kind": "ts",
+          "hash": "efc4c8cf16561b46"
+        },
+        {
+          "source_path": "src/features/editor/paint-stack.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-paint-stack-ts-4d3d558a3fdd301f.mjs",
+          "kind": "ts",
+          "hash": "4d3d558a3fdd301f"
+        },
+        {
+          "source_path": "src/features/editor/prototype-preview.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-prototype-preview-ts-703337c4f24faf12.mjs",
+          "kind": "ts",
+          "hash": "703337c4f24faf12"
+        },
+        {
+          "source_path": "src/features/editor/shortcut-preferences.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-shortcut-preferences-ts-56dec907d5414dec.mjs",
+          "kind": "ts",
+          "hash": "56dec907d5414dec"
+        },
+        {
+          "source_path": "src/features/editor/variable-bindings.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-editor-variable-bindings-ts-f3a3411dc696a830.mjs",
+          "kind": "ts",
+          "hash": "f3a3411dc696a830"
+        },
+        {
+          "source_path": "src/features/files/access-control.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-files-access-control-ts-26b077d1507cb8c5.mjs",
+          "kind": "ts",
+          "hash": "26b077d1507cb8c5"
+        },
+        {
+          "source_path": "src/features/files/actions.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-files-actions-ts-61b6d2d04803c056.mjs",
+          "kind": "ts",
+          "hash": "61b6d2d04803c056"
+        },
+        {
+          "source_path": "src/features/files/current-user.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-files-current-user-ts-38880e1486ff6baa.mjs",
+          "kind": "ts",
+          "hash": "38880e1486ff6baa"
+        },
+        {
+          "source_path": "src/features/files/permissions.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-files-permissions-ts-619c9a7eeb3a33f6.mjs",
+          "kind": "ts",
+          "hash": "619c9a7eeb3a33f6"
+        },
+        {
+          "source_path": "src/features/public-route-analytics/components/public-route-analytics-beacon.tsx",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-features-public-route-analytics-components-public-route-analytics-beacon-tsx-e625d5faf9617e0a.mjs",
+          "kind": "tsx",
+          "hash": "e625d5faf9617e0a"
+        },
+        {
+          "source_path": "src/lib/auth.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-auth-ts-de3814526e1d4ec2.mjs",
+          "kind": "ts",
+          "hash": "de3814526e1d4ec2"
+        },
+        {
+          "source_path": "src/lib/brevo-email.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-brevo-email-ts-8d89dcbf81714307.mjs",
+          "kind": "ts",
+          "hash": "8d89dcbf81714307"
+        },
+        {
+          "source_path": "src/lib/forge/auth/better-auth.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-forge-auth-better-auth-ts-72f111a6b1ee1c29.mjs",
+          "kind": "ts",
+          "hash": "72f111a6b1ee1c29"
+        },
+        {
+          "source_path": "src/lib/forge/db/drizzle-orm.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-forge-db-drizzle-orm-ts-03b4cc666c52123e.mjs",
+          "kind": "ts",
+          "hash": "03b4cc666c52123e"
+        },
+        {
+          "source_path": "src/lib/forge/db/libsql-client.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-forge-db-libsql-client-ts-de1158ecfb2e1166.mjs",
+          "kind": "ts",
+          "hash": "de1158ecfb2e1166"
+        },
+        {
+          "source_path": "src/lib/forge/db/libsql.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-forge-db-libsql-ts-e8f762d509b3db09.mjs",
+          "kind": "ts",
+          "hash": "e8f762d509b3db09"
+        },
+        {
+          "source_path": "src/lib/forge/db/sqlite-core.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-forge-db-sqlite-core-ts-b21da59e31504108.mjs",
+          "kind": "ts",
+          "hash": "b21da59e31504108"
+        },
+        {
+          "source_path": "src/lib/forge/icons/lucide-react.tsx",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-forge-icons-lucide-react-tsx-b9b0a8debf22abe8.mjs",
+          "kind": "tsx",
+          "hash": "b9b0a8debf22abe8"
+        },
+        {
+          "source_path": "src/lib/forge/radix-ui/radix-ui.tsx",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-forge-radix-ui-radix-ui-tsx-6774b7bf6fcb9322.mjs",
+          "kind": "tsx",
+          "hash": "6774b7bf6fcb9322"
+        },
+        {
+          "source_path": "src/lib/forge/utils/clsx.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-forge-utils-clsx-ts-6507f063f69574a3.mjs",
+          "kind": "ts",
+          "hash": "6507f063f69574a3"
+        },
+        {
+          "source_path": "src/lib/forge/utils/nanoid.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-forge-utils-nanoid-ts-eb21cd53da2dc635.mjs",
+          "kind": "ts",
+          "hash": "eb21cd53da2dc635"
+        },
+        {
+          "source_path": "src/lib/forge/utils/tailwind-merge.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-forge-utils-tailwind-merge-ts-e9ef36427daeabce.mjs",
+          "kind": "ts",
+          "hash": "e9ef36427daeabce"
+        },
+        {
+          "source_path": "src/lib/forge/utils/zod.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-forge-utils-zod-ts-ec597ab057171bf2.mjs",
+          "kind": "ts",
+          "hash": "ec597ab057171bf2"
+        },
+        {
+          "source_path": "src/lib/forge/variants/class-variance-authority.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-forge-variants-class-variance-authority-ts-357cdf6d80c9f9e9.mjs",
+          "kind": "ts",
+          "hash": "357cdf6d80c9f9e9"
+        },
+        {
+          "source_path": "src/lib/utils.ts",
+          "chunk_output": ".dx/www/output/source-routes/share--token-prototype/modules/src-lib-utils-ts-cb488a6352482fc7.mjs",
+          "kind": "ts",
+          "hash": "cb488a6352482fc7"
+        }
+      ],
+      "fallback_hash": "accd4f775213b4f2"
+    }
+  ],
+  "node_modules_required": false,
+  "next_action": "Wire linked source-module chunks into governed preview/runtime validation before claiming full React hydration."
+}

@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "source_framework": "nextjs-app-router",
+  "migration_kind": "source-owned-runtime-compile",
+  "project_contract": "dx-www-react-familiar-forge-first",
+  "app_dir_present": false,
+  "next_config_present": true,
+  "package_json": {
+    "name": "essence-figma",
+    "private": true,
+    "dependency_sections": {},
+    "scripts_declared": [
+      "dev",
+      "build",
+      "check",
+      "www:dev",
+      "www:build",
+      "www:check"
+    ]
+  },
+  "compiled_routes": [
+    {
+      "route": "/",
+      "html": "app/index.html",
+      "packet": "app/index.dxpk",
+      "execution_contract": "app/app-router-execution.json",
+      "client_islands": "app/client-islands.json",
+      "streaming_plan": "app/streaming-plan.json",
+      "server_data": "app/server-data.json"
+    },
+    {
+      "route": "/dashboard",
+      "html": "app/dashboard/index.html",
+      "packet": "app/dashboard/index.dxpk",
+      "execution_contract": "app/dashboard/app-router-execution.json",
+      "client_islands": "app/dashboard/client-islands.json",
+      "streaming_plan": "app/dashboard/streaming-plan.json",
+      "server_data": "app/dashboard/server-data.json"
+    },
+    {
+      "route": "/embed/[token]",
+      "html": "app/embed/[token]/index.html",
+      "packet": "app/embed/[token]/index.dxpk",
+      "execution_contract": "app/embed/[token]/app-router-execution.json",
+      "client_islands": "app/embed/[token]/client-islands.json",
+      "streaming_plan": "app/embed/[token]/streaming-plan.json",
+      "server_data": "app/embed/[token]/server-data.json"
+    },
+    {
+      "route": "/share/[token]",
+      "html": "app/share/[token]/index.html",
+      "packet": "app/share/[token]/index.dxpk",
+      "execution_contract": "app/share/[token]/app-router-execution.json",
+      "client_islands": "app/share/[token]/client-islands.json",
+      "streaming_plan": "app/share/[token]/streaming-plan.json",
+      "server_data": "app/share/[token]/server-data.json"
+    },
+    {
+      "route": "/share/[token]/prototype",
+      "html": "app/share/[token]/prototype/index.html",
+      "packet": "app/share/[token]/prototype/index.dxpk",
+      "execution_contract": "app/share/[token]/prototype/app-router-execution.json",
+      "client_islands": "app/share/[token]/prototype/client-islands.json",
+      "streaming_plan": "app/share/[token]/prototype/streaming-plan.json",
+      "server_data": "app/share/[token]/prototype/server-data.json"
+    }
+  ],
+  "compiled_route_count": 5,
+  "app_routes_compiled": 5,
+  "app_router_execution_contracts_compiled": 5,
+  "client_islands_compiled": 0,
+  "generated_style_assets_compiled": 5,
+  "streaming_plans_compiled": 4,
+  "server_contracts_compiled": 2,
+  "server_action_protocols_compiled": 0,
+  "compiler_intrinsics": [],
+  "blocked_runtime_imports": [],
+  "runtime_node_modules_required": false,
+  "node_modules_present": false,
+  "package_installs_executed": false,
+  "lifecycle_scripts_executed": false,
+  "runtime_output": {
+    "html": true,
+    "dxpk": false,
+    "deploy_adapter": true,
+    "source_owned": true
+  },
+  "review_before_materialization": [
+    "Review blocked runtime imports before claiming strict no-node_modules compatibility.",
+    "Keep npm-origin packages behind the Forge import gate.",
+    "Compare this proof against the matching Next-familiar fixture before publishing compatibility claims."
+  ]
+}

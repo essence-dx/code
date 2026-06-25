@@ -1,0 +1,318 @@
+{
+  "version": 1,
+  "route": "/share/:token/prototype",
+  "source_path": "src/app/share/[token]/prototype/page.tsx",
+  "shell": {
+    "fallback": {
+      "html": "<!doctype html><html lang=\"en\" class=\"dark\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/public/favicon.svg\" type=\"image/svg+xml\"><link rel=\"apple-touch-icon\" href=\"/public/icon.svg\"><title>www route</title></head><body class=\"dx-template\"><main class=\"starter-shell\" data-dx-template=\"minimal\" data-dx-runtime=\"static\" data-dx-page-graph=\"src/app/share/[token]/prototype/page\" data-dx-packet-sections=\"5\" data-dx-layouts=\"0\" data-dx-templates=\"0\" data-dx-boundaries=\"\" data-dx-conditionals=\"4\" data-dx-lists=\"2\" data-dx-keys=\"5\" data-dx-streaming=\"shell-first\" data-dx-deferred-chunks=\"0\" data-dx-resumable-islands=\"0\"><section class=\"starter-card\" aria-labelledby=\"starter-title\"><img class=\"starter-logo\" src=\"/public/logo.svg\" alt=\"Dx WWW\" width=\"40\" height=\"40\"><p class=\"starter-kicker\">Dx WWW</p><h1 id=\"starter-title\">www route</h1><div class=\"starter-actions\" data-dx-proof-links=\"state-runtime islands\" aria-label=\"Starter proof routes\"><a class=\"starter-link\" href=\"/state-runtime\">Open state runtime proof</a><a class=\"starter-link\" href=\"/islands\">Open island proof</a></div><form class=\"starter-form\" action=\"/state-runtime\" method=\"get\" data-dx-no-js-fallback=\"preserved\"><p class=\"starter-form-label\" id=\"starter-proof-route-label\">No-JS proof target</p><div class=\"starter-form-panel\"><input class=\"starter-input\" name=\"note\" aria-labelledby=\"starter-proof-route-label\" placeholder=\"Optional proof note\"><button class=\"starter-action-button\" id=\"starter-proof-route\" aria-describedby=\"starter-proof-route-label\" type=\"submit\">Continue without JavaScript</button></div></form></section></main></body></html>",
+      "bytes": 1697,
+      "crawlable": true,
+      "accessibility_warnings": []
+    },
+    "style_hrefs": [],
+    "streaming_strategy": "shell-first-deferred-boundaries",
+    "first_flush_bytes": 271,
+    "runtime_required": false
+  },
+  "graph": {
+    "route_id": "/share/:token/prototype",
+    "source_path": "src/app/share/[token]/prototype/page.tsx",
+    "root_component_id": "app/page",
+    "components": {
+      "nodes": [
+        {
+          "id": "app/page",
+          "name": "Page",
+          "package_id": null,
+          "content_hash": "52ad4d87acdf954a85249db85234e59df154ba6d15a18f09f029acb72a1eff53"
+        },
+        {
+          "id": "component/prototype-preview",
+          "name": "prototype-preview",
+          "package_id": null,
+          "content_hash": "bdd4ceabc69abdbbbc7b448e062e5bbd624ddc0f812b2fd9de19dea9e75ebe90"
+        },
+        {
+          "id": "component/public-route-analytics-beacon",
+          "name": "public-route-analytics-beacon",
+          "package_id": null,
+          "content_hash": "e625d5faf9617e0ae0c20edc9eb41c40fb5f266494542883ce8f59ca2c36bae0"
+        }
+      ],
+      "edges": []
+    },
+    "styles": {
+      "tokens": [],
+      "classes": [],
+      "delivery": "generated-css"
+    },
+    "source_manifest_hash": null
+  },
+  "state": {
+    "default_scope": "local",
+    "global_stores": [],
+    "slots": [
+      {
+        "id": "state-42b693f6fc6d-0",
+        "name": "currentPageId",
+        "setter": "setCurrentPageId",
+        "scope": "local",
+        "source_path": "src/features/editor/components/prototype-preview.tsx",
+        "initial_source": "model.startPageId",
+        "value_kind": "unknown"
+      },
+      {
+        "id": "state-42b693f6fc6d-1",
+        "name": "history",
+        "setter": "setHistory",
+        "scope": "local",
+        "source_path": "src/features/editor/components/prototype-preview.tsx",
+        "initial_source": "[]",
+        "value_kind": "array"
+      },
+      {
+        "id": "state-42b693f6fc6d-2",
+        "name": "overlay",
+        "setter": "setOverlay",
+        "scope": "local",
+        "source_path": "src/features/editor/components/prototype-preview.tsx",
+        "initial_source": "null",
+        "value_kind": "unknown"
+      },
+      {
+        "id": "state-42b693f6fc6d-3",
+        "name": "lastTransition",
+        "setter": "setLastTransition",
+        "scope": "local",
+        "source_path": "src/features/editor/components/prototype-preview.tsx",
+        "initial_source": "{\n    transition: \"instant\",\n    durationMs: 0,\n    deviceFrame: \"none\",\n    smartAnimate: false,\n  }",
+        "value_kind": "object"
+      }
+    ],
+    "derived_slots": [
+      {
+        "id": "derived-42b693f6fc6d-canGoBack",
+        "name": "canGoBack",
+        "expression": "history.length > 0",
+        "dependencies": [
+          "history"
+        ],
+        "source_path": "src/features/editor/components/prototype-preview.tsx"
+      },
+      {
+        "id": "derived-42b693f6fc6d-overlayPage",
+        "name": "overlayPage",
+        "expression": "overlay",
+        "dependencies": [
+          "overlay"
+        ],
+        "source_path": "src/features/editor/components/prototype-preview.tsx"
+      }
+    ],
+    "event_slots": [
+      {
+        "id": "event-42b693f6fc6d-0",
+        "source_path": "src/features/editor/components/prototype-preview.tsx",
+        "element": "Button",
+        "event": "click",
+        "handler": "goBack",
+        "state_dependencies": [],
+        "action": null
+      },
+      {
+        "id": "event-42b693f6fc6d-1",
+        "source_path": "src/features/editor/components/prototype-preview.tsx",
+        "element": "Button",
+        "event": "click",
+        "handler": "restart",
+        "state_dependencies": [],
+        "action": null
+      },
+      {
+        "id": "event-42b693f6fc6d-2",
+        "source_path": "src/features/editor/components/prototype-preview.tsx",
+        "element": "HotspotButton",
+        "event": "navigate",
+        "handler": "followHotspot",
+        "state_dependencies": [],
+        "action": null
+      },
+      {
+        "id": "event-42b693f6fc6d-3",
+        "source_path": "src/features/editor/components/prototype-preview.tsx",
+        "element": "PrototypeOverlay",
+        "event": "close",
+        "handler": "() => setOverlay(null)",
+        "state_dependencies": [],
+        "action": null
+      },
+      {
+        "id": "event-42b693f6fc6d-4",
+        "source_path": "src/features/editor/components/prototype-preview.tsx",
+        "element": "Button",
+        "event": "click",
+        "handler": "() => goToPage(page.id)",
+        "state_dependencies": [],
+        "action": null
+      },
+      {
+        "id": "event-42b693f6fc6d-5",
+        "source_path": "src/features/editor/components/prototype-preview.tsx",
+        "element": "button",
+        "event": "click",
+        "handler": "() => onNavigate(hotspot)",
+        "state_dependencies": [],
+        "action": null
+      },
+      {
+        "id": "event-42b693f6fc6d-6",
+        "source_path": "src/features/editor/components/prototype-preview.tsx",
+        "element": "div",
+        "event": "click",
+        "handler": "() => {\n        if (hotspot.closeOnOutside) {\n          onClose();\n        }\n      }",
+        "state_dependencies": [],
+        "action": null
+      },
+      {
+        "id": "event-42b693f6fc6d-7",
+        "source_path": "src/features/editor/components/prototype-preview.tsx",
+        "element": "div",
+        "event": "click",
+        "handler": "(event) => event.stopPropagation()",
+        "state_dependencies": [],
+        "action": null
+      },
+      {
+        "id": "event-42b693f6fc6d-8",
+        "source_path": "src/features/editor/components/prototype-preview.tsx",
+        "element": "Button",
+        "event": "click",
+        "handler": "onClose",
+        "state_dependencies": [],
+        "action": null
+      }
+    ],
+    "effects": [
+      {
+        "id": "effect-42b693f6fc6d",
+        "kind": "effect",
+        "source_path": "src/features/editor/components/prototype-preview.tsx",
+        "dependencies": [
+          "currentPageId",
+          "history",
+          "overlay",
+          "lastTransition"
+        ]
+      },
+      {
+        "id": "effect-3a5022154690",
+        "kind": "effect",
+        "source_path": "src/features/public-route-analytics/components/public-route-analytics-beacon.tsx",
+        "dependencies": []
+      }
+    ],
+    "server_actions": []
+  },
+  "packet": {
+    "kind": "route",
+    "bytes": 1094,
+    "payload_bytes": 842,
+    "section_count": 5,
+    "roundtrip_matches": true
+  },
+  "receipt": {
+    "source_manifest_hash": null,
+    "node_modules_required": false,
+    "client_island_abi": null,
+    "source_paths": [
+      "src/app/share/[token]/prototype/page.tsx",
+      "src/features/editor/components/prototype-preview.tsx",
+      "src/features/public-route-analytics/components/public-route-analytics-beacon.tsx"
+    ],
+    "forge_package_ids": []
+  },
+  "runtime_report": {
+    "selected_mode": "Static",
+    "tiny_static_route_proof": {
+      "selected": true,
+      "output_mode": "tiny-static",
+      "js": "required-or-fallback-only",
+      "html_bytes": 1697,
+      "css_bytes": 0,
+      "total_public_bytes": 1697,
+      "script_tag_count": 0,
+      "runtime_required": false,
+      "no_js_capable": false,
+      "meaningful_html": true,
+      "semantic_landmark_present": true,
+      "link_count": 2,
+      "form_count": 1,
+      "seo_title_present": true,
+      "accessibility_signal_count": 5,
+      "browser_api_required": true,
+      "astro_parity_status": "not_yet_claimed"
+    },
+    "candidates": [
+      {
+        "mode": "Static",
+        "estimated_bytes": 1697,
+        "selected": true,
+        "reason": "HTML/CSS shell with no browser runtime"
+      },
+      {
+        "mode": "MicroJs",
+        "estimated_bytes": 2297,
+        "selected": false,
+        "reason": "generated event/state JavaScript for tiny islands"
+      },
+      {
+        "mode": "ServerFragment",
+        "estimated_bytes": 2017,
+        "selected": false,
+        "reason": "server-rendered fragment endpoint path"
+      },
+      {
+        "mode": "WasmCore",
+        "estimated_bytes": 10291,
+        "selected": false,
+        "reason": "DXPK plus shared WASM core runtime"
+      },
+      {
+        "mode": "WasmSplit",
+        "estimated_bytes": 4291,
+        "selected": false,
+        "reason": "DXPK plus split boot runtime"
+      }
+    ],
+    "rejected_modes": [
+      {
+        "mode": "MicroJs",
+        "estimated_bytes": 2297,
+        "reason": "estimated bytes are higher than the selected route mode"
+      },
+      {
+        "mode": "ServerFragment",
+        "estimated_bytes": 2017,
+        "reason": "estimated bytes are higher than the selected route mode"
+      },
+      {
+        "mode": "WasmCore",
+        "estimated_bytes": 10291,
+        "reason": "estimated bytes are higher than the selected route mode"
+      },
+      {
+        "mode": "WasmSplit",
+        "estimated_bytes": 4291,
+        "reason": "estimated bytes are higher than the selected route mode"
+      }
+    ],
+    "reasons": [
+      "selected static from 4 state slot(s), 9 event slot(s), 0 server action edge(s)",
+      "no client state or event slots require browser runtime",
+      "source-only no-JS shell; Astro parity is not claimed by route-unit proof"
+    ],
+    "warnings": [
+      "runtime bytes, DXPK bytes, generated CSS, and shell bytes must be counted together"
+    ]
+  }
+}

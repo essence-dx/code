@@ -1,0 +1,55 @@
+import type { SceneDocument, SceneObject } from "../types";
+
+export const objectCollaborationFields = [
+  "componentId",
+  "parentId",
+  "name",
+  "kind",
+  "visible",
+  "locked",
+  "constraints",
+  "booleans",
+  "shapeBlend",
+  "cloner",
+  "meshEdit",
+  "sculpt",
+  "follow",
+  "lookAt",
+  "pivot",
+  "transform",
+  "geometry",
+  "material",
+  "twoD",
+  "variableBindings",
+  "text",
+  "light",
+  "camera",
+  "model",
+  "image",
+  "video",
+  "audio",
+  "svg",
+  "figma",
+  "path",
+  "particles",
+  "physics",
+  "interaction",
+] as const satisfies readonly (keyof SceneObject)[];
+
+export const documentCollaborationFields = [
+  "name",
+  "activeSceneId",
+  "activeCameraId",
+  "sceneSettings",
+  "sceneStates",
+  "inputControls",
+  "components",
+  "materialAssets",
+  "audioAssets",
+  "scenes",
+  "variables",
+  "animationTracks",
+] as const satisfies readonly (keyof SceneDocument)[];
+
+export type ObjectCollaborationField = (typeof objectCollaborationFields)[number];
+export type DocumentCollaborationField = (typeof documentCollaborationFields)[number];

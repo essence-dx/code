@@ -1,0 +1,17 @@
+{
+  "mode": "hosted-web",
+  "productionUrl": "https://essence-powerpoint.vercel.app",
+  "devUrl": "http://localhost:3000",
+  "serverRequired": true,
+  "requiresNetworkForLaunch": true,
+  "offlineEditingFallback": "Browser storage keeps the in-progress deck available after the hosted app has loaded.",
+  "releaseGates": [
+    "The production desktop shell must load the hosted HTTPS app, not a static export.",
+    "The development shell must load the local Next.js dev server.",
+    "The release build must not run a local Next.js production build for Tauri.",
+    "The default Tauri capability set must remain limited to core permissions while native file access flows through dialog-backed app commands that validate per-operation scopes.",
+    "The bundled app must register the app-owned .essdeck file association without hijacking generic .json ownership.",
+    "OS recent-document registration must only use native-path metadata returned by dialog-backed open and save commands.",
+    "Signed release packages must define platform signing and notarization inputs outside source control before distribution."
+  ]
+}

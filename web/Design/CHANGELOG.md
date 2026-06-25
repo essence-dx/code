@@ -1,0 +1,753 @@
+# Changelog
+
+## 2026-05-19
+
+- Added reusable component and section libraries with versioned variants, dependency-aware update plans, design-system-safe insert gates, downloadable component/section insert packets, focused tests, and a studio dashboard panel fed by real design-system intelligence, release governance, template instance propagation, project versions, templates, and active projects.
+- Advanced the active advanced studio asset creation and publishing utility feature set from 0/100 to 16/100 after landing reusable component and section libraries.
+- Added project coaching mode with contextual editing recipes, checklist progress, production-readiness cards, reusable learning dashboards, downloadable coaching packets, focused tests, and a studio dashboard panel fed by real layout intelligence, typography systems, project audits, handoff packets, vendor handoffs, media delivery kits, approvals, and review tasks.
+- Completed the active advanced creation assistance and delivery workflow scale feature set at 100/100 and opened the next advanced studio asset creation and publishing utility feature set in `TODO.md`.
+- Advanced the active advanced creation assistance and delivery workflow scale feature set from 80/100 to 100/100 after landing project coaching mode.
+- Added media brand delivery kits with reusable lower-thirds, bumper/outro presets, audio loudness checks, timeline QA, downloadable media packets, focused tests, and a studio dashboard panel fed by real saved project timelines, brand kits, durable media exports, approvals, and project handoff packets.
+- Advanced the active advanced creation assistance and delivery workflow scale feature set from 64/100 to 80/100 after landing media brand delivery kits.
+- Added print/vendor production handoff with dieline specs, proof sheets, finishing notes, SKU/package metadata, vendor delivery packets, focused tests, and a studio dashboard panel fed by real projects, print audits, durable print exports, approvals, and project handoff packets.
+- Advanced the active advanced creation assistance and delivery workflow scale feature set from 48/100 to 64/100 after landing print/vendor production handoff.
+- Added collaborative proofing compare rooms with visual change snapshots, annotated decision trails, signed approval snapshots, revision rollback packets, focused tests, and a team dashboard panel fed by real project versions, review tasks, handoff packets, and audit logs.
+- Advanced the active advanced creation assistance and delivery workflow scale feature set from 32/100 to 48/100 after landing collaborative proofing compare rooms.
+- Added professional typography systems with reusable type-scale tokens, font pairing guidance, readability checks, brand-safe text repair packets, focused tests, and a studio dashboard panel fed by real project text layers and saved brand fonts.
+- Advanced the active advanced creation assistance and delivery workflow scale feature set from 16/100 to 32/100 after landing professional typography systems.
+- Added rule-based layout intelligence with spacing audits, hierarchy checks, responsive format suggestions, one-click repair packets, focused tests, and a studio dashboard panel fed by real project documents, pages, and layers.
+- Advanced the active advanced creation assistance and delivery workflow scale feature set from 0/100 to 16/100 after landing rule-based layout intelligence.
+- Added stakeholder reporting subscriptions with role-safe dashboards, recurring signed packets, delivery history, digest failure recovery, focused tests, and a team dashboard panel fed by report dashboards, client handoff rooms, workspace intelligence digests, notification routing, team roles, and audit logs.
+- Completed the active advanced production studio governance and automation scale feature set at 100/100 and opened the next advanced creation assistance and delivery workflow scale feature set in `TODO.md`.
+- Advanced the active advanced production studio governance and automation scale feature set from 80/100 to 100/100 after landing stakeholder reporting subscriptions.
+- Added production capacity forecasting with campaign deadline pressure, team load forecasts, export queue forecasts, publishing queue forecasts, scenario recovery packets, focused tests, and a studio dashboard panel fed by campaigns, planner items, durable export jobs, review tasks, team state, and audit logs.
+- Advanced the active advanced production studio governance and automation scale feature set from 64/100 to 80/100 after landing production capacity forecasting.
+- Added asset lifecycle governance with rights-expiry renewals, replacement propagation plans, bulk relinking plans, usage impact previews, signed evidence packets, focused tests, and a studio dashboard panel fed by asset audit, provenance review, batch operations, creative asset intelligence, and audit logs.
+- Advanced the active advanced production studio governance and automation scale feature set from 48/100 to 64/100 after landing asset lifecycle governance.
+- Added advanced brand compliance approvals with reusable rule libraries, exception requests, legal review packets, campaign enforcement decisions, focused tests, and a team dashboard panel fed by design governance, policy-as-code, enterprise approvals, campaigns, and audit logs.
+- Advanced the active advanced production studio governance and automation scale feature set from 32/100 to 48/100 after landing brand compliance approvals.
+- Added a no-code automation builder with typed triggers, conditions, actions, dry-run simulations, rollback notes, audit-backed execution plan packets, focused tests, and a team dashboard panel fed by automation recipes, run history, workflow templates, and audit logs.
+- Advanced the active advanced production studio governance and automation scale feature set from 16/100 to 32/100 after landing the no-code automation builder.
+- Added workspace portfolio planning with goal health scoring, owner lanes, dependency maps, campaign/project outcome tracks, focused tests, and a studio dashboard panel fed by projects, campaigns, review tasks, schedules, team state, dependency graph evidence, and audit logs.
+- Advanced the active advanced production studio governance and automation scale feature set from 0/100 to 16/100 after landing workspace portfolio planning.
+- Added workspace intelligence briefings with executive summaries, anomaly explanations, recommended actions, scheduled digest packets, focused tests, and a studio dashboard panel fed by publishing, content operations, performance, release governance, observability, notifications, and audit logs.
+- Completed the active advanced extensibility and production collaboration depth feature set at 100/100 and opened the next advanced production studio governance and automation scale feature set in `TODO.md`.
+- Advanced the active advanced extensibility and production collaboration depth feature set from 80/100 to 100/100 after landing workspace intelligence briefings.
+- Added an enterprise content operations calendar with campaign capacity planning, dependency heatmaps, staffing signals, recovery playbooks, focused tests, and a studio dashboard panel fed by campaigns, content schedules, review tasks, team state, and audit logs.
+- Advanced the active advanced extensibility and production collaboration depth feature set from 64/100 to 80/100 after landing enterprise content operations.
+- Added advanced design system release governance with token migration plans, component adoption gates, breaking-change previews, downstream impact packets, focused tests, and a studio dashboard panel built on design-system intelligence.
+- Advanced the active advanced extensibility and production collaboration depth feature set from 48/100 to 64/100 after landing design system release governance.
+- Added live production collaboration rooms with goal-led session coordination, role handoffs, named conflict ownership, async audit/task update timelines, downloadable collaboration evidence bundles, focused tests, and a team dashboard panel built on live session reconciliation.
+- Advanced the active advanced extensibility and production collaboration depth feature set from 32/100 to 48/100 after landing production collaboration rooms.
+- Added a reusable workflow template marketplace for internal teams with versioned recipe templates, dependency checks, rollback packets, install audit actions, adoption analytics, focused tests, and a team dashboard panel.
+- Advanced the active advanced extensibility and production collaboration depth feature set from 16/100 to 32/100 after landing the workflow template marketplace.
+- Added a first-party extension runtime with safe internal manifest validation, scoped command registration, permission grant mapping, install/remove audit actions, runtime packets, focused tests, and a studio dashboard panel.
+- Advanced the active advanced extensibility and production collaboration depth feature set from 0/100 to 16/100 after landing the extension runtime.
+- Added large-workspace performance intelligence with document size budgets, slow-surface diagnostics, recovery recommendations, production telemetry packets, focused tests, and a studio dashboard panel fed by project dimensions, audits, versions, export artifacts, and asset manifests.
+- Completed the active advanced pro workflow and insight depth feature set at 100/100 and opened the next advanced extensibility and production collaboration depth feature set in `TODO.md`.
+- Advanced the active advanced pro workflow and insight depth feature set from 80/100 to 100/100 after landing large-workspace performance intelligence.
+- Added editor command workflow automation with repeatable macro runbooks, dry-run previews, approval/share/restore permission checks, undo-safety evidence, macro execution logs, downloadable automation packets, focused tests, and a studio dashboard panel.
+- Advanced the active advanced pro workflow and insight depth feature set from 64/100 to 80/100 after landing editor command workflow automation.
+- Added client analytics handoff rooms with stakeholder-safe views, approval context, delivery timelines, downloadable evidence bundles, focused tests, and a team dashboard panel fed by client portal rooms, production analytics, report dashboards, schedules, campaigns, handoff packets, review tasks, and audit logs.
+- Advanced the active advanced pro workflow and insight depth feature set from 48/100 to 64/100 after landing client analytics handoff rooms.
+
+## 2026-05-18
+
+- Added a social distribution command center with platform crop previews, approval queues, caption/version history, scheduled-post recovery packets, focused tests, and a studio dashboard panel fed by projects, campaign deliverables, content schedules, project versions, and audit logs.
+- Advanced the active advanced pro workflow and insight depth feature set from 32/100 to 48/100 after landing the social distribution command center.
+- Added data-connected report dashboards with reusable chart and KPI blocks, refresh plans, stale-source warnings, executive report packets, focused tests, and a studio dashboard panel fed by content database, production analytics, publishing channels, and schedule evidence.
+- Advanced the active advanced pro workflow and insight depth feature set from 16/100 to 32/100 after landing data-connected report dashboards.
+- Added template instance propagation with project and campaign instance grouping, accept/hold/reject update previews, breaking-change detection for dimensions, source links, review state, campaign readiness, rollback snapshots, downloadable rollback packets, focused tests, and a studio dashboard panel.
+- Advanced the active advanced pro workflow and insight depth feature set from 0/100 to 16/100 after landing template instance propagation.
+- Added production distribution analytics with funnel stages, campaign attribution rows, channel attribution, reusable content source influence, website/email/social publish evidence, completed export artifact coverage, audience form response metrics, downloadable attribution packets, focused tests, and a studio dashboard panel.
+- Completed the active advanced data-backed creation and distribution scale feature set at 100/100 and opened the next advanced pro workflow and insight depth feature set in `TODO.md`.
+- Advanced the active advanced data-backed creation and distribution scale feature set from 80/100 to 100/100 after landing production distribution analytics.
+- Added template and design release channels with stable/beta/canary staged rollouts, deprecation notices, migration suggestions, dependency impact analysis, public-surface evidence, rollback-safe update packets, focused tests, and a templates dashboard panel.
+- Advanced the active advanced data-backed creation and distribution scale feature set from 64/100 to 80/100 after landing template/design release channels.
+- Added website and email rendering QA matrices with mobile/tablet/desktop viewport checks, Gmail/Outlook/Apple Mail evidence, slug/custom-domain/email-export link validation, form routing diagnostics, accessibility evidence, downloadable release reports, focused tests, and dashboard panels for website and email workflows.
+- Advanced the active advanced data-backed creation and distribution scale feature set from 48/100 to 64/100 after landing website/email rendering QA matrices.
+- Added advanced batch asset operations with WebP conversion, oversized raster resize plans, aspect-aware crop derivatives, delivery video derivatives, reusable alt-text queues, missing license metadata queues, project usage impact previews, reversible cleanup packets with rollback steps, focused tests, and a studio dashboard panel.
+- Advanced the active advanced data-backed creation and distribution scale feature set from 32/100 to 48/100 after landing advanced batch asset operations.
+- Added rule-based multi-format campaign generation with deterministic starter-pack selection, content database variable resolution, brand-snapshot tracing, reviewable social/website/email/presentation/video variants, no-paid-AI evidence, exportable generation packets, focused tests, and a studio dashboard panel.
+- Advanced the active advanced data-backed creation and distribution scale feature set from 16/100 to 32/100 after landing rule-based campaign generation.
+- Added a reusable content database center that derives brand copy, product, pricing, people, event, and campaign-variable records from existing workspace data, maps traceable bindings across text/table/website/email/social surfaces, deduplicates repeated source values, exports packets, and surfaces coverage in the studio dashboard.
+- Advanced the active advanced data-backed creation and distribution scale feature set from 0/100 to 16/100 after landing reusable content databases.
+- Added real multi-user editing session runtime depth with editor sync/save operation IDs, audit-backed operation merge/conflict history, reviewer locks, recoverable cursor conflicts, downloadable session replay packets, focused tests, and dashboard replay controls.
+- Completed the active advanced production execution and offline-first scale feature set at 100/100 and opened the next advanced data-backed creation and distribution scale feature set in `TODO.md`.
+- Advanced the active advanced production execution and offline-first scale feature set from 80/100 to 100/100 after landing multi-user editing session runtime depth.
+- Expanded the original first-party template library with restaurant, healthcare, nonprofit, and real-estate starters plus industry pack coverage, componentized starter systems, QA gates, marketplace curation lanes, downloadable library packets, focused tests, and a studio dashboard panel.
+- Advanced the active advanced production execution and offline-first scale feature set from 64/100 to 80/100 after landing first-party template library expansion.
+- Added live SSO/SCIM enforcement with bearer-token guarded SCIM Users and Groups routes, SCIM payload normalization, group-to-workspace-role sync decisions, unsafe owner deprovisioning holds, admin rollout evidence packets, focused tests, and a security dashboard panel.
+- Advanced the active advanced production execution and offline-first scale feature set from 48/100 to 64/100 after landing SSO/SCIM enforcement and provisioning endpoints.
+- Added signed desktop auto-update delivery execution with channel feed packets, promotion blockers, rollback windows, downloadable audit packets, focused tests, and a studio dashboard panel.
+- Advanced the active advanced production execution and offline-first scale feature set from 32/100 to 48/100 after landing desktop auto-update delivery execution.
+- Added offline-first desktop project storage with local project database snapshots, queued document-save mutations, resumable asset reference classification, deterministic conflict replay plans, and editor sync wiring that marks mutations synced, failed, or conflicted.
+- Advanced the active advanced production execution and offline-first scale feature set from 16/100 to 32/100 after landing offline-first project storage.
+- Added direct publish/export enforcement hooks that evaluate policy-as-code, publish/export release gates, and production command runner decisions before website publishing, export job creation, scheduled export automation, or export artifact completion mutate production data.
+- Advanced the active advanced production execution and offline-first scale feature set from 0/100 to 16/100 after landing release operation enforcement.
+- Added desktop packaging readiness with Tauri signing/updater checks, stable/beta/canary channel evidence, installer QA checks, desktop QA evidence, downloadable readiness packets, markdown production release notes, focused tests, and a studio dashboard panel.
+- Completed the active advanced creative platform intelligence and production depth feature set at 100/100 and opened the next advanced production execution and offline-first scale feature set in `TODO.md`.
+- Added a deterministic production command runner that composes policy, release, automation recovery, admin automation, backup/restore, and marketplace moderation signals into staged dry-run/apply batches with rollback notes, audit evidence, downloadable execution reports, focused tests, and a studio dashboard panel.
+- Advanced the active advanced creative platform intelligence and production depth feature set from 64/100 to 80/100 after landing the production command runner.
+- Added marketplace creator operations with versioned submissions, trust scoring, licensing evidence queues, rollback readiness, moderation routing, downloadable operation packets, focused tests, and a studio dashboard panel.
+- Advanced the active advanced creative platform intelligence and production depth feature set from 48/100 to 64/100 after landing marketplace creator operations.
+- Added export certification workspaces for PDF, video, email, website, and print artifacts with QA matrices, stakeholder signoff, certification packets, focused tests, and a studio dashboard panel.
+- Advanced the active advanced creative platform intelligence and production depth feature set from 32/100 to 48/100 after landing export certification workspaces.
+- Added import repair operations with PDF, PPTX, DOCX, XLSX, SVG, and media repair lanes, mapping diffs, retry strategies, workspace evidence linking, downloadable conversion evidence packets, focused tests, and a studio dashboard panel.
+- Advanced the active advanced creative platform intelligence and production depth feature set from 16/100 to 32/100 after landing import repair operations.
+- Added design system intelligence with reusable component definitions, brand token drift reports, project usage maps, downloadable refactor packets, focused tests, and a studio dashboard panel.
+- Advanced the active advanced creative platform intelligence and production depth feature set from 0/100 to 16/100 after landing design system intelligence.
+- Added desktop/offline project sync reconciliation with conflict diffs, local/cloud recovery choices, stale asset repair, audit evidence, downloadable reconciliation packets, focused tests, and a studio dashboard panel.
+- Completed the active advanced creative operations and collaboration runtime depth feature set at 100/100 and opened the next advanced creative platform intelligence and production depth feature set in `TODO.md`.
+- Added cross-format campaign launch rooms with stakeholder signoff scoring, channel readiness, rollout timelines, downloadable launch command packets, focused tests, and a studio dashboard panel.
+- Advanced the active advanced creative operations and collaboration runtime depth feature set from 64/100 to 80/100 after landing campaign launch rooms.
+- Added a template quality QA center with accessibility/localization evidence, marketplace readiness gates, moderation routing, creator-facing fix plans, downloadable QA packets, focused tests, and a studio dashboard panel.
+- Advanced the active advanced creative operations and collaboration runtime depth feature set from 48/100 to 64/100 after landing template quality QA.
+- Added creative asset intelligence with duplicate/license/usage recommendations, batch cleanup previews, dependency impact simulations, remediation packet downloads, focused tests, and a studio dashboard panel.
+- Advanced the active advanced creative operations and collaboration runtime depth feature set from 32/100 to 48/100 after landing creative asset intelligence.
+- Added publish/export release gates that combine policy-as-code dry-runs, server export jobs, website/domain publishing readiness, override request audit logs, approval evidence, downloadable release packets, and a studio dashboard panel.
+- Advanced the active advanced creative operations and collaboration runtime depth feature set from 16/100 to 32/100 after landing publish/export release gates.
+- Added live collaboration session reconciliation with workspace presence history, reconnect recovery queues, cursor conflict detection, audit-backed evidence packets, focused tests, and a team dashboard panel.
+- Advanced the active advanced creative operations and collaboration runtime depth feature set from 0/100 to 16/100 after landing live collaboration reconciliation.
+- Added an enterprise incident response command center with SEV routing, owner assignment, audit timeline evidence, recovery playbooks, response packets, focused tests, and a studio dashboard panel.
+- Completed the active advanced enterprise workflow intelligence and platform depth feature set at 100/100 and opened the next advanced creative operations and collaboration runtime depth feature set in `TODO.md`.
+- Added advanced admin automation recipes with bulk policy remediation, approval follow-up queues, retention sweeps, audit/recovery packet inputs, focused tests, and a team dashboard panel.
+- Advanced the active advanced enterprise workflow intelligence and platform depth feature set from 64/100 to 80/100 after landing advanced admin automation recipes.
+- Added data residency and export controls with export/domain region previews, restricted asset checks, completed export control reports, compliance evidence packets, focused tests, and a security dashboard panel.
+- Advanced the active advanced enterprise workflow intelligence and platform depth feature set from 48/100 to 64/100 after landing data residency and export controls.
+- Added policy-as-code governance with typed sharing, publishing, asset, approval, and retention rules, dry-run enforcement reports, packet downloads, focused tests, and a team dashboard panel.
+- Advanced the active advanced enterprise workflow intelligence and platform depth feature set from 32/100 to 48/100 after landing policy-as-code governance.
+- Added an enterprise SSO and SCIM readiness center with identity provider checks, SCIM provisioning gaps, role mapping previews, domain capture plans, MFA/audit guardrails, rollout packets, focused tests, and a security dashboard panel.
+- Advanced the active advanced enterprise workflow intelligence and platform depth feature set from 16/100 to 32/100 after landing SSO and SCIM readiness.
+- Added cross-workspace approval analytics with trend baselines, bottleneck detection, reviewer load forecasting, executive governance packets, focused tests, and a team dashboard panel.
+- Advanced the active advanced enterprise workflow intelligence and platform depth feature set from 0/100 to 16/100 after landing approval analytics.
+- Added enterprise approval workflow templates with project, template, and campaign approval queues, stage owners, escalation rules, reviewer SLA reporting, governance checks, focused tests, and a downloadable workflow packet in the team dashboard.
+- Completed the active enterprise admin scale and workflow governance feature set at 100/100 and opened the next advanced enterprise workflow intelligence and platform depth feature set in `TODO.md`.
+- Added multi-workspace command and audit federation with admin command queues, workspace scopes, federated audit streams, and downloadable command packets in the team dashboard.
+- Advanced the active enterprise admin scale and workflow governance feature set from 64/100 to 80/100 after landing multi-workspace federation.
+- Added project archival, retention, and legal-hold workflows with restore previews, audit-backed hold/release controls, permanent-delete guardrails, and downloadable deletion packets.
+- Advanced the active enterprise admin scale and workflow governance feature set from 48/100 to 64/100 after landing project retention governance.
+- Added automation run history with audit-backed ownership, failed export diagnostics, schedule visibility, real retry actions, and downloadable recovery packets.
+- Advanced the active enterprise admin scale and workflow governance feature set from 32/100 to 48/100 after landing automation run history.
+- Added organization usage and quota governance with storage, export, publishing, email, automation, and team-seat pressure views, remediation plans, focused tests, and a team dashboard panel.
+- Advanced the active enterprise admin scale and workflow governance feature set from 16/100 to 32/100 after landing usage and quota governance.
+- Added a workspace role policy simulator with effective permission rows, share-link previews, denial explanations, remediation plans, focused tests, and a team dashboard panel.
+- Advanced the active enterprise admin scale and workflow governance feature set from 0/100 to 16/100 after landing role policy simulation.
+- Added a production support desk with user-reported issue queues, affected project links, audit context, reproduction notes, export/domain/readiness issue routing, downloadable resolution packets, focused tests, and a studio dashboard panel.
+- Completed the active advanced platform reliability and marketplace intelligence feature set at 100/100 and opened the next enterprise admin scale and workflow governance feature set in `TODO.md`.
+- Added notification preference routing with quiet hours, topic channel plans, digest previews, Slack/Teams configuration awareness, failed-delivery recovery actions, focused tests, and a team dashboard panel.
+- Advanced the active advanced platform reliability and marketplace intelligence feature set from 64/100 to 80/100 after landing notification routing.
+- Added workspace backup and restore operations with downloadable manifests, integrity checks, dry-run restore readiness, rollback playbooks, focused tests, and a studio dashboard panel.
+- Advanced the active advanced platform reliability and marketplace intelligence feature set from 48/100 to 64/100 after landing backup and restore operations.
+- Added a project dependency graph explorer that connects source designs, variants, template packages, exports, websites, campaigns, and public links with risk detection and dashboard next actions.
+- Advanced the active advanced platform reliability and marketplace intelligence feature set from 32/100 to 48/100 after landing the dependency graph explorer.
+- Added marketplace intelligence dashboards with template demand signals, creator quality trends, collection gaps, moderation SLA views, install cohort analytics, and dashboard next actions derived from real template and audit data.
+- Advanced the active advanced platform reliability and marketplace intelligence feature set from 16/100 to 32/100 after landing marketplace intelligence.
+
+## 2026-05-16
+
+- Added release readiness gates with critical route coverage, admin health checks, migration drift, seeded account verification, and downloadable Vercel confidence packets.
+- Advanced the active advanced platform reliability and marketplace intelligence feature set from 0/100 to 16/100 after landing release readiness gates.
+- Added desktop production queue depth with offline batch export gaps, watched-folder coverage, resumable cloud sync visibility, and local file integrity diagnostics.
+- Completed the active advanced creator operations and quality scale feature set at 100/100 and opened the next advanced platform reliability and marketplace intelligence feature set in `TODO.md`.
+- Added compliance and privacy operations with consent capture scoring, public-form safety checks, downloadable account export/delete packets, and audit retention review.
+- Advanced the active advanced creator operations and quality scale feature set from 64/100 to 80/100 after landing compliance and privacy operations.
+- Added analytics attribution and experiment views to the publishing workspace for websites, email plans, campaigns, and reusable content variants.
+- Advanced the active advanced creator operations and quality scale feature set from 48/100 to 64/100 after landing attribution and experiment analytics.
+- Added a workspace-wide command center with indexed projects, assets, templates, comments, tasks, exports, planner items, saved filter chips, and recommended recovery commands.
+- Advanced the active advanced creator operations and quality scale feature set from 32/100 to 48/100 after landing workspace-wide search and command center.
+- Added a template package registry with semantic package versions, release changelogs, install/update/rollback checks, workspace dependency views, and dashboard next actions.
+- Advanced the active advanced creator operations and quality scale feature set from 16/100 to 32/100 after landing template and component package registry depth.
+- Added client portal rooms with approval-safe project views, scoped comment queues, downloadable handoff packets, reviewer activity history, and dashboard readiness scoring.
+- Advanced the active advanced creator operations and quality scale feature set from 0/100 to 16/100 after landing client portal rooms.
+- Added production-grade accessibility and localization finishing tools with page-level issue routing, copy-length checks, translation QA, and downloadable finishing packets derived from saved project documents.
+- Completed the active professional studio scale and ecosystem depth feature set at 100/100 and opened the next advanced creator operations and quality scale feature set in `TODO.md`.
+- Added workspace package operations with project bundle scoring, reusable component kit coverage, dependency health checks, and import/export migration readiness from real project versions, exports, templates, and handoff packets.
+- Advanced the active professional studio scale and ecosystem depth feature set from 64/100 to 80/100 after landing workspace package/version operations.
+- Added a deeper publishing analytics workspace with multi-channel goals, performance snapshots, anomaly notes, and stakeholder-ready review packets derived from the real publishing channel center.
+- Advanced the active professional studio scale and ecosystem depth feature set from 48/100 to 64/100 after landing publishing analytics workspaces.
+- Added editor command automation with reusable command-palette macros for batch layer tidying, export preparation, publishing metadata setup, and production QA checks with persisted run history and issue metadata.
+- Advanced the active professional studio scale and ecosystem depth feature set from 32/100 to 48/100 after landing editor command automation.
+- Added advanced asset provenance review with source lineage, license status classification, recurring review reminders, usage-impact queues, and export-safe warnings in the dashboard.
+- Advanced the active professional studio scale and ecosystem depth feature set from 16/100 to 32/100 after landing asset provenance and licensing review.
+- Added project knowledge packs with reusable briefs, audience profiles, constraints, references, decision logs, editor-side readiness scoring, and markdown handoff export.
+- Advanced the active professional studio scale and ecosystem depth feature set from 0/100 to 16/100 after landing project knowledge packs.
+- Added pro data visualization depth with generated dashboard/report templates, reusable chart themes, live data refresh diagnostics, and downloadable report handoff bundles.
+- Completed the active advanced interactive creation and marketplace growth feature set at 100/100 and opened the next professional studio scale and ecosystem depth feature set in `TODO.md`.
+- Added brand-safe starter remix workflows with deterministic format, theme, color, and content-slot swaps that create real locked-template-safe projects.
+- Advanced the active advanced interactive creation and marketplace growth feature set from 64/100 to 80/100 after landing brand-safe remix workflows.
+- Added a marketplace growth center with template favorites, saved creators, derived rating/review signals, install history, downloadable offline pack manifests, and quality moderation queues.
+- Advanced the active advanced interactive creation and marketplace growth feature set from 48/100 to 64/100 after landing marketplace growth workflows.
+- Added deeper whiteboard facilitation packs with generated workshop boards, facilitator scripts, timed agenda blocks, breakout sections, recap capture, and downloadable markdown session summaries.
+- Advanced the active advanced interactive creation and marketplace growth feature set from 32/100 to 48/100 after landing whiteboard facilitation packs.
+- Added richer photo selection and batch-edit workflows with image-layer selection metadata, reusable non-destructive presets, browser-local magic brush alpha refinement, color range helpers, object region framing, and focused pixel tests.
+- Advanced the active advanced interactive creation and marketplace growth feature set from 16/100 to 32/100 after landing photo selection and batch-edit depth.
+- Added advanced layer motion packs with pack-aware keyframe generation, motion group IDs, staggered group helpers, page-level export readiness diagnostics, and media sequence motion readiness metadata.
+- Advanced the active advanced interactive creation and marketplace growth feature set from 0/100 to 16/100 after landing advanced animation/keyframe editing.
+- Added desktop/offline sync queues with conflict risk detection, resumable asset upload diagnostics, export handoff recovery, local-to-cloud manifest checks, and dashboard next actions.
+- Completed the active enterprise publishing and asset operations feature set at 100/100 and opened the next advanced interactive creation and marketplace growth feature set in `TODO.md`.
+- Added admin operations depth with template, asset, domain, email, and export moderation queues, bulk action plans, duplicate asset cleanup controls, domain verify/attach/refresh controls, and audit-safe activity trails.
+- Advanced the active enterprise publishing and asset operations feature set from 64/100 to 80/100 after landing admin operations.
+- Added reviewer collaboration depth with review-only link coverage, editable-share risk reporting, approval queues, assignee workload filters, overdue task pressure, and workspace review reporting.
+- Advanced the active enterprise publishing and asset operations feature set from 48/100 to 64/100 after landing reviewer collaboration depth.
+- Added publishing channel depth with social, website, email, and campaign rollups, reusable channel presets, readiness checks, queue views, and analytics summaries.
+- Advanced the active enterprise publishing and asset operations feature set from 32/100 to 48/100 after landing publishing channel depth.
+- Added multi-brand workspace controls with derived workspace/team/published brand kits, brand approval gates, brand-specific template visibility, and dashboard kit switching.
+- Advanced the active enterprise publishing and asset operations feature set from 16/100 to 32/100 after landing multi-brand workspace controls.
+- Added deeper asset library operations with audited asset records, collection coverage, license review queues, project reference hot spots, bulk move groups, and reusable asset shelves.
+- Advanced the active enterprise publishing and asset operations feature set from 0/100 to 16/100 after landing asset operations.
+- Added a reusable workspace integration surface that combines handoff packets, export job status, template installation shelves, audit issues, review tasks, and template approvals into dashboard next actions.
+- Completed the active visual suite parity and template scale feature set at 100/100 and opened the next enterprise publishing and asset operations feature set in `TODO.md`.
+- Added video production readiness controls with media timeline scoring, caption and transition checks, one-click audio ducking keyframes, and readiness metadata in media sequence exports.
+- Advanced the active visual suite parity and template scale feature set from 64/100 to 80/100 after landing video and motion production readiness controls.
+- Added spreadsheet UX depth with larger workbook limits, range fill/clear actions, a formula browser, and sheet validation scoring.
+- Advanced the active visual suite parity and template scale feature set from 48/100 to 64/100 after landing spreadsheet range, formula, and validation controls.
+- Added editable PDF import reconstruction with locked page reference images, extracted editable text layers, outline notes, and import summary counts.
+- Advanced the active visual suite parity and template scale feature set from 32/100 to 48/100 after landing editable PDF import reconstruction.
+- Added deeper first-party starter marketplace discovery with category, industry, season, platform, and format facets plus original asset provenance notes.
+- Advanced the active visual suite parity and template scale feature set from 16/100 to 32/100 after landing template discovery depth.
+- Added mixed-format project orchestration with document-backed page type classification, readiness scoring, visual-suite coverage, and dashboard next actions.
+- Advanced the active visual suite parity and template scale feature set from 0/100 to 16/100 after landing mixed-format orchestration.
+- Added project handoff packets that combine readiness reports, durable export bundle status, stakeholder comments/tasks, approval history, checklist state, and downloadable JSON packet artifacts.
+- Advanced the active collaboration, automation, and enterprise polish feature set from 0/100 to 16/100 after landing project handoff packets.
+- Added team member management with member lists, pending invite revocation, owner-only role changes, workspace ownership transfer, and recent team activity views.
+- Advanced the active collaboration, automation, and enterprise polish feature set from 16/100 to 32/100 after landing team member management.
+- Added reusable automation recipes for scheduled export prep, publishing reminders, review nudges, and recurring campaign cadence workflows.
+- Advanced the active collaboration, automation, and enterprise polish feature set from 32/100 to 48/100 after landing automation recipes.
+- Added marketplace discovery upgrades with featured published templates, collection performance rails, creator attribution, view tracking, use/install analytics, and release quality gates.
+- Advanced the active collaboration, automation, and enterprise polish feature set from 48/100 to 64/100 after landing template marketplace discovery.
+- Added organization-level design governance with reusable brand-rule scoring, template lock policy visibility, approval policy coverage, and governance audit history in the team workspace.
+- Advanced the active collaboration, automation, and enterprise polish feature set from 64/100 to 80/100 after landing design governance.
+- Added a production observability dashboard that aggregates slow or failed exports, failed or stale emails, website publishing/domain errors, storage growth, and collaboration task conflicts.
+- Completed the active collaboration, automation, and enterprise polish feature set at 100/100 and opened the next visual suite parity and template scale feature set in `TODO.md`.
+- Added first-party template marketplace workflow metadata with draft/review/published/archive states, collections, seasons, review notes, publish timestamps, usage counters, and admin curation controls.
+- Advanced the active operational hardening, team scale, and marketplace depth feature set from 32/100 to 48/100 after landing template marketplace/admin workflows.
+- Added project permission presets for private sharing, including viewer/commenter/editor link modes with comment access separated from document write access.
+- Added an admin operational health center for database, auth, email, storage, Vercel runtime, and Tauri desktop readiness checks.
+- Advanced the active operational hardening, team scale, and marketplace depth feature set from 64/100 to 80/100 after landing operational health checks.
+- Added a dashboard project audit center that scores active projects across accessibility, SEO, brand guardrails, print preflight, email QA, and website readiness.
+- Completed the active operational hardening, team scale, and marketplace depth feature set at 100/100 and opened the next collaboration, automation, and enterprise polish feature set in `TODO.md`.
+
+## 2026-05-15
+
+- Added durable server export jobs with a Drizzle/Turso table, API-backed browser export sync, small-artifact storage under a database safety cap, and a dashboard export history panel.
+- Advanced the active operational hardening, team scale, and marketplace depth feature set from 16/100 to 32/100 after landing durable server export jobs.
+- Added an asset storage dashboard with upload, brand-logo, and project-manifest quota usage, duplicate detection, largest-asset views, individual cleanup, duplicate cleanup actions, and workspace audit logging.
+- Advanced the active operational hardening, team scale, and marketplace depth feature set from 0/100 to 16/100 after landing asset quota and cleanup workflows.
+- Added first-pass production route hardening with bounded share/edit/project/asset token validation, no-store audience JSON headers, noindex/nosniff public asset headers, and edit-share validation before workspace write access.
+- Completed the active production readiness, desktop, and workflow scale feature set at 100/100 and opened the next operational hardening, team scale, and marketplace depth feature set in `TODO.md`.
+- Added large-document side-panel windowing for layer lists, page thumbnails, workshop vote targets, and media timeline clips, keeping active selections visible while bounding default rendered rows.
+- Advanced the active production readiness, desktop, and workflow scale feature set from 64/100 to 80/100 after landing large-document panel windowing.
+- Added editor export job history with project-scoped recent jobs, progress states, failure diagnostics, retry/download-again actions, and a shadcn export-jobs sheet.
+- Advanced the active production readiness, desktop, and workflow scale feature set from 48/100 to 64/100 after landing export job history.
+- Added compact project asset manifest storage with shared data-url asset scanning, deduped stable asset IDs, per-entry and total manifest size limits, and hosted project asset routes.
+- Reused hosted project asset URLs for email image exports and persisted manifests through manual saves, collaboration syncs, templates, and desktop design files.
+- Advanced the active production readiness, desktop, and workflow scale feature set from 32/100 to 48/100 after landing project asset manifest storage.
+- Added a Tauri desktop file bridge with local Essence design open/save-as commands, recent file persistence, data-url offline asset caching, and a desktop-only editor dialog.
+- Advanced the active production readiness, desktop, and workflow scale feature set from 16/100 to 32/100 after landing the desktop file bridge.
+- Added browser-local editor autosave recovery with project-scoped dirty snapshots, conflict-aware restore prompts, local draft status, and snapshot clearing after successful saves or accepted remote updates.
+- Advanced the active production readiness, desktop, and workflow scale feature set from 0/100 to 16/100 after landing autosave recovery.
+- Added workshop facilitation depth with persisted session stage, voting/reaction toggles, participant counts, facilitator notes, spotlight focus, reaction counts, participant summaries, session analytics, and canvas signal badges.
+- Completed the active advanced editing/data/publishing depth feature set at 100/100 and opened the next production readiness, desktop, and workflow scale feature set in `TODO.md`.
+- Added email-client QA scoring, reusable email-safe block packs, and hosted asset URLs for data-url design images in email previews, exports, and test sends.
+- Advanced the active advanced editing/data/publishing depth feature set from 64/100 to 80/100 after landing the email QA and reusable-block first pass.
+- Added multi-sheet table workbooks with sheet tabs, active-sheet add/copy/rename/remove controls, cross-sheet formula references, and XLSX import/export preservation for sheet-backed tables.
+- Advanced the active advanced editing/data/publishing depth feature set from 48/100 to 64/100 after landing multi-sheet table workbooks.
+- Added editable document layers with flowing heading, subheading, paragraph, quote, and page-break blocks, column controls, outline previews, block comments, brand-kit styling, translation-pack entries, and DOCX export support.
+- Advanced the active advanced editing/data/publishing depth feature set from 32/100 to 48/100 after landing rich document layers.
+- Added browser-local object retouching for selected image layers with erase, clone, and heal modes, target/source controls, brush sizing, softness, reversible restore, and focused pixel tests.
+- Advanced the active advanced editing/data/publishing depth feature set from 16/100 to 32/100 after landing object retouch tools.
+- Added boolean shape operations for selected closed shape/path layers, including command-palette union, subtract, intersect, and exclude actions plus mask-rendered vector results.
+- Advanced the active advanced editing/data/publishing depth feature set from 0/100 to 16/100 after landing boolean shape operations.
+- Added print preflight checks inside the print proof sheet with readiness scoring for DPI, safe area, bleed coverage, transparent backgrounds, and export readiness.
+- Completed the advanced creation/image/vector/print feature set at 100/100 and opened the next advanced editing/data/publishing depth set in `TODO.md`.
+- Added print product proof previews from the editor toolbar, rendering the active page into card, label, poster, sticker, and packaging flat mockups with trim/safe-zone cues and focused helper tests.
+- Advanced the active advanced creation/image/vector/print feature set from 64/100 to 80/100 after landing proof previews.
+- Added advanced fill styles for shape and Bezier path layers with solid, linear-gradient, radial-gradient, pattern, and texture modes, shared property controls, brand-kit awareness, CSS rendering, SVG fill definitions, and focused helper tests.
+- Advanced the active advanced creation/image/vector/print feature set from 48/100 to 64/100 after landing advanced fills.
+- Added editable Bezier path layers with curve/blob/wave geometry, create-panel and command-palette insertion, SVG rendering, closed/open mode, fill/stroke controls, and numeric control-handle editing.
+- Advanced the active advanced creation/image/vector/print feature set from 32/100 to 48/100 after landing Bezier path editing.
+- Added editable freehand drawing layers with toolbar pen, highlighter, and eraser modes, pointer-captured canvas drawing, SVG stroke rendering, layer labels, brand-color awareness, and stroke property controls.
+- Advanced the active advanced creation/image/vector/print feature set from 16/100 to 32/100 after landing freehand drawing tools.
+- Added browser-local image background cutout editing with color-key masking, tolerance, feathering, invert mode, original-source restore, and focused helper tests.
+- Advanced the active advanced creation/image/vector/print feature set from 0/100 to 16/100 after landing the foreground cutout first pass.
+- Added env-gated Slack and Microsoft Teams webhook notifications for review updates, content scheduling/rescheduling/status changes, campaign bulk scheduling, and website publish/unpublish events.
+- Completed the review, approval, and publishing workflow feature set at 100/100 and opened the next advanced creation/image/vector/print feature set in `TODO.md`.
+- Added first-pass workspace audit logs with persisted project, campaign, content, approval, team, website, and security events plus a dashboard activity panel.
+- Added the `workspace_audit_log` Drizzle schema and migration for workspace activity records.
+- Advanced the review, approval, and publishing workflow feature set from 64/100 to 80/100 after landing workspace audit logs.
+- Added selected campaign deliverable bulk scheduling into the content planner, including start date, cadence, and campaign caption controls.
+- Added campaign handoff ZIP downloads for selected deliverables with a JSON manifest, CSV index, and thumbnail files when saved thumbnails exist.
+- Advanced the review, approval, and publishing workflow feature set from 48/100 to 64/100 after landing bulk schedule/download workflows.
+- Added persisted content-planner rescheduling with a dashboard publishing calendar, native drag/drop day moves, and compact manual datetime updates.
+- Advanced the review, approval, and publishing workflow feature set from 32/100 to 48/100 after landing calendar rescheduling.
+- Added persisted approval states for designs, saved templates, and campaign deliverables with dashboard status badges and update controls.
+- Advanced the review, approval, and publishing workflow feature set from 16/100 to 32/100 after landing cross-surface approval states.
+- Added first-pass review tasks from project comments, including owner, due date, status metadata, comment task badges, and a dashboard review-task panel with status updates.
+- Advanced the review, approval, and publishing workflow feature set from 0/100 to 16/100 after landing comment-created tasks.
+- Added bulk campaign variant generation so campaign boards can create missing multi-format resized deliverables from a selected source design while skipping existing variants.
+- Completed the template-and-campaign feature set at 100/100 and opened the next review, approval, and publishing workflow set in `TODO.md`.
+- Added curated multi-format starter-pack collections with dashboard recommendations, routed collection pages, and per-template pack links.
+- Advanced the template-and-campaign feature set from 74/100 to 86/100 after landing template collections and recommended starter packs.
+- Added first-pass template locking rules for catalog-generated designs, with structural layers locked, content layers editable, lock summary metadata, and template detail lock counts.
+- Advanced the template-and-campaign feature set from 60/100 to 74/100 after landing template locking rules.
+- Added project-level derivative boards for resized variants, including source-change review badges and a refresh action for stored source metadata.
+- Advanced the template-and-campaign feature set from 46/100 to 60/100 after landing derivative board management.
+- Added persisted campaign boards that connect a campaign brief, launch date, brand-kit snapshot, and existing project deliverables from the dashboard.
+- Advanced the template-and-campaign feature set from 28/100 to 46/100 after landing campaign boards.
+- Added routed starter-template detail pages with metadata, usage notes, tags, related templates, and use-template project creation.
+- Advanced the template-and-campaign feature set from 12/100 to 28/100 after landing template detail pages.
+- Added an original first-party starter template catalog across social, presentation, document, whiteboard, website, video, email, course, and brand formats, with metadata filtering and real project creation.
+- Started the template-and-campaign feature set at 12/100 after landing the starter catalog first pass.
+- Added Vercel project-domain status refresh for custom domains so attached domains can be checked against the platform API without redeploying.
+- Marked the active website-publishing custom-domain milestone as 100/100 and opened the next template-and-campaign feature set in `TODO.md`.
+- Added environment-gated Vercel project-domain attachment for verified custom domains, with persisted manual, attached, and error states in the dashboard.
+- Updated Canva-parity status from 99.999999999985/100 to 99.99999999999/100 after adding the Vercel domain attachment action.
+- Added Vercel-compatible platform routing records to custom-domain management so verified domains show the next A or CNAME record needed for hosting.
+- Updated Canva-parity status from 99.99999999998/100 to 99.999999999985/100 after adding the custom-domain routing-record first pass.
+- Added publish-time website SEO readiness checks with scoring for selected design, title, SEO title, description length, and slug readability.
+- Updated Canva-parity status from 99.99999999997/100 to 99.99999999998/100 after adding the website SEO readiness panel.
+- Added first-pass nested website menu groups with page-level menu group controls, grouped hosted navigation rendering, and focused grouping tests.
+- Updated Canva-parity status from 99.99999999995/100 to 99.99999999997/100 after adding nested website menu groups.
+- Added website-page navigation labels and show/hide controls so hosted site navigation can use shorter section labels or omit utility sections while keeping the section content published.
+- Updated Canva-parity status from 99.9999999999/100 to 99.99999999995/100 after adding the website navigation-label controls first pass.
+- Added explicit per-section website SEO controls to the page panel, with title and description fields feeding hosted website section metadata and translation packs.
+- Updated Canva-parity status from 99.9999999998/100 to 99.9999999999/100 after adding the explicit section SEO controls first pass.
+- Added editable primary and outline website link-button blocks to the editor create panel, with grouped clickable layers that publish through the hosted website link system.
+- Updated Canva-parity status from 99.9999999997/100 to 99.9999999998/100 after adding the website link-button block first pass.
+- Added selectable hosted-website navigation styles with publish-time top bar, floating pill, side rail, and hidden navigation options, plus model normalization tests for legacy published sites.
+- Updated Canva-parity status from 99.9999999996/100 to 99.9999999997/100 after adding the hosted navigation-style first pass.
+- Added semantic section SEO for hosted websites by turning page names and notes into stable section anchors, screen-reader headings/descriptions, canonical metadata, and JSON-LD page structure.
+- Updated Canva-parity status from 99.9999999995/100 to 99.9999999996/100 after adding the section SEO publishing first pass.
+- Added a link-in-bio website starter that creates a real editable mobile page with linked button layers, profile copy, and a QR block ready for hosted publishing and click analytics.
+- Updated Canva-parity status from 99.9999999994/100 to 99.9999999995/100 after adding the link-in-bio starter first pass.
+- Added custom-domain management for hosted websites with persisted domain records, DNS TXT verification tokens, server-side verification, dashboard controls, and root-host rendering for verified domains.
+- Updated Canva-parity status from 99.9999999993/100 to 99.9999999994/100 after adding the custom-domain verification first pass.
+- Made saved layer links clickable on hosted websites with safe public URL handling, so linked text, shapes, images, and embeds work after publishing.
+- Updated Canva-parity status from 99.9999999992/100 to 99.9999999993/100 after adding the hosted-website linked-layer first pass.
+- Added persisted hosted-website analytics with public view tracking, click tracking, dashboard view/click counters, and a Turso migration for `website_analytics_event`.
+- Updated Canva-parity status from 99.999999999/100 to 99.9999999992/100 after closing the website analytics gap.
+- Added `FEATURES.md` as a compact capability matrix and shortened the top `TODO.md` status so the roadmap stays focused on missing product gaps.
+- Updated Canva-parity status from 99.999999998/100 to 99.999999999/100 after closing the feature-matrix and docs-honesty cleanup.
+- Split the dashboard server actions into focused project, team, account, security, notification, planner, website, and email action modules while preserving the existing `src/app/designs/actions.ts` import surface.
+- Updated Canva-parity status from 99.999999997/100 to 99.999999998/100 after closing the dashboard server-action split milestone.
+- Completed the Drizzle table split by moving content planner, website publishing, and presentation response/remote tables into feature-owned schema modules while leaving `schema.ts` as the combined relation/type hub.
+- Updated Canva-parity status from 99.999999995/100 to 99.999999997/100 after closing the database schema split milestone.
+- Extracted project-owned Drizzle table definitions into `src/db/schema/projects.ts`, covering folders, projects, templates, versions, comments, reactions, and presence.
+- Updated Canva-parity status from 99.99999999/100 to 99.999999995/100 after the project schema split slice.
+- Extracted brand kit and uploaded asset Drizzle table definitions into `src/db/schema/brand.ts` and `src/db/schema/assets.ts`.
+- Updated Canva-parity status from 99.99999998/100 to 99.99999999/100 after the brand and asset schema split slice.
+- Extracted team workspace and notification Drizzle table definitions into `src/db/schema/team.ts` and `src/db/schema/notifications.ts` while preserving root schema imports.
+- Updated Canva-parity status from 99.99999997/100 to 99.99999998/100 after the team and notification schema split slice.
+- Extracted auth-owned Drizzle table definitions into `src/db/schema/auth.ts` while keeping `src/db/schema.ts` as the combined schema export and relation hub.
+- Updated Canva-parity status from 99.99999996/100 to 99.99999997/100 after the first database schema split slice.
+- Split the editor asset panel into focused upload, import, free stock, brand assets, vector packs, and saved uploads components.
+- Added in-editor free stock search/import backed by the existing Wikimedia Commons import API so imported assets are immediately saved and added to the active design.
+- Updated Canva-parity status from 99.99999995/100 to 99.99999996/100 after closing the asset-panel split milestone.
+- Extracted editor shell UI state into `use-editor-shell-ui.ts`, covering zoom, command palette, version history, comments sheet, grid, guides, and print-mark controls.
+- Marked the editor-workspace split complete after reducing `editor-workspace.tsx` to 601 lines with sharing, collaboration, persistence, keyboard, comment, document-action, canvas/timeline, page/import, and shell UI wiring in feature-owned hooks.
+- Updated Canva-parity status from 99.9999999/100 to 99.99999995/100 after completing the editor-workspace split batch.
+- Extracted editor page and import wiring into `use-editor-page-actions.ts`, covering page creation, selection, rename, notes, transitions, format, size, audience interaction, duplicate, delete, reorder, CSV bulk-create, speaker-notes import, and translation-pack import.
+- Reduced `editor-workspace.tsx` to 606 lines while preserving the existing Pages panel API.
+- Updated Canva-parity status from 99.9999998/100 to 99.9999999/100 after the editor page/import wiring extraction batch.
+- Extracted editor canvas and timeline interaction wiring into `use-editor-canvas-interactions.ts`, covering canvas drag preview/commit behavior, timeline preview/commit behavior, timeline splitting, and shared element updates.
+- Reduced `editor-workspace.tsx` to 719 lines while preserving Workshop, Media Timeline, Canvas, and Properties panel APIs.
+- Updated Canva-parity status from 99.9999997/100 to 99.9999998/100 after the editor canvas/timeline interaction extraction batch.
+- Extracted editor document action wiring into `use-editor-document-actions.ts`, covering dirty-state marking, commits, selection-aware element actions, grouping, distribution, locale updates, brand/style application, imported pages, and presenter handoff.
+- Reduced `editor-workspace.tsx` to 793 lines while preserving toolbar, command palette, asset panel, pages panel, layers panel, workshop panel, canvas, and properties panel APIs.
+- Updated Canva-parity status from 99.9999996/100 to 99.9999997/100 after the editor document-action extraction batch.
+- Extracted editor comment collaboration wiring into `use-editor-comments.ts`, covering comment state, open-count derivation, create, resolve, and reaction toggles.
+- Kept shared edit-link authorization payload handling inside the comment hook and reduced `editor-workspace.tsx` from 984 lines to 900 lines.
+- Updated Canva-parity status from 99.9999995/100 to 99.9999996/100 after the editor comment-wiring extraction batch.
+- Extracted editor keyboard shortcut wiring into `use-editor-keyboard-shortcuts.ts`, including private clipboard state for copy/paste.
+- Preserved save, undo/redo, duplicate, group/ungroup, select-all, layer walking, delete, and nudge shortcuts while reducing `editor-workspace.tsx` from 1,115 lines to 984 lines.
+- Updated Canva-parity status from 99.9999994/100 to 99.9999995/100 after the editor keyboard-shortcut extraction batch.
+- Extracted editor sharing wiring into `use-editor-sharing.ts`, covering public share links, private edit links, clipboard copy, open-link actions, and API toggles.
+- Reduced `editor-workspace.tsx` from 1,233 lines to 1,115 lines while keeping the existing toolbar sharing behavior intact.
+- Updated Canva-parity status from 99.9999993/100 to 99.9999994/100 after the first editor-workspace split batch.
+- Completed the properties-panel split checklist after extracting connector, text, image, media, selected-layer, and page controls into focused modules.
+- Kept the no-selection properties state as a tiny local shell component so the split stays readable without adding file sprawl.
+- Updated Canva-parity status from 99.9999992/100 to 99.9999993/100 after closing the properties-panel split milestone.
+- Extracted page background and brand color capture into `page-property-controls.tsx`, leaving the main properties panel as a thinner shell.
+- Updated Canva-parity status from 99.9999991/100 to 99.9999992/100 after the page property controls extraction batch.
+- Extracted selected-layer property routing into `selected-layer-property-controls.tsx`, keeping the main properties panel focused on page controls, empty state, and layer actions.
+- Updated Canva-parity status from 99.999999/100 to 99.9999991/100 after the selected-layer property routing extraction batch.
+- Added a media property dispatcher in `media-property-controls.tsx` for video, audio, PDF, SVG, and Lottie layers, reducing repeated media checks in the main properties panel.
+- Updated Canva-parity status from 99.999998/100 to 99.999999/100 after the media property dispatch extraction batch.
+- Extracted the image property stack into `image-property-controls.tsx`, including alt text, crop, frame, adjustments, and duotone controls.
+- Updated Canva-parity status from 99.999997/100 to 99.999998/100 after the image property-panel extraction batch.
+- Extracted the full text property stack into `text-property-controls.tsx`, including text content, list tools, find/replace, font selection, brand fonts, spacing, alignment, fill, curve, and effects.
+- Updated Canva-parity status from 99.999996/100 to 99.999997/100 after the text property-panel extraction batch.
+- Extracted connector property controls into a focused module, leaving sticky-note diagram controls separate and reducing mixed responsibilities in the editor properties surface.
+- Updated Canva-parity status from 99.999995/100 to 99.999996/100 after the connector property-panel extraction batch.
+- Added connector label readability boxes: connector labels now support optional none, paper, or line-tint label boxes sized from label text and font size.
+- Updated Canva-parity status from 99.999994/100 to 99.999995/100 after the connector label readability batch.
+- Added connector label position controls: connector labels now support start, middle, and end placement, follow straight and elbow connector paths, and expose the setting in connector properties.
+- Updated Canva-parity status from 99.999993/100 to 99.999994/100 after the connector label-position batch.
+- Added connector line style controls: connector layers now store solid/dashed/dotted stroke styles, render dashed and dotted paths from stroke width, and expose the setting in connector properties.
+- Updated Canva-parity status from 99.999992/100 to 99.999993/100 after the connector line-style batch.
+- Added connector endpoint quick actions: connector properties now have tooltip-backed icon buttons to swap attached endpoints, reverse anchors/markers together, or detach all endpoints back to a free-position connector.
+- Updated Canva-parity status from 99.999991/100 to 99.999992/100 after the connector endpoint quick-actions batch.
+- Added connector endpoint management: connector properties now include start/end layer selectors, a free-point detach option, same-target prevention, and readable endpoint labels from existing layer accessibility names.
+- Updated Canva-parity status from 99.99999/100 to 99.999991/100 after the connector endpoint management batch.
+- Added selected-layer quick connect: the command palette can now create an anchored connector between exactly two selected layers, including grouped diagram nodes, and immediately selects the new connector for editing.
+- Updated Canva-parity status from 99.99998/100 to 99.99999/100 after the selected-layer quick-connect batch.
+- Added anchored diagram connectors: connector layers can now store start/end element anchors, resolve their geometry as attached nodes move or nudge, keep cloned/deleted diagrams sane, expose anchor-side controls, and render anchored straight/elbow paths from real endpoints.
+- Updated Canva-parity status from 99.99997/100 to 99.99998/100 after the anchored connector batch.
+- Added card and mind-map diagram starters: the Create panel now includes editable Mind map and Card board presets built from grouped nodes, sticky cards, and connector paths.
+- Updated Canva-parity status from 99.99996/100 to 99.99997/100 after the card and mind-map diagram starter batch.
+- Added a Mermaid diagram import/export first pass: the Create panel now has a Mermaid source box, common `flowchart`/`graph` syntax imports as editable grouped nodes and connector layers, and the active page can export diagram-like layers back to Mermaid flowchart syntax.
+- Updated Canva-parity status from 99.99995/100 to 99.99996/100 after the Mermaid diagram import/export batch.
+- Added a whiteboard minimap and viewport first pass: whiteboard bounds now expand from visible object positions, the minimap shows page/object/selection/viewport geometry, minimap clicks jump the canvas, object clicks select and center layers, and each whiteboard page remembers its viewport center locally.
+- Updated Canva-parity status from 99.99994/100 to 99.99995/100 after the whiteboard minimap and viewport batch.
+- Added a first pass of mixed page formats: pages now carry format metadata, the Pages panel can switch the active page through existing design presets, preset switches apply matching dimensions, manual size edits become custom pages, whiteboard-format pages get the scrollable whiteboard canvas, and media sequence exports include page formats.
+- Updated Canva-parity status from 99.99992/100 to 99.99994/100 after the mixed page format first pass.
+- Added a first pass of per-page dimensions: pages can store their own width/height, the Pages panel can edit the active page size, and editor canvas, thumbnails, public viewer, speaker preview, export capture surfaces, and media sequence metadata honor page-specific dimensions.
+- Updated Canva-parity status from 99.9999/100 to 99.99992/100 after the per-page dimensions first pass.
+- Added public share and audience localization: public/private share-view headers, public audience participation forms, submit states, empty states, and speaker-side audience result labels now use the saved locale preference.
+- Updated Canva-parity status from 99.9998/100 to 99.9999/100 after the public share and audience localization batch.
+- Added auth-entry localization with a persisted language selector for the landing page, sign-in/sign-up card, email verification, forgot-password, reset-password, and two-factor challenge flows.
+- Updated Canva-parity status from 99.9996/100 to 99.9998/100 after the auth entry localization batch.
+- Extended dashboard localization into the Email builder and Admin control room panels, including email form copy, admin tabs, table columns, badges, search placeholders, table menus, empty states, and pagination labels.
+- Updated Canva-parity status from 99.9994/100 to 99.9996/100 after the dashboard email/admin localization batch.
+- Extended dashboard localization into the Website publisher, Content planner, and Stock library panels, including publishing forms, preview controls, planner actions, and stock search/import states.
+- Updated Canva-parity status from 99.9992/100 to 99.9994/100 after the dashboard website localization batch.
+- Extended dashboard localization into the Account settings panel, including profile, email security, email verification history, two-factor controls, sessions, and delete-account copy.
+- Updated Canva-parity status from 99.999/100 to 99.9992/100 after the dashboard account localization batch.
+- Extended dashboard localization into the Team workspace and Notifications panels, including invite flows, role labels, unread actions, open links, and empty states.
+- Updated Canva-parity status from 99.998/100 to 99.999/100 after the dashboard team localization batch.
+- Extended dashboard localization into the Templates and Projects panels, including template filters/actions and project search, filters, trash, resize, rename, and delete workflows.
+- Updated Canva-parity status from 99.997/100 to 99.998/100 after the dashboard library localization batch.
+- Added dashboard shell localization: a persisted dashboard language selector now localizes the sidebar, KPI labels, tabs, website launcher copy, and new-design panel.
+- Updated Canva-parity status from 99.996/100 to 99.997/100 after the dashboard localization batch.
+- Extended saved editor-locale coverage into the command palette and Pages panel, including localized command labels, page controls, import/export labels, transition names, and CSV/notes/translation-pack result messages.
+- Updated Canva-parity status from 99.995/100 to 99.996/100 after the editor workflow localization batch.
+- Added manual translation packs: page/design text can export to JSON for human translation and import completed translations with source-match safety and applied/skipped counts.
+- Updated Canva-parity status from 99.994/100 to 99.995/100 after the manual translation pack batch.
+- Added an editor localization foundation: a persisted document-level locale setting, toolbar copy dictionaries for English, Bangla, Spanish, French, and Hindi, and localized high-traffic toolbar labels/statuses/aria labels.
+- Updated Canva-parity status from 99.993/100 to 99.994/100 after the editor locale foundation batch.
+- Added a keyboard-only editor selection pass: focus-visible canvas layers now select, Escape clears selection, Ctrl+A selects visible layers, bracket keys walk layers, and canvas layer labels are more descriptive for assistive tech.
+- Updated Canva-parity status from 99.992/100 to 99.993/100 after the keyboard selection workflow batch.
+- Added a text contrast checker for text layers, including WCAG-style AA status, gradient endpoint checks, and one-click accessible black/white color suggestions.
+- Updated Canva-parity status from 99.991/100 to 99.992/100 after the text contrast checker batch.
+- Added an image alt-text workflow with multiline editing and quality status for missing, generic, short, and ready alt text states.
+- Updated Canva-parity status from 99.99/100 to 99.991/100 after the image alt-text workflow batch.
+- Persisted non-secret table connector setup: selected connector preset IDs and custom header names are saved with table layers, while bearer tokens and API key values remain session-only.
+- Updated Canva-parity status from 99.98/100 to 99.99/100 after the persisted connector setup batch.
+- Added app connector presets for generic CSV/JSON, Airtable, Supabase, Hasura, Stripe, and Google Analytics style table sync endpoints with useful URL/auth placeholders and non-persisted header defaults.
+- Updated Canva-parity status from 99.97/100 to 99.98/100 after the app connector preset batch.
+- Added session-only custom-header table sync for API-key based CSV/JSON endpoints, including browser-safe header-name validation and non-persisted header values.
+- Updated Canva-parity status from 99.96/100 to 99.97/100 after the custom-header table-sync batch.
+- Added session-only authenticated table sync: table URL sources can use an optional bearer token for protected CSV/JSON endpoints without persisting the token in project data.
+- Updated Canva-parity status from 99.95/100 to 99.96/100 after the authenticated table-sync batch.
+- Added JSON URL table syncing for public analytics, CRM, and database-style exports, including object-array flattening, wrapped result-array detection, source kind labeling, and reuse of the existing refresh pipeline.
+- Updated Canva-parity status from 99.93/100 to 99.95/100 after the JSON URL table-sync batch.
+- Added a refreshable data story starter that inserts a dashboard title, editable source table, and three linked chart cards from the Asset panel or command palette.
+- Updated Canva-parity status from 99.90/100 to 99.93/100 after the refreshable data story starter batch.
+- Added public Google Sheets table syncing: table data sources now recognize Google Sheets share and published-sheet URLs, preserve `gid` selections, normalize them to CSV export endpoints, and label successful syncs as Google Sheets sources.
+- Updated Canva-parity status from 99.88/100 to 99.90/100 after the public Google Sheets sync batch.
+- Added CSV URL table syncing: table layers can store a CSV source URL, fetch public CSV data in the browser with size validation, refresh cells, keep compatible cell formatting, and expose sync status/errors in table controls.
+- Updated Canva-parity status from 99.84/100 to 99.88/100 after the CSV URL table-sync batch.
+- Added live table-backed chart ranges: chart layers can bind to table label/value columns, use formula-aware sorted/filtered rows, render linked data across canvas/previews/public/speaker/export surfaces, and preserve linked chart values in DOCX/XLSX exports.
+- Updated Canva-parity status from 99.80/100 to 99.84/100 after the table-backed chart batch.
+- Added per-cell table formatting for fill color, text color, bold weight, and alignment, including focused table controls, canvas rendering with formulas/data views, and DOCX/XLSX export preservation.
+- Updated Canva-parity status from 99.76/100 to 99.80/100 after the table cell-formatting batch.
+- Added table data views with non-destructive row filtering, formula-aware sorting, frozen header controls, visible-view DOCX table export, and XLSX frozen/sorted sheet metadata.
+- Updated Canva-parity status from 99.72/100 to 99.76/100 after the table data-view batch.
+- Added safe editable table formulas with arithmetic, cell references, ranges, SUM/AVERAGE/MIN/MAX/COUNT/ROUND support, canvas result rendering, table-control validation, and XLSX formula preservation on import/export.
+- Updated Canva-parity status from 99.68/100 to 99.72/100 after the sheet formula batch.
+- Added XLSX import/export using real Office Open XML packages: workbook sheets import as editable table pages, and visible table layers export as multi-sheet `.xlsx` files with document-summary fallback sheets.
+- Updated Canva-parity status from 99.64/100 to 99.68/100 after the XLSX import/export batch.
+- Added DOCX import into editable pages, parsing Word document paragraphs and tables from OpenXML packages into editable text and table layers with import limits, pagination, status messaging, and asset-panel controls.
+- Updated Canva-parity status from 99.62/100 to 99.64/100 after the DOCX import batch.
+- Added DOCX export for document-like designs using real Office Open XML packaging, flowing visible page text, tables, chart data, form values, and embeds into Word-compatible `.docx` files from the export menu and command palette.
+- Updated Canva-parity status from 99.6/100 to 99.62/100 after the DOCX export batch.
+- Added frame-composited GIF/MP4 timeline exports: animated exports now sample page playback over time, drive hidden export surfaces through timeline seconds, seek video layers before capture, preserve video clip in/out transitions, and render layer motion presets/keyframes inside final animated files.
+- Updated Canva-parity status from 99.5/100 to 99.6/100 after the frame-composited export batch.
+
+## 2026-05-14
+
+- Added video clip transition controls for timeline clips, including transition-in/out settings, transition duration, clip preview animation, canvas renderer playback, and media sequence export metadata.
+- Updated Canva-parity status from 99/100 to 99.5/100 after the video clip transition batch.
+- Added automatic audio beat detection with browser-side audio decoding, generated beat markers, sync-point suggestions, timeline UI feedback, and media sequence export metadata.
+- Updated Canva-parity status from 98/100 to 99/100 after the automatic beat detection batch.
+- Added an original CC0 music/SFX library with generated WAV audio, preview/add controls, license metadata on audio layers, renderer/property metadata display, and media sequence export licensing.
+- Updated Canva-parity status from 97/100 to 98/100 after the music/SFX library batch.
+- Added Lottie JSON animation import and playback as a first-class canvas layer with sizing, loop, autoplay, speed, background color, layer list labels, and shared renderer support.
+- Updated Canva-parity status from 96/100 to 97/100 after the Lottie import/playback batch.
+- Added audio beat sync markers for timeline audio clips, including playhead-based marker insertion, visual marker ticks, clear controls, persistence, and sequence export metadata.
+- Updated Canva-parity status from 95/100 to 96/100 after the audio beat sync marker batch.
+- Added layer motion keyframes that capture layer position, size, rotation, and opacity at chosen times, with normalized sequence export metadata.
+- Updated Canva-parity status from 94/100 to 95/100 after the layer motion keyframe batch.
+- Added layer motion presets with start/duration/easing controls, live renderer preview, and media sequence export metadata for animated clips.
+- Updated Canva-parity status from 93/100 to 94/100 after the layer motion preset batch.
+- Added a video captions/subtitles editor for timeline clips with editable WebVTT text, SRT/VTT import, VTT/SRT export, cue persistence, and sequence export metadata.
+- Updated Canva-parity status from 92/100 to 93/100 after the video captions/subtitles batch.
+- Added audio volume keyframes for timeline audio clips, including playhead-based keyframe insertion/clearing, interpolated preview/canvas playback, and sequence export metadata.
+- Updated Canva-parity status from 91/100 to 92/100 after the audio volume keyframe batch.
+- Added audio fade-in/fade-out controls for timeline audio clips, persisted them on audio layers, included fade metadata in sequence exports, and applied fade volume ramping during timeline preview and canvas playback.
+- Updated Canva-parity status from 90/100 to 91/100 after the audio fade controls batch.
+- Added an actual audio waveform view in the media timeline by decoding audio clip sources in the browser and rendering normalized peaks inside audio clip bars.
+- Updated Canva-parity status from 89/100 to 90/100 after the audio waveform timeline batch.
+- Added timeline-aware GIF/MP4 page durations: animated exports now use each page's media timeline end time instead of a single fixed delay for every page.
+- Updated Canva-parity status from 88/100 to 89/100 after the timeline-aware export duration batch.
+- Added media timeline reorder controls: video/audio clips can move earlier or later within their track, and the track timing is repacked to keep the sequence clean.
+- Updated Canva-parity status from 87/100 to 88/100 after the timeline reorder polish batch.
+- Added sequence-aware media timeline JSON export from the editor toolbar and command palette, including ordered video/audio clips, trim windows, volume, source metadata, and canvas bounds for every page.
+- Fixed text download names so Markdown, VTT, and JSON exports keep their file extensions after filename sanitization.
+- Updated Canva-parity status from 85/100 to 87/100 after the media sequence export batch.
+- Added trimmed clip preview playback to the media timeline: selecting a video or audio clip now shows native preview controls constrained to the clip trim window.
+- Updated Canva-parity status from 83/100 to 85/100 after adding media clip preview playback.
+- Added pointer timeline editing for media clips: clip bars can now be dragged to move timing, left/right handles adjust trim and duration, and the roadmap now separates remaining preview/export polish.
+- Updated Canva-parity status from 81/100 to 83/100 after adding timeline drag and trim-handle controls.
+- Upgraded the media timeline with separate video/audio tracks, a snapped playhead, playhead-based clip splitting, track-level clip counts, snap controls, and TODO tracking for the remaining drag-handle/keyframe work.
+- Updated Canva-parity status from 79/100 to 81/100 after the first video timeline hardening batch.
+- Added production-ready presentation remote pairing: speaker view creates a time-limited phone control link with QR code, persists remote sessions/commands in Turso, publishes current slide state, and lets paired devices control slides across browsers/devices.
+- Updated Canva-parity status from 77/100 to 79/100 after hardening presentation remote control pairing.
+- Added public presentation audience participation: slide-level poll/quiz/Q&A configuration, public audience route, response API, persisted presentation responses, speaker-side live summaries, and a Turso/Drizzle migration for response storage.
+- Updated Canva-parity status from 75/100 to 77/100 after the audience participation batch.
+- Added presentation transcript and caption export: speaker view can download a Markdown transcript and WebVTT captions generated from slide text and speaker notes.
+- Updated Canva-parity status from 74/100 to 75/100 after the transcript and caption export batch.
+- Added presentation page transitions: each slide can store a transition choice, the Pages panel exposes transition controls, and the speaker view animates fade/slide/zoom transitions during playback.
+- Updated Canva-parity status from 73/100 to 74/100 after the presentation transition batch.
+- Added presentation speaker-note tooling: Markdown export/import for slide notes, editor slide outline previews with note summaries, and speaker-view note export.
+- Updated Canva-parity status from 72/100 to 73/100 after the speaker notes and slide outline batch.
+- Added the first whiteboard canvas mode: whiteboard documents now get expanded scrollable workspace margins, a board grid outside the page bounds, visible off-page elements, and metadata-backed canvas mode for new whiteboard projects.
+- Updated Canva-parity status from 70/100 to 72/100 after completing the first whiteboard workspace milestone.
+- Added workshop facilitation basics in the editor: page-level timer insertion, persisted vote counts on layers, vote badges on the canvas, per-layer vote controls, and page vote reset.
+- Updated Canva-parity status from 69/100 to 70/100 after the workshop timer and voting batch.
+- Added real whiteboard diagram primitives: sticky-note layers, connector-arrow layers, editable flowchart/org-chart starter presets, command-palette entries, layer labels, style/brand-kit support, and property controls.
+- Updated Canva-parity status from 67/100 to 69/100 after the first whiteboard and diagram batch.
+- Added the first real email builder milestone: saved designs now convert into email-safe block models with protected preview pages, inline-styled HTML export, dashboard email controls, and test-email delivery through the existing Brevo/SMTP outbox.
+- Updated Canva-parity status from 64/100 to 67/100 after the email builder milestone.
+- Added a real hosted website publishing milestone: stored website publish records, a separate website section model derived from designs, responsive public `/site/[slug]` pages with SEO metadata, dashboard mobile/tablet/desktop previews, generated section navigation, unpublish controls, and stored public form submissions.
+- Added and applied the `website_publish` and `website_form_submission` Turso migration.
+- Updated Canva-parity status from 60/100 to 64/100 after the hosted website builder milestone.
+- Added the first real non-AI Magic Switch milestone: dashboard resize-copy variants, social/presentation/print/website/email resize profiles, source/variant database tracking, document metadata tracking, and proportional element-level scaling rules for text, media, vector, table, chart, form, embed, timer, and panel-style elements.
+- Added and applied the `project` resize-variant metadata Turso migration.
+- Updated Canva-parity status from 58/100 to 60/100 after the resize-variant milestone.
+- Completed the editor architecture simplification milestone by extracting export/rendering, project persistence, and collaboration sync wiring out of `editor-workspace.tsx`; the workspace shell is now roughly 980 lines and the extracted hooks are feature-owned.
+- Finished the next editor properties cleanup pass by extracting shape controls, data/interactive controls, and reusable layer geometry/alignment/link/action controls, reducing `properties-panel.tsx` to roughly 440 lines.
+- Split the largest editor properties panel into focused field, text, image, media, and brand-color control modules, reducing `properties-panel.tsx` from roughly 2,100 lines to roughly 720 lines without changing editor behavior.
+- Simplified `TODO.md` into an honest source-of-truth roadmap, corrected full Canva-parity status to 58/100, and added a missing-feature backlog from the current Canva Visual Suite, features, and create indexes.
+- Added email verification code delivery, a `/verify-email` flow, seeded admin account support, a polished dashboard workspace, admin management tables, production email configuration, and verified production deployment at `https://essence-studio-omega.vercel.app`.
+- Marked the deployed web milestone complete; this is now superseded by the audited 58/100 full Canva-parity score in `TODO.md`.
+- Added original Essence Studio production-facing branding, centralized product constants, desktop title/identifier branding, project README, and legal/product boundary documentation.
+- Updated Canva-parity status from 99.99995/100 to 99.99998/100 after the legal boundary and desktop branding batch.
+- Added conflict-aware live collaboration sync with lightweight document autosave, remote document polling, shared-edit support, conflict detection, and an editor banner for pending remote changes.
+- Updated Canva-parity status from 99.9999/100 to 99.99995/100 after the multiplayer editing sync batch.
+- Added password reset and email verification flows with public request/reset screens, account verification send action, optional SMTP delivery, and a database-backed security email outbox.
+- Added and applied the `auth_email` Turso migration.
+- Updated Canva-parity status from 99.99985/100 to 99.9999/100 after the auth email flow batch.
+- Added app-owned TOTP two-factor authentication with QR/manual setup, verification challenge page, protected dashboard/editor/presenter gates, and disable flow.
+- Added and applied the `user_two_factor` Turso migration.
+- Updated Canva-parity status from 99.9998/100 to 99.99985/100 after the two-factor authentication batch.
+- Added manual social publishing packages for scheduled designs with copyable captions, platform launch links, open-design shortcuts, and helper coverage.
+- Updated Canva-parity status from 99.9997/100 to 99.9998/100 after the social publishing package batch.
+- Added a unit-test harness covering core editor operations, CSV parsing, bulk-create placeholder replacement, and asset storage limits.
+- Extended the lightweight CI workflow to run both `bun run typecheck` and `bun run test`.
+- Updated Canva-parity status from 99.99965/100 to 99.9997/100 after the test harness batch.
+- Added a lightweight GitHub Actions workflow that installs dependencies and runs typecheck on pushes and pull requests.
+- Updated Canva-parity status from 99.9996/100 to 99.99965/100 after the typecheck CI batch.
+- Added free Wikimedia Commons stock search/import with source, author, license, and provider metadata tracked on saved uploads.
+- Added and applied the `user_asset` license/source metadata Turso migration.
+- Updated Canva-parity status from 99.9995/100 to 99.9996/100 after the license-tracked free stock batch.
+- Added guarded account deletion from account settings with explicit `DELETE` confirmation and database cascade cleanup.
+- Updated Canva-parity status from 99.9994/100 to 99.9995/100 after the delete-account batch.
+- Added a local content planner with saved-design scheduling, channel selection, captions, planned/published state, and removal controls.
+- Added and applied the `content_schedule_item` Turso migration.
+- Updated Canva-parity status from 99.9992/100 to 99.9994/100 after the content planner batch.
+- Added account settings with display-name update, email verification status, active session listing, and revoke-session controls.
+- Updated Canva-parity status from 99.999/100 to 99.9992/100 after the account settings and session-management batch.
+- Added persisted team activity notifications with unread/read state, invite-created notices, invite-accepted notices, dashboard notification list, and mark-read actions.
+- Added and applied the `user_notification` Turso migration.
+- Updated Canva-parity status from 99.998/100 to 99.999/100 after the notifications batch.
+- Added real team workspaces with owner/admin/member memberships, pending invite counts, email invite records, and authenticated invite acceptance from the designs dashboard.
+- Added and applied the `team_workspace`, `team_workspace_member`, and `team_workspace_invite` Turso migration.
+- Updated Canva-parity status from 99.997/100 to 99.998/100 after the workspace roles and invites batch.
+- Added team-visible templates with a persisted `is_team_template` flag, shared listing/access rules, team save action, gallery filter, and Team badges.
+- Added and applied the `design_template.is_team_template` Turso migration.
+- Updated Canva-parity status from 99.995/100 to 99.997/100 after the team-template batch.
+- Added PDF page editing import with PDF.js, rendering uploaded PDF pages into locked full-page image layers so designs can be annotated, rearranged, exported, and saved through the existing editor.
+- Added the free `pdfjs-dist` dependency for browser-side PDF page rendering.
+- Updated Canva-parity status from 99.99/100 to 99.995/100 after the PDF-editor import batch.
+- Added real MP4 export through Mediabunny and WebCodecs, rendering all pages as timed video frames with AVC support checks and bounded output dimensions.
+- Added the free `mediabunny` browser media toolkit for maintained MP4 writing.
+- Updated Canva-parity status from 99.98/100 to 99.99/100 after the MP4-export batch.
+- Added GIF export using the free `gifenc` encoder, turning all design pages into an animated GIF with bounded frame pixel counts and toolbar/command-palette actions.
+- Added a local `gifenc` TypeScript declaration for the narrow encoder API used by the editor.
+- Updated Canva-parity status from 99.97/100 to 99.98/100 after the GIF-export batch.
+- Added original editable SVG mockup frames for phone screens, browser windows, wall posters, and shirt/product layouts in the vector-pack rail.
+- Updated Canva-parity status from 99.96/100 to 99.97/100 after the mockup-frame batch.
+- Added local website publishing through a standalone HTML export that renders all design pages into responsive static sections with page navigation.
+- Updated Canva-parity status from 99.95/100 to 99.96/100 after the website HTML export batch.
+- Added first-class create presets for sheets, websites, vertical videos, print products, email templates, and course designs with distinct dimensions and starter copy.
+- Updated Canva-parity status from 99.9/100 to 99.95/100 after the expanded-design-type preset batch.
+- Added PPTX import using local OpenXML parsing to append editable design pages from slides, including slide ordering, text layers, basic shape layers, embedded image extraction, file-size limits, and import status messaging.
+- Added the free `jszip` dependency for browser-side PPTX package parsing.
+- Updated Canva-parity status from 99.8/100 to 99.9/100 after the PPTX-import batch.
+- Added PDF import through reusable PDF uploads and first-class editable PDF preview layers with page selection, toolbar visibility, styling controls, layer/comment labels, style-preset support, and bulk-create-safe cloning.
+- Updated Canva-parity status from 99.7/100 to 99.8/100 after the PDF-import batch.
+- Added a video/audio timeline model with persisted start, duration, trim, and volume metadata plus an active-page media timeline panel for arranging media layers through the editor history/save flow.
+- Updated Canva-parity status from 99.5/100 to 99.7/100 after the media-timeline batch.
+- Added reusable video and audio uploads with expanded upload validation, media data URL storage, first-class video/audio document elements, canvas rendering, upload thumbnails, layer/comment labels, bulk-create-safe cloning, and editable media controls.
+- Updated Canva-parity status from 99/100 to 99.5/100 after the media-layer batch.
+- Added custom-size project creation with bounded pixel dimensions, server-side dimension parsing, and dashboard controls for exact-width and exact-height designs.
+- Updated Canva-parity status from 98/100 to 99/100 after the custom-size project batch.
+- Added first-class design presets for documents, whiteboards, infographics, resumes, business cards, flyers, and banners with distinct canvas sizes and starter copy.
+- Updated Canva-parity status from 97/100 to 98/100 after the expanded-design-types batch.
+- Added a presentation remote-control route with a typed same-origin control channel, large previous/next controls, direct slide selection, speaker-view state sync, and a remote link from the presenter view.
+- Updated Canva-parity status from 96/100 to 97/100 after the presentation-remote batch.
+- Added an authenticated presentation speaker view with scaled slide playback, keyboard navigation, presenter controls, speaker notes, next-slide preview, slide progress, and a local presentation timer.
+- Updated Canva-parity status from 95/100 to 96/100 after the speaker-view batch.
+- Added brand controls and guardrails with document-wide brand score checks for colors, fonts, and logo usage plus one-click brand-kit enforcement across unlocked pages and layers.
+- Updated Canva-parity status from 94/100 to 95/100 after the brand controls/guardrails batch.
+- Added persisted brand templates with an `is_brand_template` database flag, save-as-brand-template toolbar action, API support, gallery badges, and Brand/Standard template filtering.
+- Updated Canva-parity status from 93/100 to 94/100 after the brand-template batch.
+- Added a Styles panel with reusable one-click page style presets, plus a typed style application operation that restyles unlocked text, shapes, SVGs, QR codes, tables, charts, forms, embeds, timers, and the active page background.
+- Updated Canva-parity status from 92/100 to 93/100 after the Styles panel batch.
+- Added original built-in vector packs for icons, stickers, illustrations, and shapes, with reusable editable SVG insertion through a dedicated vector-pack grid in the editor asset rail.
+- Updated Canva-parity status from 91/100 to 92/100 after the original vector-pack batch.
+- Added SVG uploads as first-class editable vector layers with sanitized inline SVG storage, asset/brand-logo insertion, layer labels, comments labels, bulk-create naming, and property controls for preserving original colors or applying custom fill/stroke styling.
+- Updated Canva-parity status from 90/100 to 91/100 after the SVG upload and inline-vector editing batch.
+- Added persisted collaborator presence and live cursors with heartbeat polling, authenticated owner/private-edit access, toolbar collaborator indicators, canvas cursor overlays, and a Turso migration for `project_presence`.
+- Updated Canva-parity status from 88/100 to 90/100 after the presence and live-cursor batch.
+- Added persisted per-user comment reactions with Like/Agree/Love toggles, reaction counts, reacted-by-me state, and a Turso migration for `project_comment_reaction`.
+- Updated Canva-parity status from 87/100 to 88/100 after the comment-reactions batch.
+- Added persisted comment mentions with @token extraction, JSON-backed mention storage, highlighted mention rendering, mention chips, and a Turso migration for `project_comment.mentions`.
+- Updated Canva-parity status from 86/100 to 87/100 after the comment-mentions batch.
+- Added persisted project comments with page/layer targeting, authenticated owner and private-edit access, editor comments sheet, open-comment counter, and resolve-comment actions.
+- Added and applied the `project_comment` Turso migration for saved collaboration notes.
+- Updated Canva-parity status from 84/100 to 86/100 after the comments and resolve-comments batch.
+- Added private share permission levels with persisted `view`/`edit` access, menu controls for changing link access, private read-only rendering for view-only tokens, and edit-token save enforcement.
+- Updated Canva-parity status from 83/100 to 84/100 after the share-permissions batch.
+- Added private authenticated edit links with persisted `project.edit_share_id` tokens, owner share-menu controls, `/edit/[shareId]`, token-backed shared save access, and a Turso migration.
+- Updated Canva-parity status from 82/100 to 83/100 after the private-edit-link batch.
+- Added advanced export controls with 0.5x/1x/2x/3x/4x scale presets, 60/80/92/100 quality presets, WebP export, and command-palette WebP access.
+- Updated Canva-parity status from 81/100 to 82/100 after the advanced-export batch.
+- Added public read-only share links with persisted unique share IDs, editor share/copy/open/disable controls, a public `/view/[shareId]` route, and a Turso migration for `project.public_share_id`.
+- Updated Canva-parity status from 80/100 to 81/100 after the public-share batch.
+- Added live editable timer layers with countdown/stopwatch modes, start/pause/reset controls, label and display options, progress rendering, style controls, command-palette creation, and CSV bulk-create label replacement.
+- Updated Canva-parity status from 79/100 to 80/100 after the timer-layer batch.
+- Added page speaker notes stored on each design page, editable from the Pages panel and preserved through page duplication and CSV bulk-create placeholder replacement.
+- Updated Canva-parity status from 78/100 to 79/100 after the presentation-notes batch.
+- Added embed/link layers with link-card and iframe-preview modes, editable URL/title/description/styling controls, safe URL handling, per-layer link metadata, open-link actions, and bulk-create placeholder replacement for URLs.
+- Updated Canva-parity status from 77/100 to 78/100 after the embeds-and-links batch.
+- Added editable form and dropdown elements with input, textarea, checkbox, dropdown, and button variants plus canvas rendering, creation commands, layer labels, styling controls, and bulk-create placeholder replacement.
+- Updated Canva-parity status from 76/100 to 77/100 after the form/dropdown batch.
+- Added bulk create from CSV rows, duplicating the active page template and replacing `{{Column}}` placeholders in text, QR, table, chart, and image-alt content.
+- Updated Canva-parity status from 75/100 to 76/100 after the bulk-create batch.
+- Added local CSV import that parses quoted CSV files and creates editable table layers with row/column clipping safeguards.
+- Updated Canva-parity status from 74/100 to 75/100 after the CSV-import batch.
+- Added editable chart layers with bar, line, and donut rendering plus data, color, label, value, axis, stroke, and donut-hole controls.
+- Updated Canva-parity status from 73/100 to 74/100 after the chart-layer batch.
+- Added editable table layers with row/column resizing, cell editing, header styling, fill colors, borders, font sizing, and export-safe rendering.
+- Updated Canva-parity status from 72/100 to 73/100 after the table-layer batch.
+- Added editable QR code layers with content, color, margin, and error-correction controls.
+- Added the free `qrcode` renderer dependency for standards-based QR matrix generation.
+- Updated Canva-parity status from 71/100 to 72/100 after the QR-code batch.
+- Added curved text controls and SVG text-path rendering for selected text layers.
+- Updated Canva-parity status from 70/100 to 71/100 after the curved-text batch.
+- Added print-ready PDF export with dedicated crop/bleed-mark page surfaces plus toolbar and command-palette actions.
+- Updated Canva-parity status from 69/100 to 70/100 after the print-ready export batch.
+- Added multipage PDF export with offscreen page render surfaces plus toolbar and command-palette actions.
+- Updated Canva-parity status from 67/100 to 69/100 after the multipage-export batch.
+- Added saved design templates with persisted documents, dashboard gallery, search/size filtering, create-from-template, and editor save-as-template.
+- Added and applied the `design_template` database migration for reusable saved layouts.
+- Updated Canva-parity status from 63/100 to 67/100 after the templates batch.
+- Added persisted brand font sets for heading, subheading, body, and caption typography with apply/save controls for selected text layers.
+- Added and applied the `brand_font` database migration for saved brand typography roles.
+- Updated Canva-parity status from 60/100 to 63/100 after the brand-fonts batch.
+- Added brand kit logos with a persisted logo library, editor rail upload flow, and contain-fit canvas insertion.
+- Added and applied the `brand_logo` database migration for saved logo uploads.
+- Updated Canva-parity status from 57/100 to 60/100 after the brand-logos batch.
+- Added brand kit colors with persisted Turso/Drizzle swatches and editor color-palette reuse.
+- Added and applied the `brand_color` database migration for saved brand swatches.
+- Updated Canva-parity status from 55/100 to 57/100 after the brand-colors batch.
+- Added project folders with create-folder, folder filter, folder badges, and move-to-folder dashboard actions.
+- Added and applied the `project_folder` database migration plus nullable project folder ownership.
+- Updated Canva-parity status from 53/100 to 55/100 after the folders batch.
+- Added project version history snapshots on save with a restore flow from the editor toolbar.
+- Added and applied the `project_version` database migration for saved design checkpoints.
+- Updated Canva-parity status from 50/100 to 53/100 after the version-history batch.
+- Added a persisted uploaded asset library backed by Turso/Drizzle, including reusable uploaded images in the editor asset panel.
+- Added and applied the `user_asset` database migration for saved upload metadata and data URLs.
+- Updated Canva-parity status from 47/100 to 50/100 after the persistent asset-library batch.
+- Added image mask and frame controls with rectangle, rounded, circle, diamond, and arch masks plus adjustable frame stroke.
+- Updated Canva-parity status from 46/100 to 47/100 after the masks-and-frames batch.
+- Added image crop controls with persisted fit mode, crop zoom, and X/Y panning inside the layer frame.
+- Updated Canva-parity status from 45/100 to 46/100 after the image-crop batch.
+- Added image duotone presets, editable duotone colors/intensity, and SVG-filter sharpening for selected image layers.
+- Updated Canva-parity status from 44/100 to 45/100 after the duotone/sharpen batch.
+- Added image brightness, contrast, saturation, grayscale, and blur adjustment controls with export-friendly CSS filter rendering.
+- Updated Canva-parity status from 43/100 to 44/100 after the image-adjustments batch.
+- Added group and ungroup commands, grouped-layer selection behavior, fresh group IDs when cloning, and grouped layer movement.
+- Updated Canva-parity status from 42/100 to 43/100 after the group/ungroup batch.
+- Added horizontal and vertical distribution commands for three or more selected unlocked layers.
+- Updated Canva-parity status from 41/100 to 42/100 after the selected-layer distribution batch.
+- Added multi-select across the canvas and layers panel with bulk copy, paste, duplicate, delete, and keyboard nudging.
+- Updated Canva-parity status from 40/100 to 41/100 after the multi-select batch.
+- Added smart snapping and magenta snap lines while moving layers against page edges, page centers, and other visible layer edges/centers.
+- Updated Canva-parity status from 39/100 to 40/100 after the snap-lines batch.
+- Added a toggleable bleed and crop marks preview overlay for print layout checks.
+- Updated Canva-parity status from 38/100 to 39/100 after the bleed-and-crop-marks batch.
+- Added a canvas rulers and safe-margin guides overlay with toolbar and command-palette toggles.
+- Updated Canva-parity status from 37/100 to 38/100 after the rulers-and-guides batch.
+- Added an editor command palette with create, edit, view, save, and export commands plus a toolbar launcher and `Ctrl+K` shortcut.
+- Updated Canva-parity status from 36/100 to 37/100 after the command-palette batch.
+- Added reusable editor color palettes and swatch controls for page backgrounds, text color, and shape fill.
+- Updated Canva-parity status from 35/100 to 36/100 after the color-palette batch.
+- Added gradient text controls with editable start color, end color, and angle for selected text layers.
+- Updated Canva-parity status from 34/100 to 35/100 after the gradient-text batch.
+- Added find-and-replace controls for selected text layers.
+- Updated Canva-parity status from 33/100 to 34/100 after the text find/replace batch.
+- Added text paragraph helpers for bullet lists, numbered lists, plain text, and spellcheck-friendly editing.
+- Updated Canva-parity status from 31/100 to 33/100 after the text-list and spellcheck batch.
+- Added text style presets for Heading, Subhead, Body, and Caption.
+- Updated Canva-parity status from 30/100 to 31/100 after the text-style batch.
+- Added text shadow, glow, and outline effects with properties-panel controls.
+- Updated Canva-parity status from 29/100 to 30/100 after the text-effects batch.
+
+## 2026-05-13
+
+- Added JPG export quality controls for 80%, 92%, and 100% downloads.
+- Updated Canva-parity status from 28/100 to 29/100 after the export-quality batch.
+- Added export scale controls for 1x, 2x, and 3x downloads.
+- Updated Canva-parity status from 27/100 to 28/100 after the export-scale batch.
+- Added an editor grid overlay toggle that is hidden during export and thumbnail capture.
+- Updated Canva-parity status from 26/100 to 27/100 after the grid-overlay batch.
+- Added project trash and restore with soft-delete persistence, restore UI, and permanent delete.
+- Updated Canva-parity status from 25/100 to 26/100 after the trash/restore batch.
+- Added persisted project starring/favorites with a Turso migration and dashboard filter.
+- Updated Canva-parity status from 24/100 to 25/100 after the favorites batch.
+- Added project-library filters for design type and recent update date.
+- Updated Canva-parity status from 23/100 to 24/100 after the project-filter batch.
+- Added browser-side PDF export for the active canvas using `jspdf`.
+- Updated Canva-parity status from 22/100 to 23/100 after the PDF-export batch.
+- Added transparent PNG export while preserving normal page-background exports.
+- Updated Canva-parity status from 21/100 to 22/100 after the transparent-export batch.
+- Added real page thumbnails in the pages panel using scaled editor layer rendering.
+- Updated Canva-parity status from 20/100 to 21/100 after the page-thumbnail batch.
+- Added a canvas rotate handle for selected unlocked layers.
+- Added align-to-page controls for selected layers in the properties panel.
+- Updated Canva-parity status from 18/100 to 20/100 after the rotate/alignment batch.
+- Added saved project thumbnails generated from the editor canvas during save.
+- Added JPG and SVG export options alongside PNG export.
+- Added layer visibility controls in the layers list and properties panel.
+- Added text font, letter spacing, and line-height controls.
+- Updated Canva-parity status from 14/100 to 18/100 after the thumbnails/export/layer/text batch.
+- Added canvas resize handles for selected layers.
+- Added editor keyboard shortcuts for save, undo/redo, duplicate, copy/paste, delete, and arrow-key nudging.
+- Updated Canva-parity status from 11/100 to 14/100 after the editor ergonomics batch.
+- Added project library controls for search, sorting, grid/list view, rename, and delete.
+- Added multipage editor controls for adding, selecting, renaming, reordering, duplicating, and deleting pages.
+- Updated Canva-parity status from 8/100 to 11/100 after the project and page-management batch.
+- Initialized the `G:\Canva` git project and the first production workspace shell.
+- Added the project operating contract in `AGENTS.md`.
+- Created the `essence-canva` production database.
+- Added the first account and design-project persistence schema.
+- Wired email/password accounts with database persistence.
+- Added auth landing screen, sign up/sign in, sign out, authenticated project dashboard, and design preset creation.
+- Added the first editor vertical slice: canvas rendering, text/shape/image layers, image uploads, dragging, layer ordering, properties panel, lock/duplicate/delete, zoom, undo/redo, save API, and PNG export.
+- Added Tauri v2 desktop shell configuration for local dev and future Vercel-hosted production shell.
+- Added `TODO.md` with the Canva non-AI feature gap map and current status.

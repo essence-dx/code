@@ -1,0 +1,168 @@
+{
+  "schema": "dx.build.graph.consumerSnapshot",
+  "sourceSchema": "dx.build.graph",
+  "generatedAt": "2026-06-10T14:06:24.286140200+00:00",
+  "coreConceptMap": {
+    "conceptCount": 9,
+    "coveredNodeKinds": [
+      "deploy-output",
+      "dx-check-receipt",
+      "dx-style-css",
+      "forge-surface",
+      "public-asset",
+      "route-shell-chunk",
+      "source-module",
+      "source-module-chunk",
+      "tsx-component",
+      "tsx-route"
+    ],
+    "coveredEdgeKinds": [
+      "checks",
+      "compiled-from-source",
+      "emits",
+      "emitted-from",
+      "expects-receipt",
+      "imports",
+      "imports-source-module",
+      "links-entry-module",
+      "maps-generated-to-source",
+      "owns-source"
+    ],
+    "nodeModulesRequired": false,
+    "adapterBoundary": true,
+    "publicArchitecture": false
+  },
+  "graph": {
+    "nodeCount": 713,
+    "edgeCount": 1347,
+    "nodeKindCounts": {
+      "app-route-handler": 2,
+      "image-placeholder-asset": 5,
+      "public-asset": 5,
+      "route-shell-chunk": 5,
+      "server-data-route": 5,
+      "source-module": 290,
+      "source-module-chunk": 396,
+      "tsx-route": 5
+    },
+    "styleOptimization": {
+      "styleNodeCount": 0,
+      "originalRuleCount": 0,
+      "retainedRuleCount": 0,
+      "prunedRuleCount": 0,
+      "minifiedStyleCount": 0,
+      "sourceMapCount": 0,
+      "sourceMapSourceCount": 0,
+      "sourceMapSourceHashCount": 0,
+      "sourceMapEntryStyleSourceCount": 0,
+      "sourceMapFlattenedImportSourceCount": 0,
+      "sourceMapRetainedImportSourceCount": 0,
+      "sourceMapSegmentCount": 0,
+      "sourceMapExactSegmentMapCount": 0,
+      "sourceMapEvidenceOnlyCount": 0,
+      "sourceMapLinkCount": 0,
+      "sourceMapHashCount": 0,
+      "sourceMapArtifactCount": 0,
+      "flattenedImportCount": 0,
+      "retainedImportCount": 0,
+      "assetReferenceCount": 0,
+      "entryStyleAssetReferenceCount": 0,
+      "flattenedImportAssetReferenceCount": 0,
+      "retainedImportAssetReferenceCount": 0
+    },
+    "imageOptimization": {
+      "imageAssetCount": 5,
+      "metadataAssetCount": 5,
+      "optimizedVariantCount": 0,
+      "placeholderCount": 5,
+      "placeholderArtifactCount": 5,
+      "placeholderArtifactBytes": 835,
+      "placeholderArtifactOutputs": [
+        ".dx/www/output/image-placeholders/public/file-55d18071bb95ebe0.placeholder.svg",
+        ".dx/www/output/image-placeholders/public/globe-55d18071bb95ebe0.placeholder.svg",
+        ".dx/www/output/image-placeholders/public/next-df544db0b85b546a.placeholder.svg",
+        ".dx/www/output/image-placeholders/public/vercel-75ab8b31044bec57.placeholder.svg",
+        ".dx/www/output/image-placeholders/public/window-55d18071bb95ebe0.placeholder.svg"
+      ],
+      "placeholderArtifactEdgeCount": 5,
+      "routeReferenceCount": 0,
+      "styleReferenceCount": 0,
+      "formatCounts": {
+        "svg": 5
+      },
+      "dimensionSourceCounts": {
+        "svg-viewbox": 5
+      },
+      "status": "metadata-plus-placeholder-artifacts-boundary",
+      "fullPipelineParity": false
+    },
+    "serverData": {
+      "routeCount": 5,
+      "entryCount": 0,
+      "statusCounts": {
+        "no-loader-bindings": 5
+      },
+      "emitsEdgeCount": 5,
+      "linksEdgeCount": 5,
+      "routesWithRouteParams": 3,
+      "routesWithSearchParams": 0,
+      "routeParamKeys": [
+        "token"
+      ],
+      "searchParamKeys": [],
+      "nodeModulesRequired": false,
+      "lifecycleScriptsExecuted": false,
+      "sourceOwnedContract": true,
+      "externalRuntimeRequired": false,
+      "externalRuntimeExecuted": false
+    },
+    "contentPipeline": {
+      "documentCount": 0,
+      "mdxDocumentCount": 0,
+      "nodeModulesRequired": false,
+      "runtimeProof": false
+    },
+    "ecmascriptAnalysis": {
+      "sourceModuleCount": 396,
+      "dynamicImportCount": 0,
+      "dynamicImportOptionBoundaryCount": 0,
+      "dynamicImportOptionUnsupportedCount": 0,
+      "unresolvedDynamicImportCount": 0,
+      "unsupportedDynamicImportCount": 0,
+      "unsupportedDynamicImportReasonCounts": {},
+      "dynamicImportAnalysisStatusCounts": {
+        "none-observed": 396
+      },
+      "clientBoundaryCount": 72,
+      "serverBoundaryCount": 5,
+      "topLevelAwaitCount": 0,
+      "nextRuntimeRequired": false,
+      "reactRuntimeRequired": false,
+      "rscRequired": false,
+      "nodeModulesRequired": false,
+      "fullNextjsParity": false
+    }
+  },
+  "invalidation": {
+    "changedNodeIds": [],
+    "affectedNodeIds": [],
+    "emittedOutputNodeIds": [],
+    "emittedOutputArtifacts": [],
+    "rebuildNodeIds": [],
+    "changedRoutes": [],
+    "affectedRoutes": [],
+    "rebuildRoutes": []
+  },
+  "consumers": {
+    "zedPreview": {
+      "primaryField": "invalidation.affectedNodeIds",
+      "fallbackField": "graph.nodeKindCounts",
+      "routeShellChunkKind": "route-shell-chunk",
+      "sourceModuleKind": "source-module",
+      "sourceModuleChunkKind": "source-module-chunk"
+    },
+    "dxCli": {
+      "primaryField": "graph.nodeKindCounts"
+    }
+  }
+}

@@ -194,7 +194,7 @@ impl StatusBar {
                         move |this, _, window, cx| {
                             let workspace = this.active_pane.read(cx).workspace();
                             if let Some(workspace) = workspace.upgrade() {
-                                workspace.update(cx, |workspace, cx| {
+                                workspace.update(cx, |_workspace, cx| {
                                     window.dispatch_action(
                                         Box::new(crate::OpenWebPreview { project: id.clone() }),
                                         cx,

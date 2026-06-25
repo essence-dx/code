@@ -1,0 +1,28 @@
+# Dependency and package manager caches
+node_modules
+.pnp
+.pnp.*
+.yarn
+
+# Local framework outputs
+.next
+out
+build
+coverage
+*.tsbuildinfo
+next-env.d.ts
+
+# Desktop/Tauri build artifacts are not part of the Vercel web deploy.
+src-tauri
+
+# Local data, logs, and generated screenshots
+local.db
+local.db-*
+*.log
+deployment-screenshot.png
+
+# Secrets and local deployment metadata
+.env*
+!.env.example
+.vercel
+.git

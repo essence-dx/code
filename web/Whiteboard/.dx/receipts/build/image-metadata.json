@@ -1,0 +1,121 @@
+{
+  "schema": "dx.www.imageMetadataReceipt",
+  "schema_revision": 1,
+  "generatedAt": "2026-06-20T10:50:17.094699+00:00",
+  "projectRoot": "G:/Dx/code/web/Whiteboard",
+  "receiptPath": ".dx/receipts/build/image-metadata.json",
+  "summary": {
+    "image_assets": 2,
+    "metadata_assets": 2,
+    "optimized_variants_emitted": 0,
+    "placeholders_emitted": 2,
+    "route_references": 1,
+    "style_references": 0,
+    "formats": {
+      "svg": 2
+    },
+    "dimension_sources": {
+      "svg-viewbox": 2
+    },
+    "node_modules_required": false
+  },
+  "boundary": {
+    "owner": "DX-WWW source engine",
+    "reference": "turbopack-image",
+    "optimization": "metadata-plus-placeholder-artifacts-no-resize-or-encoding",
+    "placeholder_generation": "svg-artifact-placeholders-when-dimensions-known",
+    "full_pipeline_parity": false
+  },
+  "upstream_reference": {
+    "name": "Turbopack Image",
+    "crate": "turbopack-image",
+    "inspected_files": [
+      "vendor/next-rust/turbopack/crates/turbopack-image/src/process/mod.rs",
+      "vendor/next-rust/turbopack/crates/turbopack-image/src/process/svg.rs"
+    ]
+  },
+  "assets": [
+    {
+      "path": "public/favicon.svg",
+      "output": ".dx/www/output/public/favicon-7d0544ca766ee079.svg",
+      "hash": "7d0544ca766ee079",
+      "bytes": 466,
+      "image_metadata": {
+        "format": "svg",
+        "mime_type": "image/svg+xml",
+        "width": 64,
+        "height": 64,
+        "dimension_source": "svg-viewbox",
+        "status": "metadata-read",
+        "optimization": {
+          "status": "metadata-plus-svg-placeholder",
+          "variants_emitted": 0,
+          "optimizer_invoked": false,
+          "resize_emitted": false,
+          "encoding_emitted": false,
+          "blur_placeholder_emitted": false,
+          "placeholder": {
+            "kind": "svg-placeholder-data-url",
+            "data_url": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2264%22%20height%3D%2264%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f3f4f6%22%2F%3E%3C%2Fsvg%3E",
+            "width": 64,
+            "height": 64,
+            "bytes": 286,
+            "source": "dx-source-owned-svg-placeholder",
+            "output": ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-95cdf2c6b75c0830.placeholder.svg",
+            "hash": "95cdf2c6b75c0830",
+            "artifact_bytes": 165
+          },
+          "boundary": "metadata-plus-svg-placeholder-no-resize-or-encoding",
+          "informed_by": [
+            "turbopack-image::process::get_meta_data",
+            "turbopack-image::process::svg"
+          ]
+        }
+      },
+      "referenced_by_routes": [],
+      "referenced_by_styles": [],
+      "node_modules_required": false
+    },
+    {
+      "path": "public/icon.svg",
+      "output": ".dx/www/output/public/icon-1f5e3f2581bd66f8.svg",
+      "hash": "1f5e3f2581bd66f8",
+      "bytes": 487,
+      "image_metadata": {
+        "format": "svg",
+        "mime_type": "image/svg+xml",
+        "width": 180,
+        "height": 180,
+        "dimension_source": "svg-viewbox",
+        "status": "metadata-read",
+        "optimization": {
+          "status": "metadata-plus-svg-placeholder",
+          "variants_emitted": 0,
+          "optimizer_invoked": false,
+          "resize_emitted": false,
+          "encoding_emitted": false,
+          "blur_placeholder_emitted": false,
+          "placeholder": {
+            "kind": "svg-placeholder-data-url",
+            "data_url": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22180%22%20height%3D%22180%22%20viewBox%3D%220%200%20180%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f3f4f6%22%2F%3E%3C%2Fsvg%3E",
+            "width": 180,
+            "height": 180,
+            "bytes": 290,
+            "source": "dx-source-owned-svg-placeholder",
+            "output": ".dx/www/output/.dx/build-cache/image-placeholders/public/icon-653d1ed174ed39da.placeholder.svg",
+            "hash": "653d1ed174ed39da",
+            "artifact_bytes": 169
+          },
+          "boundary": "metadata-plus-svg-placeholder-no-resize-or-encoding",
+          "informed_by": [
+            "turbopack-image::process::get_meta_data",
+            "turbopack-image::process::svg"
+          ]
+        }
+      },
+      "referenced_by_routes": [],
+      "referenced_by_styles": [],
+      "node_modules_required": false
+    }
+  ]
+}

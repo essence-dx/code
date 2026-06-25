@@ -1,0 +1,395 @@
+# Changelog
+
+## 0.1.0 - 2026-05-13
+
+- Added worksheet object selection handles with pointer drag, keyboard move/resize controls, alignment guides, and connector shape insertion for worksheet images, shapes, connectors, and text boxes.
+- Added embedded chart worksheet anchors so charts render in the grid canvas with selection handles, pointer move/resize, keyboard move/resize, alignment guides, and native 3D chart export placement.
+- Completed the current enterprise Excel-parity 100-point batch and opened the next professional hardening feature set in `TODO.md`.
+- Added Excel-style keyboard parity for Ctrl+PageUp/Ctrl+PageDown worksheet navigation and Alt+= AutoSum insertion, backed by focused shortcut and editing checks.
+- Added richer native Excel object indexing for SVG icons, drawing shapes, connectors, worksheet form controls, and embedded objects so XLSX/XLSM imports surface reviewable metadata while preserving package round-trips.
+- Added projected 3D chart rendering for supported bar, stacked bar, pie, and surface charts, including SVG export support and native XLSX/XLSM chart/drawing OOXML generation for round-trip reimport as 3D chart metadata.
+- Added deeper data-model view features with persisted hierarchies, KPI status fields, perspectives, configurable segmented columnar storage, PivotTable source materialization, side-panel management controls, and focused model-view checks.
+- Added editable data-bar and icon-set conditional-format controls with normalized low/high thresholds, rule-panel color controls, threshold-aware rendering, and focused regression checks.
+- Added PivotTable-scoped conditional formatting for value cells and labels, including live range resolution, refresh synchronization, side-panel creation presets, workbook normalization, and focused regression checks.
+- Added workbook-level managed cell style editing from the toolbar and theme panel, including stable style IDs, save-by-name updates, rename/update actions from the current selection, delete protection for built-in styles, and focused workbook-theme checks.
+- Added formula-aware multi-cell range edits so Ctrl+Enter and selection-fill commands shift relative references from the active cell while preserving locked formula axes.
+- Added Ctrl+Enter as a configurable keyboard shortcut for filling the selected range from the active cell, with focused multi-cell edit and shortcut checks.
+- Added workbook window views so the grid shell can open up to four worksheet windows, switch the active window, close secondary windows, and render separate sheets side by side from the existing toolbar.
+- Added focused workbook-window state checks covering duplicate prevention, activation, close fallback, sheet labels, and the four-window cap.
+- Added clipboard image paste into anchored worksheet image objects with PNG, JPEG, GIF, WebP, and SVG sanitization plus workbook portability size limits.
+- Added deeper spreadsheet clipboard metadata so normal range copy/paste can duplicate charts, anchored objects, comments, hyperlinks, merged ranges, conditional formats, and data validation ranges with target offsets.
+- Added disabled Excel 4.0 macro-sheet package preservation so imported XLSM macro-sheet payloads, workbook relationships, workbook entries, and content types survive round-trip export without execution.
+- Added golden import/export fidelity fixtures covering XLSX, XLSM, ODS, XLTX, and XLTM first import plus re-export regression checks.
+- Completed the production-readiness 100-point batch and opened the next enterprise Excel-parity feature set in `TODO.md`.
+- Added workbook audit CSV exports, share/access report CSV downloads with redacted share-token previews, and dashboard audit CSV/JSON downloads.
+- Added dashboard activity review summaries for audit categories and actors, backed by focused report-export checks.
+- Added offline-first workbook recovery checkpoints for autosaved drafts, successful saves, local-file opens, and save-conflict snapshots.
+- Improved the local/offline workbook menu with recoverable checkpoint restore entries and conflict-safe restore messaging.
+- Added spreadsheet accessibility hardening with active-cell element IDs, roving cell tab stops, screen-reader cell descriptions, live selection summaries, and grid keyboard instructions.
+- Improved high-contrast, forced-colors, reduced-motion, and workbook accessibility audit coverage for hidden structure, hidden gridlines, and unclear validation prompts.
+- Added chart editor parity controls for chart templates, series names/colors/visibility, combo secondary-axis assignment, axis bounds, structured error bars, and trendline equation display.
+- Improved chart rendering and normalization so chart editor settings persist through workbook normalization and affect visible chart output.
+- Added Excel-grade data validation list sources with inline, range-backed, and parent-dependent dropdown options.
+- Added validation prompt, error-alert, error-style, ignore-blank, and invalid-cell circle controls with manager presets and invalid-rule counts.
+- Added a conditional-formatting manager with quick color-scale, data-bar, icon-set, duplicate, top, and bottom presets plus rule duplication and top/bottom priority controls.
+- Added conditional-format overlap analysis so the side panel shows which rules override earlier rules or are affected by later conflicting rules.
+- Added connector credential status metadata, classified refresh diagnostics, retryable error history, next-retry tracking, and clearer saved-query status badges.
+- Improved URL connector refresh errors so blocked redirects, private hosts, oversized responses, and fetch failures are recorded as actionable diagnostics.
+- Added synchronized PivotTable workflow controls so table-backed PivotTables and drill-down sheets honor source table slicers and timelines, with automatic refresh when those controls change.
+- Improved PivotTable field-list ergonomics with searchable fields, assigned-area badges, active synced-control badges, and a focused `scripts/check-pivot-workflows.ts` regression check.
+- Added a deeper formula compatibility pack with `LET` variable rewriting, inline `LAMBDA` invocation rewriting, and `LET`-bound inline lambda evaluation before HyperFormula execution.
+- Added dynamic array support for `TAKE`, `DROP`, `CHOOSECOLS`, and `CHOOSEROWS`, including negative row/column indexes and nested dynamic-array inputs such as sliced `SEQUENCE` results.
+- Improved spill handling so later dynamic arrays treat earlier spill output as occupied cells when detecting conflicts.
+- Added `scripts/check-formula-compatibility-pack.ts` to verify the new formula compatibility behavior alongside existing dynamic-array and function coverage checks.
+- Added release readiness automation that verifies Tauri version sync, bundle configuration, scoped desktop permissions, release scripts, and preview smoke-check wiring without building or deploying.
+- Added signed Tauri release manifest generation for packaged artifacts using SHA-256 artifact digests and an explicit `ESSENCE_EXCEL_RELEASE_SIGNING_SECRET`.
+- Added preview deployment smoke-check automation for `/`, `/auth`, and `/desktop` with production-copy regression checks.
+- Completed the current future Excel-parity 100-point batch and opened the next production-readiness 100-point set in `TODO.md`.
+- Added localized formula function aliases for German, French, and Spanish so supported translated names canonicalize for calculation and display back in the user's locale.
+- Added workbook calendar-system settings with Gregorian, Gregorian 1904, Hijri, and Buddhist options in calculation settings.
+- Improved right-to-left formula bar layout so the formula input and suggestion popover align with RTL sheet mode while preserving left-to-right formula editing.
+- Expanded formula locale checks to cover translated function names and workbook calendar-system normalization.
+- Added signed add-in package manifests with deterministic package digests, verified/invalid/unsigned status, and explicit owner enablement before execution.
+- Added a workbook add-in sandbox runtime that executes only whitelisted package commands through workbook permissions and records last-run status.
+- Updated the add-in side-panel controls with signature badges, enable/disable actions, sandbox run actions, package digest display, and last-run feedback.
+- Expanded automation runtime checks to verify signed package normalization, disabled-package blocking, explicit enablement, sandbox execution, and tamper detection.
+- Added persisted chart data table formatting with chart-panel controls, shadcn table display, workbook normalization, workbook statistics, compatibility reporting, and SVG chart export support.
+- Added 3D chart compatibility metadata for app-created charts, including rotation, perspective, depth, and workbook-level reporting without pretending to render true native 3D charts yet.
+- Added native imported chart XML inspection for 3D chart type, data-table, and `view3D` metadata while preserving the original OOXML chart payload for XLSX/XLSM round-trips.
+- Expanded chart formatting and native object checks to verify data table export, 3D metadata normalization, and re-imported native 3D chart metadata.
+- Added native Excel object indexing for imported OOXML charts, images, OLE objects, form controls, and drawing anchors so preserved package parts are reviewable workbook metadata rather than only opaque payloads.
+- Added chart package-part preservation for `xl/charts/*` payloads and workbook custom properties that report native imported object counts.
+- Updated compatibility, inspection, and workbook statistics panels to surface native Excel objects as disabled round-trip/security metadata.
+- Added `scripts/check-native-object-roundtrip.ts` to verify imported chart, image, and OLE metadata survives XLSX export and is rediscovered on re-import.
+- Added Flash Fill-style completion that learns deterministic templates from nearby examples for names, text tokens, dates, structured identifiers, and row-wise patterns, with toolbar and Ctrl+E shortcut access.
+- Added `scripts/check-flash-fill.ts` to verify text rearrangement, structured identifier extraction, date formatting, and row-oriented Flash Fill.
+- Added touch-first spreadsheet selection affordances with coarse-pointer range handles, pointer hit-testing across virtualized cells, and a mobile command bar for edit, fill down, fill right, and clear actions.
+- Added `scripts/check-touch-selection.ts` to verify touch range anchor, resize, and label behavior.
+- Added `.xltx` and `.xltm` template import/export, imported OOXML workbook protection metadata preservation, dashboard template imports, and a workbook recovery import flow that can salvage worksheet values and formulas from damaged OOXML packages.
+- Added `scripts/check-template-recovery-imports.ts` to verify template content types, template imports, password-protection metadata extraction, and package-level recovery for corrupted workbook XML.
+- Added a practical large-data-model path with columnar dictionary compression for workbook tables, relationship lookup indexes for joined PivotTable fields, streamed record refresh from compressed columns, and data-model storage stats in the side panel.
+- Added `scripts/check-large-data-model.ts` to verify compressed table storage, normalized relationship indexes, PivotTable refresh through related model fields, and workbook-level model statistics.
+- Added deterministic workbook custom functions that expand enabled workbook definitions into formula evaluation using `ARG1`-style placeholders, block volatile or external calls, surface custom function suggestions in the formula bar, and invalidate recalculation plans when definitions change.
+- Added `scripts/check-custom-function-evaluation.ts` to verify numeric and text custom functions, unsafe custom-function blocking, incremental dependent recalculation, and full recalculation on definition edits.
+- Added browser-safe Excel-scale sheet mode with 1,048,576-row and 16,384-column limits, normalization clamps, cached grid index lists, side-panel enablement, and used-range CSV/TSV exports for oversized sheets.
+- Added `scripts/check-sheet-scale-strategy.ts` to verify Excel-scale dimensions, XFD column addressing, normalization clamps, sparse export behavior, and index cache reuse.
+- Added an authenticated server-backed collaboration transport with persisted remote cursor snapshots, idempotent workbook collaboration event queues, offline replay storage for save/conflict events, and coediting status in the workbook presence bar.
+- Added `scripts/check-collaboration-transport.ts` to verify collaboration event normalization, cursor handling, payload bounds, and sync request cleanup.
+- Added a permission-gated workbook automation runtime that replays supported recorded cell, formatting, structure, sort, and cleanup commands.
+- Added custom function and add-in manifest registries for workbook-safe extension metadata.
+- Updated the automation panel with script run controls, permission badges, custom function management, and add-in registration.
+- Added automation runtime checks for permission denial, safe replay, custom function normalization, and add-in manifest normalization.
+- Added owner-managed protected ranges that restrict collaborator edits by email while preserving owner access.
+- Added tracked cell-change history with pending, accepted, and rejected review states plus rejection restore behavior.
+- Added protected-range and tracked-change review panels to the workbook side rail with select, accept, reject, and delete workflows.
+- Added targeted protected-range and tracked-change checks covering edit permissions, review decisions, deletion, and normalization.
+- Added advanced cell text formatting with in-cell rich text runs, vertical alignment, rotated text, vertical text, and shrink-to-fit controls.
+- Updated grid rendering, row-height handling, HTML/clipboard/print exports, PNG range copy, workbook normalization, and edit cleanup to preserve or clear advanced cell text formatting correctly.
+- Added targeted advanced-cell-text checks for rich run creation, style normalization, clipboard HTML metadata, and print HTML output.
+- Split the default web build from the desktop export build so Vercel/server mode stays dynamic while Tauri production packaging uses `ESSENCE_EXCEL_RUNTIME=desktop`.
+- Added a static `/desktop` workbook route with local workbook editing, formula entry, sheet tabs, and local backup open/save for packaged Tauri use without auth or database dependencies.
+- Added Tauri packaging checks, generated native icon assets, and fixed the Rust library entrypoint so `cargo check` validates the desktop shell.
+- Added active-session workbook presence with live sheet/range cursors, dirty-state indicators, and stale-session pruning across open editor sessions.
+- Added a save-conflict review alert with explicit reload-server-copy and overwrite-server-copy actions so autosave conflicts are easier to reconcile.
+- Added `scripts/check-workbook-presence.ts` to verify presence channel naming, range labels, display names, color stability, and stale-session pruning.
+- Added advanced chart variants for stacked bar, 100% stacked bar, waterfall, funnel, histogram, box-and-whisker, treemap, sunburst, surface, and map-style charts.
+- Added chart variant data adapters, focused renderers, SVG export support, workbook serialization coverage, and toolbar insertion actions for the new chart types.
+- Added `scripts/check-chart-variants.ts` to verify chart variant data extraction, SVG export output, workbook normalization, and default chart metadata.
+- Added disabled OOXML package-part preservation for XLSX/XLSM imports, including custom XML, external links, workbook connections, drawings, embedded objects, form-control metadata, ActiveX metadata, content types, and relationships.
+- Added XLSX round-trip checks that verify unsupported package payloads, workbook references, worksheet drawing markup, relationships, and content type metadata survive export.
+- Updated workbook compatibility and inspection reports to show preserved unsupported package parts as reviewable round-trip/security metadata instead of claiming they are lost.
+- Initialized `essence-excel` with Next.js 16, React 19, Bun, Tailwind CSS v4, and shadcn/ui.
+- Created the Turso database `essence-excel` and local ignored environment configuration.
+- Added Better Auth email/password wiring with Drizzle and Turso.
+- Added Drizzle schema for auth tables and workbook persistence.
+- Added protected auth, workbook list, and workbook editor routes.
+- Added editable spreadsheet grid, formula bar, sheet tabs, CSV import/export, undo/redo, and HyperFormula calculation.
+- Added workbook rename, duplicate, delete, and debounced editor autosave.
+- Added persisted dashboard workbook favorites with favorite-first sorting.
+- Added recent workbook tracking based on last-opened time.
+- Added persisted workbook folder labels with dashboard move-to-folder controls.
+- Added persisted workbook description and tags with dashboard properties controls.
+- Added manual workbook version snapshots with restore and delete controls.
+- Added persisted restore audit log entries when workbook versions are restored.
+- Added rate-limited automatic workbook checkpoints before autosave persists dirty changes.
+- Added stale-save conflict detection that pauses autosave and requires explicit overwrite.
+- Added row virtualization and increased default sheets to 1,000 rows and 52 columns.
+- Added active-cell copy and TSV/plain-text paste into the selected cell.
+- Added range selection, multi-cell TSV copy/paste, range delete, and range-aware bold/italic formatting.
+- Added range-aware underline formatting with HTML copy/paste/export preservation.
+- Added range-aware strikethrough formatting with HTML copy/paste/export preservation.
+- Added same-app rich range copy/paste that preserves styles and shifts relative formula references.
+- Added rich HTML table data to copied ranges for better external spreadsheet and web-app paste compatibility.
+- Added selected-range PNG image copy for browser clipboard image export support.
+- Added paste-special choices for all, values, formulas, and formats from the internal rich clipboard.
+- Added copy-visible-cells support for compact filtered-result TSV, HTML, and rich same-app clipboard payloads.
+- Added extract-visible-cells support that copies filtered selected results into the next open columns.
+- Added HTML table clipboard paste for copied web and spreadsheet tables.
+- Added basic formula and style preservation for pasted HTML tables.
+- Added paste-transposed support for clipboard text.
+- Added selected-range fill down, fill right, and numeric fill-series commands.
+- Added fill-handle dragging for range copy and numeric series extension.
+- Added persistent column resizing stored inside workbook documents.
+- Added persistent hidden rows and hidden columns with toolbar hide/unhide controls.
+- Added selected row/column insert and delete operations with cell and column-width shifting.
+- Added range-aware alignment, fill color, text color, and number format controls.
+- Added a clear-formatting command that strips selected cell styles without deleting values or formulas.
+- Added currency, percent, and date display formatting.
+- Added accounting number formatting for selected ranges, display values, and HTML clipboard/export metadata.
+- Added sheet rename, duplicate, and delete controls.
+- Added `.xlsx` workbook import and export through SheetJS.
+- Added macro-enabled `.xlsm` workbook import and export for non-VBA sheet content through SheetJS.
+- Added legacy `.xls` workbook import and export through the SheetJS BIFF8 path.
+- Added dashboard-level `.xlsx`, `.xlsm`, `.xls`, and `.ods` import that creates a new persisted workbook.
+- Added `.ods` OpenDocument Spreadsheet import and export through SheetJS.
+- Added active-sheet TSV import and export.
+- Added workbook JSON import and export with document normalization.
+- Added workbook metadata export/import through SheetJS workbook properties and custom properties where supported.
+- Added SheetJS number-format preservation for common currency, accounting, percent, and date formats.
+- Added active-sheet HTML export with computed values, formulas, hidden rows/columns, column widths, and cell styles.
+- Added active-sheet printing through the full HTML export path for browser print and save-to-PDF workflows.
+- Added persisted active-sheet print setup for orientation, print area, row and column page breaks, margins, scale, repeated first row, repeated first column, gridlines, header text, and footer text.
+- Added active-sheet print preview using the same HTML output as browser printing.
+- Added page-break guide overlays for persisted row and column breaks in the active grid.
+- Added direct active-sheet PDF export that respects print area, orientation, margins, scaling, headers, footers, and manual page breaks.
+- Added editable A1-style print area references with validation in the print setup panel.
+- Added draggable row and column page-break handles in page-break preview.
+- Added active-sheet SpreadsheetML XML export with computed values, column widths, and hidden row/column metadata.
+- Added formula bar autocomplete for common functions.
+- Added formula bar autocomplete for active-sheet named ranges.
+- Added clearer formula error labels for HyperFormula errors.
+- Added locale-aware formula entry, display, and import normalization for semicolon argument separators and decimal-comma formulas.
+- Added a formula audit panel with precedent reference listing and same-sheet reference highlighting.
+- Added formula error review for active-sheet error formulas with click-to-select navigation.
+- Added in-sheet find and replace with highlighted matches, next/previous navigation, and replace-all.
+- Added persisted bar and line charts generated from selected ranges.
+- Added selected-range ascending and descending sort.
+- Added persistent conditional formatting rules with active-sheet rule removal.
+- Added duplicate-value conditional formatting for selected ranges.
+- Added top/bottom value conditional formatting for selected ranges.
+- Added two-color scale conditional formatting for numeric selected ranges.
+- Added data-bar conditional formatting for numeric selected ranges.
+- Added basic icon-set conditional formatting for numeric selected ranges.
+- Added formula-based conditional formatting for selected ranges with relative cell references.
+- Added conditional-format rule manager controls for selecting rule ranges, replacing ranges with the current selection, and changing rule order.
+- Added persistent data validation rules with invalid-cell markers.
+- Added custom-formula data validation with relative references across selected ranges.
+- Added date-before and date-after data validation rules.
+- Added optional input and error messages for data validation rules.
+- Added selected-cell dropdown controls for list data validation rules.
+- Added an invalid-data review panel with click-to-select invalid cells.
+- Added data validation manager controls for selecting ranges and replacing ranges with the current selection.
+- Added persistent selected-range filters with virtualized hidden-row rendering.
+- Added expanded selected-range filters with blank, not equal, starts/ends with, does-not-contain, and inclusive numeric operators.
+- Added searchable selected-value filter pick lists for selected columns.
+- Added direct worksheet and structured-table column header menus for searchable value filtering.
+- Added advanced selected-range filters with two persisted criteria and AND/OR matching.
+- Added persisted named header labels for selected-range filters and filter manager summaries.
+- Added one-row criteria-range filtering that matches named criteria headers to the data region above the selected criteria block.
+- Added multi-row criteria-range filtering with OR groups across criteria rows and AND matching within each row.
+- Added saved active-sheet filter presets that can be reapplied or deleted from the rules panel.
+- Added an explicit reapply-filters command in the active-sheet filter manager.
+- Added filter manager controls for selecting ranges and replacing ranges with the current selection.
+- Added custom selected-range sorting by any column in the selected range.
+- Added two-level custom sorting by primary and secondary selected-range columns.
+- Added custom sort orders for months, weekdays, and quarters.
+- Added view-level sheet zoom controls from 75% to 150% with scaled grid rows, columns, and cell text.
+- Added a view-level freeze-first-column toggle for horizontal spreadsheet scrolling.
+- Added a view-level freeze-first-row toggle for vertical spreadsheet scrolling.
+- Added pie chart creation and rendering for selected label/value ranges.
+- Added basic chart data labels for bar, line, and pie charts.
+- Added area chart creation and rendering for selected label/value ranges.
+- Added scatter chart creation and rendering for selected numeric X/Y ranges.
+- Added basic linear trendline rendering for scatter charts.
+- Added bubble chart creation and rendering for selected X/Y/size ranges.
+- Added radar chart creation and rendering for selected label/value ranges.
+- Added combo chart creation and rendering for selected label/column/line ranges.
+- Added stock candlestick chart creation and rendering for selected OHLC ranges.
+- Added persistent chart template presets for standard, presentation, and monochrome chart styling.
+- Added chart manager controls for editable titles and data-label toggles.
+- Added chart manager axis and legend visibility controls.
+- Added persistent line sparklines rendered inside target cells next to selected data ranges.
+- Added persistent per-cell notes with grid markers and side-panel management.
+- Added persistent per-cell hyperlinks with grid markers and side-panel management.
+- Added safer cell hyperlink normalization for web URLs, email addresses, and phone links.
+- Added an Excel-style selected-range summary beside the sheet tabs.
+- Added range-aware all-borders, outline-border, and clear-border formatting.
+- Added range-aware wrap text with taller virtualized rows.
+- Added range-aware font family formatting with safe spreadsheet-oriented font choices.
+- Added range-aware font size formatting.
+- Added a cell style preset menu for reusable header, total, input, good, bad, and neutral styles.
+- Added persistent named ranges with a toolbar creation dialog and active-sheet side-panel management.
+- Added active-sheet named range support in formulas.
+- Added persistent structured tables with grid styling, table names, style presets, totals-row toggle, and active-sheet management.
+- Added a structured table header-row toggle in the active-sheet table manager.
+- Added structured-table resizing to the current selection from the active-sheet table manager.
+- Added structured table filter-button visibility controls with header buttons that select the table column for filtering or sorting.
+- Added workbook-aware formula evaluation with cross-sheet formula references and sheet-name formula suggestions.
+- Added full row, full column, and whole-sheet selection from grid headers.
+- Added keyboard shortcuts for select-all, bold, italic, underline, and strikethrough.
+- Added Space-combination shortcuts for selecting current rows, current columns, and the whole sheet.
+- Added spreadsheet keyboard navigation for Home/End, Ctrl+arrows, PageUp/PageDown, Escape selection collapse, and Ctrl+Enter range entry.
+- Added spreadsheet shortcuts for F2 edit, fill down/right, date/time entry, and common Ctrl+Shift number formats.
+- Added persistent worksheet protection that blocks accidental active-sheet edits.
+- Added selected-cell lock/unlock formatting so protected sheets can keep chosen input ranges editable.
+- Added hidden-formula formatting that conceals protected formula text while still showing computed values.
+- Added persistent workbook structure protection that blocks sheet add, rename, duplicate, and delete operations.
+- Added persistent merge/unmerge cells with virtualized grid rendering and `.xlsx` merge import/export.
+- Added a format painter for copying selected cell formatting to another selected cell or range.
+- Added range-aware increase and decrease indentation formatting.
+- Added spreadsheet focus mode for hiding workbook chrome, sheet tabs, and the side panel during editing.
+- Added Escape and focus management for spreadsheet focus mode.
+- Added screen reader grid semantics with row/column headers and descriptive cell labels.
+- Added global high-contrast and reduced-motion preference support.
+- Updated spreadsheet display formatting to respect the user's locale for currency, percent, date, and time output where possible.
+- Added a workbook template gallery for budget, invoice, project tracker, calendar, timesheet, and cashflow forecast workbooks.
+- Added custom workbook templates that can be created from saved workbooks and reused from the dashboard.
+- Added Tauri v2 desktop shell configuration.
+- Added `TODO.md` with Excel feature gap inventory and project status.
+- Added Brevo-backed email confirmation codes for sign-up and sign-in.
+- Added an admin seed command for the `admin@mail.com` owner account.
+- Added a dashboard workspace with sortable Tablecn-style management tables for workbooks, users, website settings, and auth state.
+- Removed implementation-stack wording from user-facing auth and workbook copy.
+- Simplified `TODO.md` into an honest Excel-parity roadmap with grouped implemented coverage, missing feature areas, simplification tasks, and the next work queue.
+- Added database-backed Better Auth rate limiting with explicit session expiry, refresh, and freshness policies.
+- Added a `rateLimit` Turso table for durable auth throttling and verified the pushed schema has no pending drift.
+- Hardened dashboard user management so only a verified admin can manage users and the current admin cannot unverify their own account.
+- Split pure spreadsheet state helpers into focused `state/*` modules and moved shared selection/range type consumers off the React state hook.
+- Extracted chart, sparkline, table, conditional-format, and data-validation command mutations from the spreadsheet state hook into focused state modules.
+- Extracted filter, filter preset, named range, note, and link command mutations from the spreadsheet state hook into focused state modules.
+- Extracted editing, formatting, and row/column structure command mutations from the spreadsheet state hook into focused state modules.
+- Extracted sheet lifecycle, protection toggles, print-settings updates, and version-history mutations from the spreadsheet state hook into focused state modules.
+- Preserved filter presets when replacing the active workbook document.
+- Extracted clipboard paste/copy planning, fill, sorting, and clear-content mutations from the spreadsheet state hook into focused state modules.
+- Extracted merge/unmerge mutations, history helpers, and selection planning helpers from the spreadsheet state hook.
+- Extracted spreadsheet-grid geometry helpers, table-cell styling helpers, accessibility labels, and cell adornment renderers into focused component modules.
+- Extracted spreadsheet grid select-all, row header, column header, and column-filter helper rendering into focused component modules.
+- Extracted spreadsheet grid cell rendering, in-cell editing, validation dropdowns, and table-filter overlays into a focused `GridCell` component.
+- Extracted spreadsheet grid selection drag, fill-handle drag, and committed range selection orchestration into a focused hook.
+- Extracted spreadsheet grid row virtualization, row measuring, frozen-first-row range extraction, and scroll-to-selection behavior into a focused hook.
+- Extracted spreadsheet grid column sizing and virtualized viewport row rendering into focused component modules.
+- Added horizontal column virtualization for wide sheets with spacer tracks, selected-column scroll anchoring, and frozen-first-column inclusion.
+- Added arbitrary frozen panes with row and column freeze counts, sticky pane offsets, freeze-at-selection controls, and unfreeze panes.
+- Added vertical, horizontal, and four-pane worksheet split layouts with independent scroll containers and active-pane scroll anchoring.
+- Added persisted row and column outline groups with toolbar grouping, header collapse/expand controls, effective hidden-range behavior, and SheetJS outline-level import/export.
+- Added normal, page layout, and page break preview worksheet modes plus persisted custom views that restore zoom, panes, selected range, hidden rows/columns, and view settings.
+- Added right-to-left sheet view with RTL grid direction, right-edge sticky headers and frozen columns, custom-view persistence, and mirrored left/right keyboard navigation.
+- Added worker-backed workbook formula recalculation with stale-response protection, sync fallback behavior, and a toolbar calculation status.
+- Added a PivotTable foundation with source range modeling, field-list layout state, default value-field assignment, and grouped aggregation output.
+- Added custom number formats with a toolbar editor, live preview, display parser, XLSX style preservation, and HTML/clipboard export metadata.
+- Added per-sheet gridline visibility with a toolbar toggle and persisted sheet-level rendering state.
+- Added sheet tab colors with validated persisted sheet metadata and an active-sheet palette in the sheet tab bar.
+- Added in-cell autocomplete suggestions from existing values in the edited column.
+- Added custom fill-list series for weekdays, months, and quarters in fill-series commands.
+- Added selected-range duplicate row removal that keeps first occurrences, compacts unique rows upward, and clears trailing duplicate slots.
+- Added a workbook statistics panel covering populated cells, formulas, workbook objects, rules, protected state, custom views, versions, and print/page-break setup.
+- Added formula consistency checks that flag formulas which differ from nearby row or column formula patterns and navigate directly to the suspect cell.
+- Added external link review with active-sheet broken-link detection, safe URL repair actions, HTTP upgrade suggestions, and delete/select controls.
+- Added Inspect Workbook privacy and security checks for metadata, notes, version history, hidden rows/columns, unprotected hidden formulas, external formulas, print headers/footers, saved hidden view state, and workbook protection.
+- Added an Accessibility Checker for low-contrast cells, tiny font sizes, merged-cell navigation risks, color-only indicators, blank link labels, and visual-only conditional formatting rules.
+- Added table calculated-column formula autofill that copies adjusted formulas into blank cells in the same table column.
+- Added Go To and Go To Special navigation for typed references, named ranges, formulas, notes, links, hidden rows, and hidden columns.
+- Added workbook spell check for common misspellings, repeated words, and spacing issues with side-panel navigation to affected cells.
+- Added dashboard audit logs for auth events, admin user actions, workbook creation/import/export changes, and destructive workbook actions.
+- Added a compatibility inspector that explains current import, export, and round-trip losses across flat files and workbook formats.
+- Added a formula watch window for tracking selected formula cells, live active-sheet values, jump navigation, and watch removal.
+- Added formula error checking for text formulas, numbers stored as text, formulas returning errors, external workbook references, volatile formulas, and blank referenced ranges.
+- Added database-backed rate limiting and short-lived reservations for dashboard and in-editor workbook imports.
+- Added consistent confirmation dialogs for destructive sheet, row, column, chart, table, rule, note, link, version, custom view, and filter preset deletions.
+- Added workbook import sanitization that disables risky formulas, cleans control characters, normalizes links, clears imported hidden history, and reports sanitized changes in the editor.
+- Added formula sandboxing that blocks external-resource and workbook-link formulas during recalculation and reports them in formula checking.
+- Added per-workbook activity history in the spreadsheet side panel using the existing audit log.
+- Added dedicated Essence backup download and restore actions with a versioned backup envelope.
+- Added SVG image export for workbook charts from the chart review panel.
+- Added quick print scale presets in the print setup panel.
+- Added live screen-reader announcements for selection changes, validation issues, formula errors, and table context.
+- Added print preview pagination controls that navigate manual row and column page breaks.
+- Added printable header and footer fields for page number, page count, date, time, file name, and sheet name.
+- Added style-aware sorting and filtering by cell fill color, font color, and icon indicators.
+- Added advanced criteria-range filtering that can copy matching rows into a separate output range.
+- Added persisted table slicers that filter regular structured tables from the side panel.
+- Added persisted regular-table timelines for year, quarter, and month date filtering.
+- Added generated PivotTables from selected ranges and structured tables with persisted definitions, refresh, output selection, workbook statistics, and compatibility reporting.
+- Added editable PivotTable row, column, value-field, and aggregation controls with row totals, column totals, and grand totals in generated output.
+- Added persisted PivotTable report filters with value counts, clear controls, and filtered aggregation output.
+- Added multi-level PivotTable row fields with generated subtotal rows that preserve aggregation semantics for sum, count, average, min, and max.
+- Added linked PivotCharts that create chart objects from generated PivotTable output, stay synced on PivotTable refresh/layout changes, and clean up with their source PivotTable.
+- Added PivotTable drill-down detail sheets that expand the currently filtered source rows into a normal editable worksheet.
+- Added PivotTable field grouping for date row/column fields by year, quarter, or month and numeric row/column fields by 10s or 100s.
+- Added PivotTable calculated fields for add, subtract, multiply, and divide formulas between numeric source fields.
+- Added PivotTable calculated items for simple row or column fields with persisted item formulas and generated virtual item output.
+- Added simplified PivotTable measures that calculate from aggregated value fields across detail cells, subtotals, row and column totals, and grand totals.
+- Added PivotTable slicer-style filters and date timelines that update aggregation output, linked PivotCharts, and drill-down detail sheets.
+- Added Goal Seek what-if analysis for formula cells with a committed changing-cell result and undo/redo history.
+- Added Scenario Manager saved input sets with apply/delete controls and undo/redo-backed worksheet updates.
+- Added one-variable Data Tables that evaluate selected input candidates against a formula cell and write the result table back to the sheet.
+- Added Data Analysis ToolPak descriptive statistics that summarize selected numeric cells and write metric output back to the sheet.
+- Added Data Analysis ToolPak histogram output with automatic bins, frequencies, and cumulative percentages.
+- Added Data Analysis ToolPak correlation matrices and simple linear regression summaries for selected numeric columns.
+- Added Data Analysis ToolPak sampling output with systematic and deterministic random samples from selected numeric cells.
+- Added Data Analysis ToolPak moving average output with period values, 3-period averages, and forecast errors.
+- Added Data Analysis ToolPak exponential smoothing output with alpha 0.3 smoothed values and errors.
+- Added Forecast Sheet output with linear trend forecasts and 95% confidence bands for selected numeric cells.
+- Added bounded one-variable Solver for maximizing, minimizing, or targeting formula cells by changing one numeric input cell.
+- Added bounded multi-variable Solver constraints with up to 3 variable cells, 4 numeric constraints, constrained result scoring, and multi-cell writeback.
+- Added Solver variable domains for continuous, integer, and binary model inputs.
+- Added an adaptive Solver engine for bounded nonlinear models with larger variable and constraint limits.
+- Added worker-backed Solver execution for larger adaptive models with runtime reporting and safe sync fallback.
+- Added saved Solver model presets with named local storage, load, replace-by-name, and delete controls.
+- Added structured table references in formulas, including table columns, row sections, current-row references, formula audit highlighting, and workbook-link security handling.
+- Added PivotTable drag/drop field-list polish with draggable source fields, Rows/Columns/Filters/Values drop zones, removable field chips, and select controls preserved for precise edits.
+- Added import connectors for public URL data, HTML tables, JSON arrays, CSV/TSV feeds, and pasted database query results with sanitization and audit logging.
+- Added a connector query transform editor with ordered trim, empty-row removal, top-row removal, column-keep, and contains-filter steps before import.
+- Added Power Query-style connector transforms for remove columns, typed value coercion, filter modes, split columns, group by, append rows, lookup merge, pivot/unpivot, and custom columns.
+- Added targeted import connector transform checks for grouped, split/custom, unpivot, pivot, and lookup-merge behavior.
+- Added persisted connector query definitions with safe credential metadata, URL refresh support, per-query refresh history, and saved query management in the connector dialog.
+- Added targeted query-definition checks for safe URL refresh metadata, credential redaction, refresh history shape, and workbook normalization.
+- Added database-backed workbook sharing with owner-managed invite flows, share links, accepted collaborator access, and per-workbook owner/editor/commenter/viewer roles.
+- Added shared-workbook dashboard access, owner-only sharing controls, share-link acceptance routes, and editor read-only guards for viewer/commenter roles.
+- Added threaded cell comments with author metadata, replies, open/resolved states, reopen controls, parsed `@email` mentions, and persisted mention notifications.
+- Updated comment surfaces across the toolbar, side panel, workbook statistics, inspection, compatibility, import sanitization, and workbook normalization paths.
+- Added dynamic array formulas for `SEQUENCE`, `UNIQUE`, `SORT`, `TRANSPOSE`, and practical `FILTER` spills.
+- Added worksheet spill feedback with anchor highlighting, blocked-cell markers, `#SPILL!` conflict results, and targeted dynamic-array checks.
+- Added dependency-graph-backed dirty-cell recalculation with active-sheet target plans, cross-sheet dependent tracking, worker/sync incremental evaluation, and toolbar status feedback.
+- Added targeted dirty-recalculation checks for direct, transitive, range, cross-sheet, and dynamic-array fallback behavior.
+- Added persisted chart formatting for axis titles, gridlines, label position, legend placement, line and marker styles, trendline toggles, error bars, secondary axes, and series colors.
+- Updated chart rendering and SVG chart export to respect persisted series colors, with targeted chart-format normalization checks.
+- Added worksheet inserted objects for image files, shapes, and text boxes with persisted anchors, sizing, colors, alt text, metadata, and z-order controls.
+- Added an object overlay and side-panel manager for selecting, editing, moving to the current cell, deleting, and layer-ordering inserted worksheet objects.
+- Added targeted inserted-object checks for creation, updates, ordering, movement, workbook normalization, and object statistics.
+- Added persisted workbook themes with editable palette colors, body/heading fonts, theme-aware cell style presets, and saved managed cell styles.
+- Added a workbook theme side-panel editor and targeted workbook-theme checks for normalization, style saving, preset generation, and style deletion.
+- Added local workbook open/save actions through the spreadsheet toolbar using the versioned Essence backup envelope.
+- Added encrypted device-local offline workbook snapshots with AES-GCM storage, restore, clear, autosave-failure fallback, and sync reconciliation status.
+- Added targeted offline sync checks for no-cache, synced, upload-local, server-newer, and diverged states.
+- Added disabled macro preservation for imported XLSM and XLS VBA projects, with XLSM export reattaching preserved binaries without executing imported code.
+- Added a safe workbook automation panel for preserved macro review and disabled script recording.
+- Recorded review-only automation steps for core cell edits, range fills, formatting commands, row/column structure changes, sorting, and duplicate cleanup.
+- Added targeted macro-preservation checks for disabled VBA round-tripping and recorded script normalization.
+- Added customizable spreadsheet keyboard shortcuts with a typed command registry, browser-local persistence, conflict detection, disable/reset controls, and a side-panel editor.
+- Moved workbook, history, clipboard, selection, edit, and formatting shortcut execution through the customizable shortcut resolver.
+- Added targeted keyboard-shortcut checks for default bindings, custom overrides, disabled commands, conflict detection, unsafe shortcut rejection, and persistence normalization.
+- Added same-origin server-action guards for workbook and dashboard mutations to reject cross-origin sensitive requests.
+- Added fresh verified-session requirements for admin user changes, session revocation, workbook sharing changes, and workbook deletion.
+- Added targeted action-security checks for same-origin validation, trusted origin normalization, referer fallback, missing-origin rejection, and session freshness.
+- Added a feature ownership map that routes future Excel-parity work to the correct editor, state, workbook, file, data, collaboration, and desktop modules.
+- Hardened A1 address and workbook normalization so row-zero or out-of-sheet cell keys are rejected instead of entering persisted documents.
+- Added targeted workbook-core helper checks for address parsing, range transforms, serialization normalization, and formula-reference shifting.
+- Completed the current advanced Excel-parity 100-point batch and defined the next 100-point professional feature set in `TODO.md`.
+- Added workbook compare and merge/diff support for metadata, sheet settings, cells, formulas, tables, and charts.
+- Added a side-panel workbook compare UI that loads JSON, Essence backup, XLSX, XLSM, XLS, and ODS files without overwriting the current workbook.
+- Added selected-difference merge actions with range navigation and read-only/protection guards.
+- Added targeted workbook-compare checks for diff classification, range labels, selected merges, added sheets, tables, and charts.
+- Added disjoint multi-range selection with side-panel area management, copy/paste, selected-style application, clear-formatting, and multi-area named range saving.
+- Added formula-safe multi-range paste/reference shifting and workbook normalization for persisted multi-area named ranges.
+- Added targeted multi-range selection checks for normalization, clipboard payloads, named ranges, paste behavior, and formula reference shifts.
+- Added Excel function compatibility for `TEXTJOIN`, `CONCAT`, `XMATCH`, `ENCODEURL`, bare `TRUE`/`FALSE` constants, and safe cube-function fallbacks.
+- Expanded formula bar suggestions across lookup/reference, financial, statistical, date/time, text, logical, math, information, engineering, compatibility, cube, and web categories.
+- Added targeted formula-function coverage checks for compatibility functions, major existing categories, safe cube formulas, and boolean-constant normalization.
+- Added workbook-level circular reference detection for self-references and multi-cell formula cycles.
+- Expanded the formula audit panel with trace precedents, trace dependents, circular-reference navigation, and persisted iterative calculation settings.
+- Added targeted formula-tracing checks for cycles, cross-sheet precedents, dependent highlighting, and calculation-setting normalization.
+- Added workbook data model relationships between structured tables with persisted many-to-one and one-to-one metadata.
+- Added a side-panel data model surface for creating, deleting, navigating, and validating table relationships.
+- Expanded table-backed PivotTables so related lookup-table fields can drive row/column layout, drill-down sheets, and measure output.
+- Added targeted data-model checks for relationship persistence, validation, joined PivotTable fields, and measure-aware output.

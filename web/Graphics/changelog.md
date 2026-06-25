@@ -1,0 +1,504 @@
+# Changelog
+
+## 2026-05-19
+
+- Added desktop support handoff synthesis that joins update cohorts, crash/performance support bundles, offline workspace health, plugin telemetry, and enterprise release operations into one support gate with JSON/CSV/Markdown exports; completed the desktop runtime observability and support operations set and defined the next support automation and incident response set.
+- Added plugin/widget runtime telemetry digest that joins permission prompts, blocked runs, replay mismatches, crash isolation, and admin escalation queues into an Extensions panel with JSON/CSV/Markdown exports and lightweight typecheck/lint verification.
+- Added offline workspace health monitoring that joins local database integrity, autosave drift, media cache pressure, and user-safe repair packets into an Extensions panel with JSON/CSV/Markdown exports and lightweight typecheck/lint verification.
+- Added desktop crash and performance support bundle triage with cold-start, file-open, canvas-resume, plugin-run, memory-pressure, crash isolation, support packets, Extensions JSON/CSV/Markdown exports, browser sanity coverage, and targeted smoke coverage.
+- Added desktop update cohort observability with stable/beta/canary channel health, updater failure aggregation, rollback cohort blocking, signed evidence packets, Extensions JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added enterprise desktop release operations synthesis that joins restore drills, workspace operations, plugin sandboxing, collaboration recovery, and production evidence into one ship gate with release decisions, release packets, Extensions JSON/CSV/Markdown exports, targeted smoke coverage, and the next desktop runtime observability and support operations set.
+- Added desktop collaboration recovery bridge with reconnect handoff checks, offline event replay joins, cursor/chat queue safety, admin evidence packets, Extensions JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added native plugin/widget sandbox operations review with permission prompt checks, offline execution policy, crash isolation budgets, replay evidence, operator packets, Extensions JSON/CSV/Markdown exports, browser sanity coverage, and targeted smoke coverage.
+- Added multi-file desktop workspace operations review with recent file queues, team/project scope coverage, permission drift detection, offline-open readiness, operator packets, Extensions JSON/CSV/Markdown exports, browser sanity coverage, and targeted smoke coverage.
+- Added local-first workspace restore drills with autosave snapshot coverage, corruption checks, conflict-safe restore previews, offline save queue replay, operator evidence packets, Extensions JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added native desktop ship synthesis that joins Tauri runtime, large-canvas scheduler, media pipeline, command automation, and production readiness into one desktop release gate with desktop ship decisions, release packets, Extensions JSON/CSV/Markdown exports, targeted smoke coverage, and the next enterprise desktop collaboration and release operations set.
+- Added command automation recording with macro safety checks, undo previews, replayable QA packets, command telemetry exports, Extensions JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added media asset pipeline review with image/video source metadata checks, replacement tracking, compression targets, upload provenance evidence, export-safe bundle manifests, Extensions JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added a large-canvas render scheduler with viewport-tiled draw queues, selection cache invalidation evidence, vector path simplification budgets, profiler evidence, Extensions JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added Tauri desktop packaging readiness review with Rust command health, filesystem permission safety, offline bundle parity, updater evidence, exportable release packets, Extensions JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added production readiness synthesis packet that rolls collaboration follow/spotlight, canvas interaction profiling, Dev Mode integration, and admin release readiness into one ship gate with JSON/CSV/Markdown exports, Extensions UI, targeted smoke coverage, and the next native desktop performance and asset pipeline set.
+- Added Dev Mode integration review with codegen export freshness, explicit variable handoff coverage, Storybook/GitHub/Jira link health, export bundle evidence, Extensions JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added branch compare and merge conflict workbench with named-version visual diffs, merge decision coverage, reviewer signoff, rollback anchor checks, Extensions JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added multiplayer follow/spotlight review with presenter ownership, handoff timer governance, viewport sync diagnostics, admin export evidence, Extensions JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added an active-page canvas interaction profiler with selection latency estimates, pan/zoom frame-budget scoring, hit-test hotspot detection, replayable optimization notes, Extensions CSV/Markdown/JSON exports, performance release bundle evidence, and targeted smoke coverage.
+- Hardened canvas path authoring so pen/pencil vector handles require explicit selected-path editing, added clickable guide delete controls with more forgiving ruler toggling, exposed image/video upload from the top bar, tightened right-panel overflow containment, and expanded targeted canvas regression coverage.
+
+## 2026-05-18
+
+- Added Slides/Sites publish approval workflow with reviewer assignments, version anchors, route smoke signoff, rollback bundles, analytics evidence, admin dashboard JSON/CSV/Markdown exports, command-center indexing, targeted smoke coverage, and the next realtime canvas and collaboration polish set.
+- Added embed and route analytics join for public presentations and Sites routes with route funnels, referrer health, exposure review, admin dashboard JSON/CSV/Markdown exports, command-center indexing, and targeted smoke coverage.
+- Added Sites content map and publish queue with route sitemap evidence, SEO/meta checks, asset budgets, rollback channel review, public route evidence, Extensions panel JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added presentation presenter controls with slide navigator evidence, speaker notes, timed rehearsal packets, viewer handoff exports, Extensions panel JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added advanced prototype transition authoring with overlay transitions, scroll behavior coverage, smart-animate readiness, prototype variable action evidence, route playback evidence, Extensions panel JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added Slides/Sites surface authoring parity with deck/site document modes, presentation/site readiness packets, embedded prototype handoffs, public publishing evidence, Extensions panel JSON/CSV/Markdown exports, and targeted smoke coverage; completed the design systems and surface parity set and defined the next prototype and publishing fidelity set.
+- Added workspace file browser parity with team/project/draft coverage, permission-aware recents, owner-transfer queues, creation/import handoff evidence, File browser JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added design-system library publication depth with component/property/style/version release scopes, adoption diffs, subscriber update plans, rollback-safe rollout evidence, Components panel JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added vector/Draw authoring parity with a real pencil tool, refined freehand path smoothing, bend/cutter/boolean/outline/topology readiness review, Extensions panel JSON/CSV/Markdown exports, and targeted smoke coverage.
+- Added advanced paint/style authoring parity with stroke paint stacks, primary stroke rendering across canvas/SVG/Dev Mode handoff, import/version/override awareness, gradient-family/swatches/image-fill/contrast/reusable-preset readiness exports, Extensions panel UI, and a targeted smoke check.
+- Added accessibility and keyboard authoring review for editor, admin, public share, public prototype, and public embed surfaces with shortcut collision review, command-palette evidence, route smoke readiness, Extensions panel JSON/CSV/Markdown exports, and a targeted smoke check; completed the advanced editor fidelity and automation set and defined the next design systems and surface parity set.
+- Added plugin/widget runtime operations with typed sandbox and catalog manifest metadata, execution log review, permission review, catalog publishing handoff exports, Extensions panel UI, and a targeted smoke check.
+- Added Sites-style responsive publishing preflight with mobile/tablet/desktop breakpoint coverage, public share/prototype/embed/handoff route smoke packets, rollback notes, Extensions panel JSON/CSV/Markdown exports, selectable breakpoint frames, and a targeted smoke check.
+- Added FigJam facilitation depth with voting and timer readiness, stamp coverage, sticky clustering, facilitator handoff JSON/CSV/Markdown exports, Extensions panel UI, and a targeted smoke check.
+- Started the advanced editor fidelity and automation set with a keyboard shortcut customization center for scoped binding rows, collision detection, import/export preview, command-palette evidence, settings UI integration, and a targeted smoke check.
+- Completed the multiplayer communication and review depth set with a collaboration notification preference center for reactions, cursor chat, review sessions, mentions, digests, and recovery packet alerts, Notifications tab review UI, command-center indexing, JSON/CSV/Markdown exports, and a targeted smoke check, then defined the next advanced editor fidelity and automation feature set.
+- Added review-room audio readiness controls with consent state, participant checks, fallback handoff notes, admin-safe evidence exports, Governance tab review UI, command-center indexing, JSON/CSV/Markdown exports, and a targeted smoke check.
+- Added live review session agendas and minutes with branch, comment, approval, public share, owner, and action-item links, Governance tab review UI, command-center indexing, JSON/CSV/Markdown exports, and a targeted smoke check.
+- Added cursor chat room message governance with retention controls, privacy-safe replay evidence, recovery packet integration, Governance tab review UI, command-center indexing, JSON/CSV/Markdown exports, and a targeted smoke check.
+- Started the multiplayer communication and review depth set with comment reaction workflows for persisted reaction state, acknowledgement notification routing, moderation review queues, Notifications tab review UI, command-center indexing, JSON/CSV/Markdown exports, and a targeted smoke check.
+- Added collaboration recovery packets with activity replay evidence, ownership handoff status, conflict summaries, export readiness, Governance review UI, command-center indexing, JSON/CSV/Markdown exports, and a targeted smoke check, then defined the next multiplayer communication and review depth feature set.
+- Added granular permission migration review for file roles, public share links, branch merge permissions, library rollout drift, and component publishing readiness with least-privilege recommendations, Files tab UI, command-center indexing, JSON/CSV/Markdown exports, and a targeted smoke check.
+- Added external comment notification workflows for delivery retry queues, digest previews, mention routing gap detection, operator-safe suppression review, Notifications tab UI, command-center indexing, JSON/CSV/Markdown exports, and a targeted smoke check.
+- Added multiplayer presence operations for presence/cursor evidence, follow/spotlight ownership, stale-room recovery queues, save-conflict visibility, Governance review UI, command-center indexing, JSON/CSV/Markdown exports, and a targeted smoke check.
+- Started the workspace collaboration and permission depth set with file browser depth for team/project/draft permission matrices, owner-transfer readiness queues, pending access request queues, audit-backed JSON/CSV/Markdown exports, Files tab review UI, command-center indexing, and a targeted smoke check.
+- Completed the admin intelligence and product operations set with operator onboarding and recovery playbooks for prerequisite checks, sample-data health, restore drills, exportable handoff packets, Command tab review UI, command-center indexing, JSON/CSV/Markdown exports, and a targeted smoke check, then defined the next workspace collaboration and permission depth feature set.
+- Added organization audit intelligence with anomaly clusters, reviewer ownership queues, export-safe redacted investigation packets, Command tab review UI, command-center indexing, JSON/CSV/Markdown exports, and a targeted smoke check.
+- Added an admin workspace capacity forecast for files, versions, comments, route analytics, collaboration rooms, storage, and database growth with Command tab review UI, command-center indexing, JSON/CSV/Markdown exports, and a targeted smoke check.
+- Added an admin release risk timeline that joins DLP, self-hosted sync diagnostics, scoped publication approvals, realtime health, deploy smoke, and collaboration ingestion incidents with cross-source correlations, Command tab review UI, JSON/CSV/Markdown exports, and a targeted smoke check.
+- Started the admin intelligence and product operations set with an admin command-center search index for governance reports, users, files, shares, runbooks, and evidence bundles, including category/status filtering, suggested queries, JSON/CSV/Markdown exports, and a targeted smoke check.
+
+## 2026-05-16
+
+- Completed the enterprise realtime and scale operations set with an admin automation runbook center for scheduled health checks, repair actions, incident drills, release evidence bundles, command queues, JSON/CSV/Markdown operator exports, and the next admin intelligence and product operations feature set.
+- Added data-loss prevention workflows for public downloads, embeds, export activity, plugin write runs, public route telemetry, sensitive design metadata scanning, support bundle exposure, and JSON/CSV/Markdown exports in Governance.
+- Added self-hosted sync diagnostics for Turso/libSQL, desktop package parity, browser route smoke, Vercel runtime parity, realtime health, operator repair runbooks, and JSON/CSV/Markdown exports in Governance.
+- Added team/project scoped publication approvals with reviewer decisions, SLA state, rollback package anchors, release evidence diffs, action-backed approval records, and JSON/CSV/Markdown exports in Governance.
+- Started the enterprise realtime and scale operations set with collaboration event ingestion for privacy-safe redacted event records, replay windows, incident scoring, retention exports, and workspace stale replay purge controls in Governance.
+- Completed the realtime operations and embed hardening set with workspace-level realtime health monitoring for room latency, reconnect quality, save-signal observability, notification delivery, and route analytics anomalies, then defined the next enterprise realtime and scale operations feature set.
+- Added workspace realtime health monitoring in Governance with room sync latency, reconnect quality, save-signal observability, notification delivery failures, route analytics anomalies, and JSON/CSV/Markdown exports.
+- Added release publication gates that combine deploy smoke, publish channels, public link safety, access budgets, collaboration handoff, and approval snapshots into a single Release dashboard signoff surface with JSON/CSV/Markdown exports.
+- Added admin collaboration room action workflows with audit-backed handoff owner assignment, room evidence archiving, stale snapshot clearing, mention comment resolution, escalation queue review, dashboard action controls, and report/export action state.
+- Added embed host hardening with per-token/share/file/workspace allowlist resolution, real `/embed` CSP frame policy headers through Next proxy, sandbox presets, observed host evidence from route analytics, admin review queues, and JSON/CSV/Markdown exports.
+- Started the realtime operations and embed hardening set with privacy-safe public route analytics capture for share, prototype, and embed views, including a public beacon, POST route handler, retained event table, referrer-origin/user-agent-family/token-scope storage, admin aggregation, and JSON/CSV/Markdown exports.
+- Added admin collaboration handoff room operations with replay freshness, unresolved chat and comment mentions, presenter ownership, operation and target conflict queues, escalation metrics, JSON/CSV/Markdown exports, and the next realtime operations and embed hardening feature set.
+- Added public embed/link observability with a real `/embed/[token]` route, embed smoke checklist coverage, admin share/prototype/embed route surfaces, stale/no-expiry link checks, download/comment exposure review, configurable referrer notes, release-safe publication queues, and JSON/CSV/Markdown exports.
+- Added an admin workspace access budget review for trusted-domain detection, external-domain drift, stale collaborator grants, elevated role budget pressure, risky public shares, stale session checks, pending role-change review, and JSON/CSV/Markdown exports.
+- Added an admin publish channel manager for prototype, share, site-style handoff, and release targets with route smoke status, approval state, rollback link checks, stale channel review, and JSON/CSV/Markdown exports.
+- Started the production collaboration and publishing set with an admin branch review request inbox for active design branches, reviewer ownership, SLA state, merge readiness, blockers, release evidence anchors, queue metrics, and JSON/CSV/Markdown exports.
+- Completed the editor reliability and authoring depth set with an admin workspace operations dashboard for storage budgets, Turso/database health, Brevo/email delivery health, deploy smoke recency, operator rehearsals, pending admin action queues, command queues, and JSON/CSV/Markdown evidence exports, then defined the next production collaboration and publishing feature set.
+- Added design review approval workflows in Extensions with reviewer assignment and due-date actions, open-comment approval queues, release gate blocker aggregation, ready-for-dev evidence checks, selectable layer queues, JSON/CSV/Markdown approval bundles, and a new review-gate section in release readiness.
+- Added production asset library management in Extensions with reusable media registry scoring, duplicate-source dedupe queues, source/license metadata actions, heavy asset replacement workflows, font fallback repairs, image-import provenance metadata, and JSON/CSV/Markdown evidence bundles.
+- Added an advanced interaction test harness in Extensions with document-backed keyboard, pointer, selection, resize, text edit, prototype, and export command-flow checks, filtered queues, active-page layer selection, and JSON/CSV/Markdown evidence exports.
+- Started the editor reliability and authoring depth set with an offline-first editor save queue, including durable per-file mutation snapshots, failed-save queueing, retry and restore controls, current-snapshot drift review, sync telemetry, queued-save state, and JSON evidence export.
+- Added a unified release readiness dashboard in Extensions that joins variable governance, component usage, plugin operations, responsive constraints, visual QA/performance evidence, deploy smoke, and asset governance into one CSV/Markdown/JSON signoff bundle, then defined the next editor reliability and authoring depth feature set.
+- Added asset/media governance in Extensions with image source diagnostics, video-like payload review, export-safe font checks, source note gaps, embedded media budgets, optimization queue selection, and CSV/Markdown/JSON governance bundles.
+- Added component marketplace readiness in the Components tab with publishable listing scores, preview evidence, adoption analytics, dependency health review, update campaign actions, queue selection, and CSV/Markdown/JSON marketplace bundles.
+- Added local plugin/widget package import validation in Extensions, including JSON package parsing, manifest schema diagnostics, command and widget entry checks, dependency review, permission diff review, and CSV/Markdown/JSON catalog bundle exports.
+- Started the editor automation and marketplace set with a command/action replay console for typed operation artifacts, scoped undo previews, telemetry gap review, slow/failed command diagnostics, and CSV/Markdown/JSON release bundles from the Activity panel.
+- Completed the editor engine and design systems set with plugin developer operations for manifest validation, command permission diagnostics, approval replay health, result artifact evidence, sandbox blocked-run review, CSV/Markdown/JSON handoff bundles, and then defined the next editor automation and marketplace feature set.
+- Added component usage intelligence in the Components tab for adoption coverage, detached and update-available library queues, missing variant references, variant coverage drift, property coverage drift, orphaned instance selection, trend evidence, and CSV/Markdown/JSON release bundles.
+- Added variable governance review for mode registry health, alias dependency graphs, broken/cyclic alias repair, missing mode value fills, collection scope migration, orphan token cleanup, duplicate export-name review, CSV/Markdown handoff exports, and document-backed migration actions from Extensions.
+- Added responsive constraints review for compact, wide, and tall resize previews, constraint inference, nested frames, component instances, masks, layout grids, group scope, cross-page handoff drift, active-page repairs, CSV/Markdown exports, and performance release bundle coverage.
+- Started the editor engine and design systems set with canvas viewport intelligence for render-window queues, off-window visible layers, pointer interaction cost, deep hit-test pair and stack evidence, safe-mode threshold scoring, active-page repair actions, JSON/CSV/Markdown exports, and performance release bundle coverage.
+- Completed the advanced canvas and Dev Mode set with document-level Dev Mode inspection for measurement overlays, asset slice manifests, CSS/HTML/JSX/SwiftUI/Compose export metrics, ready-for-dev marking, annotation/token/resource coverage, JSON handoff bundles, queue selection, and CSV/Markdown exports, then defined the next editor engine and design systems feature set.
+- Added prototype interaction inspector for shared route replay evidence, starting-point health, unsupported trigger review, overlay/scroll diagnostics, transition timing audit, active-page-safe fixes, queue selection, and CSV/Markdown exports.
+- Added auto-layout production review for document-wide wrap/grid readiness, active-page-safe repairs, manual frame migration, nested responsiveness diagnostics, generated-layout regression evidence, queue selection, and CSV/Markdown exports.
+- Added component override review for variant/property instance diffs, reset previews, active-page reset actions, slot validation, variant adoption metrics, queue selection, and CSV/Markdown exports.
+- Started the advanced canvas and Dev Mode set with vector path readiness review for node handles, relative and arc diagnostics, open-fill repair, viewBox normalization, snap repairs, boolean result review, queueable selection, and CSV/Markdown handoff exports.
+
+## 2026-05-15
+
+- Completed the multiplayer and branching set with collaboration sync health signals for room freshness, offline replay queues, event drift, reconnect quality scoring, dashboard metrics, and JSON/CSV/Markdown incident evidence, then defined the next advanced canvas and Dev Mode feature set.
+- Added comment review operations for due dates and resolution history, including due filtering, overdue badges, resolution audit entries, CSV export coverage, JSON import validation, and due context in assignment notifications.
+- Added presenter handoff ownership and replay evidence for multiplayer spotlight/follow sessions, including presenter status, owner summary, replay event counts, session review exports, and collaboration handoff Markdown.
+- Added merge review records for named-version merges with conflicting section families, reviewer decisions, merge notes, accepted and kept section ids, rollback version anchors, activity evidence, and JSON import validation.
+- Started the multiplayer and branching set with first-class design branches from named versions, including branch metadata, merge intent, branch restore point versions, branch activity events, JSON import validation, and admin Governance JSON/CSV/Markdown exports.
+- Completed the enterprise release operations set with searchable release archive retention for current and historical release packages, signed manifests, approvals, smoke artifacts, privacy checklists, rollback bundles, operator drills, desktop update metadata, retention windows, and JSON/CSV/Markdown exports, then defined the next multiplayer and branching professional feature set.
+- Added desktop update channel readiness for stable, beta, and canary desktop metadata, package.json/Tauri/Cargo version comparison, update feed and signature review, rollout hold controls, desktop package evidence, handoff rehearsal evidence, and JSON/CSV/Markdown exports.
+- Added operator rehearsal runs for restore, import/export, public share privacy, desktop package handoff, and self-hosted recovery drills, including owner/cadence scoring, repeatable commands, Release dashboard review, and JSON/CSV/Markdown exports.
+- Added release incident timelines that correlate deploy checks, audit events, notification delivery, runtime observations, rollback readiness, and signed artifact evidence with linked correlation rows plus JSON/CSV/Markdown exports.
+- Started the enterprise release operations set with signed release artifact manifests for web, desktop, self-hosted, offline vault, and support bundle exports, including SHA-256 checksums, optional HMAC signatures, signing-key readiness, and JSON/CSV/Markdown exports.
+- Completed the desktop and extensibility production readiness set with accessibility and privacy release checklists across editor, admin, share, and prototype surfaces, then defined the next enterprise release operations feature set.
+- Added accessibility and privacy release checklists with document accessibility scoring, retention/privacy evidence, editor/admin/share route smoke coverage, prototype flow checks, and JSON/CSV/Markdown exports in the Release dashboard.
+- Added admin release channels for web, desktop, and self-hosted packages with package scoring, artifact inventories, operator commands, JSON/CSV/Markdown exports, and desktop static-export readiness checks in the Release dashboard.
+- Added plugin sandbox history with manifest version pins, approval records, replayable grants, run-history persistence, stale and mismatched manifest review, and CSV/Markdown sandbox handoffs in the Extensions panel.
+- Added document-backed workspace settings for custom tool shortcuts and plugin permission grants, including local settings fallback compatibility, bulk import/reset behavior, JSON import validation, and customized command palette shortcut labels.
+- Started the desktop and extensibility production readiness set with admin offline vault packages that export recent design documents, support evidence, backup and rollback snapshots, deploy smoke, release approvals, retention privacy posture, checksum validation, and JSON import validation with JSON/CSV/Markdown handoffs.
+- Completed the plugin ecosystem and self-hosted operations set with audit-backed retention and privacy controls for audit logs, collaboration presence snapshots, notification delivery records, and support bundle redaction, then defined the next desktop and extensibility production readiness feature set.
+- Added audit-backed admin notification digest subscriptions for failed auth, email delivery, deploy smoke, rollback readiness, and risky share changes, including recipient/cadence/channel controls, severity thresholds, routing review, and JSON/CSV/Markdown exports.
+- Added organization library rollout monitoring for published libraries, subscriber files, subscription drift, orphan subscriptions, available updates, pending update instances, detached components, release adoption percentages, and admin JSON/CSV/Markdown exports.
+- Added self-hosted backup readiness for Turso or SQLite data, backup schedule and target configuration, runnable backup commands, design-file version anchors, public share exposure, release approval artifacts, deploy smoke, rollback readiness, and admin JSON/CSV/Markdown exports.
+- Started the plugin ecosystem and self-hosted operations set with admin plugin permission governance for installed extension manifests, permission grants, risky write-capable runs, stale approvals, unknown extension activity, and JSON/CSV/Markdown exports.
+- Completed the enterprise governance set with a production monitoring digest that combines deploy smoke, runtime evidence, auth/email incidents, rollback readiness, and recent admin actions into an admin Governance panel with JSON/CSV/Markdown exports, then defined the next plugin ecosystem and self-hosted operations feature set.
+- Added organization library release gates that aggregate component publish readiness, variable/token coverage, release approval snapshots, and rollback evidence into an admin Governance panel with JSON/CSV/Markdown exports.
+- Added collaborator role-change approval queues for elevated access requests, with audit-backed request retention, reviewer notes, single-request approvals/rejections, and selected bulk decisions in the admin Governance dashboard.
+- Added scoped admin support bundle exports for workspace, user, file, and share investigations, bundling related users, files, public links, sessions, audit events, notification delivery, rollback readiness rows, and JSON/CSV/Markdown handoffs.
+- Started the enterprise governance set with audit-backed workspace policy controls for default share expiry, public download/comment gates, collaborator invite restrictions, maximum invite roles, and session hygiene, enforced on new shares and invite changes with admin JSON/CSV/Markdown policy exports.
+- Completed the production hardening set with an admin post-deploy smoke handoff for auth, editor, admin, share, prototype, and release routes, plus no-build JSON/CSV/Markdown artifacts through `bun run ops:post-deploy-smoke`.
+- Added restore and rollback readiness exports for named version anchors, public share exposure, share audit coverage, database state, and deployment links in the admin Release dashboard.
+- Added persistent admin release approval snapshots with reviewer, timestamp, commit, deployment URL, smoke artifacts, rollback notes, current preflight/incident scores, and JSON/CSV/Markdown history exports.
+- Added admin operational incident review for failed auth telemetry coverage, failed comment-email delivery, expired or long-lived sessions, risky public shares, and recent risky share changes, with JSON/CSV/Markdown exports in the admin dashboard.
+- Started the production hardening set with deploy environment preflight checks for Better Auth, Brevo OTP, Turso, public app URL, Vercel runtime, Node runtime, and server actions encryption readiness, including admin exports and a scriptable artifact generator.
+- Completed the release confidence and runtime observability set with production deploy smoke checklist exports for auth, editor, admin, share, prototype, and release handoff routes, plus a scriptable artifact generator and performance release bundle integration.
+- Added collaboration sync replay checks for durable room snapshots, stale sync state, duplicate room events, activity conflicts, chat replay size, and presence recovery gaps, with Extensions exports and release handoff scoring.
+- Added persisted performance baseline snapshots with before/after regression scoring for document layers, payload size, active-page render cost, effects, compositing, vectors, large bounds, and hidden-layer drift, plus Extensions exports and release handoff integration.
+- Added slow-command telemetry for real canvas, export, import, clipboard, and collaboration room sync workflows, with Activity review exports and performance release handoff scoring.
+- Started the release confidence and runtime observability set with shared runtime issue reports, Playwright console/page-error capture for visual snapshots and route probes, visual QA summary runtime status, and runtime evidence in performance regression release exports.
+- Added performance regression release exports that bundle document performance, layer index health, active-page render budget, and large-document safe-mode reports into JSON and Markdown handoff files from Extensions.
+- Added large-document safe-mode recommendations with document-size, visible-stack, render-cost, effect, hidden-layer, and large-layer checks plus real Extensions quick actions for selecting queues, disabling live effects, and locking oversized layers.
+- Added active-page canvas render budget telemetry for visible layers, expensive effects, blend and mask compositing, image/vector pressure, large layer bounds, estimated render cost, and selectable Extensions handoff exports.
+- Added indexed layer lookup helpers with document/page indexes, parent and group maps, render-order hit testing, bounds queries, performance-review reuse, context-menu deep-selection reuse, and a layer-index integrity panel in Extensions.
+- Started the performance and scale readiness set with a document performance budget review for page count, layer count, serialized payload size, embedded images, vector complexity, large layer bounds, and effect-heavy layers, surfaced in the Extensions panel with CSV/Markdown handoff.
+- Added CI-friendly visual QA summaries with reviewer notes, pass/review/fail status, JSON and Markdown outputs, and aggregation across snapshot comparison plus route-health reports.
+- Added deterministic visual QA editor fixtures with fixed document ids, timestamps, comments, components, variables, activity, collaboration history, prototype routing, a seed script, and fixture-aware snapshot capture paths.
+- Added route health probes for authenticated editor/admin and optional shared handoff/prototype surfaces, with shared Playwright login helpers, JSON route-health reports, and required-route failure status.
+- Added pixel-diff thresholds to visual snapshot comparison, including a dependency-light PNG decoder, RGBA pixel diff stats, configurable ratio/count/channel thresholds, and threshold-aware comparison status.
+- Started the next visual QA automation set with a snapshot comparison script that validates captured manifests, PNG dimensions, hashes, file sizes, added surfaces, missing surfaces, and writes a comparison report.
+- Added a visual regression snapshot capture script for authenticated editor desktop, editor mobile, and admin dashboard surfaces, with login support, viewport-specific PNG output, ignored artifact storage, and a run manifest.
+- Added permission-aware collaborator invites from the file browser, with explicit viewer/commenter/editor scope cards, capability chips, access-change activity records, and owner-only Manage access actions.
+- Added operation-level conflict review for simultaneous same-target edits, with operation families, event ids, actor-aware blocked/review scoring, resolution hints, panel metrics, CSV export, and Markdown handoff coverage.
+- Added durable server-backed collaboration rooms by saving merged cursor-chat and presence snapshots in the design-file document, including authenticated room server actions, local/server merge-on-open, debounced room sync, save-time room preservation, and presence-menu sync status.
+- Added collaborator session resume summaries inside the presence activity menu, with active/chat/event/live metrics, latest chat/activity snippets, recent collaborator rollups, and reusable handoff summary helpers.
+- Added persisted per-file collaboration session continuity for local cursor chat and presence activity, including typed storage validation and capped restoration.
+- Completed local visual smoke verification with a temporary Next.js dev server, Playwright screenshot, HTTP 200 route check, and zero browser console/page errors.
+- Added per-file export preset persistence with saved preset apply/remove controls, save/update handling, activity records, JSON export/import support, and typed preset validation.
+- Added boolean operation previews with preview/apply command separation, locked dashed preview layers, source-selection preservation, clear-preview cleanup, and automatic preview removal when applying destructive vector merges.
+- Added multi-node vector selection with Shift-click toggling, selected-node canvas rings, batch dragging, batch keyboard nudging, and stable multi-node deletion.
+- Added vector node handle mode controls for corner, mirrored, and disconnected anchor workflows, including safe smooth-curve expansion for free handles.
+- Added grid-aware keyboard nudging for the active canvas vector node, including Shift+Arrow larger movements and shortcut capture before layer nudging.
+- Added active canvas vector-node selection with focused handle styling, guarded Delete/Backspace node removal, and automatic node-selection cleanup across canvas interactions.
+- Added smooth shorthand curve insertion for `S` and `T` vector path segments with reflected control-handle splitting and explicit editable curve output.
+- Added curve-aware vector segment insertion that splits cubic and quadratic Bezier segments at their true midpoint while preserving closed-path insertion.
+- Added safe vector anchor deletion with parser-backed segment removal, Properties delete controls, and Alt-click canvas deletion for editable path nodes.
+- Added Bezier control tethers for selected vector paths with dashed canvas guides for cubic, quadratic, and smooth curve handles.
+- Added vector segment insertion handles for selected paths with midpoint canvas controls, undo-backed path updates, closed-path insertion support, and reusable parser helpers for future pen segment editing.
+- Added pen-tool vector path continuation with click-to-append points on selected paths, canvas/viewBox coordinate translation, and close/open path controls in Properties and the command palette.
+- Added direct canvas vector node handles for selected paths with anchor/handle styling, drag-to-edit path updates, grid snapping, and undo snapshot support.
+- Added editable vector node controls with a reusable path editing parser, Properties panel anchor and handle inputs, pixel snapping, and a command palette snap action for selected vector paths.
+- Added vector path transform controls with layer-local normalization, horizontal and vertical path flipping, shadcn-style Properties actions, and command palette actions for selected paths.
+- Added editable mask controls with a focused shadcn-style Properties section, mask X/Y/size/radius editing, fit and center actions, multi-selection mask cleanup, and command palette fit/center actions.
+- Added first-pass layer mask operations with mask metadata, command palette apply/release actions, canvas clipping, SVG clip-path export, JSON import validation, Properties controls, Dev Mode handoff, component override reporting, and version compare support.
+- Added share link expiry management with 7-day, 30-day, and clear-expiry controls, server-backed expiry updates, expiry display in active link inventory, and activity records.
+- Added share link review with active/disabled link inventory, download and comment exposure checks, unexpiring and stale link warnings, per-link disable controls, filtered queues, CSV/Markdown exports, and copyable handoff in the Share menu.
+- Added file access review with owner sanity checks, external editor warnings, stale collaborator review, editor-heavy file checks, filtered queues, CSV/Markdown exports, copyable handoff, and share/access activity records.
+- Added file governance review with public scope, exposed draft, stale file, duplicate name, trash review, and handoff-comment checks, plus filtered queues, CSV/Markdown exports, copyable handoff, and activity records in the file browser.
+- Added version timeline review with restore and merge risk scoring, stale checkpoint checks, duplicate named-version review, filtered queues, CSV/Markdown exports, copyable handoff, and activity records in the Versions menu.
+- Added activity conflict review with burst detection, repeated-target risk, stale export checks, destructive edit review, import/version after export warnings, filtered queues, CSV/Markdown exports, copyable handoff, and activity records.
+- Added collaboration session review with peer health scoring, stale presence checks, cursor and viewport readiness, unread mention review, disconnect tracking, filtered queues, CSV/Markdown exports, copyable handoff, and activity records.
+- Added plugin governance review with permission coverage, write-grant review, stale-grant cleanup, filtered queues, CSV/Markdown exports, and extension activity records.
+- Added document-level text review with typography readiness scoring, font inventory, token match counts, filtered queues, CSV/Markdown handoff exports, active-page repair actions, activity records, and document health integration.
+- Added export preflight review with asset blocker detection, font/raster risk checks, preset readiness, filtered queues, CSV/Markdown handoff exports, activity records, and document health integration.
+- Added version compare risk scoring, CSV/Markdown review exports, compare summary cards, and activity records for named-version review sessions.
+- Added document-level Dev Mode handoff review with readiness scoring, filtered queues, CSV/Markdown exports, queue selection, safe mark-ready actions, activity records, and document health integration.
+- Added prototype flow readiness warnings, filtered review queues, CSV/Markdown handoff exports, start-page normalization, activity records, and document health integration.
+- Added accessibility issue filters, review queue selection, and extension activity records for accessibility exports and quick-fix sessions.
+- Added document-wide accessibility audit scoring, CSV/Markdown handoff exports, safe page quick fixes, document health integration, and layer handoff checklist coverage.
+- Added responsive frame layout migration actions and frame layout handoff warnings for blocked or weak layout readiness.
+- Added absolute-positioned child semantics for owned frame layers that should stay out of auto-layout flow, including Properties controls, command palette support, review counts, handoff metadata, component overrides, and version compare output.
+- Added auto-layout wrap metadata, controls, command palette actions, layout application behavior, import validation, preset summaries, and token export.
+- Added frame layout review for auto-layout coverage, owned child adoption, overflow risk, fill/hug sizing counts, CSV export, and Markdown handoff.
+- Added admin file permission summaries for owners, collaborator roles, live public links, download exposure, review links, and stale shares.
+- Added component documentation readiness review for usage examples, variants, properties, slots, Code Connect mappings, and dev links.
+- Added aggregate component documentation readiness metrics for library docs score, ready, review, and missing component states.
+- Added component documentation readiness CSV export for the currently visible component audit rows.
+- Added a token usage audit panel for raw layer values, exact token matches, and variable-bound layer coverage.
+- Added stale component instance review for pending library updates, update-available sources, and detached instances.
+- Added a library publish readiness checklist for metadata, changes, docs, examples, variants, Code Connect, and source state.
+- Added CSV export for the library publish readiness checklist.
+- Added design-token drift review for saved styles that disagree with active variables or lack token pairs.
+- Added component dependency review for nested component instances, slot metadata coverage, unknown references, and cycles.
+- Added copyable component-library release notes generated from component changes, token drift, documentation readiness, dependencies, and publish blockers.
+- Added publish readiness quick actions for component documentation review, stale source-state review, and accepting pending library updates.
+- Added downloadable library release archives with release notes, readiness, dependency, stale instance, token drift, and metadata reports.
+- Added copy and download actions for Mermaid component dependency graph exports.
+- Added CSV export for design-token drift cleanup reports.
+- Added publish-risk scoring details from release readiness, open comments, broken prototypes, pending updates, and recent activity.
+- Added one-click Markdown audit handoff bundles with release notes, readiness, risk, dependency graph, dependency issues, and token drift details.
+- Added token drift remediation suggestions to the drift panel, CSV export, and audit handoff output.
+- Added component dependency impact summaries for upstream and downstream release risk in the review panel and audit handoff output.
+- Added a release approval checklist with acknowledgement states for readiness blockers and publish risks before publishing.
+- Added CSV export for publish-risk review meetings with score, severity counts, impact, and detail rows.
+- Added stable archive integrity metadata to release archives and audit handoff Markdown.
+- Added release approval acknowledgement state to release archives and audit handoff Markdown exports.
+- Added release archive integrity verification from imported archive JSON files.
+- Added release archive comparison review against the current library archive summary.
+- Added release approval notes for acknowledged readiness blockers and publish risks.
+- Added release governance summary cards for readiness, approval, risk, and archive integrity.
+- Split release readiness, risk, approval, governance, and notes panels out of the component library controls file.
+- Added release approval history snapshots for repeated review sessions.
+- Added verified release archive import summaries with metadata, scores, row counts, and approval status.
+- Added governance CSV export for release review records.
+- Added release approval checklist filters for open, acknowledged, readiness, and risk review items.
+- Added restore controls for release approval history snapshots.
+- Added approval snapshot CSV export for release audit replay.
+- Added imported archive approval state restore from verified release archives.
+- Added release review session labels for saved approval snapshots.
+- Added release governance warning states for archive integrity, version drift, component drift, and open approval items.
+- Added release evidence summary generation from approvals, warnings, archive integrity, and comparison state.
+- Added copy and download actions for release evidence summaries.
+- Added an archive replay checklist for imported approval, integrity, summary, and comparison state.
+- Added review-owner and reviewer-note fields to release approval snapshots and snapshot CSV exports.
+- Added governance handoff text to release audit handoff Markdown exports.
+- Split release panels into focused publish, approval, governance, notes, and shared modules.
+- Added release evidence CSV export for spreadsheet-based audit review.
+- Added governance warning filters for blockers, warnings, and open approval items.
+- Added archive replay checklist CSV export for imported release review.
+- Added release evidence search across evidence lines, warnings, replay checklist items, and imported archive metadata.
+- Added release evidence search result counts and CSV export.
+- Added replay checklist filtering for ready, review, and missing archive replay states.
+- Added filtered governance warning CSV export.
+- Added imported archive summary copy action for review notes.
+- Added pinned release evidence search terms for repeated review passes.
+- Added downloadable release evidence bundles with archive metadata, approval state, governance warnings, replay status, and active search results.
+- Added export and clear controls for pinned release evidence searches.
+- Added archive replay status summaries for ready, review, and missing release verification steps.
+- Added quick-copy text for filtered release governance warning queues.
+- Added release review controls for clearing active approval state, archive verification state, and search state.
+- Added file browser workspace summaries for team/project groups with file, handoff, shared, and open-comment counts.
+- Added owner-only file organization controls for editing scope, team, and project metadata.
+- Added file browser workspace presets for drafts, review, handoff, and editable shared queues.
+- Added project-level file browser actions for jumping into scoped open-comment and handoff review queues.
+- Added CSV workspace inventory export from the file browser.
+- Added collaboration session summaries and CSV exports for chat and presence activity.
+- Added unread collaboration chat counts and mention highlighting for session messages.
+- Added collaborator viewport snapshot CSV export for follow and spotlight handoff review.
+- Added presence activity filters for joins, leaves, chat, spotlight, and follow events.
+- Added copyable collaboration session handoff Markdown with peers, viewport snapshots, chat, and activity.
+- Added batch export manifests with generated filenames, formats, scope, scale, and document counts.
+- Added named export presets for review, web, source archive, and handoff batches.
+- Added export dialog filename previews that mirror the exact batch export entries.
+- Added export manifest import diagnostics for validating completed handoff batches.
+- Added export history review rows to the activity panel.
+- Added selected-text review for overflow, long-word fit risk, missing font metadata, tiny type, line-height, tracking, CSV export, and quick repair actions.
+- Added fixed, auto-width, and auto-height text resize modes with Properties controls, command palette actions, import validation, canvas rendering, and handoff metadata.
+- Added document-wide font inventory with configured/custom font review, CSV export, and Markdown handoff download.
+- Added selected-text handoff exports with CSS snippets, platform notes, JSON output, and typography-token matches.
+- Added page facilitation review for comment votes, owner gaps, active threads, resolved decisions, CSV export, and Markdown handoff.
+- Added page voting sessions with configurable vote budgets, open/closed state, JSON import validation, and facilitation handoff metadata.
+- Added review timer metadata with configurable duration, start/pause/finish state, JSON import validation, and facilitation handoff output.
+- Added facilitation templates that create editable sticky-note boards and starter comments for critique, planning, retrospective, and design QA sessions.
+- Added public shared-file facilitation summaries with vote counts, blockers, voting-session state, review-timer state, and top review rows.
+- Added command-palette connector creation between two selected layers as editable arrowed vector paths with source/target metadata, import validation, Dev Mode handoff, and version compare support.
+- Added page connector review with ready/broken endpoint status, CSV export, and repair action for unlinking stale connector metadata.
+- Added FigJam-style stamp layers for approval, question, risk, and decision markers with command-palette insertion, import validation, Dev Mode handoff, and version compare support.
+- Added marker and highlighter drawing presets with editable path insertion, selected-path restyling, import validation, Dev Mode handoff, and version compare support.
+- Added public shared-file canvas review summaries for connectors, broken connector endpoints, stamps, and ink annotations.
+- Added component integrity review for unused components, empty source components, missing component references, missing variant references, and CSV export.
+- Added active-page repair actions for clearing missing component references and missing variant links from component instances.
+- Added component variable coverage review for source layer properties, matching raw token values, coverage status, and CSV export.
+- Added variable-coverage adoption goals to library publish readiness with progress warnings and review routing.
+- Added shared-file library handoff summaries for component counts, instance counts, integrity issues, and variable coverage.
+- Added one-click component source variable binding for raw properties that already match existing document variable values.
+- Added component variable coverage records to release archives and audit handoff Markdown.
+- Added stale component-source variable binding review with cleanup for deleted variables and mismatched variable types.
+- Added shared-file warnings for weak component variable coverage and stale component-source variable bindings.
+
+## 2026-05-14
+
+- Removed scaffold and implementation-chatter copy from the README, tracker, starter document, metadata, and desktop description.
+- Added required email verification with one-time codes delivered through the configured transactional email sender.
+- Added a seeded administrator account script for `admin@mail.com`.
+- Added a data-backed admin dashboard for users, website views, files, and auth configuration health.
+- Added dashboard management controls for verifying pending users, revoking user sessions, and disabling or restoring public share links.
+- Added administrator audit events for user verification, session revocation, and public share management.
+- Added admin configuration health checks and CSV export for audit events.
+- Added local table components based on tablecn patterns for dashboard tables.
+- Added document-backed comment notification preferences with editor/admin delivery review.
+- Added richer file browser queues for drafts, handoff-ready files, shared collaboration files, and open comment work.
+- Added clipboard interoperability for Essence JSON, editable SVG, PNG output, and copied layer payloads.
+- Added editable component property definitions and source slot metadata with variant/instance value migration.
+- Added component library update review details with acceptance activity notes.
+- Added collaboration presence activity history with join, leave, chat, follow, and spotlight review events.
+- Kept collaboration presence connections stable while viewport changes broadcast live pan and zoom state.
+- Added role and review filters for the shared collaboration file queue.
+- Added selected-layer accessibility inspection with text, target, contrast, and keyboard-label review.
+- Added administrator audit summary cards for recent user, session, share, and actor activity.
+- Added editor settings export, import preview, shortcut conflict detection, shortcut reset, and plugin permission reset flows.
+- Added document health reporting for accessibility, comments, prototype links, Dev Mode readiness, and component library state.
+- Added document health actions for selecting affected layers, marking visible layers ready for Dev Mode, and resolving open comments.
+- Added design-system package export with library metadata, components, styles, variables, and platform token outputs.
+- Added per-layer asset export bundles with SVG, retina, and handoff presets plus exportability review metadata.
+- Added explicit keep-current and accept-incoming choices for each named-version merge section.
+- Added activity review filtering, search, visible metrics, and CSV export for the currently visible activity queue.
+- Added component review filters for used, unused, pending-update, detached, and variant-backed components.
+- Added prototype flow map diagnostics with start-page review, route counts, and broken-link grouping.
+- Added file browser sorting by updated time, name, role, open comments, and handoff readiness.
+- Added admin workspace health metrics for open-review files, broken prototypes, handoff-ready files, and stale shares.
+- Added selected-layer Dev Mode handoff checklists for ready state, assets, prototypes, Code Connect, dev links, tokens, and annotations.
+- Added active-page prototype flow repair actions for clearing broken hotspot links directly from the flow map.
+- Added admin review filters for users, share-risk exposure, collaborative files, editor access, comments, and broken prototypes.
+
+## 2026-05-13
+
+- Created the Essence Figma project in `G:\Figma` with an editor workspace, desktop shell, and persistent project structure.
+- Created the primary app database and wrote local environment variables.
+- Added email/password authentication with persistent auth schema tables.
+- Pushed the initial schema to the live database.
+- Added the first authenticated design editor slice with persistent design files, canvas tools, layer list, properties panel, undo/redo, save, and JSON export.
+- Added multi-file ownership with active-file routing and a file/layers sidebar.
+- Added file search, rename, duplicate, and delete with a confirmation dialog.
+- Added canvas resize handles, z-order controls, and keyboard shortcuts for core editor actions.
+- Added SVG export for visible canvas layers.
+- Added rotation handles, arrow-key nudging, and live selection measurement badges.
+- Added autosave and PNG export.
+- Added named version history with restore.
+- Added file favorites, recent/starred/trash filters, soft delete, and restore.
+- Added first-class anchored canvas comments with a comments panel and resolve/reopen state.
+- Added read-only public share links for design files.
+- Added generated file thumbnails and share-link revocation.
+- Added marquee selection, shift multi-select, multi-layer drag, keyboard nudging, duplicate, delete, and layer-list multi-select highlighting.
+- Added layer copy, cut, and paste through keyboard shortcuts and toolbar controls.
+- Added multi-layer alignment controls for left, center, right, top, middle, and bottom alignment.
+- Added live snap guides for dragging selected layers against nearby layer edges and centers.
+- Added layer grouping and ungrouping with grouped canvas selection and movement.
+- Added persistent rulers and draggable page guides with Alt-click removal.
+- Added SVG import for rectangles, ellipses, circles, and text as editable layers.
+- Added direct PDF export for the visible canvas.
+- Added image layer import from the File menu and canvas drag/drop, with selectable/resizable image layers.
+- Added SVG path import as movable/resizable vector layers that save and export with the document.
+- Added batch export settings for exporting the page or current selection across JSON, SVG, PNG, and PDF.
+- Added threaded comment replies with stored `@mention` detection in design documents.
+- Added reusable component creation from selected layers and component instance insertion from the assets panel.
+- Added JPG export for direct page export and batch export settings.
+- Added command palette access to core tools, file actions, alignment, z-order, grouping, components, and selection commands.
+- Added command palette insertion for saved components.
+- Added rename and delete controls for saved components in the Assets panel.
+- Added search filtering for saved components in the Assets panel.
+- Added mention routing for comments, including a current-user mention filter and Notes badge.
+- Added component variants with create, rename, delete, search, asset-panel insert, and command-palette insert support.
+- Added component instance reset and detach controls in Properties plus command-palette actions.
+- Added component instance override review with current/source property comparison in Properties.
+- Added named version compare view for document metrics, layer changes, and component changes.
+- Added `todo.md` with the Figma parity gap and implementation order.
+
+## 2026-05-14
+
+- Fixed canvas insertion so frame, rectangle, ellipse, text, and sticky tools insert from normal blank-canvas clicks and select the new layer.
+- Reworked the left sidebar tabs into spaced icon tabs with accessible labels and tooltips.
+- Added a custom color picker for fill, stroke, and text color controls, including swatches, native color input, text entry, and transparent color support.
+- Added drag-to-size creation for frame, rectangle, ellipse, text, and sticky tools, including Shift-constrained square drawing.
+- Added horizontal and vertical distribution controls in the toolbar and command palette for evenly spacing three or more selected layers.
+- Added wheel and trackpad canvas navigation, including Shift-wheel horizontal pan and Ctrl/Meta-wheel zoom around the pointer.
+- Added direct double-click editing for text and sticky note layers on the canvas.
+- Added inline layer renaming in the Layers panel with double-click/F2 entry, Enter commit, and Escape cancel.
+- Added page name and background controls in Properties when no layer is selected, with the canvas now reflecting the active page background.
+- Added multi-page controls in the Layers panel for switching, adding, duplicating, and deleting document pages.
+- Added inline page renaming and active-page reorder controls in the Layers panel.
+- Added searchable layer filtering with live layer counts and empty states in the Layers panel.
+- Added a destructive confirmation dialog before deleting a page.
+- Added command palette actions for adding, duplicating, moving, and switching document pages.
+- Added select-all and clear-selection keyboard workflows plus command palette actions for selection visibility and lock state.
+- Added zoom in, zoom out, and 100% zoom shortcuts with matching command palette actions.
+- Added fit-page and fit-selection viewport commands backed by live canvas viewport measurement.
+- Added a multi-selection Properties panel with batch bounds, visibility, lock, opacity, fill, and stroke controls.
+- Added mixed-state multi-selection controls for rotation, corner radius, and stroke width.
+- Added batch text style controls for selected text and sticky layers.
+- Added bring-to-front and send-to-back controls in the toolbar, keyboard shortcuts, and command palette.
+- Added Shift-constrained aspect-ratio resizing for existing canvas layers.
+- Added Shift-snapped 15-degree rotation for existing canvas layers.
+- Added persisted page grid controls with grid visibility and snap-to-grid for drawing, moving, resizing, and guides.
+- Added a canvas multi-selection bounding outline with a measurement badge.
+- Added multi-selection bounding-box resize handles for scaling selected unlocked layers together.
+- Added multi-selection bounding-box rotation with Shift-snapped rotation.
+- Added grid-aware keyboard nudging so arrow-key movement respects snap-to-grid while preserving multi-selection spacing.
+- Added keyboard toggles for selected layer visibility and locking.
+- Added Tab and Shift+Tab layer selection cycling with matching command palette actions.
+- Added Home and End shortcuts for jumping to the backmost and frontmost visible layers.
+- Added command palette reset actions for selected layer rotation and opacity.
+- Started a separate advanced Figma parity milestone with refreshed gaps for paint, vector, layout, effects, text, components, prototyping, Dev Mode, collaboration, export, FigJam, Slides, Sites, Draw, plugins, and admin features.
+- Added a custom number input and migrated editor numeric fields away from native number inputs.
+- Expanded the custom color picker with solid, linear, radial, mesh-like, noise, and image fill presets plus blend-mode controls.
+- Added layer blend-mode storage and canvas rendering.
+- Moved the primary editor controls into a floating bottom-center tool dock.
+- Added first-pass Pen and Cutter tools, including vector path insertion and click-based cutting.
+- Added canvas and layer right-click context menus for selection, visibility, locking, deletion, and canvas selection clearing.
+- Added right-click context actions for select-same-type, hide others, lock others, show all layers, and unlock all layers.
+- Added command palette actions for select-same type, fill, stroke, blend mode, hide unselected, lock unselected, show all, and unlock all.
+- Improved the Hand tool so it pans from both blank canvas and existing layers.
+- Added Alt-drag duplication for layers, groups, and multi-selection copies.
+- Added right-click duplicate, bring forward, bring to front, send backward, and send to back actions for clicked layers.
+- Added right-click deep selection for overlapping layers under the cursor.
+- Added a measurement tool with canvas distance and X/Y delta overlays.
+- Added command palette select-by-layer-type actions for frames, rectangles, ellipses, vectors, images, text layers, and sticky notes.
+- Added Properties controls for vector path data and SVG viewBox editing on path layers.
+- Added stroke dash, line cap, and line join controls with canvas rendering plus SVG import/export support.
+- Added batch stroke dash, line cap, and line join controls for multi-selection.
+- Added command palette presets for solid, dashed, dotted, cap, and join stroke styles.
+- Added command palette inverse, visible, hidden, locked, and unlocked layer selection actions.
+- Added an object-snap page preference with Properties, command palette, and Shift+O shortcut controls.
+- Added first-pass layer effects with drop-shadow and layer blur controls, canvas rendering, and SVG export styling.
+- Added batch drop-shadow and layer blur controls for multi-selection.
+- Added command palette presets for soft shadow, tight shadow, layer blur, and reset effects.
+- Added font family, text alignment, line-height, and letter-spacing controls for text and sticky layers.
+- Added multi-selection text typography controls and SVG text export/import support for font family, alignment, and tracking.
+- Added command palette typography presets and component override reporting for font, alignment, line-height, and tracking.
+- Added image layer fit modes for cover, contain, and fill with canvas and SVG export support.
+- Added batch image fit controls, command palette image fit presets, and component override reporting for image fit.
+- Added component override reporting for stroke dash/cap/join and shadow/blur effect properties.
+- Added command palette select-same actions for font family, image fit, and effect settings.
+- Added effect visibility controls and first-pass background blur for single-layer and multi-selection editing.
+- Added command palette effect visibility/background-blur presets and component override reporting for background blur.
+- Added WCAG-style text contrast feedback for single text layers and multi-selection text edits.
+- Added clip-content layer controls for single-layer and multi-selection editing with canvas and SVG path export behavior.
+- Added command palette clip/unclip actions, select clipped/unclipped actions, and component override reporting for clipping.
+- Added batch export scale presets with 1x/2x/3x raster/PDF rendering and scaled filename suffixes.
+- Added command palette tidy-up actions for horizontal, vertical, and grid packing of selected unlocked layers.
+- Expanded version compare to report rich layer changes for typography, image fit, clipping, stroke styles, blend modes, and effects.
+- Added branch-from-named-version support so old versions can become new editable files without overwriting the current file.
+- Added a custom named-version dialog so designers can save meaningful checkpoint names instead of timestamp-only history.
+- Upgraded shared read-only files with handoff stats, layer-type breakdowns, comment counts, and direct SVG download.
+- Added comment review filters for all, open, resolved, and mentions with live review counts.
+- Added comment focus behavior so review cards and canvas pins keep the active annotation centered and highlighted.
+- Added undoable comment and reply deletion from the comments review panel.
+- Added draggable comment pins with live repositioning and undo history integration.
+- Added active-page comment handoff cards to public read-only share links.
+- Added JSON design download and reply previews to public read-only share handoff pages.
+- Added validated design JSON import to restore exported Essence documents from the editor File menu.
+- Added comment search across notes, replies, authors, mentions, and canvas coordinates.
+- Added read-only comment search and open/done filters to public share handoff pages.
+- Added CSV export for the currently visible comment review queue in the editor and shared handoff.
+- Added undoable bulk resolve and reopen actions for the currently visible comment review queue.
+- Added a first Dev Mode CSS inspection section with copyable selected-layer CSS.
+- Added copyable selected-layer HTML snippets alongside Dev Mode CSS inspection.
+- Added copyable selected-layer code snippets for component handoff.
+- Added ready-for-dev layer status with single-layer, multi-selection, command palette, Dev Mode, and version compare support.
+- Added copyable Dev Mode handoff JSON with selected-layer measurements, state, text metadata, and image metadata.
+- Added selected-layer Dev Mode asset detection with copyable and downloadable SVG asset output.
+- Added copyable selected-layer SwiftUI and Jetpack Compose snippets for iOS and Android handoff.
+- Added Dev Mode document-variable matching with visible token references and handoff JSON variable metadata.
+- Added selected-layer Dev Mode annotations from comment pins inside layer bounds with handoff JSON metadata.
+- Added selected-layer Dev Mode measurements with bounds, center points, bottom-right points, and nearest spacing to neighboring layers.
+- Added typed per-layer Dev Mode resource links for Storybook, GitHub, Jira, VS Code, and docs with handoff JSON, import validation, and version compare support.
+- Added per-layer Code Connect-style component mappings with props JSON, copyable mapping snippets, handoff JSON, import validation, and version compare support.
+- Added per-layer prototype hotspot metadata with target page, trigger, transition, duration, preserve-scroll, Dev Mode handoff, import validation, layer search, and version compare support.
+- Added visible canvas prototype hotspot overlays showing linked layer trigger and target page.
+- Added active-page prototype flow overview in Properties with hotspot counts, target pages, transitions, and click-to-select hotspot rows.
+- Added page-level prototype starting point markers with a Properties toggle, flow overview status, JSON import validation, and version compare metrics.
+- Added public shared-file prototype handoff with start-page counts, total hotspot counts, and active-page hotspot routing details.
+- Added shareable prototype presentation links with a public preview route, start-page launch, clickable hotspot navigation, and share-menu copy action.
+- Added prototype presentation controls with back history, restart, keyboard Backspace/ArrowLeft/Home support, and a page rail for manual navigation.
+- Made shared prototype presentations honor stored dissolve and slide transition types with configured hotspot durations.
+- Added prototype broken-link diagnostics in shared handoff and disabled missing-target hotspots inside public prototype preview.
+- Started product-depth loop 2 and added first-pass frame auto layout with horizontal/vertical metadata, gap, padding, alignment, contained-child apply layout, JSON import validation, Dev Mode handoff, component override reporting, and version compare support.
+- Added command palette actions for horizontal frame auto layout, vertical frame auto layout, disabling auto layout, and applying selected frame layout.
+- Added explicit parent-frame ownership for layers, contained-child adoption from frame Properties, selection detach commands, and owned-child auto-layout ordering.
+- Added fixed, fill, and hug layer sizing with Properties controls, command palette presets, fill-child distribution, cross-axis fill stretching, hug-frame resizing, JSON import validation, Dev Mode handoff, component override reporting, and version compare support.
+- Added parent-frame resize constraints with horizontal and vertical constraint controls, responsive owned-child canvas resizing, JSON import validation, Dev Mode handoff, component override reporting, and version compare support.
+- Added frame layout grids with square/column/row modes, gutters, margins, alignment, opacity/color controls, canvas overlays, presets, command palette actions, JSON import validation, Dev Mode handoff, component override reporting, and version compare support.
+- Added document-level reusable grid styles with save/apply/remove controls in frame Properties, command palette style application, JSON import validation, starter document support, and version compare metrics.
+- Added document-level reusable paint styles with save/apply/remove controls in color fields, command palette application to selected layers, JSON import validation, starter document support, and version compare metrics.
+- Added document-level reusable text styles with save/apply/remove controls in text Properties, command palette application to selected text layers, JSON import validation, starter document support, and version compare metrics.
+- Added document-level reusable effect styles with save/apply/remove controls in Effects, command palette application to selected layers, JSON import validation, starter document support, and version compare metrics.
+- Added structured document variables with modes, aliases, page-level value editing, selected-layer binding controls for fill/stroke/text color/radius/stroke width/opacity, bound-layer reapplication on mode changes, Dev Mode binding reports, JSON import validation, component override reporting, document stats, and version compare metrics.
+- Added design token export for variables, paint styles, text styles, effect styles, and grid styles with copyable CSS, copyable JSON, downloadable JSON, and a page-level token preview.
+- Added reusable frame layout presets for auto-layout and sizing with Properties controls, command palette application, JSON import validation, version compare metrics, starter document support, and design token export.
+- Started product-depth loop 3 and expanded variables with scoped collections, richer layer property binding coverage, JSON import validation, version compare metrics, and multi-platform token export formats.
+- Added component property definitions with instance property values, property-driven variant switching from Properties, command palette variant switch actions, JSON import validation, Dev Mode handoff metadata, and version compare reporting.
+- Added component slots with nested instance layer selection, slot search metadata, text-property controls, and property-driven text/content overrides for component instances.
+- Added local component library publish/export/import flows with team metadata, subscription tracking, pending update review, and detached library component state.
+- Added named-version merge review with selectable page, component, variable, style, and library sections that merge divergent work into the open file through the normal dirty/save path.
+- Added free local realtime collaboration presence with BroadcastChannel-powered peer cursors, presence counts, spotlight broadcasting, and follow-peer viewport mode across open tabs/windows.
+- Added an Extensions sidebar with sandboxed plugin permission grants, accessibility audit issue selection, ready-for-dev plugin command, and persisted customizable tool shortcuts.
+- Started product-depth loop 4 and added persisted document activity history with actor metadata, sidebar timeline review, CSV export, JSON import validation, clear controls, and undo/redo-safe preservation across document history navigation.
+- Added comment reactions, comment assignment to the current user, a Mine review filter, assignment/reaction search coverage, activity events for review actions, and richer comment CSV exports.
+- Added local collaboration session chat over the existing file-scoped BroadcastChannel presence system, including a compact chat popover, message history, and clear controls for handoff notes between open collaborators.
+- Added component analytics for the Assets panel, including total component counts, instance adoption, pending library updates, detached library status, per-component instance layers, and per-variant usage counts.
+- Configured Vercel deployment as a Next.js project, excluded local artifacts from deploy uploads, and captured a deployed admin dashboard screenshot through the seeded verified account.
+- Added granular file access foundations with owner/viewer/commenter/editor roles, collaborator invite/remove/update actions, private team/project file scope metadata, share-link presets for handoff/prototype/review, public share capability controls, and admin visibility into share presets and file scopes.
+- Added structured import diagnostics for JSON, SVG, image, and PDF selections with detected file type reporting, actionable issue lists, format-specific hints, an editor diagnostics panel, and explicit PDF unsupported guidance.
+- Added local offline design recovery controls with per-file browser backups, dirty-state auto-backup, backup timestamp visibility, manual save, restore, and clear actions from the File menu.
+- Added vector path operations with editable path conversion, compound boolean union/subtract/intersect/exclude commands, stroke outlining, fill-rule controls, SVG fill-rule roundtrip, and cutter splitting for supported box layers.
+- Added richer fill paint stacks with per-paint visibility, opacity, ordering, blend modes, duplication/removal, editable linear-gradient stops, canvas rendering, JSON validation, SVG primary-fill export, Dev Mode handoff metadata, version compare, and component override reporting.
+- Added advanced prototype metadata and preview behavior for overlay actions, overlay placement, outside-click closing, reset/preserve/lock scroll modes, device frame presentation, smart-animation flags, handoff metadata, JSON validation, flow diagnostics, and version compare.
+- Started product-depth loop 5 and added save-time external comment notification delivery for new assigned comments, new replies, assignment changes, and email mentions through the configured transactional email sender.
+- Added local optimistic design checkpoints with automatic before-save snapshots, manual checkpoint creation, latest-checkpoint restore, checkpoint counts, and local checkpoint clearing from the File menu.

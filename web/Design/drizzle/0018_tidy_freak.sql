@@ -1,0 +1,2 @@
+ALTER TABLE `design_template` ADD `is_team_template` integer DEFAULT false NOT NULL;--> statement-breakpoint
+CREATE INDEX `design_template_team_updated_idx` ON `design_template` (`is_team_template`,`updated_at`);

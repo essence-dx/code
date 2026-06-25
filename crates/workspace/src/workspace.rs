@@ -6159,9 +6159,9 @@ impl Workspace {
                     window.dispatch_action(NewWebPreview.boxed_clone(), cx);
                 }
                 _ => {
-                    let target_pane = target_pane.downgrade();
+                    let target_pane_weak = target_pane.downgrade();
                     cx.defer_in(window, move |workspace, window, cx| {
-                        let Some(target_pane) = target_pane.upgrade() else {
+                        let Some(target_pane) = target_pane_weak.upgrade() else {
                             return;
                         };
 
@@ -6207,6 +6207,7 @@ impl Workspace {
                                 // onboarding completion path is safe on Windows.
                             }
                             WorkspaceScreenKind::Other => {}
+                            WorkspaceScreenKind::Browser => {}
                         }
                     });
                 }

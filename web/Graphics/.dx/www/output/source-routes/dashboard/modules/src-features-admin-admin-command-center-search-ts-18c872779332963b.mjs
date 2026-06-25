@@ -1,0 +1,90 @@
+
+export const dxSourceText = "import type {\n  AdminAutomationRunbook,\n  AdminAutomationRunbookCenterReport,\n  AdminAutomationRunbookRow,\n  AdminAutomationRunbookStatus,\n} from \"@/features/admin/admin-automation-runbook-center\";\nimport type {\n  AdminFileRow,\n  AdminShareRow,\n  AdminUserRow,\n} from \"@/features/admin/admin-data\";\n\nexport type AdminCommandCenterSearchStatus =\n  | \"ready\"\n  | \"review\"\n  | \"blocked\";\n\nexport type AdminCommandCenterSearchCategory =\n  | \"evidence\"\n  | \"file\"\n  | \"governance\"\n  | \"release\"\n  | \"runbook\"\n  | \"share\"\n  | \"user\";\n\nexport type AdminCommandCenterGovernanceReportInput = {\n  id: string;\n  source: string;\n  category: Extract<\n    AdminCommandCenterSearchCategory,\n    \"governance\" | \"release\" | \"evidence\"\n  >;\n  status: AdminCommandCenterSearchStatus;\n  score: number;\n  summary: string;\n  findings: string[];\n  latestAt: string | null;\n  commands?: string[];\n};\n\nexport type AdminCommandCenterSearchRow = {\n  id: string;\n  category: AdminCommandCenterSearchCategory;\n  source: string;\n  status: AdminCommandCenterSearchStatus;\n  label: string;\n  detail: string;\n  evidence: string;\n  owner: string;\n  command: string | null;\n  href: string | null;\n  score: number | null;\n  latestAt: string | null;\n  tokens: string[];\n};\n\nexport type AdminCommandCenterSearchSummary = {\n  category: AdminCommandCenterSearchCategory;\n  count: number;\n  blockedCount: number;\n  reviewCount: number;\n};\n\nexport type AdminCommandCenterSearchReport = {\n  generatedAt: string;\n  status: AdminCommandCenterSearchStatus;\n  score: number;\n  rowCount: number;\n  readyCount: number;\n  reviewCount: number;\n  blockedCount: number;\n  commandCount: number;\n  summaries: AdminCommandCenterSearchSummary[];\n  suggestedQueries: string[];\n  rows: AdminCommandCenterSearchRow[];\n};\n\nexport type AdminCommandCenterSearchInput = {\n  generatedAt?: string;\n  users: AdminUserRow[];\n  files: AdminFileRow[];\n  shares: AdminShareRow[];\n  governanceReports: AdminCommandCenterGovernanceReportInput[];\n  runbookCenter: Pick<\n    AdminAutomationRunbookCenterReport,\n    \"commands\" | \"commandCount\" | \"rows\" | \"runbooks\" | \"score\" | \"status\"\n  >;\n};\n\nexport type AdminCommandCenterSearchFilter = {\n  category?: AdminCommandCenterSearchCategory | \"all\";\n  status?: AdminCommandCenterSearchStatus | \"all\";\n};\n\nexport function getAdminCommandCenterSearchReport({\n  generatedAt = new Date().toISOString(),\n  users,\n  files,\n  shares,\n  governanceReports,\n  runbookCenter,\n}: AdminCommandCenterSearchInput): AdminCommandCenterSearchReport {\n  const rows = [\n    ...users.map(createUserRow),\n    ...files.map(createFileRow),\n    ...shares.map(createShareRow),\n    ...governanceReports.map(createGovernanceRow),\n    ...runbookCenter.runbooks.flatMap(createRunbookRows),\n    ...runbookCenter.rows.map(createRunbookSignalRow),\n  ].sort(sortRows);\n  const readyCount = rows.filter((row) => row.status === \"ready\").length;\n  const reviewCount = rows.filter((row) => row.status === \"review\").length;\n  const blockedCount = rows.filter((row) => row.status === \"blocked\").length;\n  const commandCount = new Set(\n    rows.flatMap((row) => (row.command ? [row.command] : [])),\n  ).size;\n\n  return {\n    generatedAt,\n    status:\n      blockedCount > 0 ? \"blocked\" : reviewCount > 0 ? \"review\" : \"ready\",\n    score: Math.max(0, 100 - blockedCount * 9 - reviewCount * 3),\n    rowCount: rows.length,\n    readyCount,\n    reviewCount,\n    blockedCount,\n    commandCount,\n    summaries: getCategorySummaries(rows),\n    suggestedQueries: getSuggestedQueries({\n      files,\n      governanceReports,\n      runbookCenter,\n      shares,\n      users,\n    }),\n    rows,\n  };\n}\n\nexport function filterAdminCommandCenterSearchRows(\n  rows: AdminCommandCenterSearchRow[],\n  query: string,\n  filter: AdminCommandCenterSearchFilter = {},\n) {\n  const normalizedTerms = normalizeTerms(query);\n  const category = filter.category ?? \"all\";\n  const status = filter.status ?? \"all\";\n\n  return rows.filter((row) => {\n    if (category !== \"all\" && row.category !== category) {\n      return false;\n    }\n\n    if (status !== \"all\" && row.status !== status) {\n      return false;\n    }\n\n    if (normalizedTerms.length === 0) {\n      return true;\n    }\n\n    const haystack = row.tokens.join(\" \");\n\n    return normalizedTerms.every((term) => haystack.includes(term));\n  });\n}\n\nexport function getAdminCommandCenterSearchJson(\n  report: AdminCommandCenterSearchReport,\n) {\n  return JSON.stringify(report, null, 2);\n}\n\nexport function getAdminCommandCenterSearchCsv(\n  report: AdminCommandCenterSearchReport,\n) {\n  return [\n    [\n      \"id\",\n      \"category\",\n      \"source\",\n      \"status\",\n      \"label\",\n      \"detail\",\n      \"evidence\",\n      \"owner\",\n      \"command\",\n      \"href\",\n      \"score\",\n      \"latest_at\",\n    ].join(\",\"),\n    ...report.rows.map((row) =>\n      [\n        row.id,\n        row.category,\n        row.source,\n        row.status,\n        row.label,\n        row.detail,\n        row.evidence,\n        row.owner,\n        row.command ?? \"\",\n        row.href ?? \"\",\n        row.score ?? \"\",\n        row.latestAt ?? \"\",\n      ]\n        .map(escapeCsvCell)\n        .join(\",\"),\n    ),\n  ].join(\"\\n\");\n}\n\nexport function getAdminCommandCenterSearchMarkdown(\n  report: AdminCommandCenterSearchReport,\n) {\n  return [\n    \"# Admin Command Center Search\",\n    \"\",\n    `Generated: ${report.generatedAt}`,\n    `Status: ${report.status}`,\n    `Score: ${report.score}`,\n    `Rows: ${report.readyCount} ready, ${report.reviewCount} review, ${report.blockedCount} blocked`,\n    `Commands: ${report.commandCount}`,\n    \"\",\n    \"## Categories\",\n    \"\",\n    ...report.summaries.map(\n      (summary) =>\n        `- ${summary.category}: ${summary.count} rows (${summary.blockedCount} blocked, ${summary.reviewCount} review)`,\n    ),\n    \"\",\n    \"## Suggested Queries\",\n    \"\",\n    ...report.suggestedQueries.map((query) => `- ${query}`),\n    \"\",\n    \"## Search Rows\",\n    \"\",\n    ...report.rows.map((row) =>\n      [\n        `- [${row.status}] ${row.label}`,\n        `  - Source: ${row.source}`,\n        `  - Category: ${row.category}`,\n        `  - Detail: ${row.detail}`,\n        `  - Evidence: ${row.evidence}`,\n        `  - Owner: ${row.owner}`,\n        row.command ? `  - Command: \\`${row.command}\\`` : null,\n        row.href ? `  - Link: ${row.href}` : null,\n      ]\n        .filter(Boolean)\n        .join(\"\\n\"),\n    ),\n  ].join(\"\\n\");\n}\n\nfunction createUserRow(user: AdminUserRow): AdminCommandCenterSearchRow {\n  const status = user.emailVerified ? \"ready\" : \"review\";\n\n  return createRow({\n    id: `user:${user.id}`,\n    category: \"user\",\n    source: \"Users\",\n    status,\n    label: user.name,\n    detail: `${user.email} has ${user.files} files and ${user.sessions} active sessions.`,\n    evidence: user.emailVerified\n      ? \"Email verification is complete.\"\n      : \"Email verification is still pending.\",\n    owner: user.email,\n    latestAt: user.createdAt,\n    score: status === \"ready\" ? 100 : 75,\n  });\n}\n\nfunction createFileRow(file: AdminFileRow): AdminCommandCenterSearchRow {\n  const status = file.trashedAt\n    ? \"blocked\"\n    : file.brokenPrototypeCount > 0 ||\n        file.openCommentCount > 0 ||\n        file.staleShareCount > 0\n      ? \"review\"\n      : \"ready\";\n\n  return createRow({\n    id: `file:${file.id}`,\n    category: \"file\",\n    source: \"Design files\",\n    status,\n    label: file.name,\n    detail: `${file.teamName} / ${file.projectName} / ${file.scope}`,\n    evidence: `${file.collaboratorCount} collaborators, ${file.openCommentCount} open comments, ${file.brokenPrototypeCount} broken prototypes, ${file.staleShareCount} stale shares.`,\n    owner: file.ownerEmail,\n    latestAt: file.updatedAt,\n    score: status === \"ready\" ? 100 : status === \"review\" ? 82 : 30,\n  });\n}\n\nfunction createShareRow(share: AdminShareRow): AdminCommandCenterSearchRow {\n  const status = share.disabledAt\n    ? \"blocked\"\n    : share.allowDownload || !share.expiresAt\n      ? \"review\"\n      : \"ready\";\n\n  return createRow({\n    id: `share:${share.id}`,\n    category: \"share\",\n    source: \"Website shares\",\n    status,\n    label: share.fileName,\n    detail: `${share.permissionPreset} ${share.accessLevel} public share.`,\n    evidence: `${share.allowDownload ? \"Downloads allowed\" : \"Downloads off\"}, ${share.allowComments ? \"comments allowed\" : \"comments off\"}, expiry ${share.expiresAt ?? \"not set\"}.`,\n    owner: share.ownerEmail,\n    href: share.sharePath,\n    latestAt: share.createdAt,\n    score: status === \"ready\" ? 100 : status === \"review\" ? 78 : 25,\n  });\n}\n\nfunction createGovernanceRow(\n  report: AdminCommandCenterGovernanceReportInput,\n): AdminCommandCenterSearchRow {\n  return createRow({\n    id: `report:${report.id}`,\n    category: report.category,\n    source: report.source,\n    status: report.status,\n    label: report.source,\n    detail: report.summary,\n    evidence: report.findings.join(\" \"),\n    owner: \"Admin operator\",\n    command: report.commands?.[0] ?? null,\n    latestAt: report.latestAt,\n    score: report.score,\n  });\n}\n\nfunction createRunbookRows(\n  runbook: AdminAutomationRunbook,\n): AdminCommandCenterSearchRow[] {\n  return [\n    createRow({\n      id: `runbook:${runbook.id}`,\n      category: \"runbook\",\n      source: \"Automation runbooks\",\n      status: normalizeRunbookStatus(runbook.status),\n      label: runbook.title,\n      detail: runbook.objective,\n      evidence: `${runbook.evidenceBundle} has ${runbook.rowCount} rows and ${runbook.commandCount} commands.`,\n      owner: runbook.owner,\n      command: runbook.commands[0] ?? null,\n      latestAt: null,\n      score: runbook.blockedSignalCount\n        ? 40\n        : runbook.reviewSignalCount\n          ? 84\n          : 100,\n    }),\n    createRow({\n      id: `evidence:${runbook.id}`,\n      category: \"evidence\",\n      source: \"Evidence bundles\",\n      status: normalizeRunbookStatus(runbook.status),\n      label: runbook.evidenceBundle,\n      detail: `${runbook.title} evidence package.`,\n      evidence: `${runbook.objective} Owner: ${runbook.owner}.`,\n      owner: runbook.owner,\n      command: runbook.commands[0] ?? null,\n      latestAt: null,\n      score: runbook.blockedSignalCount\n        ? 40\n        : runbook.reviewSignalCount\n          ? 84\n          : 100,\n    }),\n  ];\n}\n\nfunction createRunbookSignalRow(\n  row: AdminAutomationRunbookRow,\n): AdminCommandCenterSearchRow {\n  return createRow({\n    id: `runbook-row:${row.id}`,\n    category: \"runbook\",\n    source: \"Runbook signals\",\n    status: normalizeRunbookStatus(row.status),\n    label: row.label,\n    detail: `${row.category} / ${row.cadence}`,\n    evidence: row.evidence,\n    owner: row.owner,\n    command: row.command,\n    latestAt: row.latestAt,\n    score: row.status === \"ready\" ? 100 : row.status === \"review\" ? 82 : 30,\n  });\n}\n\nfunction createRow(\n  row: Omit<AdminCommandCenterSearchRow, \"command\" | \"href\" | \"tokens\"> &\n    Partial<Pick<AdminCommandCenterSearchRow, \"command\" | \"href\">>,\n): AdminCommandCenterSearchRow {\n  const normalizedRow = {\n    command: null,\n    href: null,\n    ...row,\n  };\n\n  return {\n    ...normalizedRow,\n    tokens: normalizeTerms([\n      normalizedRow.id,\n      normalizedRow.category,\n      normalizedRow.source,\n      normalizedRow.status,\n      normalizedRow.label,\n      normalizedRow.detail,\n      normalizedRow.evidence,\n      normalizedRow.owner,\n      normalizedRow.command,\n      normalizedRow.href,\n      normalizedRow.score,\n      normalizedRow.latestAt,\n    ]),\n  };\n}\n\nfunction getCategorySummaries(rows: AdminCommandCenterSearchRow[]) {\n  const categories: AdminCommandCenterSearchCategory[] = [\n    \"governance\",\n    \"release\",\n    \"runbook\",\n    \"evidence\",\n    \"user\",\n    \"file\",\n    \"share\",\n  ];\n\n  return categories\n    .map((category) => {\n      const categoryRows = rows.filter((row) => row.category === category);\n\n      return {\n        category,\n        count: categoryRows.length,\n        blockedCount: categoryRows.filter((row) => row.status === \"blocked\")\n          .length,\n        reviewCount: categoryRows.filter((row) => row.status === \"review\")\n          .length,\n      };\n    })\n    .filter((summary) => summary.count > 0);\n}\n\nfunction getSuggestedQueries({\n  files,\n  governanceReports,\n  runbookCenter,\n  shares,\n  users,\n}: Omit<AdminCommandCenterSearchInput, \"generatedAt\">) {\n  const queries = [\n    governanceReports.find((report) => report.status === \"blocked\")?.source,\n    runbookCenter.runbooks.find((runbook) => runbook.status !== \"ready\")\n      ?.evidenceBundle,\n    files.find((file) => file.openCommentCount > 0)?.ownerEmail,\n    shares.find((share) => share.allowDownload)?.fileName,\n    users.find((user) => !user.emailVerified)?.email,\n    \"release evidence\",\n  ];\n\n  return uniqueStrings(queries.filter(Boolean).map(String)).slice(0, 6);\n}\n\nfunction normalizeRunbookStatus(\n  status: AdminAutomationRunbookStatus,\n): AdminCommandCenterSearchStatus {\n  return status;\n}\n\nfunction sortRows(\n  left: AdminCommandCenterSearchRow,\n  right: AdminCommandCenterSearchRow,\n) {\n  const statusDelta = getStatusWeight(right.status) - getStatusWeight(left.status);\n\n  if (statusDelta !== 0) {\n    return statusDelta;\n  }\n\n  const latestDelta =\n    Date.parse(right.latestAt ?? \"\") - Date.parse(left.latestAt ?? \"\");\n\n  if (Number.isFinite(latestDelta) && latestDelta !== 0) {\n    return latestDelta;\n  }\n\n  return left.label.localeCompare(right.label);\n}\n\nfunction getStatusWeight(status: AdminCommandCenterSearchStatus) {\n  if (status === \"blocked\") {\n    return 3;\n  }\n\n  return status === \"review\" ? 2 : 1;\n}\n\nfunction normalizeTerms(value: unknown): string[] {\n  const text = Array.isArray(value)\n    ? value.map((item) => String(item ?? \"\")).join(\" \")\n    : String(value ?? \"\");\n\n  return uniqueStrings(\n    text\n      .toLowerCase()\n      .split(/[^a-z0-9@._/-]+/)\n      .map((term) => term.trim())\n      .filter(Boolean),\n  );\n}\n\nfunction uniqueStrings(values: string[]) {\n  return Array.from(new Set(values));\n}\n\nfunction escapeCsvCell(value: unknown) {\n  const text = String(value ?? \"\");\n\n  if (!/[\",\\n\\r]/.test(text)) {\n    return text;\n  }\n\n  return `\"${text.replaceAll('\"', '\"\"')}\"`;\n}\n";
+export const dxSourceModule = Object.freeze({
+  "source_path": "src/features/admin/admin-command-center-search.ts",
+  "chunk_output": ".dx/www/output/source-routes/dashboard/modules/src-features-admin-admin-command-center-search-ts-18c872779332963b.mjs",
+  "kind": "ts",
+  "hash": "18c872779332963b",
+  "dependencies": [],
+  "browser_executable": true,
+  "source_transformed": false,
+  "transform_kind": "metadata-only",
+  "runtime_exports": [],
+  "ecmascript_analysis": {
+    "schema": "dx.ecmascript.analysis",
+    "schema_revision": 1,
+    "source_path": "src/features/admin/admin-command-center-search.ts",
+    "source_kind": "ts",
+    "parser_backend": "oxc-parser",
+    "diagnostics": 0,
+    "compatibility_reference": {
+      "upstream_crates": [
+        "turbopack-ecmascript"
+      ],
+      "reference_only": true,
+      "runtime_build_adoption": false,
+      "public_runtime_dependency": false,
+      "vendor_root": "vendor/next-rust",
+      "vendor_commit": "f3f56ecec2f3f8cefa0f0a1323ea406740251d5c",
+      "next_transform_references": [
+        "next-custom-transforms::track_dynamic_imports",
+        "next-custom-transforms::react_server_components"
+      ],
+      "copied_code": false
+    },
+    "output_model": {
+      "contract": "dx.www.moduleGraph",
+      "compiler_owns_output": true,
+      "public_architecture": "DX-owned source graph analysis"
+    },
+    "runtime_boundaries": {
+      "next_runtime_required": false,
+      "react_runtime_required": false,
+      "rsc_required": false,
+      "node_modules_required": false
+    },
+    "directives": [],
+    "static_imports": [
+      {
+        "specifier": "@/features/admin/admin-automation-runbook-center",
+        "side_effect_only": false,
+        "type_only": true
+      },
+      {
+        "specifier": "@/features/admin/admin-data",
+        "side_effect_only": false,
+        "type_only": true
+      }
+    ],
+    "dynamic_imports": [],
+    "unresolved_dynamic_imports": [],
+    "unsupported_dynamic_imports": [],
+    "dynamic_import_analysis": {
+      "status": "none-observed",
+      "static_count": 0,
+      "unresolved_count": 0,
+      "unsupported_count": 0,
+      "boundary": "source-owned dynamic import analysis; static specifiers become evidence, expressions remain unresolved, and unsupported call forms stay as adapter-boundary receipts"
+    },
+    "export_names": [
+      "getAdminCommandCenterSearchReport",
+      "filterAdminCommandCenterSearchRows",
+      "getAdminCommandCenterSearchJson",
+      "getAdminCommandCenterSearchCsv",
+      "getAdminCommandCenterSearchMarkdown"
+    ],
+    "jsx": false,
+    "top_level_await": false,
+    "full_nextjs_parity": false,
+    "analysis_boundary": "Uses vendored Turbopack ECMAScript and selected Next transform behavior as compatibility references while emitting DX-owned source graph receipts."
+  },
+  "node_modules_required": false
+});
+export const dxRuntimeModule = Object.freeze({
+  transformed: false,
+  transformKind: "metadata-only",
+  exportNames: []
+});
+export const dxRuntimeExports = Object.freeze({});
+export const dxLinkedDependencies = Object.freeze([]);
+export default dxSourceModule;

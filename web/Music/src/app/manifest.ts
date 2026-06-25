@@ -1,0 +1,35 @@
+import type { MetadataRoute } from "next";
+
+export const dynamic = "force-static";
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    background_color: "#020617",
+    categories: ["music", "productivity", "entertainment"],
+    description:
+      "A private AI music studio for writing, editing, organizing, and sharing songs.",
+    display: "standalone",
+    icons: [
+      {
+        purpose: "any",
+        sizes: "any",
+        src: "/icon.svg",
+        type: "image/svg+xml",
+      },
+      {
+        purpose: "maskable",
+        sizes: "any",
+        src: "/icon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    id: "/",
+    lang: "en",
+    name: "Essence Suno",
+    orientation: "portrait-primary",
+    scope: "/",
+    short_name: "Essence",
+    start_url: "/",
+    theme_color: "#020617",
+  };
+}

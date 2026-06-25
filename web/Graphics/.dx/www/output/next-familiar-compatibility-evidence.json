@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "source_framework": "nextjs-app-router",
+  "evidence_kind": "next-familiar-compatibility",
+  "evidence_mode": "next-familiar-source-output-readiness",
+  "next_familiar_inventory": {
+    "page_routes": [
+      "/dashboard",
+      "/embed/[token]",
+      "/",
+      "/share/[token]",
+      "/share/[token]/prototype"
+    ],
+    "page_route_count": 5,
+    "route_handlers": [
+      "src/app/api/auth/[...all]/route.ts",
+      "src/app/api/public-route-events/route.ts"
+    ],
+    "route_handler_count": 2,
+    "client_components": [],
+    "client_component_count": 0,
+    "server_actions": [],
+    "server_action_count": 0,
+    "node_modules_present": false,
+    "package_json_has_next": false
+  },
+  "dx_www_output": {
+    "app_routes_compiled": 5,
+    "app_router_execution_contracts_compiled": 5,
+    "client_islands_compiled": 0,
+    "generated_style_assets_compiled": 5,
+    "streaming_plans_compiled": 4,
+    "server_contracts_compiled": 2,
+    "server_action_protocols_compiled": 0,
+    "source_owned_runtime_bytes": 56245,
+    "contract_bytes": 844344,
+    "html_bytes": 20334,
+    "packet_bytes": 30750,
+    "micro_js_bytes": 0,
+    "css_bytes": 5161,
+    "json_contract_bytes": 844344
+  },
+  "compatibility_dimensions": {
+    "routes": {
+      "next_page_routes_declared": 5,
+      "dx_www_routes_compiled": 5,
+      "score": 100
+    },
+    "bytes": {
+      "dx_www_source_owned_runtime_bytes": 56245,
+      "dx_www_contract_bytes": 844344,
+      "next_runtime_node_modules_expected": false,
+      "score": 100
+    },
+    "hydration": {
+      "next_client_components_declared": 0,
+      "dx_www_browser_islands_compiled": 0,
+      "dx_www_micro_js_bytes": 0,
+      "score": 100
+    },
+    "server_actions": {
+      "next_server_actions_declared": 0,
+      "next_route_handlers_declared": 2,
+      "dx_www_server_action_protocols_compiled": 0,
+      "dx_www_server_contracts_compiled": 2,
+      "score": 100
+    },
+    "security": {
+      "node_modules_present": false,
+      "blocked_runtime_import_count": 0,
+      "package_installs_executed": false,
+      "lifecycle_scripts_executed": false,
+      "forge_import_gate_required_for_npm": true,
+      "score": 80
+    }
+  },
+  "score": 96,
+  "verdict": "needs-review-before-next-familiar-compatibility-claim",
+  "artifact_inputs": {
+    "migration_proof": "next-migration-proof.json",
+    "route_output_root": "app",
+    "import_resolution": "import-resolution.json"
+  }
+}

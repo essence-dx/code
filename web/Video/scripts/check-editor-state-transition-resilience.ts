@@ -1,0 +1,41 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+
+const store = readFileSync(new URL("../src/features/editor/state/editor-store.ts", import.meta.url), "utf8");
+const historySlice = readFileSync(new URL("../src/features/editor/state/editor-history-slice.ts", import.meta.url), "utf8");
+const layerCommandSlice = readFileSync(new URL("../src/features/editor/state/editor-layer-command-slice.ts", import.meta.url), "utf8");
+const projectPlaybackSlice = readFileSync(new URL("../src/features/editor/state/editor-project-playback-slice.ts", import.meta.url), "utf8");
+const selectionSlice = readFileSync(new URL("../src/features/editor/state/editor-selection-slice.ts", import.meta.url), "utf8");
+const storeCore = readFileSync(new URL("../src/features/editor/state/editor-store-core.ts", import.meta.url), "utf8");
+const storeUtils = readFileSync(new URL("../src/features/editor/state/editor-store-utils.ts", import.meta.url), "utf8");
+const timelineEditSlice = readFileSync(new URL("../src/features/editor/state/editor-timeline-edit-slice.ts", import.meta.url), "utf8");
+
+assert.match(store, /createEditorProjectCommit\(set\)/);
+assert.match(store, /createEditorLayerWriters\(set, commit\)/);
+assert.match(store, /createEditorProjectPlaybackSlice\(set, get,/);
+assert.match(store, /createEditorSelectionSlice\(set, get,/);
+assert.match(store, /createEditorLayerCommandSlice\(set, get,/);
+assert.match(store, /createEditorTimelineEditSlice\(set, get,/);
+assert.match(store, /createEditorHistorySlice\(set, get,/);
+assert.match(projectPlaybackSlice, /project: deps\.normalizeProjectTimeline\(project\)/);
+assert.match(selectionSlice, /if \(!get\(\)\.project\.layers\.some\(\(layer\) => layer\.id === layerId\)\) \{/);
+assert.match(timelineEditSlice, /updateSelectedLayerTiming/);
+assert.match(layerCommandSlice, /pushHistorySnapshot/);
+assert.match(layerCommandSlice, /removeSelectedLayers/);
+assert.match(layerCommandSlice, /duplicateSelectedLayers/);
+assert.match(layerCommandSlice, /splitSelectedLayers/);
+assert.match(historySlice, /const \{ past, project, future, currentTime \} = get\(\)/);
+assert.match(historySlice, /const normalizedPrevious = deps\.normalizeProjectTimeline\(previous\)/);
+assert.match(historySlice, /project: normalizedPrevious/);
+assert.match(historySlice, /currentTime: deps\.clamp\(currentTime, 0, normalizedPrevious\.duration\)/);
+assert.match(historySlice, /const \{ future, project, past, currentTime \} = get\(\)/);
+assert.match(historySlice, /const normalizedNext = deps\.normalizeProjectTimeline\(next\)/);
+assert.match(historySlice, /project: normalizedNext/);
+assert.match(historySlice, /currentTime: deps\.clamp\(currentTime, 0, normalizedNext\.duration\)/);
+assert.match(storeCore, /createEditorProjectCommit/);
+assert.match(storeCore, /past: \[\.\.\.state\.past, state\.project\]\.slice\(-40\)/);
+assert.match(storeCore, /createEditorLayerWriters/);
+assert.match(storeCore, /selectedLayerIds: \[layer\.id\]/);
+assert.match(storeUtils, /function normalizeProjectTimeline\(project: EditorProject\): EditorProject/);
+
+console.log("Editor state transition resilience checks passed.");

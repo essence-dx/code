@@ -1,0 +1,22 @@
+{
+  "route_id": "/",
+  "source_path": "src/app/page.tsx",
+  "root_component_id": "app/page",
+  "components": {
+    "nodes": [
+      {
+        "id": "app/page",
+        "name": "Page",
+        "package_id": null,
+        "content_hash": "65965fbf121a339bd70aba90d634def8b5b0e778994d8546fdbcf0919776fb7d"
+      }
+    ],
+    "edges": []
+  },
+  "styles": {
+    "tokens": [],
+    "classes": [],
+    "delivery": "generated-css"
+  },
+  "source_manifest_hash": null
+}

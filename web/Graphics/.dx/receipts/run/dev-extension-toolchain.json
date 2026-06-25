@@ -1,0 +1,38 @@
+{
+  "schema": "dx.dev.extension_toolchain",
+  "version": 2,
+  "config_source": "dx",
+  "generated_at": "2026-06-10T14:04:26.066225800+00:00",
+  "trigger": "fallback-hot-reload-token",
+  "reload_token": "e-18b7bd2acef10078-a8e6918f66e10480",
+  "planned_commands": [
+    "imports",
+    "style",
+    "icons"
+  ],
+  "policy": "non-dev-server dx dev runs imports, style, and icon tools once per source reload token before the browser refreshes",
+  "passed": true,
+  "commands": [
+    {
+      "name": "imports",
+      "command": "dx imports sync --json",
+      "passed": true,
+      "status": 0,
+      "stderr": ""
+    },
+    {
+      "name": "style",
+      "command": "dx style build --json",
+      "passed": true,
+      "status": 0,
+      "stderr": ""
+    },
+    {
+      "name": "icons",
+      "command": "dx icons sync --json",
+      "passed": true,
+      "status": 0,
+      "stderr": ""
+    }
+  ]
+}

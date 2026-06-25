@@ -1,0 +1,153 @@
+import {
+  table,
+  text,
+  title,
+  type TemplateConfig,
+} from "./template-builders"
+
+export const projectUpdateTemplate: TemplateConfig<"project-update"> = {
+  id: "project-update",
+  name: "Project update",
+  deckTitle: "Project update",
+  description: "Status, milestones, risks, decisions, and next steps.",
+  accent: "#16a34a",
+  slideCount: 5,
+  theme: "paper",
+  master: { showDate: true, showSlideNumbers: true, color: "#166534" },
+  slides: [
+    {
+      title: "Weekly update",
+      sectionTitle: "Status",
+      layout: "title",
+      background: "#f0fdf4",
+      elements: [
+        title("Weekly project update", {
+          x: 8,
+          y: 19,
+          width: 72,
+          height: 14,
+          fontSize: 39,
+        }),
+        text("Status, movement, blockers, and decisions.", {
+          x: 9,
+          y: 42,
+          width: 62,
+          height: 12,
+          fontSize: 23,
+          color: "#166534",
+        }),
+      ],
+    },
+    {
+      title: "Status snapshot",
+      layout: "title-body",
+      elements: [
+        title("Status snapshot", {
+          x: 7,
+          y: 8,
+          width: 76,
+          height: 10,
+          fontSize: 32,
+        }),
+        table(
+          [
+            "Area",
+            "Status",
+            "Owner",
+            "Design",
+            "On track",
+            "Team",
+            "Engineering",
+            "At risk",
+            "Team",
+            "Launch",
+            "Needs decision",
+            "Lead",
+          ],
+          { x: 9, y: 24, width: 78, height: 36, tableRows: 4, tableColumns: 3 },
+        ),
+      ],
+    },
+    {
+      title: "Milestones",
+      layout: "title-body",
+      background: "#f8fafc",
+      elements: [
+        title("Milestones", {
+          x: 7,
+          y: 8,
+          width: 76,
+          height: 10,
+          fontSize: 32,
+        }),
+        text(
+          "Completed: research synthesis\nIn progress: product implementation\nNext: release readiness review",
+          {
+            x: 9,
+            y: 28,
+            width: 72,
+            height: 31,
+            listStyle: "bullet",
+            fontSize: 23,
+            lineHeight: 1.35,
+          },
+        ),
+      ],
+    },
+    {
+      title: "Risks",
+      layout: "comparison",
+      background: "#fff7ed",
+      elements: [
+        title("Risks and decisions", {
+          x: 7,
+          y: 8,
+          width: 76,
+          height: 10,
+          fontSize: 32,
+        }),
+        text("Risk\nDependency delay\nScope pressure", {
+          x: 9,
+          y: 27,
+          width: 36,
+          height: 34,
+          fontSize: 22,
+          lineHeight: 1.35,
+        }),
+        text("Decision\nConfirm owner\nTrim release surface", {
+          x: 55,
+          y: 27,
+          width: 36,
+          height: 34,
+          fontSize: 22,
+          lineHeight: 1.35,
+        }),
+      ],
+    },
+    {
+      title: "Next steps",
+      layout: "title-body",
+      background: "#0f172a",
+      elements: [
+        title("Next steps", {
+          x: 8,
+          y: 17,
+          width: 72,
+          height: 12,
+          fontSize: 38,
+          color: "#ffffff",
+        }),
+        text("Owner actions\nDecision needed\nTarget date", {
+          x: 9,
+          y: 38,
+          width: 70,
+          height: 27,
+          listStyle: "bullet",
+          fontSize: 25,
+          color: "#d1fae5",
+          background: "transparent",
+        }),
+      ],
+    },
+  ],
+}

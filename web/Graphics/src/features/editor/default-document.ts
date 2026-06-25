@@ -1,0 +1,155 @@
+import { nanoid } from "nanoid";
+import { defaultToolShortcutPreferences } from "@/features/editor/shortcut-preferences";
+import { defaultVariableCollections } from "@/features/editor/variable-bindings";
+import type { DesignDocument, DesignLayer } from "@/features/editor/types";
+
+export function createStarterDocument(ownerName: string): DesignDocument {
+  const pageId = nanoid();
+  const frameId = nanoid();
+
+  return {
+    version: 1,
+    activePageId: pageId,
+    variables: {
+      "color/surface": "#18181b",
+      "color/accent": "#5eead4",
+      "radius/default": "8",
+    },
+    activeVariableModeId: "default",
+    variableModes: [{ id: "default", name: "Default" }],
+    variableCollections: defaultVariableCollections,
+    variableDefinitions: {
+      "color/surface": {
+        id: "color/surface",
+        name: "color/surface",
+        type: "color",
+        collectionId: "paint",
+        values: { default: "#18181b" },
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+      "color/accent": {
+        id: "color/accent",
+        name: "color/accent",
+        type: "color",
+        collectionId: "paint",
+        values: { default: "#5eead4" },
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+      "radius/default": {
+        id: "radius/default",
+        name: "radius/default",
+        type: "number",
+        collectionId: "layout",
+        values: { default: "8" },
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+    },
+    components: {},
+    layoutGridStyles: {},
+    paintStyles: {},
+    textStyles: {},
+    effectStyles: {},
+    layoutPresetStyles: {},
+    activityEvents: [],
+    performanceBaselines: [],
+    workspaceSettings: {
+      version: 1,
+      toolShortcuts: defaultToolShortcutPreferences,
+      pluginGrants: {},
+      pluginApprovals: {},
+      pluginRunHistory: [],
+      updatedAt: new Date().toISOString(),
+      updatedBy: null,
+    },
+    commentNotificationPreferences: {
+      enabled: true,
+      newComments: true,
+      replies: true,
+      assignments: true,
+      mentions: true,
+      reactions: true,
+      acknowledgements: true,
+      mutedEmails: [],
+      updatedAt: new Date().toISOString(),
+    },
+    notificationDeliveries: [],
+    updatedAt: new Date().toISOString(),
+    pages: [
+      {
+        id: pageId,
+        name: "Canvas",
+        background: "#0f0f10",
+        comments: [],
+        layers: [
+          {
+            id: frameId,
+            type: "frame",
+            name: `${ownerName || "Essence"} Board`,
+            x: 160,
+            y: 120,
+            width: 960,
+            height: 560,
+            rotation: 0,
+            opacity: 1,
+            visible: true,
+            locked: false,
+            fill: "#f6f7f9",
+            stroke: "#d4d4d8",
+            strokeWidth: 1,
+            cornerRadius: 12,
+          },
+          createTextLayer("title", "Start designing", 220, 178, 320, 48, 28),
+          createTextLayer(
+            "note",
+            "Create layers, tune properties, and keep the workspace moving.",
+            222,
+            232,
+            440,
+            34,
+            15,
+          ),
+        ],
+      },
+    ],
+  };
+}
+
+function createTextLayer(
+  id: string,
+  text: string,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  fontSize: number,
+): DesignLayer {
+  return {
+    id,
+    type: "text",
+    name: text,
+    x,
+    y,
+    width,
+    height,
+    rotation: 0,
+    opacity: 1,
+    visible: true,
+    locked: false,
+    fill: "transparent",
+    stroke: "transparent",
+    strokeWidth: 0,
+    cornerRadius: 0,
+    text,
+    fontFamily: "Inter, Arial, sans-serif",
+    fontSize,
+    fontWeight: fontSize > 20 ? 700 : 400,
+    lineHeight: 1.2,
+    letterSpacing: 0,
+    textAlign: "left",
+    textColor: "#18181b",
+    textResizeMode: "fixed",
+  };
+}

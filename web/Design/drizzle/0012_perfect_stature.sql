@@ -1,0 +1,1 @@
+ALTER TABLE `project` ADD `edit_share_permission` text DEFAULT 'edit' NOT NULL;

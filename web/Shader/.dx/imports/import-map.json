@@ -1,0 +1,119 @@
+{
+  "tool": "dx imports",
+  "version": 2,
+  "generated_by": "dx imports sync",
+  "project": "G:/Dx/code/web/Shader",
+  "source_hash": "blake3:96f2ba4d74f43c918746dd8b1ddc3f91960647d31d8dddf94050a6d3325e3835",
+  "policy": "generated-import-maps-no-runtime-magic",
+  "used_only": true,
+  "scan_roots": [
+    "components",
+    "composables",
+    "utils"
+  ],
+  "used_roots": [
+    "app",
+    "components",
+    "lib",
+    "server",
+    "styles"
+  ],
+  "aliases": [
+    "#components",
+    "#imports"
+  ],
+  "files": {
+    "barrel": "components/auto-imports.ts",
+    "import_map": ".dx/imports/import-map.json",
+    "declarations": ".dx/imports/imports.d.ts"
+  },
+  "entry_count": 3,
+  "used_symbol_count": 1,
+  "typed_entry_count": 1,
+  "untyped_entry_count": 2,
+  "entries": [
+    {
+      "kind": "dx-icon",
+      "name": "Icon",
+      "source": "components/icons/icon.tsx",
+      "import_path": "@/components/icons/icon",
+      "barrel_export": "./icons/icon",
+      "exports": [
+        "Icon",
+        "IconProps"
+      ],
+      "default_export_name": null,
+      "used_exports": [
+        "Icon"
+      ],
+      "unused_exports": [
+        "IconProps"
+      ],
+      "type_exports": [
+        "IconProps"
+      ]
+    },
+    {
+      "kind": "style-helper",
+      "name": "generated.css",
+      "source": "styles/generated.css",
+      "import_path": "@/styles/generated.css",
+      "barrel_export": null,
+      "exports": [],
+      "default_export_name": null,
+      "used_exports": [],
+      "unused_exports": [],
+      "type_exports": []
+    },
+    {
+      "kind": "style-helper",
+      "name": "theme.css",
+      "source": "styles/theme.css",
+      "import_path": "@/styles/theme.css",
+      "barrel_export": null,
+      "exports": [],
+      "default_export_name": null,
+      "used_exports": [],
+      "unused_exports": [],
+      "type_exports": []
+    }
+  ],
+  "public_barrel_entries": [
+    "components/icons/icon.tsx"
+  ],
+  "unused_entries": [],
+  "skipped_entries": [],
+  "component_exports": [
+    "./icons/icon"
+  ],
+  "components": [
+    {
+      "kind": "dx-icon",
+      "name": "Icon",
+      "source": "components/icons/icon.tsx",
+      "importPath": "@/components/icons/icon",
+      "barrelExport": "./icons/icon",
+      "exports": [
+        "Icon",
+        "IconProps"
+      ],
+      "defaultExportName": null,
+      "usedExports": [
+        "Icon"
+      ],
+      "unusedExports": [
+        "IconProps"
+      ],
+      "typeExports": [
+        "IconProps"
+      ]
+    }
+  ],
+  "composables": [],
+  "utilities": [],
+  "forge_packages": [],
+  "style_helpers": [
+    "styles/generated.css",
+    "styles/theme.css"
+  ]
+}

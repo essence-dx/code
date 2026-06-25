@@ -1,0 +1,169 @@
+{
+  "version": 1,
+  "route": "/embed/:token",
+  "source_path": "src/app/embed/[token]/page.tsx",
+  "shell": {
+    "fallback": {
+      "html": "<!doctype html><html lang=\"en\" class=\"dark\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><link rel=\"icon\" href=\"/public/favicon.svg\" type=\"image/svg+xml\"><link rel=\"apple-touch-icon\" href=\"/public/icon.svg\"><title>www route</title></head><body class=\"dx-template\"><main class=\"starter-shell\" data-dx-template=\"minimal\" data-dx-runtime=\"static\" data-dx-page-graph=\"src/app/embed/[token]/page\" data-dx-packet-sections=\"5\" data-dx-layouts=\"0\" data-dx-templates=\"0\" data-dx-boundaries=\"\" data-dx-conditionals=\"0\" data-dx-lists=\"0\" data-dx-keys=\"0\" data-dx-streaming=\"shell-first\" data-dx-deferred-chunks=\"0\" data-dx-resumable-islands=\"0\"><section class=\"starter-card\" aria-labelledby=\"starter-title\"><img class=\"starter-logo\" src=\"/public/logo.svg\" alt=\"Dx WWW\" width=\"40\" height=\"40\"><p class=\"starter-kicker\">Dx WWW</p><h1 id=\"starter-title\">www route</h1><div class=\"starter-actions\" data-dx-proof-links=\"state-runtime islands\" aria-label=\"Starter proof routes\"><a class=\"starter-link\" href=\"/state-runtime\">Open state runtime proof</a><a class=\"starter-link\" href=\"/islands\">Open island proof</a></div><form class=\"starter-form\" action=\"/state-runtime\" method=\"get\" data-dx-no-js-fallback=\"preserved\"><p class=\"starter-form-label\" id=\"starter-proof-route-label\">No-JS proof target</p><div class=\"starter-form-panel\"><input class=\"starter-input\" name=\"note\" aria-labelledby=\"starter-proof-route-label\" placeholder=\"Optional proof note\"><button class=\"starter-action-button\" id=\"starter-proof-route\" aria-describedby=\"starter-proof-route-label\" type=\"submit\">Continue without JavaScript</button></div></form></section></main></body></html>",
+      "bytes": 1687,
+      "crawlable": true,
+      "accessibility_warnings": []
+    },
+    "style_hrefs": [],
+    "streaming_strategy": "shell-first-deferred-boundaries",
+    "first_flush_bytes": 261,
+    "runtime_required": false
+  },
+  "graph": {
+    "route_id": "/embed/:token",
+    "source_path": "src/app/embed/[token]/page.tsx",
+    "root_component_id": "app/page",
+    "components": {
+      "nodes": [
+        {
+          "id": "app/page",
+          "name": "Page",
+          "package_id": null,
+          "content_hash": "b3d1f0542b0529be80dfbc59fafb3d0da4f6dab090c40b443e94152f2ecffb5d"
+        },
+        {
+          "id": "component/lucide-react",
+          "name": "lucide-react",
+          "package_id": null,
+          "content_hash": "b9b0a8debf22abe8d25a57298c9235c4a7fc8ac5f3fba4372cb8c96176238032"
+        },
+        {
+          "id": "component/public-route-analytics-beacon",
+          "name": "public-route-analytics-beacon",
+          "package_id": null,
+          "content_hash": "e625d5faf9617e0ae0c20edc9eb41c40fb5f266494542883ce8f59ca2c36bae0"
+        }
+      ],
+      "edges": []
+    },
+    "styles": {
+      "tokens": [],
+      "classes": [],
+      "delivery": "generated-css"
+    },
+    "source_manifest_hash": null
+  },
+  "state": {
+    "default_scope": "local",
+    "global_stores": [],
+    "slots": [],
+    "derived_slots": [],
+    "event_slots": [],
+    "effects": [
+      {
+        "id": "effect-3a5022154690",
+        "kind": "effect",
+        "source_path": "src/features/public-route-analytics/components/public-route-analytics-beacon.tsx",
+        "dependencies": []
+      }
+    ],
+    "server_actions": []
+  },
+  "packet": {
+    "kind": "route",
+    "bytes": 1064,
+    "payload_bytes": 812,
+    "section_count": 5,
+    "roundtrip_matches": true
+  },
+  "receipt": {
+    "source_manifest_hash": null,
+    "node_modules_required": false,
+    "client_island_abi": null,
+    "source_paths": [
+      "src/app/embed/[token]/page.tsx",
+      "src/features/public-route-analytics/components/public-route-analytics-beacon.tsx",
+      "src/lib/forge/icons/lucide-react.tsx"
+    ],
+    "forge_package_ids": []
+  },
+  "runtime_report": {
+    "selected_mode": "Static",
+    "tiny_static_route_proof": {
+      "selected": true,
+      "output_mode": "tiny-static",
+      "js": "required-or-fallback-only",
+      "html_bytes": 1687,
+      "css_bytes": 0,
+      "total_public_bytes": 1687,
+      "script_tag_count": 0,
+      "runtime_required": false,
+      "no_js_capable": false,
+      "meaningful_html": true,
+      "semantic_landmark_present": true,
+      "link_count": 2,
+      "form_count": 1,
+      "seo_title_present": true,
+      "accessibility_signal_count": 5,
+      "browser_api_required": true,
+      "astro_parity_status": "not_yet_claimed"
+    },
+    "candidates": [
+      {
+        "mode": "Static",
+        "estimated_bytes": 1687,
+        "selected": true,
+        "reason": "HTML/CSS shell with no browser runtime"
+      },
+      {
+        "mode": "MicroJs",
+        "estimated_bytes": 1687,
+        "selected": false,
+        "reason": "generated event/state JavaScript for tiny islands"
+      },
+      {
+        "mode": "ServerFragment",
+        "estimated_bytes": 2007,
+        "selected": false,
+        "reason": "server-rendered fragment endpoint path"
+      },
+      {
+        "mode": "WasmCore",
+        "estimated_bytes": 10251,
+        "selected": false,
+        "reason": "DXPK plus shared WASM core runtime"
+      },
+      {
+        "mode": "WasmSplit",
+        "estimated_bytes": 4251,
+        "selected": false,
+        "reason": "DXPK plus split boot runtime"
+      }
+    ],
+    "rejected_modes": [
+      {
+        "mode": "MicroJs",
+        "estimated_bytes": 1687,
+        "reason": "candidate does not satisfy the current interaction contract"
+      },
+      {
+        "mode": "ServerFragment",
+        "estimated_bytes": 2007,
+        "reason": "estimated bytes are higher than the selected route mode"
+      },
+      {
+        "mode": "WasmCore",
+        "estimated_bytes": 10251,
+        "reason": "estimated bytes are higher than the selected route mode"
+      },
+      {
+        "mode": "WasmSplit",
+        "estimated_bytes": 4251,
+        "reason": "estimated bytes are higher than the selected route mode"
+      }
+    ],
+    "reasons": [
+      "selected static from 0 state slot(s), 0 event slot(s), 0 server action edge(s)",
+      "no client state or event slots require browser runtime",
+      "source-only no-JS shell; Astro parity is not claimed by route-unit proof"
+    ],
+    "warnings": [
+      "runtime bytes, DXPK bytes, generated CSS, and shell bytes must be counted together"
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+import type { ProductCapability } from "@/lib/product/capability-types";
+
+export const audioRecordingCapabilities = [
+  {
+    id: "audio-mix-basics",
+    area: "audio-recording",
+    label: "Audio mix basics",
+    userValue: "Audio layers support waveform display, fades, volume, extraction, replacement, beat-marker generation from waveform peaks, and analyzed music ducking under dialogue.",
+    status: "ready",
+    priority: "p1",
+    ownerPath: "src/lib/audio, src/features/editor/components/audio-mix-panel.tsx, src/features/editor/components/video-audio-workflow-panel.tsx",
+    evidence: ["Waveform extraction", "fade controls", "audio extraction", "mix presets", "beat marker generation", "marker snapping", "analyzed auto-ducking"],
+    nextStep: "Add richer beat grids and editable volume envelopes.",
+  },
+  {
+    id: "screen-camera-recording",
+    area: "audio-recording",
+    label: "Screen and camera recording",
+    userValue:
+      "Creators can record screen, camera, and voiceover media with countdown, teleprompter notes, pause/resume, retake, and direct timeline insertion.",
+    status: "ready",
+    priority: "p1",
+    ownerPath: "src/features/editor/components/recording-controls.tsx",
+    evidence: [
+      "MediaRecorder flow",
+      "permission failure handling",
+      "local import after recording",
+      "voiceover layer insertion",
+      "countdown presets",
+      "teleprompter notes",
+      "pause/resume controls",
+      "retake discard flow",
+      "recorded takes collection",
+      "timeline layout presets",
+      "screen plus camera compositor",
+      "mixed screen/camera audio",
+      "multi-take review",
+      "best-take promotion",
+    ],
+    nextStep: "Add take ratings, markers, and reject/archive decisions.",
+  },
+  {
+    id: "music-sfx-library",
+    area: "audio-recording",
+    label: "Music, SFX, and voice isolation",
+    userValue:
+      "Creators can find free stock music/SFX, place audio on the timeline, create beat markers from waveform peaks, auto-duck music under dialogue, use local voice isolation and speech enhancement cleanup, optionally route audio through a connected restoration service, and split stereo songs into voice/instrumental stems.",
+    status: "partial",
+    priority: "p1",
+    ownerPath: "src/lib/stock/audio-library.ts, src/lib/audio/beat-markers.ts, src/lib/audio/cleanup.ts, src/lib/ai/audio-restoration.ts, src/lib/audio/vocal-split.ts",
+    evidence: [
+      "stock music/SFX presets",
+      "timeline audio import",
+      "voice isolation cleanup",
+      "speech enhancement cleanup",
+      "connected restoration service adapter",
+      "beat marker generation",
+      "analyzed auto-ducking",
+      "local voice/instrumental stem splitting",
+    ],
+    nextStep: "Add studio-grade source separation adapters when real local or owner-supplied services are available.",
+  },
+] satisfies ProductCapability[];
