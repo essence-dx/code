@@ -13,6 +13,7 @@ pub mod google;
 pub mod llama_cpp;
 pub mod lmstudio;
 pub mod mistral;
+pub mod nara_router;
 pub mod ollama;
 pub mod open_ai;
 pub mod open_ai_compatible;

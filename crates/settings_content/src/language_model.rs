@@ -19,6 +19,7 @@ pub struct AllLanguageModelSettingsContent {
     pub lmstudio: Option<LmStudioSettingsContent>,
     pub mistral: Option<MistralSettingsContent>,
     pub ollama: Option<OllamaSettingsContent>,
+    pub nara_router: Option<NaraRouterSettingsContent>,
     pub opencode: Option<OpenCodeSettingsContent>,
     pub open_router: Option<OpenRouterSettingsContent>,
     pub openai: Option<OpenAiSettingsContent>,
@@ -531,6 +532,27 @@ pub enum ZedDotDevAvailableProvider {
     Anthropic,
     OpenAi,
     Google,
+}
+
+#[with_fallible_options]
+#[derive(Default, Clone, Debug, Serialize, Deserialize, PartialEq, JsonSchema, MergeFrom)]
+pub struct NaraRouterSettingsContent {
+    pub api_url: Option<String>,
+    pub available_models: Option<Vec<NaraRouterAvailableModel>>,
+    pub custom_headers: Option<HashMap<String, String>>,
+}
+
+#[with_fallible_options]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize, JsonSchema, MergeFrom)]
+pub struct NaraRouterAvailableModel {
+    pub name: String,
+    pub display_name: Option<String>,
+    pub max_tokens: u64,
+    pub max_output_tokens: Option<u64>,
+    pub max_completion_tokens: Option<u64>,
+    pub reasoning_effort: Option<OpenAiReasoningEffort>,
+    #[serde(default)]
+    pub capabilities: OpenAiCompatibleModelCapabilities,
 }
 
 #[with_fallible_options]

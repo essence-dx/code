@@ -2680,6 +2680,9 @@
     "opencode": {
       "api_url": "https://opencode.ai/zen",
     },
+    "nara_router": {
+      "api_url": "https://router.bynara.id/v1",
+    },
     "open_router": {
       "api_url": "https://openrouter.ai/api/v1",
     },
