@@ -1,0 +1,77 @@
+{
+  "name": "@ogtirth/liquid-glass-oss",
+  "version": "0.1.0",
+  "description": "Physically rendered liquid glass React components powered by WebGL.",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --external react --external react-dom && cp src/styles.css dist/styles.css",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.8.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ogtirth/LiquidGlass-OSS.git",
+    "directory": "liquid-glass-web"
+  },
+  "homepage": "https://liquid-glass-oss.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/ogtirth/LiquidGlass-OSS/issues"
+  },
+  "author": "ogtirth",
+  "license": "MIT",
+  "keywords": [
+    "liquid glass",
+    "liquid-glass",
+    "glassmorphism",
+    "react",
+    "react components",
+    "webgl",
+    "ui library",
+    "design system",
+    "refraction",
+    "chromatic aberration",
+    "animated components",
+    "typescript",
+    "frontend",
+    "open source"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}

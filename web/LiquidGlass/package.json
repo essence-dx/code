@@ -1,0 +1,15 @@
+{
+  "name": "liquid-glass-oss",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Open-source WebGL liquid glass components for React.",
+  "workspaces": [
+    "liquid-glass-web"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace @ogtirth/liquid-glass-oss",
+    "typecheck": "npm run typecheck --workspace @ogtirth/liquid-glass-oss",
+    "pack:check": "npm pack --workspace @ogtirth/liquid-glass-oss --dry-run"
+  },
+  "license": "MIT"
+}
