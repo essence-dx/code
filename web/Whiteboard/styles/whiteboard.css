@@ -29,6 +29,12 @@
   pointer-events: none;
 }
 
+.wb-agent-cursor {
+  contain: strict;
+  will-change: transform;
+}
+
+
 .wb-panel h2 {
   margin: 0;
   color: hsl(var(--foreground));
@@ -1432,6 +1438,17 @@ input[type="range"] {
 
 .wb-danger-button {
   color: hsl(var(--danger));
+}
+
+.wb-export-button {
+  color: hsl(var(--accent));
+}
+.wb-export-button[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.wb-export-button.is-success {
+  color: hsl(var(--primary));
 }
 
 .wb-layer-actions {

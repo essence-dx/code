@@ -6,14 +6,13 @@ var VERT_SRC = "#version 300 es\n" +
 "layout(location=0) in vec2 a_pos;\n" +
 "void main(){ gl_Position = vec4(a_pos, 0.0, 1.0); }\n";
 
-var FRAG_SRC = `#version 300 es
+var FRAG_SRC = `
 precision highp float;
 precision highp int;
 
 uniform vec2  u_res;
 uniform float u_phase;
 uniform float u_seed;
-uniform int   u_mode;
 
 uniform vec3  u_c1, u_c2, u_c3, u_c4, u_bg;
 uniform float u_hue, u_sat, u_exposure, u_contrast;
@@ -30,13 +29,10 @@ uniform float u_grain, u_cell, u_lines, u_ca, u_vig, u_soft;
 uniform float u_travel;
 
 
-uniform int   u_synth;
-uniform int   u_modeB;
 uniform int   u_mixOp;
 uniform float u_blend;
 
 
-uniform int   u_genome;
 uniform vec4  u_g1;
 uniform vec4  u_g2;
 uniform vec4  u_g3;
@@ -518,24 +514,59 @@ vec3 sceneGenome(vec2 uv){
 
 
 
-vec3 sceneFor(int m, vec2 uv){
-  if (m == 0) return sceneChrome(uv);
-  if (m == 1) return sceneSilk(uv);
-  if (m == 2) return sceneBloom(uv);
-  if (m == 3) return sceneAura(uv);
-  if (m == 4) return sceneRays(uv);
-  if (m == 5) return sceneHalftone(uv);
-  if (m == 6) return sceneGlyphs(uv);
-  if (m == 7) return sceneReeded(uv);
+vec3 sceneForA(vec2 uv){
+#if u_mode == 0
+  return sceneChrome(uv);
+#elif u_mode == 1
+  return sceneSilk(uv);
+#elif u_mode == 2
+  return sceneBloom(uv);
+#elif u_mode == 3
+  return sceneAura(uv);
+#elif u_mode == 4
+  return sceneRays(uv);
+#elif u_mode == 5
+  return sceneHalftone(uv);
+#elif u_mode == 6
+  return sceneGlyphs(uv);
+#elif u_mode == 7
+  return sceneReeded(uv);
+#else
   return sceneMosaic(uv);
+#endif
+}
+
+vec3 sceneForB(vec2 uv){
+#if u_modeB == 0
+  return sceneChrome(uv);
+#elif u_modeB == 1
+  return sceneSilk(uv);
+#elif u_modeB == 2
+  return sceneBloom(uv);
+#elif u_modeB == 3
+  return sceneAura(uv);
+#elif u_modeB == 4
+  return sceneRays(uv);
+#elif u_modeB == 5
+  return sceneHalftone(uv);
+#elif u_modeB == 6
+  return sceneGlyphs(uv);
+#elif u_modeB == 7
+  return sceneReeded(uv);
+#else
+  return sceneMosaic(uv);
+#endif
 }
 
 vec3 scene(vec2 uv){
-  if (u_genome == 1) return sceneGenome(uv);
-  vec3 a = sceneFor(u_mode, uv);
-  if (u_synth == 0) return a;
-
-  vec3 b = sceneFor(u_modeB, uv);
+#if u_genome == 1
+  return sceneGenome(uv);
+#else
+  vec3 a = sceneForA(uv);
+#if u_synth == 0
+  return a;
+#else
+  vec3 b = sceneForB(uv);
   float asp = u_res.x/u_res.y;
   vec2 c = (uv - 0.5)*vec2(asp, 1.0);
 
@@ -558,6 +589,8 @@ vec3 scene(vec2 uv){
   float m = fbm(c*1.6 + SO()*0.7 + LT()*0.5);
   m = smoothstep(0.32, 0.68, m);
   return mix(a, b, m*u_blend);
+#endif
+#endif
 }
 
 void main(){
@@ -565,12 +598,16 @@ void main(){
   vec3 col;
 
 
-  if (u_ca > 0.004 && u_synth == 0 && u_genome == 0){
+#if u_synth == 0 && u_genome == 0
+  if (u_ca > 0.004){
     vec2 off = (uv-0.5)*u_ca*0.016;
-    col = vec3(sceneFor(u_mode, uv-off).r, sceneFor(u_mode, uv).g, sceneFor(u_mode, uv+off).b);
+    col = vec3(sceneForA(uv-off).r, sceneForA(uv).g, sceneForA(uv+off).b);
   } else {
     col = scene(uv);
   }
+#else
+  col = scene(uv);
+#endif
 
 
   float lum = dot(col, vec3(0.299,0.587,0.114));

@@ -41,19 +41,19 @@
     "styles": 4,
     "content_documents": 0,
     "mdx_documents": 0,
-    "assets": 27,
+    "assets": 29,
     "image_assets": 7,
     "image_metadata_assets": 7,
     "optimized_image_variants": 0,
     "image_placeholders": 7,
     "image_placeholder_artifacts": 7,
-    "image_placeholder_artifact_bytes": 1159,
+    "image_placeholder_artifact_bytes": 1167,
     "image_placeholder_artifact_outputs": [
       ".dx/www/output/.dx/build-cache/image-placeholders/public/dx-shader/assets/apple-touch-icon-653d1ed174ed39da.placeholder.svg",
       ".dx/www/output/.dx/build-cache/image-placeholders/public/dx-shader/assets/favicon-95cdf2c6b75c0830.placeholder.svg",
       ".dx/www/output/.dx/build-cache/image-placeholders/public/dx-shader/assets/favicon-95cdf2c6b75c0830.placeholder.svg",
       ".dx/www/output/.dx/build-cache/image-placeholders/public/dx-shader/favicon-95cdf2c6b75c0830.placeholder.svg",
-      ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-95cdf2c6b75c0830.placeholder.svg",
+      ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-b0698a08bf67b748.placeholder.svg",
       ".dx/www/output/.dx/build-cache/image-placeholders/public/icon-95cdf2c6b75c0830.placeholder.svg",
       ".dx/www/output/.dx/build-cache/image-placeholders/public/logo-95cdf2c6b75c0830.placeholder.svg"
     ],
@@ -64,7 +64,8 @@
     },
     "image_dimension_sources": {
       "png-ihdr": 3,
-      "svg-viewbox": 4
+      "svg-root-attributes": 1,
+      "svg-viewbox": 3
     },
     "node_modules_required": false
   },

@@ -2,6 +2,7 @@
 /* Source-owned IDE contract for DX WWW auto-imports. */
 
 declare module "#components" {
+  export { AgentCursorOverlay } from "../../components/whiteboard/agent-cursor";
   export { ArrangePanel } from "../../components/whiteboard/arrange-panel";
   export { CanvasStage } from "../../components/whiteboard/canvas-stage";
   export { ConnectorInfo } from "../../components/whiteboard/connector-info";
@@ -30,6 +31,7 @@ declare module "#components" {
 }
 
 declare module "#imports" {
+  export { AgentCursorOverlay } from "../../components/whiteboard/agent-cursor";
   export { ArrangePanel } from "../../components/whiteboard/arrange-panel";
   export { CanvasStage } from "../../components/whiteboard/canvas-stage";
   export { ConnectorInfo } from "../../components/whiteboard/connector-info";
@@ -58,6 +60,7 @@ declare module "#imports" {
 }
 
 declare global {
+  const AgentCursorOverlay: typeof import("../../components/whiteboard/agent-cursor")["AgentCursorOverlay"];
   const ArrangePanel: typeof import("../../components/whiteboard/arrange-panel")["ArrangePanel"];
   const CanvasStage: typeof import("../../components/whiteboard/canvas-stage")["CanvasStage"];
   const serializeCanvasStage: typeof import("../../components/whiteboard/canvas-stage")["serializeCanvasStage"];

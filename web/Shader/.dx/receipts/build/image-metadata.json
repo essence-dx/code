@@ -1,7 +1,7 @@
 {
   "schema": "dx.www.imageMetadataReceipt",
   "schema_revision": 1,
-  "generatedAt": "2026-06-20T11:15:15.154784100+00:00",
+  "generatedAt": "2026-06-26T14:29:20.815570700+00:00",
   "projectRoot": "G:/Dx/code/web/Shader",
   "receiptPath": ".dx/receipts/build/image-metadata.json",
   "summary": {
@@ -17,7 +17,8 @@
     },
     "dimension_sources": {
       "png-ihdr": 3,
-      "svg-viewbox": 4
+      "svg-root-attributes": 1,
+      "svg-viewbox": 3
     },
     "node_modules_required": false
   },
@@ -200,15 +201,15 @@
     },
     {
       "path": "public/favicon.svg",
-      "output": ".dx/www/output/public/favicon-c592869c9c233ec1.svg",
-      "hash": "c592869c9c233ec1",
-      "bytes": 259,
+      "output": ".dx/www/output/public/favicon-41e6192dfae92ec1.svg",
+      "hash": "41e6192dfae92ec1",
+      "bytes": 1072,
       "image_metadata": {
         "format": "svg",
         "mime_type": "image/svg+xml",
-        "width": 64,
-        "height": 64,
-        "dimension_source": "svg-viewbox",
+        "width": 1024,
+        "height": 1024,
+        "dimension_source": "svg-root-attributes",
         "status": "metadata-read",
         "optimization": {
           "status": "metadata-plus-svg-placeholder",
@@ -219,14 +220,14 @@
           "blur_placeholder_emitted": false,
           "placeholder": {
             "kind": "svg-placeholder-data-url",
-            "data_url": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2264%22%20height%3D%2264%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f3f4f6%22%2F%3E%3C%2Fsvg%3E",
-            "width": 64,
-            "height": 64,
-            "bytes": 286,
+            "data_url": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221024%22%20height%3D%221024%22%20viewBox%3D%220%200%201024%201024%22%20preserveAspectRatio%3D%22none%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f3f4f6%22%2F%3E%3C%2Fsvg%3E",
+            "width": 1024,
+            "height": 1024,
+            "bytes": 294,
             "source": "dx-source-owned-svg-placeholder",
-            "output": ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-95cdf2c6b75c0830.placeholder.svg",
-            "hash": "95cdf2c6b75c0830",
-            "artifact_bytes": 165
+            "output": ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-b0698a08bf67b748.placeholder.svg",
+            "hash": "b0698a08bf67b748",
+            "artifact_bytes": 173
           },
           "boundary": "metadata-plus-svg-placeholder-no-resize-or-encoding",
           "informed_by": [

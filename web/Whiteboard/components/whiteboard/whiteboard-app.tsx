@@ -1,4 +1,5 @@
-import { whiteboardActions } from "../../lib/stores/whiteboard-store";
+import { useEffect, useRef } from "react";
+import { whiteboardActions, whiteboardStore } from "../../lib/stores/whiteboard-store";
 import {
   whiteboardInputController,
   whiteboardKeyboardInputRecognized,
@@ -6,6 +7,8 @@ import {
 } from "../../lib/stores/whiteboard-input-controller";
 import { fitViewportToBounds } from "../../lib/whiteboard/render/geometry";
 import { getDocumentContentBounds, getDocumentSelectionBounds, getSelectedElements } from "../../lib/whiteboard/scene";
+import { AgentCursorEngine, createAgentCursorClient } from "../../lib/whiteboard/agent-cursor";
+import { AgentCursorOverlay } from "./agent-cursor";
 import { ArrangePanel } from "./arrange-panel";
 import { CanvasStage } from "./canvas-stage";
 import { DocumentPanel } from "./document-panel";
@@ -21,12 +24,25 @@ import { SharePanel } from "./share-panel";
 import { StatusBar } from "./status-bar";
 import { Toolbar } from "./toolbar";
 
+const agentCursorEngine = new AgentCursorEngine({
+  inputController: whiteboardInputController,
+  storeApi: whiteboardStore,
+});
+const agentCursorClient = createAgentCursorClient({ engine: agentCursorEngine });
+
 export function WhiteboardApp() {
   const state = whiteboardActions.snapshot();
   const document = state.document;
   const selectedElement = getSelectedElements(document)[0] ?? null;
   const stageSize = { width: 1200, height: 720 };
   const inputState = whiteboardInputController.snapshot();
+  const inited = useRef(false);
+
+  useEffect(() => {
+    if (inited.current) return;
+    inited.current = true;
+    agentCursorClient.connect();
+  }, []);
   const handleKeyboardInput = (input: Parameters<typeof whiteboardInputController.keyDown>[0]) => {
     const result = whiteboardInputController.keyDown(input);
     return whiteboardInputResultHandled(result) || whiteboardKeyboardInputRecognized(input);
@@ -73,27 +89,34 @@ export function WhiteboardApp() {
 
       <section className="wb-canvas-panel" aria-label="Whiteboard canvas workbench">
         <div className="wb-canvas-scroll">
-          <CanvasStage
-            activeTextId={inputState.activeTextId}
-            document={document}
-            inputState={inputState}
-            onKeyboardInput={handleKeyboardInput}
-            onCommitText={(id, text) => whiteboardActions.commitText(id, text)}
-            onPointerDownInput={(input) =>
-              whiteboardInputResultHandled(whiteboardInputController.pointerDown(input))}
-            onPointerMoveInput={(input) =>
-              whiteboardInputResultHandled(whiteboardInputController.pointerMove(input))}
-            onPointerUpInput={(input) =>
-              whiteboardInputResultHandled(whiteboardInputController.pointerUp(input))}
-            onPointerCancelInput={(input) =>
-              whiteboardInputResultHandled(whiteboardInputController.pointerUp(input))}
-            onWheelInput={(input) =>
-              whiteboardInputResultHandled(whiteboardInputController.wheel(input))}
-            selection={{ ids: document.selection }}
-            size={stageSize}
-            tool={document.activeTool}
-            viewport={document.viewport}
-          />
+          <div className="wb-canvas-stage-wrapper" style={{ position: "relative" }}>
+            <CanvasStage
+              activeTextId={inputState.activeTextId}
+              document={document}
+              inputState={inputState}
+              onKeyboardInput={handleKeyboardInput}
+              onCommitText={(id, text) => whiteboardActions.commitText(id, text)}
+              onPointerDownInput={(input) =>
+                whiteboardInputResultHandled(whiteboardInputController.pointerDown(input))}
+              onPointerMoveInput={(input) =>
+                whiteboardInputResultHandled(whiteboardInputController.pointerMove(input))}
+              onPointerUpInput={(input) =>
+                whiteboardInputResultHandled(whiteboardInputController.pointerUp(input))}
+              onPointerCancelInput={(input) =>
+                whiteboardInputResultHandled(whiteboardInputController.pointerUp(input))}
+              onWheelInput={(input) =>
+                whiteboardInputResultHandled(whiteboardInputController.wheel(input))}
+              selection={{ ids: document.selection }}
+              size={stageSize}
+              tool={document.activeTool}
+              viewport={document.viewport}
+            />
+            <AgentCursorOverlay
+              engine={agentCursorEngine}
+              canvasWidth={stageSize.width}
+              canvasHeight={stageSize.height}
+            />
+          </div>
           <p className="wb-canvas-proof" data-dx-whiteboard-runtime-proof="canvas-input-runtime">
             Canvas renderer and pointer input are source-owned under lib/whiteboard/render and
             lib/whiteboard/input.

@@ -14,6 +14,13 @@ export default function WhiteboardPage() {
           <button aria-label="Clear board" className="wb-icon-button wb-danger-button" data-whiteboard-command="clear" title="Clear board" type="button">
             <Icon className="wb-icon" name="whiteboard:trash" />
           </button>
+          <button aria-label="Export canvas as PNG" className="wb-icon-button wb-export-button" data-whiteboard-export="true" title="Export canvas" type="button">
+            <svg className="wb-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" x2="12" y1="15" y2="3" />
+            </svg>
+          </button>
           <button aria-controls="wb-shortcuts-panel" aria-expanded="false" aria-label="Keyboard shortcuts" className="wb-icon-button" data-whiteboard-toggle="shortcuts" title="Keyboard shortcuts (?)" type="button">
             <Icon className="wb-icon" name="whiteboard:keyboard" />
           </button>

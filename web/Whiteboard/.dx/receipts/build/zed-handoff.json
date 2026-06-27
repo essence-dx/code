@@ -17,8 +17,8 @@
   "source_module_chunks": 2,
   "style_optimization": {
     "style_node_count": 4,
-    "original_rule_count": 582,
-    "retained_rule_count": 582,
+    "original_rule_count": 594,
+    "retained_rule_count": 594,
     "pruned_rule_count": 0,
     "minified_style_count": 4,
     "source_map_count": 4,
@@ -74,9 +74,9 @@
     "optimized_variant_count": 0,
     "placeholder_count": 2,
     "placeholder_artifact_count": 2,
-    "placeholder_artifact_bytes": 334,
+    "placeholder_artifact_bytes": 342,
     "placeholder_artifact_outputs": [
-      ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-95cdf2c6b75c0830.placeholder.svg",
+      ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-b0698a08bf67b748.placeholder.svg",
       ".dx/www/output/.dx/build-cache/image-placeholders/public/icon-653d1ed174ed39da.placeholder.svg"
     ],
     "route_reference_count": 1,
@@ -84,7 +84,8 @@
       "svg": 2
     },
     "dimension_sources": {
-      "svg-viewbox": 2
+      "svg-root-attributes": 1,
+      "svg-viewbox": 1
     },
     "status": "metadata-plus-placeholder-artifacts-boundary",
     "full_pipeline_parity": false
@@ -94,14 +95,14 @@
       "route": "/",
       "source_path": "app/page.tsx",
       "html_output": ".dx/www/output/.dx/build-cache/source-routes/root/index.html",
-      "shell_chunk_output": ".dx/www/output/.dx/build-cache/source-routes/root/route-shell-ebd70011388546d5.mjs",
-      "entry_module_chunk_output": ".dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-a5bcc6e051156e43.mjs",
+      "shell_chunk_output": ".dx/www/output/.dx/build-cache/source-routes/root/route-shell-509372dc6ecf6bb7.mjs",
+      "entry_module_chunk_output": ".dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-d1a5428f118f2ea4.mjs",
       "source_module_chunks": [
         {
           "source_path": "app/page.tsx",
-          "chunk_output": ".dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-a5bcc6e051156e43.mjs",
+          "chunk_output": ".dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-d1a5428f118f2ea4.mjs",
           "kind": "tsx",
-          "hash": "a5bcc6e051156e43"
+          "hash": "d1a5428f118f2ea4"
         },
         {
           "source_path": "components/icons/icon.tsx",
@@ -110,7 +111,7 @@
           "hash": "8db49bf807790749"
         }
       ],
-      "fallback_hash": "ebd70011388546d5"
+      "fallback_hash": "509372dc6ecf6bb7"
     }
   ],
   "node_modules_required": false,

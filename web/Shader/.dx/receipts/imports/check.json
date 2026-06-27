@@ -1,9 +1,9 @@
 {
   "tool": "dx imports check",
   "version": 2,
-  "generated_at": "2026-06-20T11:15:13.961083100+00:00",
+  "generated_at": "2026-06-26T14:29:19.229790900+00:00",
   "project": "G:/Dx/code/web/Shader",
-  "passed": false,
+  "passed": true,
   "wrote_files": false,
   "source_hash": "blake3:96f2ba4d74f43c918746dd8b1ddc3f91960647d31d8dddf94050a6d3325e3835",
   "entry_count": 3,
@@ -40,9 +40,9 @@
     "legacy_json": ".dx/receipts/imports/check.json"
   },
   "stale_barrel": false,
-  "stale_import_map": true,
-  "stale_declarations": true,
-  "stale_sync_receipt": true,
+  "stale_import_map": false,
+  "stale_declarations": false,
+  "stale_sync_receipt": false,
   "next_command": "dx imports sync",
   "checked_files": [
     "components/auto-imports.ts",

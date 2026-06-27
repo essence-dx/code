@@ -41,15 +41,15 @@
     "styles": 4,
     "content_documents": 0,
     "mdx_documents": 0,
-    "assets": 3,
+    "assets": 5,
     "image_assets": 2,
     "image_metadata_assets": 2,
     "optimized_image_variants": 0,
     "image_placeholders": 2,
     "image_placeholder_artifacts": 2,
-    "image_placeholder_artifact_bytes": 334,
+    "image_placeholder_artifact_bytes": 342,
     "image_placeholder_artifact_outputs": [
-      ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-95cdf2c6b75c0830.placeholder.svg",
+      ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-b0698a08bf67b748.placeholder.svg",
       ".dx/www/output/.dx/build-cache/image-placeholders/public/icon-653d1ed174ed39da.placeholder.svg"
     ],
     "image_route_references": 1,
@@ -57,7 +57,8 @@
       "svg": 2
     },
     "image_dimension_sources": {
-      "svg-viewbox": 2
+      "svg-root-attributes": 1,
+      "svg-viewbox": 1
     },
     "node_modules_required": false
   },

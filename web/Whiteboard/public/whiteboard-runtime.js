@@ -2563,4 +2563,442 @@
   setMinimapVisible(false);
   syncColorControls();
   refresh();
+
+  // ── Canvas export ────────────────────────────────────────────────────
+  const exportBtn = root.querySelector("[data-whiteboard-export]");
+  if (exportBtn) {
+    exportBtn.addEventListener("click", async () => {
+      try {
+        exportBtn.disabled = true;
+        exportBtn.title = "Exporting...";
+
+        const svgEl = svg;
+
+        // Serialise SVG to XML string
+        const serializer = new XMLSerializer();
+        const svgText = serializer.serializeToString(svgEl);
+        const svgBlob = new Blob([svgText], { type: "image/svg+xml;charset=utf-8" });
+        const svgUrl = URL.createObjectURL(svgBlob);
+
+        // Measure actual content bounds
+        const elements = svgEl.querySelectorAll("[data-whiteboard-object-id]");
+        let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+        elements.forEach((el) => {
+          const bbox = el.getBBox();
+          if (bbox.width > 0 || bbox.height > 0) {
+            minX = Math.min(minX, bbox.x);
+            minY = Math.min(minY, bbox.y);
+            maxX = Math.max(maxX, bbox.x + bbox.width);
+            maxY = Math.max(maxY, bbox.y + bbox.height);
+          }
+        });
+        if (!isFinite(minX)) { minX = 0; minY = 0; maxX = 1200; maxY = 720; }
+
+        const pad = 40;
+        const cropX = Math.max(0, minX - pad);
+        const cropY = Math.max(0, minY - pad);
+        const cropW = maxX - minX + pad * 2;
+        const cropH = maxY - minY + pad * 2;
+
+        const scale = 2;
+        const canvasEl = document.createElement("canvas");
+        canvasEl.width = cropW * scale;
+        canvasEl.height = cropH * scale;
+        const ctx = canvasEl.getContext("2d");
+        if (!ctx) throw new Error("Canvas 2D context unavailable");
+
+        // Fill white background
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, canvasEl.width, canvasEl.height);
+
+        // Draw SVG onto canvas
+        const img = new Image();
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = svgUrl;
+        });
+        ctx.scale(scale, scale);
+        ctx.drawImage(img, -cropX, -cropY);
+        URL.revokeObjectURL(svgUrl);
+
+        // Convert to PNG blob
+        const blob = await new Promise((resolve) => canvasEl.toBlob(resolve, "image/png"));
+
+        // Try to send to dx editor via IPC
+        const ipc = window.ipc;
+        if (ipc && typeof ipc.postMessage === "function") {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const base64 = reader.result.split(",")[1];
+            ipc.postMessage(JSON.stringify({
+              kind: "dx-www-canvas-export",
+              data: base64,
+              mime: "image/png",
+              timestamp: Date.now(),
+            }));
+          };
+          reader.readAsDataURL(blob);
+        } else {
+          // Fallback: download the PNG
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `whiteboard-export-${Date.now()}.png`;
+          a.click();
+          URL.revokeObjectURL(url);
+        }
+        // Brief success feedback
+        exportBtn.classList.add("is-success");
+        exportBtn.title = "Exported ✓";
+        setTimeout(() => {
+          exportBtn.classList.remove("is-success");
+          exportBtn.title = "Export canvas";
+        }, 2000);
+      } catch (err) {
+        console.error("[export] Failed:", err);
+        exportBtn.title = "Export failed";
+        setTimeout(() => { exportBtn.title = "Export canvas"; }, 2000);
+      } finally {
+        exportBtn.disabled = false;
+      }
+    });
+  }
+
+  // ── Agent cursor ──────────────────────────────────────────────────────
+  const agentCursor = (() => {
+    const WS_URL = window.__AGENT_CURSOR_WS || "ws://localhost:3001";
+    const POINTER_ID = 4242;
+    const RECONNECT_BASE_MS = 500;
+    const RECONNECT_MAX_MS = 15000;
+    const RATE_LIMIT_MS = 16;
+    const CONNECT_TIMEOUT_MS = 5000;
+
+    let worldX = 0, worldY = 0, visible = false, connected = false, ws = null, closed = false;
+    let pointerDown = false;
+    let overlay = null, indicator = null;
+    let reconnectAttempt = 0, reconnectTimer = null;
+    let connectTimer = null;
+    let lastCmdTime = 0;
+
+    // --- Coordinate helpers ---
+    function localToScreen(lx, ly) {
+      try {
+        const p = svg.createSVGPoint();
+        p.x = lx; p.y = ly;
+        const m = svg.getScreenCTM();
+        return m ? p.matrixTransform(m) : { x: lx, y: ly };
+      } catch (_) { return { x: lx, y: ly }; }
+    }
+
+    function initOverlays() {
+      if (overlay) return;
+      overlay = document.createElement("div");
+      overlay.style.cssText = "position:fixed;pointer-events:none;z-index:2147483647;transition:transform 0.06s linear;display:none;left:0;top:0;";
+      overlay.innerHTML = [
+        '<svg width="40" height="40" viewBox="-20 -20 40 40">',
+        '<circle r="8" fill="none" stroke="#ff3b8d" stroke-width="2.5" opacity="0.9"/>',
+        '<circle r="2" fill="#ff3b8d" opacity="0.9"/>',
+        '<line x1="0" y1="-12" x2="0" y2="12" stroke="#ff3b8d" stroke-width="1.5" opacity="0.6"/>',
+        '<line x1="-12" y1="0" x2="12" y2="0" stroke="#ff3b8d" stroke-width="1.5" opacity="0.6"/>',
+        '<circle r="20" fill="#ff3b8d" opacity="0.06"/>',
+        "</svg>",
+      ].join("");
+      document.body.appendChild(overlay);
+
+      indicator = document.createElement("div");
+      indicator.style.cssText = "position:fixed;bottom:12px;right:12px;width:10px;height:10px;border-radius:50%;z-index:2147483647;transition:background 0.3s;background:#ef4444;";
+      indicator.title = "Agent cursor disconnected";
+      document.body.appendChild(indicator);
+    }
+
+    function showCursor(x, y) {
+      initOverlays();
+      visible = true;
+      const screen = localToScreen(x, y);
+      overlay.style.display = "";
+      overlay.style.transform = `translate(${screen.x}px, ${screen.y}px) translate(-50%, -50%)`;
+    }
+    function hideCursor() { if (overlay) overlay.style.display = "none"; visible = false; }
+
+    function setConnected(c) {
+      connected = c;
+      if (indicator) {
+        indicator.style.background = c ? "#4ade80" : "#ef4444";
+        indicator.title = c ? "Agent cursor connected" : "Agent cursor disconnected";
+      }
+    }
+
+    // --- Event simulation ---
+    function dispatchEvent(type, lx, ly, opts = {}) {
+      const screen = localToScreen(lx, ly);
+      const target = type === "pointerdown" || type === "pointerup" ? svg : window;
+      target.dispatchEvent(new PointerEvent(type, {
+        clientX: screen.x, clientY: screen.y,
+        pointerId: POINTER_ID, pointerType: "mouse",
+        isPrimary: true, bubbles: true, cancelable: true,
+        button: opts.button ?? 0, buttons: opts.button === 0 ? 1 : 0,
+      }));
+    }
+
+    // --- Command processing ---
+    function move(lx, ly) { worldX = lx; worldY = ly; showCursor(lx, ly); }
+    function moveToScreen(sx, sy) {
+      const p = svg.createSVGPoint();
+      p.x = sx; p.y = sy;
+      const m = svg.getScreenCTM();
+      if (m) { const local = p.matrixTransform(m.inverse()); move(local.x, local.y); }
+    }
+    function dispatchPointerDown(button) {
+      const screen = localToScreen(worldX, worldY);
+      svg.dispatchEvent(new PointerEvent("pointerdown", {
+        clientX: screen.x, clientY: screen.y,
+        pointerId: POINTER_ID, pointerType: "mouse",
+        isPrimary: true, bubbles: true, cancelable: true,
+        button: button ?? 0,
+      }));
+      pointerDown = true;
+    }
+    function dispatchPointerUp() {
+      const screen = localToScreen(worldX, worldY);
+      window.dispatchEvent(new PointerEvent("pointerup", {
+        clientX: screen.x, clientY: screen.y,
+        pointerId: POINTER_ID, pointerType: "mouse",
+        isPrimary: true, bubbles: true, cancelable: true,
+        button: 0,
+      }));
+      pointerDown = false;
+    }
+    function dispatchPointerMove(lx, ly, button) {
+      move(lx, ly);
+      const screen = localToScreen(worldX, worldY);
+      window.dispatchEvent(new PointerEvent("pointermove", {
+        clientX: screen.x, clientY: screen.y,
+        pointerId: POINTER_ID, pointerType: "mouse",
+        isPrimary: true, bubbles: true, cancelable: true,
+        button: button ?? 0, buttons: (button ?? 0) === 0 ? 1 : 0,
+      }));
+    }
+    function click(lx, ly, button) {
+      if (lx !== undefined) move(lx, ly);
+      dispatchPointerDown(button ?? 0);
+      setTimeout(() => dispatchPointerUp(), 50);
+    }
+    function keyDown(key) {
+      window.dispatchEvent(new KeyboardEvent("keydown", { key, bubbles: true, cancelable: true }));
+    }
+    function wheel(dx, dy) {
+      const screen = localToScreen(worldX, worldY);
+      window.dispatchEvent(new WheelEvent("wheel", {
+        clientX: screen.x, clientY: screen.y,
+        deltaX: dx, deltaY: dy, bubbles: true, cancelable: true,
+      }));
+    }
+
+    // --- Rate limiting ---
+    function checkRateLimit() {
+      const now = performance.now();
+      if (now - lastCmdTime < RATE_LIMIT_MS) return false;
+      lastCmdTime = now;
+      return true;
+    }
+
+    // --- Drawing helpers ---
+    function drawTool(kind, x1, y1, x2, y2) {
+      if (!checkRateLimit()) return;
+      pushHistory();
+      const start = { x: x1, y: y1 };
+      const draft = createDraft(kind, start);
+      const end = { x: x2, y: y2 };
+      updateDraft(draft, end, true);
+      addOutlineRow(draft.id, primaryObject(draft.id)?.dataset.whiteboardName || readableType(draft.id), readableType(draft.id));
+      selectObject(draft.id, { openPanel: false });
+      move(x2, y2);
+    }
+
+    function drawFreehand(points) {
+      if (!checkRateLimit()) return;
+      if (!points || points.length < 2) return;
+      setTool("freehand");
+      pushHistory();
+      const start = points[0];
+      const draft = createDraft("freehand", start);
+      for (let i = 1; i < points.length; i++) {
+        updateDraft(draft, points[i], true);
+      }
+      addOutlineRow(draft.id, primaryObject(draft.id)?.dataset.whiteboardName || readableType(draft.id), readableType(draft.id));
+      selectObject(draft.id, { openPanel: false });
+      move(points[points.length - 1].x, points[points.length - 1].y);
+    }
+
+    function selectAt(lx, ly) {
+      setTool("select");
+      click(lx, ly, 0);
+      move(lx, ly);
+    }
+
+    function addText(lx, ly, text) {
+      if (!checkRateLimit()) return;
+      setTool("text");
+      const start = { x: lx, y: ly };
+      const draft = createDraft("text", start);
+      const textNode = primaryObject(draft.id);
+      if (textNode && text) textNode.textContent = text;
+      addOutlineRow(draft.id, text, "Text");
+      selectObject(draft.id, { openPanel: false });
+      move(lx, ly);
+    }
+
+    // --- JSON parsing ---
+    function parse(data) {
+      try {
+        const cmds = Array.isArray(data) ? data : [JSON.parse(data)];
+        for (const cmd of cmds) process(cmd);
+      } catch (e) { console.error("[agent-cursor] parse error:", e); }
+    }
+
+    function process(cmd) {
+      if (!cmd || typeof cmd !== "object") return;
+      switch (cmd.type) {
+        case "move": move(cmd.x, cmd.y); break;
+        case "moveToScreen": moveToScreen(cmd.x, cmd.y); break;
+        case "pointerDown": dispatchPointerDown(cmd.button); break;
+        case "pointerUp": dispatchPointerUp(); break;
+        case "pointerMove": dispatchPointerMove(cmd.x, cmd.y, cmd.button); break;
+        case "click": click(cmd.x, cmd.y, cmd.button); break;
+        case "setTool": setTool(cmd.tool); break;
+        case "keyDown": if (typeof cmd.key === "string") keyDown(cmd.key); break;
+        case "type": if (typeof cmd.text === "string") { for (const c of cmd.text) keyDown(c); } break;
+        case "wheel": wheel(cmd.deltaX, cmd.deltaY); break;
+        case "command": if (cmd.command) applyCommand(cmd.command); break;
+        case "commands": if (Array.isArray(cmd.commands)) { for (const c of cmd.commands) applyCommand(c); } break;
+        case "drawRect": setTool("rectangle"); drawTool("rectangle", cmd.x1, cmd.y1, cmd.x2, cmd.y2); break;
+        case "drawEllipse": setTool("ellipse"); drawTool("ellipse", cmd.x1, cmd.y1, cmd.x2, cmd.y2); break;
+        case "drawDiamond": setTool("diamond"); drawTool("diamond", cmd.x1, cmd.y1, cmd.x2, cmd.y2); break;
+        case "drawLine": setTool("line"); drawTool("line", cmd.x1, cmd.y1, cmd.x2, cmd.y2); break;
+        case "drawArrow": setTool("arrow"); drawTool("arrow", cmd.x1, cmd.y1, cmd.x2, cmd.y2); break;
+        case "drawFreehand": drawFreehand(cmd.points); break;
+        case "select": selectAt(cmd.x, cmd.y); break;
+        case "selectAll": selectMultipleObjects(svgNodes("[data-whiteboard-object-id]").map(n => n.dataset.whiteboardObjectId)); refresh(); break;
+        case "delete": deleteSelected(); break;
+        case "addText": addText(cmd.x, cmd.y, cmd.text); break;
+        case "undo": undo(); break;
+        case "redo": redo(); break;
+        case "batch": if (Array.isArray(cmd.commands)) { for (const c of cmd.commands) process(c); } break;
+        case "wait": break;
+      }
+    }
+
+    function applyCommand(cmd) {
+      if (!cmd || typeof cmd !== "object") return;
+      switch (cmd.type) {
+        case "document.rename":
+          const h1 = root.querySelector("h1");
+          if (h1) h1.textContent = cmd.name;
+          break;
+        case "element.remove":
+          if (Array.isArray(cmd.ids)) {
+            for (const id of cmd.ids) {
+              for (const node of objectNodes(id)) node.remove();
+              const row = root.querySelector(`[data-whiteboard-select="${safeSelector(id)}"]`);
+              row?.remove();
+            }
+            refresh();
+          }
+          break;
+        case "element.update":
+          if (cmd.id && cmd.patch) {
+            const node = primaryObject(cmd.id);
+            if (node) {
+              if (cmd.patch.x !== undefined) node.setAttribute("x", cmd.patch.x);
+              if (cmd.patch.y !== undefined) node.setAttribute("y", cmd.patch.y);
+              if (cmd.patch.width !== undefined) node.setAttribute("width", cmd.patch.width);
+              if (cmd.patch.height !== undefined) node.setAttribute("height", cmd.patch.height);
+            }
+          }
+          break;
+      }
+    }
+
+    // --- WebSocket ---
+    function connect() {
+      closed = false;
+      if (ws && ws.readyState !== WebSocket.CLOSED) return;
+      try { ws = new WebSocket(WS_URL); } catch { scheduleReconnect(); return; }
+      connectTimer = setTimeout(() => {
+        if (ws && ws.readyState !== WebSocket.OPEN) {
+          ws.close();
+        }
+      }, CONNECT_TIMEOUT_MS);
+      ws.onopen = () => {
+        clearTimeout(connectTimer);
+        connectTimer = null;
+        reconnectAttempt = 0;
+        initOverlays();
+        setConnected(true);
+      };
+      ws.onmessage = (e) => {
+        let text;
+        if (typeof e.data === "string") {
+          text = e.data;
+        } else if (e.data instanceof Blob) {
+          return;
+        } else if (e.data instanceof ArrayBuffer) {
+          text = new TextDecoder().decode(e.data);
+        } else {
+          return;
+        }
+        if (text !== undefined) parse(text);
+      };
+      ws.onclose = () => {
+        clearTimeout(connectTimer);
+        connectTimer = null;
+        setConnected(false);
+        ws = null;
+        scheduleReconnect();
+      };
+      ws.onerror = () => {
+        clearTimeout(connectTimer);
+        connectTimer = null;
+      };
+    }
+    function scheduleReconnect() {
+      if (closed) return;
+      if (reconnectTimer) clearTimeout(reconnectTimer);
+      let delay = Math.min(RECONNECT_BASE_MS * Math.pow(2, reconnectAttempt), RECONNECT_MAX_MS);
+      delay += Math.random() * 1000;
+      reconnectAttempt++;
+      reconnectTimer = setTimeout(() => {
+        reconnectTimer = null;
+        connect();
+      }, delay);
+    }
+    function disconnect() {
+      closed = true;
+      if (reconnectTimer) { clearTimeout(reconnectTimer); reconnectTimer = null; }
+      if (connectTimer) { clearTimeout(connectTimer); connectTimer = null; }
+      if (ws) {
+        ws.onclose = null;
+        ws.onerror = null;
+        ws.onmessage = null;
+        ws.onopen = null;
+        ws.close();
+        ws = null;
+      }
+      setConnected(false);
+    }
+    function send(data) { if (ws?.readyState === WebSocket.OPEN) ws.send(data); }
+
+    function handleBeforeUnload() { disconnect(); }
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener("pagehide", handleBeforeUnload);
+
+    connect();
+
+    // Expose for debugging
+    window.__agentCursor = { move, click, setTool, keyDown, parse, send, connect, disconnect, drawTool, addText };
+
+    return { move, click, setTool, keyDown, parse, send, connect, disconnect, drawTool, addText };
+  })();
+
 })();

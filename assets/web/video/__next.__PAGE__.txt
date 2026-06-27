@@ -1,6 +1,6 @@
 1:"$Sreact.fragment"
-3:I[97367,["./_next/static/chunks/0_~xqy91l4oxp.js","./_next/static/chunks/0v8p5z52lwh4_.js","./_next/static/chunks/0dbhjjzl8qfwv.js"],"OutletBoundary"]
+3:I[897367,["./_next/static/chunks/0u~fzs8tlrkx..js","./_next/static/chunks/05jji57xkqk9u.js","./_next/static/chunks/0i.l9589uvx0j.js","./_next/static/chunks/10svlpo90.-fo.js","./_next/static/chunks/0lxj3z61u.7dy.js"],"OutletBoundary"]
 4:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":["$L2",null,["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"w-9-N-aj9yBdHn-frGsy8"}
+0:{"rsc":["$","$1","c",{"children":["$L2",null,["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"FMp_x6LXmsIbBtcYgkVHD"}
 5:null
 2:E{"digest":"NEXT_REDIRECT;replace;/editor;307;"}

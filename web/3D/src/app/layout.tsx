@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AgentCursorProvider } from "@/components/agent-cursor-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
   title: "3D",
   description:
     "Create, publish, and ship interactive 3D scenes from the browser.",
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({
@@ -37,6 +38,7 @@ export default function RootLayout({
       >
         <TooltipProvider delay={250}>{children}</TooltipProvider>
         <Toaster richColors position="bottom-right" />
+        <AgentCursorProvider />
       </body>
     </html>
   );

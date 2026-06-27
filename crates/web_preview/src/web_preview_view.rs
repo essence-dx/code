@@ -31936,6 +31936,65 @@ impl WebPreviewView {
                     }
                 }
             }
+            "dx-www-canvas-export" => {
+                match catch_unwind(AssertUnwindSafe(|| -> Result<()> {
+                    let data = payload
+                        .get("data")
+                        .and_then(Value::as_str)
+                        .ok_or_else(|| anyhow!("Missing 'data' field in canvas export payload"))?;
+
+                    let png_bytes = base64::engine::general_purpose::STANDARD
+                        .decode(data)
+                        .with_context(|| "Failed to decode base64 PNG data")?;
+
+                    let timestamp = SystemTime::now()
+                        .duration_since(UNIX_EPOCH)
+                        .unwrap_or_default()
+                        .as_millis();
+
+                    // Use client-provided filename if present, otherwise generate one
+                    let client_name = payload
+                        .get("filename")
+                        .and_then(Value::as_str)
+                        .filter(|n| !n.is_empty());
+                    let filename = client_name
+                        .map(|n| n.to_string())
+                        .unwrap_or_else(|| format!("export-{timestamp}.png"));
+
+                    // Save to project root
+                    if let Some(root_path) = self.workspace_context.root_path.as_ref() {
+                        let output_path = root_path.join(&filename);
+                        fs::write(&output_path, &png_bytes).with_context(|| {
+                            format!("Failed to write canvas export to {}", output_path.display())
+                        })?;
+                        self.show_toast(
+                            format!("Canvas exported to {}", output_path.display()),
+                            cx,
+                        );
+                    }
+
+                    // Send to agent panel
+                    let png_bytes = self.prepare_agent_png_bytes(png_bytes)?;
+                    self.append_content_blocks_to_agent_panel(
+                        self.screenshot_agent_blocks(&png_bytes),
+                        window,
+                        cx,
+                    );
+
+                    Ok(())
+                })) {
+                    Ok(Ok(())) => {}
+                    Ok(Err(error)) => {
+                        self.report_action_error("Canvas export failed", error, cx);
+                    }
+                    Err(_) => {
+                        self.report_action_panic(
+                            "Canvas export crashed while processing data",
+                            cx,
+                        );
+                    }
+                }
+            }
             "dx-style-source-apply" => {
                 let (mut receipt, consume_session_token) = if let Some(refusal_reason) =
                     self.dx_style_source_apply_session_refusal(&payload)

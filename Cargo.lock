@@ -22236,6 +22236,7 @@ dependencies = [
  "tiny_http",
  "tokio",
  "tower-http 0.4.4",
+ "tracing",
  "ui",
  "url",
  "uuid",

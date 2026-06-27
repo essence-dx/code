@@ -8,13 +8,13 @@
         "id": "app/page",
         "name": "Page",
         "package_id": null,
-        "content_hash": "dca6383637c76cd84d2ccd42b5af2c1dc776069548bc18f7468bce2b4ee89de9"
+        "content_hash": "49eb7925527ddf1ab19a34d23b17457fbc06863603fce47ef0e91b0f953c5f50"
       },
       {
         "id": "app/layout",
         "name": "Layout",
         "package_id": null,
-        "content_hash": "5dbc49d8deddbd1c8db2d65c535975b8dadd43de3ca576550c6a373b74192fe2"
+        "content_hash": "341a60f46bd1a1e16c2c9a899c044262bb4ed301f3aabd21c0c3093407999bb1"
       },
       {
         "id": "component/icon",

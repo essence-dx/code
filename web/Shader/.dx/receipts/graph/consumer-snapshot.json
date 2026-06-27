@@ -1,7 +1,7 @@
 {
   "schema": "dx.build.graph.consumerSnapshot",
   "sourceSchema": "dx.build.graph",
-  "generatedAt": "2026-06-20T11:15:15.164497500+00:00",
+  "generatedAt": "2026-06-26T14:29:20.827388100+00:00",
   "coreConceptMap": {
     "conceptCount": 9,
     "coveredNodeKinds": [
@@ -33,13 +33,13 @@
     "publicArchitecture": false
   },
   "graph": {
-    "nodeCount": 47,
+    "nodeCount": 49,
     "edgeCount": 19,
     "nodeKindCounts": {
       "dx-style-css": 4,
       "dx-style-source-map": 4,
       "image-placeholder-asset": 7,
-      "public-asset": 27,
+      "public-asset": 29,
       "route-shell-chunk": 1,
       "server-data-route": 1,
       "source-module-chunk": 2,
@@ -76,13 +76,13 @@
       "optimizedVariantCount": 0,
       "placeholderCount": 7,
       "placeholderArtifactCount": 7,
-      "placeholderArtifactBytes": 1159,
+      "placeholderArtifactBytes": 1167,
       "placeholderArtifactOutputs": [
         ".dx/www/output/.dx/build-cache/image-placeholders/public/dx-shader/assets/apple-touch-icon-653d1ed174ed39da.placeholder.svg",
         ".dx/www/output/.dx/build-cache/image-placeholders/public/dx-shader/assets/favicon-95cdf2c6b75c0830.placeholder.svg",
         ".dx/www/output/.dx/build-cache/image-placeholders/public/dx-shader/assets/favicon-95cdf2c6b75c0830.placeholder.svg",
         ".dx/www/output/.dx/build-cache/image-placeholders/public/dx-shader/favicon-95cdf2c6b75c0830.placeholder.svg",
-        ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-95cdf2c6b75c0830.placeholder.svg",
+        ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-b0698a08bf67b748.placeholder.svg",
         ".dx/www/output/.dx/build-cache/image-placeholders/public/icon-95cdf2c6b75c0830.placeholder.svg",
         ".dx/www/output/.dx/build-cache/image-placeholders/public/logo-95cdf2c6b75c0830.placeholder.svg"
       ],
@@ -95,7 +95,8 @@
       },
       "dimensionSourceCounts": {
         "png-ihdr": 3,
-        "svg-viewbox": 4
+        "svg-root-attributes": 1,
+        "svg-viewbox": 3
       },
       "status": "metadata-plus-placeholder-artifacts-boundary",
       "fullPipelineParity": false

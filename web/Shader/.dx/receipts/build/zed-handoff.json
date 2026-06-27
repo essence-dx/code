@@ -74,13 +74,13 @@
     "optimized_variant_count": 0,
     "placeholder_count": 7,
     "placeholder_artifact_count": 7,
-    "placeholder_artifact_bytes": 1159,
+    "placeholder_artifact_bytes": 1167,
     "placeholder_artifact_outputs": [
       ".dx/www/output/.dx/build-cache/image-placeholders/public/dx-shader/assets/apple-touch-icon-653d1ed174ed39da.placeholder.svg",
       ".dx/www/output/.dx/build-cache/image-placeholders/public/dx-shader/assets/favicon-95cdf2c6b75c0830.placeholder.svg",
       ".dx/www/output/.dx/build-cache/image-placeholders/public/dx-shader/assets/favicon-95cdf2c6b75c0830.placeholder.svg",
       ".dx/www/output/.dx/build-cache/image-placeholders/public/dx-shader/favicon-95cdf2c6b75c0830.placeholder.svg",
-      ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-95cdf2c6b75c0830.placeholder.svg",
+      ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-b0698a08bf67b748.placeholder.svg",
       ".dx/www/output/.dx/build-cache/image-placeholders/public/icon-95cdf2c6b75c0830.placeholder.svg",
       ".dx/www/output/.dx/build-cache/image-placeholders/public/logo-95cdf2c6b75c0830.placeholder.svg"
     ],
@@ -91,7 +91,8 @@
     },
     "dimension_sources": {
       "png-ihdr": 3,
-      "svg-viewbox": 4
+      "svg-root-attributes": 1,
+      "svg-viewbox": 3
     },
     "status": "metadata-plus-placeholder-artifacts-boundary",
     "full_pipeline_parity": false
@@ -101,14 +102,14 @@
       "route": "/",
       "source_path": "app/page.tsx",
       "html_output": ".dx/www/output/.dx/build-cache/source-routes/root/index.html",
-      "shell_chunk_output": ".dx/www/output/.dx/build-cache/source-routes/root/route-shell-035b876024f65746.mjs",
-      "entry_module_chunk_output": ".dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-dca6383637c76cd8.mjs",
+      "shell_chunk_output": ".dx/www/output/.dx/build-cache/source-routes/root/route-shell-9b3651610ca917aa.mjs",
+      "entry_module_chunk_output": ".dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-49eb7925527ddf1a.mjs",
       "source_module_chunks": [
         {
           "source_path": "app/page.tsx",
-          "chunk_output": ".dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-dca6383637c76cd8.mjs",
+          "chunk_output": ".dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-49eb7925527ddf1a.mjs",
           "kind": "tsx",
-          "hash": "dca6383637c76cd8"
+          "hash": "49eb7925527ddf1a"
         },
         {
           "source_path": "components/icons/icon.tsx",
@@ -117,7 +118,7 @@
           "hash": "8db49bf807790749"
         }
       ],
-      "fallback_hash": "035b876024f65746"
+      "fallback_hash": "9b3651610ca917aa"
     }
   ],
   "node_modules_required": false,

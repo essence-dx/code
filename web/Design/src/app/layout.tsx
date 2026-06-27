@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { productDescription, productName } from "@/lib/product";
+import { AgentCursorProvider } from "@/components/agent-cursor-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: productName,
   description: productDescription,
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({
@@ -35,6 +36,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <TooltipProvider>{children}</TooltipProvider>
+        <AgentCursorProvider />
       </body>
     </html>
   );

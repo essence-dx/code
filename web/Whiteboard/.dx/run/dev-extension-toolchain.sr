@@ -1,0 +1,10 @@
+schema="dx.dev.extension_toolchain"
+version=2
+generated_at="2026-06-26T13:06:56.687435800+00:00"
+config_source="dx"
+passed=true
+triggered_paths=[".dx/icons/sync.sr"]
+planned_commands=["serializer"]
+serializer_cache=".dx/serializer"
+policy="dx config driven minimal toolchain before hot reload publish"
+legacy_json=".dx/receipts/run/dev-extension-toolchain.json"

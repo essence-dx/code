@@ -1,7 +1,7 @@
 {
   "schema": "dx.build.graph.consumerSnapshot",
   "sourceSchema": "dx.build.graph",
-  "generatedAt": "2026-06-20T10:50:17.102402+00:00",
+  "generatedAt": "2026-06-26T14:29:07.150267200+00:00",
   "coreConceptMap": {
     "conceptCount": 9,
     "coveredNodeKinds": [
@@ -33,14 +33,14 @@
     "publicArchitecture": false
   },
   "graph": {
-    "nodeCount": 21,
+    "nodeCount": 23,
     "edgeCount": 15,
     "nodeKindCounts": {
       "dx-style-css": 4,
       "dx-style-import-source": 3,
       "dx-style-source-map": 4,
       "image-placeholder-asset": 2,
-      "public-asset": 3,
+      "public-asset": 5,
       "route-shell-chunk": 1,
       "server-data-route": 1,
       "source-module-chunk": 2,
@@ -48,8 +48,8 @@
     },
     "styleOptimization": {
       "styleNodeCount": 4,
-      "originalRuleCount": 582,
-      "retainedRuleCount": 582,
+      "originalRuleCount": 594,
+      "retainedRuleCount": 594,
       "prunedRuleCount": 0,
       "minifiedStyleCount": 4,
       "sourceMapCount": 4,
@@ -77,9 +77,9 @@
       "optimizedVariantCount": 0,
       "placeholderCount": 2,
       "placeholderArtifactCount": 2,
-      "placeholderArtifactBytes": 334,
+      "placeholderArtifactBytes": 342,
       "placeholderArtifactOutputs": [
-        ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-95cdf2c6b75c0830.placeholder.svg",
+        ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-b0698a08bf67b748.placeholder.svg",
         ".dx/www/output/.dx/build-cache/image-placeholders/public/icon-653d1ed174ed39da.placeholder.svg"
       ],
       "placeholderArtifactEdgeCount": 2,
@@ -89,7 +89,8 @@
         "svg": 2
       },
       "dimensionSourceCounts": {
-        "svg-viewbox": 2
+        "svg-root-attributes": 1,
+        "svg-viewbox": 1
       },
       "status": "metadata-plus-placeholder-artifacts-boundary",
       "fullPipelineParity": false

@@ -1,7 +1,7 @@
 tool="dx imports"
 command="check"
 passed=true
-source_hash="blake3:370b5e32b04b7df0e361deef306a8ee4c6886fbfa4a190c514f69556350f665d"
+source_hash="blake3:9934975391230548b51ab63f21f19b9d91cc46b451bd28b442457ad5039acb8f"
 stale_barrel=false
 stale_import_map=false
 stale_declarations=false

@@ -22,15 +22,37 @@
   },
   "metadata_sources": [
     {
-      "source_path": "app/page.tsx",
+      "source_path": "app/layout.tsx",
       "source_kind": "metadata",
       "mode": "safe-static-metadata-literal-object",
-      "title": "DX Shader",
+      "title": "Shader",
       "title_kind": "literal",
       "title_default": null,
       "title_template": null,
       "title_absolute": null,
-      "description": "DX Shader",
+      "description": "Shader",
+      "canonical": null,
+      "openGraph": null,
+      "node_modules_required": false,
+      "source_owned_metadata": true,
+      "source_owned_title_template": false,
+      "source_owned_title_absolute": false,
+      "source_owned_open_graph_metadata": false,
+      "external_runtime_required": false,
+      "external_runtime_executed": false,
+      "full_next_title_runtime": false,
+      "full_next_open_graph_runtime": false
+    },
+    {
+      "source_path": "app/page.tsx",
+      "source_kind": "metadata",
+      "mode": "safe-static-metadata-literal-object",
+      "title": "Shader",
+      "title_kind": "literal",
+      "title_default": null,
+      "title_template": null,
+      "title_absolute": null,
+      "description": "Shader",
       "canonical": null,
       "openGraph": null,
       "node_modules_required": false,
@@ -45,8 +67,8 @@
     }
   ],
   "effective_metadata": {
-    "title": "DX Shader",
-    "description": "DX Shader",
+    "title": "Shader",
+    "description": "Shader",
     "canonical": null,
     "title_template": null,
     "title_absolute": null,
@@ -58,8 +80,9 @@
     "source_owned_open_graph_metadata": true,
     "source_owned_viewport_metadata": true,
     "metadata_merge_precedence": "segment-order-parent-to-leaf",
-    "source_count": 1,
+    "source_count": 2,
     "merged_source_paths": [
+      "app/layout.tsx",
       "app/page.tsx"
     ],
     "open_graph_field_sources": null,
@@ -92,7 +115,7 @@
   },
   "metadata_head": {
     "status": "source-owned-head-tags-ready",
-    "tags": "<title data-dx-metadata=\"title\">DX Shader</title><meta name=\"description\" content=\"DX Shader\" data-dx-metadata=\"description\" />",
+    "tags": "<title data-dx-metadata=\"title\">Shader</title><meta name=\"description\" content=\"Shader\" data-dx-metadata=\"description\" />",
     "tag_count": 2,
     "source_owned_head_tags": true,
     "node_modules_required": false,
@@ -194,7 +217,7 @@
     "runtime_generation": {
       "runtime_generation_contract": "source-receipt-only",
       "runtime_generation_surface_counts": {
-        "rsc_boundaries": 1,
+        "rsc_boundaries": 2,
         "server_actions": 0,
         "dynamic_imports": 0,
         "font_loaders": 0
@@ -215,15 +238,37 @@
     },
     "counts": {
       "sources": 2,
-      "rsc_boundaries": 1,
+      "rsc_boundaries": 2,
       "server_actions": 0,
       "page_config_exports": 0,
       "dynamic_imports": 0,
       "font_loaders": 0,
-      "metadata_exports": 1,
+      "metadata_exports": 2,
       "conflicts": 0
     },
     "rsc_boundaries": [
+      {
+        "source_path": "app/layout.tsx",
+        "kind": "layout",
+        "directives": [],
+        "use_client": false,
+        "use_server": false,
+        "use_cache": false,
+        "cache_directives": [],
+        "client_entry": false,
+        "server_action_file": false,
+        "client_boundary_needed": false,
+        "metadata_export_in_client": false,
+        "metadata_export_names": [
+          "metadata"
+        ],
+        "metadata_export_count": 1,
+        "error_file_requires_client": false,
+        "hook_or_event_boundary": false,
+        "client_entry_reasons": [],
+        "source_owned_boundary": true,
+        "runtime_proxy_generated": false
+      },
       {
         "source_path": "app/page.tsx",
         "kind": "page",
@@ -253,8 +298,8 @@
     "font_loaders": [],
     "metadata_exports": [
       {
-        "source_path": "app/page.tsx",
-        "kind": "page",
+        "source_path": "app/layout.tsx",
+        "kind": "layout",
         "static_metadata": true,
         "generate_metadata": false,
         "metadata_conflict": false,
@@ -262,11 +307,11 @@
         "generate_viewport": false,
         "viewport_conflict": false,
         "parsed_static_metadata": {
-          "title": "DX Shader",
-          "description": "DX Shader",
+          "title": "Shader",
+          "description": "Shader",
           "canonical": null
         },
-        "static_metadata_value_source": "{\r\n  title: \"DX Shader\",\r\n  description: \"DX Shader\",\r\n} as const",
+        "static_metadata_value_source": "{\r\n  title: \"Shader\",\r\n  description: \"Shader\",\r\n} as const",
         "static_metadata_value_kind": "object-literal",
         "generate_metadata_return_source": null,
         "generate_metadata_return_kind": null,
@@ -279,7 +324,43 @@
             "name": "metadata",
             "export_kind": "const",
             "async_export": false,
-            "value_source": "{\r\n  title: \"DX Shader\",\r\n  description: \"DX Shader\",\r\n} as const",
+            "value_source": "{\r\n  title: \"Shader\",\r\n  description: \"Shader\",\r\n} as const",
+            "value_kind": "object-literal",
+            "compatibility_issue": null
+          }
+        ],
+        "compatibility_issues": [],
+        "source_owned_detection": true,
+        "server_component_only_enforced": false
+      },
+      {
+        "source_path": "app/page.tsx",
+        "kind": "page",
+        "static_metadata": true,
+        "generate_metadata": false,
+        "metadata_conflict": false,
+        "static_viewport": false,
+        "generate_viewport": false,
+        "viewport_conflict": false,
+        "parsed_static_metadata": {
+          "title": "Shader",
+          "description": "Shader",
+          "canonical": null
+        },
+        "static_metadata_value_source": "{\r\n  title: \"Shader\",\r\n  description: \"Shader\",\r\n} as const",
+        "static_metadata_value_kind": "object-literal",
+        "generate_metadata_return_source": null,
+        "generate_metadata_return_kind": null,
+        "static_viewport_value_source": null,
+        "static_viewport_value_kind": null,
+        "generate_viewport_return_source": null,
+        "generate_viewport_return_kind": null,
+        "exports": [
+          {
+            "name": "metadata",
+            "export_kind": "const",
+            "async_export": false,
+            "value_source": "{\r\n  title: \"Shader\",\r\n  description: \"Shader\",\r\n} as const",
             "value_kind": "object-literal",
             "compatibility_issue": null
           }
@@ -864,14 +945,14 @@
           "name": "Page",
           "package_id": null,
           "ownership": "local-source-owned",
-          "content_hash": "dca6383637c76cd84d2ccd42b5af2c1dc776069548bc18f7468bce2b4ee89de9"
+          "content_hash": "49eb7925527ddf1ab19a34d23b17457fbc06863603fce47ef0e91b0f953c5f50"
         },
         {
           "id": "app/layout",
           "name": "Layout",
           "package_id": null,
           "ownership": "local-source-owned",
-          "content_hash": "5dbc49d8deddbd1c8db2d65c535975b8dadd43de3ca576550c6a373b74192fe2"
+          "content_hash": "341a60f46bd1a1e16c2c9a899c044262bb4ed301f3aabd21c0c3093407999bb1"
         },
         {
           "id": "component/icon",
@@ -963,7 +1044,7 @@
         "role": "layout",
         "source_path": "app/layout.tsx",
         "imports": 3,
-        "elements": 11,
+        "elements": 13,
         "events": 0,
         "diagnostics": 0,
         "parser_backend": "oxc-parser",
@@ -997,10 +1078,10 @@
       }
     ],
     "counts": {
-      "renderable_elements": 88,
+      "renderable_elements": 90,
       "component_references": 0,
       "source_owned_component_compositions": 0,
-      "prop_bindings": 254,
+      "prop_bindings": 258,
       "page_prop_bindings": 0,
       "page_prop_alias_bindings": 0,
       "page_prop_unresolved_alias_bindings": 0,
@@ -1078,7 +1159,7 @@
         "status": "oxc-jsx-surface",
         "oxc_available": true,
         "custom_scanner_fallback": true,
-        "elements": 11,
+        "elements": 13,
         "expressions": 1
       },
       {
@@ -1187,7 +1268,7 @@
         "child_node_count": 2,
         "child_element_indices": [
           1,
-          10
+          12
         ],
         "has_events": false,
         "self_closing": false
@@ -1375,6 +1456,68 @@
         "source_path": "app/layout.tsx",
         "role": "layout",
         "element_index": 10,
+        "parent_index": 1,
+        "tag": "script",
+        "source_tag": "script",
+        "framework_component": "",
+        "render_mode": "intrinsic-static-dom",
+        "text": "",
+        "attributes": [
+          {
+            "name": "defer",
+            "kind": "boolean",
+            "value": null,
+            "expression": null,
+            "event": false
+          },
+          {
+            "name": "src",
+            "kind": "literal",
+            "value": "/agent-cursor.js",
+            "expression": null,
+            "event": false
+          }
+        ],
+        "child_node_count": 0,
+        "child_element_indices": [],
+        "has_events": false,
+        "self_closing": false
+      },
+      {
+        "source_path": "app/layout.tsx",
+        "role": "layout",
+        "element_index": 11,
+        "parent_index": 1,
+        "tag": "script",
+        "source_tag": "script",
+        "framework_component": "",
+        "render_mode": "intrinsic-static-dom",
+        "text": "",
+        "attributes": [
+          {
+            "name": "defer",
+            "kind": "boolean",
+            "value": null,
+            "expression": null,
+            "event": false
+          },
+          {
+            "name": "src",
+            "kind": "literal",
+            "value": "/canvas-export.js",
+            "expression": null,
+            "event": false
+          }
+        ],
+        "child_node_count": 0,
+        "child_element_indices": [],
+        "has_events": false,
+        "self_closing": false
+      },
+      {
+        "source_path": "app/layout.tsx",
+        "role": "layout",
+        "element_index": 12,
         "parent_index": 0,
         "tag": "body",
         "source_tag": "body",
@@ -1513,7 +1656,7 @@
           {
             "name": "alt",
             "kind": "literal",
-            "value": "DX Shader Logo",
+            "value": "Shader Logo",
             "expression": null,
             "event": false
           }
@@ -1532,7 +1675,7 @@
         "source_tag": "span",
         "framework_component": "",
         "render_mode": "intrinsic-static-dom",
-        "text": "DX Shader",
+        "text": "Shader",
         "attributes": [
           {
             "name": "className",
@@ -3438,7 +3581,7 @@
         "source_tag": "span",
         "framework_component": "",
         "render_mode": "intrinsic-static-dom",
-        "text": "DX Shader",
+        "text": "Shader",
         "attributes": [
           {
             "name": "className",
@@ -3513,7 +3656,7 @@
         "source_tag": "span",
         "framework_component": "",
         "render_mode": "intrinsic-static-dom",
-        "text": "DX Shader",
+        "text": "Shader",
         "attributes": [
           {
             "name": "className",
@@ -4695,6 +4838,46 @@
         "event": false
       },
       {
+        "source_path": "app/layout.tsx",
+        "role": "layout",
+        "element": "script",
+        "name": "defer",
+        "kind": "boolean",
+        "value": null,
+        "expression": null,
+        "event": false
+      },
+      {
+        "source_path": "app/layout.tsx",
+        "role": "layout",
+        "element": "script",
+        "name": "src",
+        "kind": "literal",
+        "value": "/agent-cursor.js",
+        "expression": null,
+        "event": false
+      },
+      {
+        "source_path": "app/layout.tsx",
+        "role": "layout",
+        "element": "script",
+        "name": "defer",
+        "kind": "boolean",
+        "value": null,
+        "expression": null,
+        "event": false
+      },
+      {
+        "source_path": "app/layout.tsx",
+        "role": "layout",
+        "element": "script",
+        "name": "src",
+        "kind": "literal",
+        "value": "/canvas-export.js",
+        "expression": null,
+        "event": false
+      },
+      {
         "source_path": "app/page.tsx",
         "role": "page",
         "element": "main",
@@ -4770,7 +4953,7 @@
         "element": "img",
         "name": "alt",
         "kind": "literal",
-        "value": "DX Shader Logo",
+        "value": "Shader Logo",
         "expression": null,
         "event": false
       },
@@ -7534,7 +7717,7 @@
       "skipped_attributes": 7,
       "literal_expressions": 0,
       "skipped_child_expressions": 1,
-      "html": "<html><body></body></html><main class=\"dx-shader-root\" data-dx-route=\"/\" data-dx-template=\"dx-shader\"><header class=\"topbar\"><div class=\"brand\"><img class=\"brand-mark\" src=\"/favicon.svg\" alt=\"DX Shader Logo\"><span class=\"brand-name\">DX Shader</span></div><div class=\"topbar-center\"><div class=\"segmented\" id=\"dx-shader-aspect-control\" role=\"group\" aria-label=\"Canvas aspect ratio\"></div></div><div class=\"topbar-actions\"><button class=\"btn btn-primary\" id=\"btn-random\" title=\"Randomize everything (R)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.4\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"5.4\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle></svg>Randomize</button><div class=\"topbar-divider\"></div><button class=\"btn\" id=\"btn-export-png\" title=\"Save still image (S)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.5\" cy=\"5.5\" r=\"1.5\" fill=\"currentColor\"></circle><path d=\"M2 12 L6 8 L9 11 L11.5 8.5 L14 11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>Image</button><button class=\"btn\" id=\"btn-export-video\" title=\"Record looping video\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"3.5\" width=\"9\" height=\"9\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><path d=\"M10.5 7 L14.5 4.5 V11.5 L10.5 9\" fill=\"currentColor\"></path></svg>Video</button><button class=\"btn\" id=\"btn-export-gif\" title=\"Render seamless looping GIF\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M13.5 8 a5.5 5.5 0 1 1 -1.6 -3.9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path><path d=\"M13.8 1.6 V4.4 H11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>GIF</button><button class=\"btn\" id=\"btn-set\" title=\"Generate a consistent set of variations\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"1.5\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect></svg>Set</button><div class=\"topbar-divider\"></div></div></header><div class=\"app\"><section class=\"stage\" id=\"stage\"><div class=\"shader-loader\" data-loader-mode=\"auto\" data-loader-state=\"preparing\" id=\"shader-boot-loader\" role=\"status\" aria-live=\"polite\"><div class=\"shader-loader-panel\"><div class=\"shader-loader-copy\"><span class=\"shader-loader-title\">Preparing shader engine</span><span class=\"shader-loader-detail\" id=\"shader-boot-status\">Initializing rendering engine</span></div><button class=\"shader-loader-action\" hidden=\"hidden\" id=\"shader-boot-start\" type=\"button\">Start shader</button><div class=\"shader-loader-shimmer\" aria-hidden=\"true\"></div></div></div><div class=\"canvas-frame\" id=\"canvas-frame\"><div class=\"canvas-shell\" id=\"canvas-shell\"><div class=\"shader-static-fallback\" id=\"shader-static-fallback\" aria-hidden=\"true\"><span class=\"shader-static-title\">DX Shader</span><span class=\"shader-static-detail\">Safe shader preview</span></div></div></div><div class=\"stage-meta\"><div class=\"meta-left\"><button class=\"icon-btn\" id=\"btn-play\" title=\"Play / pause (Space)\" type=\"button\"><svg id=\"icon-pause\" viewBox=\"0 0 14 14\"><rect x=\"2.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect><rect x=\"8.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect></svg><svg id=\"icon-play\" viewBox=\"0 0 14 14\"><path d=\"M3.5 2 L12 7 L3.5 12 Z\" fill=\"currentColor\"></path></svg></button><span class=\"meta-item mono\" id=\"meta-mode\">...</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-seed\">seed 0000</span></div><div class=\"meta-right\"><span class=\"meta-item mono dim\" id=\"meta-loop\">4.0s loop</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-res\">0x0</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-fps\">60 fps</span></div></div></section><aside class=\"rail\" id=\"rail\"></aside></div><div class=\"overlay is-hidden\" id=\"overlay\" hidden=\"hidden\"><div class=\"overlay-card\"><div class=\"overlay-title\" id=\"overlay-title\">Rendering</div><div class=\"overlay-detail mono\" id=\"overlay-detail\">...</div><div class=\"progress\"><div class=\"progress-fill\" id=\"overlay-bar\"></div></div><button class=\"btn overlay-cancel\" id=\"overlay-cancel\" type=\"button\">Cancel</button></div></div><div class=\"toast mono is-hidden\" id=\"toast\" hidden=\"hidden\"></div></main><span data-icon-source=\"dx-icons\"></span>",
+      "html": "<html><body></body></html><main class=\"dx-shader-root\" data-dx-route=\"/\" data-dx-template=\"dx-shader\"><header class=\"topbar\"><div class=\"brand\"><img class=\"brand-mark\" src=\"/favicon.svg\" alt=\"Shader Logo\"><span class=\"brand-name\">Shader</span></div><div class=\"topbar-center\"><div class=\"segmented\" id=\"dx-shader-aspect-control\" role=\"group\" aria-label=\"Canvas aspect ratio\"></div></div><div class=\"topbar-actions\"><button class=\"btn btn-primary\" id=\"btn-random\" title=\"Randomize everything (R)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.4\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"5.4\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle></svg>Randomize</button><div class=\"topbar-divider\"></div><button class=\"btn\" id=\"btn-export-png\" title=\"Save still image (S)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.5\" cy=\"5.5\" r=\"1.5\" fill=\"currentColor\"></circle><path d=\"M2 12 L6 8 L9 11 L11.5 8.5 L14 11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>Image</button><button class=\"btn\" id=\"btn-export-video\" title=\"Record looping video\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"3.5\" width=\"9\" height=\"9\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><path d=\"M10.5 7 L14.5 4.5 V11.5 L10.5 9\" fill=\"currentColor\"></path></svg>Video</button><button class=\"btn\" id=\"btn-export-gif\" title=\"Render seamless looping GIF\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M13.5 8 a5.5 5.5 0 1 1 -1.6 -3.9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path><path d=\"M13.8 1.6 V4.4 H11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>GIF</button><button class=\"btn\" id=\"btn-set\" title=\"Generate a consistent set of variations\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"1.5\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect></svg>Set</button><div class=\"topbar-divider\"></div></div></header><div class=\"app\"><section class=\"stage\" id=\"stage\"><div class=\"shader-loader\" data-loader-mode=\"auto\" data-loader-state=\"preparing\" id=\"shader-boot-loader\" role=\"status\" aria-live=\"polite\"><div class=\"shader-loader-panel\"><div class=\"shader-loader-copy\"><span class=\"shader-loader-title\">Preparing shader engine</span><span class=\"shader-loader-detail\" id=\"shader-boot-status\">Initializing rendering engine</span></div><button class=\"shader-loader-action\" hidden=\"hidden\" id=\"shader-boot-start\" type=\"button\">Start shader</button><div class=\"shader-loader-shimmer\" aria-hidden=\"true\"></div></div></div><div class=\"canvas-frame\" id=\"canvas-frame\"><div class=\"canvas-shell\" id=\"canvas-shell\"><div class=\"shader-static-fallback\" id=\"shader-static-fallback\" aria-hidden=\"true\"><span class=\"shader-static-title\">Shader</span><span class=\"shader-static-detail\">Safe shader preview</span></div></div></div><div class=\"stage-meta\"><div class=\"meta-left\"><button class=\"icon-btn\" id=\"btn-play\" title=\"Play / pause (Space)\" type=\"button\"><svg id=\"icon-pause\" viewBox=\"0 0 14 14\"><rect x=\"2.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect><rect x=\"8.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect></svg><svg id=\"icon-play\" viewBox=\"0 0 14 14\"><path d=\"M3.5 2 L12 7 L3.5 12 Z\" fill=\"currentColor\"></path></svg></button><span class=\"meta-item mono\" id=\"meta-mode\">...</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-seed\">seed 0000</span></div><div class=\"meta-right\"><span class=\"meta-item mono dim\" id=\"meta-loop\">4.0s loop</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-res\">0x0</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-fps\">60 fps</span></div></div></section><aside class=\"rail\" id=\"rail\"></aside></div><div class=\"overlay is-hidden\" id=\"overlay\" hidden=\"hidden\"><div class=\"overlay-card\"><div class=\"overlay-title\" id=\"overlay-title\">Rendering</div><div class=\"overlay-detail mono\" id=\"overlay-detail\">...</div><div class=\"progress\"><div class=\"progress-fill\" id=\"overlay-bar\"></div></div><button class=\"btn overlay-cancel\" id=\"overlay-cancel\" type=\"button\">Cancel</button></div></div><div class=\"toast mono is-hidden\" id=\"toast\" hidden=\"hidden\"></div></main><span data-icon-source=\"dx-icons\"></span>",
       "elements": [
         {
           "source_path": "app/layout.tsx",
@@ -7547,7 +7730,7 @@
           "child_node_count": 2,
           "child_element_indices": [
             1,
-            10
+            12
           ],
           "skipped_attributes": 1,
           "literal_expressions": 0,
@@ -7561,7 +7744,7 @@
           "element_index": 0,
           "parent_index": null,
           "tag": "main",
-          "html": "<main class=\"dx-shader-root\" data-dx-route=\"/\" data-dx-template=\"dx-shader\"><header class=\"topbar\"><div class=\"brand\"><img class=\"brand-mark\" src=\"/favicon.svg\" alt=\"DX Shader Logo\"><span class=\"brand-name\">DX Shader</span></div><div class=\"topbar-center\"><div class=\"segmented\" id=\"dx-shader-aspect-control\" role=\"group\" aria-label=\"Canvas aspect ratio\"></div></div><div class=\"topbar-actions\"><button class=\"btn btn-primary\" id=\"btn-random\" title=\"Randomize everything (R)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.4\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"5.4\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle></svg>Randomize</button><div class=\"topbar-divider\"></div><button class=\"btn\" id=\"btn-export-png\" title=\"Save still image (S)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.5\" cy=\"5.5\" r=\"1.5\" fill=\"currentColor\"></circle><path d=\"M2 12 L6 8 L9 11 L11.5 8.5 L14 11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>Image</button><button class=\"btn\" id=\"btn-export-video\" title=\"Record looping video\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"3.5\" width=\"9\" height=\"9\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><path d=\"M10.5 7 L14.5 4.5 V11.5 L10.5 9\" fill=\"currentColor\"></path></svg>Video</button><button class=\"btn\" id=\"btn-export-gif\" title=\"Render seamless looping GIF\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M13.5 8 a5.5 5.5 0 1 1 -1.6 -3.9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path><path d=\"M13.8 1.6 V4.4 H11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>GIF</button><button class=\"btn\" id=\"btn-set\" title=\"Generate a consistent set of variations\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"1.5\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect></svg>Set</button><div class=\"topbar-divider\"></div></div></header><div class=\"app\"><section class=\"stage\" id=\"stage\"><div class=\"shader-loader\" data-loader-mode=\"auto\" data-loader-state=\"preparing\" id=\"shader-boot-loader\" role=\"status\" aria-live=\"polite\"><div class=\"shader-loader-panel\"><div class=\"shader-loader-copy\"><span class=\"shader-loader-title\">Preparing shader engine</span><span class=\"shader-loader-detail\" id=\"shader-boot-status\">Initializing rendering engine</span></div><button class=\"shader-loader-action\" hidden=\"hidden\" id=\"shader-boot-start\" type=\"button\">Start shader</button><div class=\"shader-loader-shimmer\" aria-hidden=\"true\"></div></div></div><div class=\"canvas-frame\" id=\"canvas-frame\"><div class=\"canvas-shell\" id=\"canvas-shell\"><div class=\"shader-static-fallback\" id=\"shader-static-fallback\" aria-hidden=\"true\"><span class=\"shader-static-title\">DX Shader</span><span class=\"shader-static-detail\">Safe shader preview</span></div></div></div><div class=\"stage-meta\"><div class=\"meta-left\"><button class=\"icon-btn\" id=\"btn-play\" title=\"Play / pause (Space)\" type=\"button\"><svg id=\"icon-pause\" viewBox=\"0 0 14 14\"><rect x=\"2.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect><rect x=\"8.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect></svg><svg id=\"icon-play\" viewBox=\"0 0 14 14\"><path d=\"M3.5 2 L12 7 L3.5 12 Z\" fill=\"currentColor\"></path></svg></button><span class=\"meta-item mono\" id=\"meta-mode\">...</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-seed\">seed 0000</span></div><div class=\"meta-right\"><span class=\"meta-item mono dim\" id=\"meta-loop\">4.0s loop</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-res\">0x0</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-fps\">60 fps</span></div></div></section><aside class=\"rail\" id=\"rail\"></aside></div><div class=\"overlay is-hidden\" id=\"overlay\" hidden=\"hidden\"><div class=\"overlay-card\"><div class=\"overlay-title\" id=\"overlay-title\">Rendering</div><div class=\"overlay-detail mono\" id=\"overlay-detail\">...</div><div class=\"progress\"><div class=\"progress-fill\" id=\"overlay-bar\"></div></div><button class=\"btn overlay-cancel\" id=\"overlay-cancel\" type=\"button\">Cancel</button></div></div><div class=\"toast mono is-hidden\" id=\"toast\" hidden=\"hidden\"></div></main>",
+          "html": "<main class=\"dx-shader-root\" data-dx-route=\"/\" data-dx-template=\"dx-shader\"><header class=\"topbar\"><div class=\"brand\"><img class=\"brand-mark\" src=\"/favicon.svg\" alt=\"Shader Logo\"><span class=\"brand-name\">Shader</span></div><div class=\"topbar-center\"><div class=\"segmented\" id=\"dx-shader-aspect-control\" role=\"group\" aria-label=\"Canvas aspect ratio\"></div></div><div class=\"topbar-actions\"><button class=\"btn btn-primary\" id=\"btn-random\" title=\"Randomize everything (R)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.4\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"5.4\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle></svg>Randomize</button><div class=\"topbar-divider\"></div><button class=\"btn\" id=\"btn-export-png\" title=\"Save still image (S)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.5\" cy=\"5.5\" r=\"1.5\" fill=\"currentColor\"></circle><path d=\"M2 12 L6 8 L9 11 L11.5 8.5 L14 11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>Image</button><button class=\"btn\" id=\"btn-export-video\" title=\"Record looping video\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"3.5\" width=\"9\" height=\"9\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><path d=\"M10.5 7 L14.5 4.5 V11.5 L10.5 9\" fill=\"currentColor\"></path></svg>Video</button><button class=\"btn\" id=\"btn-export-gif\" title=\"Render seamless looping GIF\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M13.5 8 a5.5 5.5 0 1 1 -1.6 -3.9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path><path d=\"M13.8 1.6 V4.4 H11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>GIF</button><button class=\"btn\" id=\"btn-set\" title=\"Generate a consistent set of variations\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"1.5\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect></svg>Set</button><div class=\"topbar-divider\"></div></div></header><div class=\"app\"><section class=\"stage\" id=\"stage\"><div class=\"shader-loader\" data-loader-mode=\"auto\" data-loader-state=\"preparing\" id=\"shader-boot-loader\" role=\"status\" aria-live=\"polite\"><div class=\"shader-loader-panel\"><div class=\"shader-loader-copy\"><span class=\"shader-loader-title\">Preparing shader engine</span><span class=\"shader-loader-detail\" id=\"shader-boot-status\">Initializing rendering engine</span></div><button class=\"shader-loader-action\" hidden=\"hidden\" id=\"shader-boot-start\" type=\"button\">Start shader</button><div class=\"shader-loader-shimmer\" aria-hidden=\"true\"></div></div></div><div class=\"canvas-frame\" id=\"canvas-frame\"><div class=\"canvas-shell\" id=\"canvas-shell\"><div class=\"shader-static-fallback\" id=\"shader-static-fallback\" aria-hidden=\"true\"><span class=\"shader-static-title\">Shader</span><span class=\"shader-static-detail\">Safe shader preview</span></div></div></div><div class=\"stage-meta\"><div class=\"meta-left\"><button class=\"icon-btn\" id=\"btn-play\" title=\"Play / pause (Space)\" type=\"button\"><svg id=\"icon-pause\" viewBox=\"0 0 14 14\"><rect x=\"2.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect><rect x=\"8.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect></svg><svg id=\"icon-play\" viewBox=\"0 0 14 14\"><path d=\"M3.5 2 L12 7 L3.5 12 Z\" fill=\"currentColor\"></path></svg></button><span class=\"meta-item mono\" id=\"meta-mode\">...</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-seed\">seed 0000</span></div><div class=\"meta-right\"><span class=\"meta-item mono dim\" id=\"meta-loop\">4.0s loop</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-res\">0x0</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-fps\">60 fps</span></div></div></section><aside class=\"rail\" id=\"rail\"></aside></div><div class=\"overlay is-hidden\" id=\"overlay\" hidden=\"hidden\"><div class=\"overlay-card\"><div class=\"overlay-title\" id=\"overlay-title\">Rendering</div><div class=\"overlay-detail mono\" id=\"overlay-detail\">...</div><div class=\"progress\"><div class=\"progress-fill\" id=\"overlay-bar\"></div></div><button class=\"btn overlay-cancel\" id=\"overlay-cancel\" type=\"button\">Cancel</button></div></div><div class=\"toast mono is-hidden\" id=\"toast\" hidden=\"hidden\"></div></main>",
           "text": "",
           "child_node_count": 4,
           "child_element_indices": [
@@ -7620,14 +7803,14 @@
       "skipped_attributes": 1,
       "literal_expressions": 0,
       "skipped_child_expressions": 1,
-      "html": "<html><body><main class=\"dx-shader-root\" data-dx-route=\"/\" data-dx-template=\"dx-shader\"><header class=\"topbar\"><div class=\"brand\"><img class=\"brand-mark\" src=\"/favicon.svg\" alt=\"DX Shader Logo\"><span class=\"brand-name\">DX Shader</span></div><div class=\"topbar-center\"><div class=\"segmented\" id=\"dx-shader-aspect-control\" role=\"group\" aria-label=\"Canvas aspect ratio\"></div></div><div class=\"topbar-actions\"><button class=\"btn btn-primary\" id=\"btn-random\" title=\"Randomize everything (R)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.4\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"5.4\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle></svg>Randomize</button><div class=\"topbar-divider\"></div><button class=\"btn\" id=\"btn-export-png\" title=\"Save still image (S)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.5\" cy=\"5.5\" r=\"1.5\" fill=\"currentColor\"></circle><path d=\"M2 12 L6 8 L9 11 L11.5 8.5 L14 11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>Image</button><button class=\"btn\" id=\"btn-export-video\" title=\"Record looping video\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"3.5\" width=\"9\" height=\"9\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><path d=\"M10.5 7 L14.5 4.5 V11.5 L10.5 9\" fill=\"currentColor\"></path></svg>Video</button><button class=\"btn\" id=\"btn-export-gif\" title=\"Render seamless looping GIF\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M13.5 8 a5.5 5.5 0 1 1 -1.6 -3.9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path><path d=\"M13.8 1.6 V4.4 H11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>GIF</button><button class=\"btn\" id=\"btn-set\" title=\"Generate a consistent set of variations\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"1.5\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect></svg>Set</button><div class=\"topbar-divider\"></div></div></header><div class=\"app\"><section class=\"stage\" id=\"stage\"><div class=\"shader-loader\" data-loader-mode=\"auto\" data-loader-state=\"preparing\" id=\"shader-boot-loader\" role=\"status\" aria-live=\"polite\"><div class=\"shader-loader-panel\"><div class=\"shader-loader-copy\"><span class=\"shader-loader-title\">Preparing shader engine</span><span class=\"shader-loader-detail\" id=\"shader-boot-status\">Initializing rendering engine</span></div><button class=\"shader-loader-action\" hidden=\"hidden\" id=\"shader-boot-start\" type=\"button\">Start shader</button><div class=\"shader-loader-shimmer\" aria-hidden=\"true\"></div></div></div><div class=\"canvas-frame\" id=\"canvas-frame\"><div class=\"canvas-shell\" id=\"canvas-shell\"><div class=\"shader-static-fallback\" id=\"shader-static-fallback\" aria-hidden=\"true\"><span class=\"shader-static-title\">DX Shader</span><span class=\"shader-static-detail\">Safe shader preview</span></div></div></div><div class=\"stage-meta\"><div class=\"meta-left\"><button class=\"icon-btn\" id=\"btn-play\" title=\"Play / pause (Space)\" type=\"button\"><svg id=\"icon-pause\" viewBox=\"0 0 14 14\"><rect x=\"2.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect><rect x=\"8.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect></svg><svg id=\"icon-play\" viewBox=\"0 0 14 14\"><path d=\"M3.5 2 L12 7 L3.5 12 Z\" fill=\"currentColor\"></path></svg></button><span class=\"meta-item mono\" id=\"meta-mode\">...</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-seed\">seed 0000</span></div><div class=\"meta-right\"><span class=\"meta-item mono dim\" id=\"meta-loop\">4.0s loop</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-res\">0x0</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-fps\">60 fps</span></div></div></section><aside class=\"rail\" id=\"rail\"></aside></div><div class=\"overlay is-hidden\" id=\"overlay\" hidden=\"hidden\"><div class=\"overlay-card\"><div class=\"overlay-title\" id=\"overlay-title\">Rendering</div><div class=\"overlay-detail mono\" id=\"overlay-detail\">...</div><div class=\"progress\"><div class=\"progress-fill\" id=\"overlay-bar\"></div></div><button class=\"btn overlay-cancel\" id=\"overlay-cancel\" type=\"button\">Cancel</button></div></div><div class=\"toast mono is-hidden\" id=\"toast\" hidden=\"hidden\"></div></main></body></html>",
+      "html": "<html><body><main class=\"dx-shader-root\" data-dx-route=\"/\" data-dx-template=\"dx-shader\"><header class=\"topbar\"><div class=\"brand\"><img class=\"brand-mark\" src=\"/favicon.svg\" alt=\"Shader Logo\"><span class=\"brand-name\">Shader</span></div><div class=\"topbar-center\"><div class=\"segmented\" id=\"dx-shader-aspect-control\" role=\"group\" aria-label=\"Canvas aspect ratio\"></div></div><div class=\"topbar-actions\"><button class=\"btn btn-primary\" id=\"btn-random\" title=\"Randomize everything (R)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.4\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"5.4\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle></svg>Randomize</button><div class=\"topbar-divider\"></div><button class=\"btn\" id=\"btn-export-png\" title=\"Save still image (S)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.5\" cy=\"5.5\" r=\"1.5\" fill=\"currentColor\"></circle><path d=\"M2 12 L6 8 L9 11 L11.5 8.5 L14 11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>Image</button><button class=\"btn\" id=\"btn-export-video\" title=\"Record looping video\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"3.5\" width=\"9\" height=\"9\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><path d=\"M10.5 7 L14.5 4.5 V11.5 L10.5 9\" fill=\"currentColor\"></path></svg>Video</button><button class=\"btn\" id=\"btn-export-gif\" title=\"Render seamless looping GIF\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M13.5 8 a5.5 5.5 0 1 1 -1.6 -3.9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path><path d=\"M13.8 1.6 V4.4 H11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>GIF</button><button class=\"btn\" id=\"btn-set\" title=\"Generate a consistent set of variations\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"1.5\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect></svg>Set</button><div class=\"topbar-divider\"></div></div></header><div class=\"app\"><section class=\"stage\" id=\"stage\"><div class=\"shader-loader\" data-loader-mode=\"auto\" data-loader-state=\"preparing\" id=\"shader-boot-loader\" role=\"status\" aria-live=\"polite\"><div class=\"shader-loader-panel\"><div class=\"shader-loader-copy\"><span class=\"shader-loader-title\">Preparing shader engine</span><span class=\"shader-loader-detail\" id=\"shader-boot-status\">Initializing rendering engine</span></div><button class=\"shader-loader-action\" hidden=\"hidden\" id=\"shader-boot-start\" type=\"button\">Start shader</button><div class=\"shader-loader-shimmer\" aria-hidden=\"true\"></div></div></div><div class=\"canvas-frame\" id=\"canvas-frame\"><div class=\"canvas-shell\" id=\"canvas-shell\"><div class=\"shader-static-fallback\" id=\"shader-static-fallback\" aria-hidden=\"true\"><span class=\"shader-static-title\">Shader</span><span class=\"shader-static-detail\">Safe shader preview</span></div></div></div><div class=\"stage-meta\"><div class=\"meta-left\"><button class=\"icon-btn\" id=\"btn-play\" title=\"Play / pause (Space)\" type=\"button\"><svg id=\"icon-pause\" viewBox=\"0 0 14 14\"><rect x=\"2.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect><rect x=\"8.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect></svg><svg id=\"icon-play\" viewBox=\"0 0 14 14\"><path d=\"M3.5 2 L12 7 L3.5 12 Z\" fill=\"currentColor\"></path></svg></button><span class=\"meta-item mono\" id=\"meta-mode\">...</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-seed\">seed 0000</span></div><div class=\"meta-right\"><span class=\"meta-item mono dim\" id=\"meta-loop\">4.0s loop</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-res\">0x0</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-fps\">60 fps</span></div></div></section><aside class=\"rail\" id=\"rail\"></aside></div><div class=\"overlay is-hidden\" id=\"overlay\" hidden=\"hidden\"><div class=\"overlay-card\"><div class=\"overlay-title\" id=\"overlay-title\">Rendering</div><div class=\"overlay-detail mono\" id=\"overlay-detail\">...</div><div class=\"progress\"><div class=\"progress-fill\" id=\"overlay-bar\"></div></div><button class=\"btn overlay-cancel\" id=\"overlay-cancel\" type=\"button\">Cancel</button></div></div><div class=\"toast mono is-hidden\" id=\"toast\" hidden=\"hidden\"></div></main></body></html>",
       "app_router_shell": {
         "schema": "dx.tsx.appRouterStaticShell",
         "schema_revision": 1,
         "contract_name": "App Router Static Shell",
         "status": "app-router-shell-ready",
         "mode": "layout-template-page-composition",
-        "html": "<html><body><main class=\"dx-shader-root\" data-dx-route=\"/\" data-dx-template=\"dx-shader\"><header class=\"topbar\"><div class=\"brand\"><img class=\"brand-mark\" src=\"/favicon.svg\" alt=\"DX Shader Logo\"><span class=\"brand-name\">DX Shader</span></div><div class=\"topbar-center\"><div class=\"segmented\" id=\"dx-shader-aspect-control\" role=\"group\" aria-label=\"Canvas aspect ratio\"></div></div><div class=\"topbar-actions\"><button class=\"btn btn-primary\" id=\"btn-random\" title=\"Randomize everything (R)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.4\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"5.4\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle></svg>Randomize</button><div class=\"topbar-divider\"></div><button class=\"btn\" id=\"btn-export-png\" title=\"Save still image (S)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.5\" cy=\"5.5\" r=\"1.5\" fill=\"currentColor\"></circle><path d=\"M2 12 L6 8 L9 11 L11.5 8.5 L14 11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>Image</button><button class=\"btn\" id=\"btn-export-video\" title=\"Record looping video\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"3.5\" width=\"9\" height=\"9\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><path d=\"M10.5 7 L14.5 4.5 V11.5 L10.5 9\" fill=\"currentColor\"></path></svg>Video</button><button class=\"btn\" id=\"btn-export-gif\" title=\"Render seamless looping GIF\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M13.5 8 a5.5 5.5 0 1 1 -1.6 -3.9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path><path d=\"M13.8 1.6 V4.4 H11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>GIF</button><button class=\"btn\" id=\"btn-set\" title=\"Generate a consistent set of variations\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"1.5\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect></svg>Set</button><div class=\"topbar-divider\"></div></div></header><div class=\"app\"><section class=\"stage\" id=\"stage\"><div class=\"shader-loader\" data-loader-mode=\"auto\" data-loader-state=\"preparing\" id=\"shader-boot-loader\" role=\"status\" aria-live=\"polite\"><div class=\"shader-loader-panel\"><div class=\"shader-loader-copy\"><span class=\"shader-loader-title\">Preparing shader engine</span><span class=\"shader-loader-detail\" id=\"shader-boot-status\">Initializing rendering engine</span></div><button class=\"shader-loader-action\" hidden=\"hidden\" id=\"shader-boot-start\" type=\"button\">Start shader</button><div class=\"shader-loader-shimmer\" aria-hidden=\"true\"></div></div></div><div class=\"canvas-frame\" id=\"canvas-frame\"><div class=\"canvas-shell\" id=\"canvas-shell\"><div class=\"shader-static-fallback\" id=\"shader-static-fallback\" aria-hidden=\"true\"><span class=\"shader-static-title\">DX Shader</span><span class=\"shader-static-detail\">Safe shader preview</span></div></div></div><div class=\"stage-meta\"><div class=\"meta-left\"><button class=\"icon-btn\" id=\"btn-play\" title=\"Play / pause (Space)\" type=\"button\"><svg id=\"icon-pause\" viewBox=\"0 0 14 14\"><rect x=\"2.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect><rect x=\"8.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect></svg><svg id=\"icon-play\" viewBox=\"0 0 14 14\"><path d=\"M3.5 2 L12 7 L3.5 12 Z\" fill=\"currentColor\"></path></svg></button><span class=\"meta-item mono\" id=\"meta-mode\">...</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-seed\">seed 0000</span></div><div class=\"meta-right\"><span class=\"meta-item mono dim\" id=\"meta-loop\">4.0s loop</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-res\">0x0</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-fps\">60 fps</span></div></div></section><aside class=\"rail\" id=\"rail\"></aside></div><div class=\"overlay is-hidden\" id=\"overlay\" hidden=\"hidden\"><div class=\"overlay-card\"><div class=\"overlay-title\" id=\"overlay-title\">Rendering</div><div class=\"overlay-detail mono\" id=\"overlay-detail\">...</div><div class=\"progress\"><div class=\"progress-fill\" id=\"overlay-bar\"></div></div><button class=\"btn overlay-cancel\" id=\"overlay-cancel\" type=\"button\">Cancel</button></div></div><div class=\"toast mono is-hidden\" id=\"toast\" hidden=\"hidden\"></div></main></body></html>",
+        "html": "<html><body><main class=\"dx-shader-root\" data-dx-route=\"/\" data-dx-template=\"dx-shader\"><header class=\"topbar\"><div class=\"brand\"><img class=\"brand-mark\" src=\"/favicon.svg\" alt=\"Shader Logo\"><span class=\"brand-name\">Shader</span></div><div class=\"topbar-center\"><div class=\"segmented\" id=\"dx-shader-aspect-control\" role=\"group\" aria-label=\"Canvas aspect ratio\"></div></div><div class=\"topbar-actions\"><button class=\"btn btn-primary\" id=\"btn-random\" title=\"Randomize everything (R)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.4\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"5.4\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle></svg>Randomize</button><div class=\"topbar-divider\"></div><button class=\"btn\" id=\"btn-export-png\" title=\"Save still image (S)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.5\" cy=\"5.5\" r=\"1.5\" fill=\"currentColor\"></circle><path d=\"M2 12 L6 8 L9 11 L11.5 8.5 L14 11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>Image</button><button class=\"btn\" id=\"btn-export-video\" title=\"Record looping video\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"3.5\" width=\"9\" height=\"9\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><path d=\"M10.5 7 L14.5 4.5 V11.5 L10.5 9\" fill=\"currentColor\"></path></svg>Video</button><button class=\"btn\" id=\"btn-export-gif\" title=\"Render seamless looping GIF\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M13.5 8 a5.5 5.5 0 1 1 -1.6 -3.9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path><path d=\"M13.8 1.6 V4.4 H11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>GIF</button><button class=\"btn\" id=\"btn-set\" title=\"Generate a consistent set of variations\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"1.5\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect></svg>Set</button><div class=\"topbar-divider\"></div></div></header><div class=\"app\"><section class=\"stage\" id=\"stage\"><div class=\"shader-loader\" data-loader-mode=\"auto\" data-loader-state=\"preparing\" id=\"shader-boot-loader\" role=\"status\" aria-live=\"polite\"><div class=\"shader-loader-panel\"><div class=\"shader-loader-copy\"><span class=\"shader-loader-title\">Preparing shader engine</span><span class=\"shader-loader-detail\" id=\"shader-boot-status\">Initializing rendering engine</span></div><button class=\"shader-loader-action\" hidden=\"hidden\" id=\"shader-boot-start\" type=\"button\">Start shader</button><div class=\"shader-loader-shimmer\" aria-hidden=\"true\"></div></div></div><div class=\"canvas-frame\" id=\"canvas-frame\"><div class=\"canvas-shell\" id=\"canvas-shell\"><div class=\"shader-static-fallback\" id=\"shader-static-fallback\" aria-hidden=\"true\"><span class=\"shader-static-title\">Shader</span><span class=\"shader-static-detail\">Safe shader preview</span></div></div></div><div class=\"stage-meta\"><div class=\"meta-left\"><button class=\"icon-btn\" id=\"btn-play\" title=\"Play / pause (Space)\" type=\"button\"><svg id=\"icon-pause\" viewBox=\"0 0 14 14\"><rect x=\"2.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect><rect x=\"8.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect></svg><svg id=\"icon-play\" viewBox=\"0 0 14 14\"><path d=\"M3.5 2 L12 7 L3.5 12 Z\" fill=\"currentColor\"></path></svg></button><span class=\"meta-item mono\" id=\"meta-mode\">...</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-seed\">seed 0000</span></div><div class=\"meta-right\"><span class=\"meta-item mono dim\" id=\"meta-loop\">4.0s loop</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-res\">0x0</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-fps\">60 fps</span></div></div></section><aside class=\"rail\" id=\"rail\"></aside></div><div class=\"overlay is-hidden\" id=\"overlay\" hidden=\"hidden\"><div class=\"overlay-card\"><div class=\"overlay-title\" id=\"overlay-title\">Rendering</div><div class=\"overlay-detail mono\" id=\"overlay-detail\">...</div><div class=\"progress\"><div class=\"progress-fill\" id=\"overlay-bar\"></div></div><button class=\"btn overlay-cancel\" id=\"overlay-cancel\" type=\"button\">Cancel</button></div></div><div class=\"toast mono is-hidden\" id=\"toast\" hidden=\"hidden\"></div></main></body></html>",
         "selected_leaf": {
           "role": "page",
           "source_path": "app/page.tsx",
@@ -7682,7 +7865,7 @@
           "child_node_count": 2,
           "child_element_indices": [
             1,
-            10
+            12
           ],
           "skipped_attributes": 1,
           "literal_expressions": 0,
@@ -7700,7 +7883,7 @@
           "parent_index": null,
           "tag": "main",
           "mode": "intrinsic-static-dom",
-          "html": "<main class=\"dx-shader-root\" data-dx-route=\"/\" data-dx-template=\"dx-shader\"><header class=\"topbar\"><div class=\"brand\"><img class=\"brand-mark\" src=\"/favicon.svg\" alt=\"DX Shader Logo\"><span class=\"brand-name\">DX Shader</span></div><div class=\"topbar-center\"><div class=\"segmented\" id=\"dx-shader-aspect-control\" role=\"group\" aria-label=\"Canvas aspect ratio\"></div></div><div class=\"topbar-actions\"><button class=\"btn btn-primary\" id=\"btn-random\" title=\"Randomize everything (R)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.4\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"5.4\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle></svg>Randomize</button><div class=\"topbar-divider\"></div><button class=\"btn\" id=\"btn-export-png\" title=\"Save still image (S)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.5\" cy=\"5.5\" r=\"1.5\" fill=\"currentColor\"></circle><path d=\"M2 12 L6 8 L9 11 L11.5 8.5 L14 11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>Image</button><button class=\"btn\" id=\"btn-export-video\" title=\"Record looping video\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"3.5\" width=\"9\" height=\"9\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><path d=\"M10.5 7 L14.5 4.5 V11.5 L10.5 9\" fill=\"currentColor\"></path></svg>Video</button><button class=\"btn\" id=\"btn-export-gif\" title=\"Render seamless looping GIF\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M13.5 8 a5.5 5.5 0 1 1 -1.6 -3.9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path><path d=\"M13.8 1.6 V4.4 H11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>GIF</button><button class=\"btn\" id=\"btn-set\" title=\"Generate a consistent set of variations\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"1.5\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect></svg>Set</button><div class=\"topbar-divider\"></div></div></header><div class=\"app\"><section class=\"stage\" id=\"stage\"><div class=\"shader-loader\" data-loader-mode=\"auto\" data-loader-state=\"preparing\" id=\"shader-boot-loader\" role=\"status\" aria-live=\"polite\"><div class=\"shader-loader-panel\"><div class=\"shader-loader-copy\"><span class=\"shader-loader-title\">Preparing shader engine</span><span class=\"shader-loader-detail\" id=\"shader-boot-status\">Initializing rendering engine</span></div><button class=\"shader-loader-action\" hidden=\"hidden\" id=\"shader-boot-start\" type=\"button\">Start shader</button><div class=\"shader-loader-shimmer\" aria-hidden=\"true\"></div></div></div><div class=\"canvas-frame\" id=\"canvas-frame\"><div class=\"canvas-shell\" id=\"canvas-shell\"><div class=\"shader-static-fallback\" id=\"shader-static-fallback\" aria-hidden=\"true\"><span class=\"shader-static-title\">DX Shader</span><span class=\"shader-static-detail\">Safe shader preview</span></div></div></div><div class=\"stage-meta\"><div class=\"meta-left\"><button class=\"icon-btn\" id=\"btn-play\" title=\"Play / pause (Space)\" type=\"button\"><svg id=\"icon-pause\" viewBox=\"0 0 14 14\"><rect x=\"2.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect><rect x=\"8.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect></svg><svg id=\"icon-play\" viewBox=\"0 0 14 14\"><path d=\"M3.5 2 L12 7 L3.5 12 Z\" fill=\"currentColor\"></path></svg></button><span class=\"meta-item mono\" id=\"meta-mode\">...</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-seed\">seed 0000</span></div><div class=\"meta-right\"><span class=\"meta-item mono dim\" id=\"meta-loop\">4.0s loop</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-res\">0x0</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-fps\">60 fps</span></div></div></section><aside class=\"rail\" id=\"rail\"></aside></div><div class=\"overlay is-hidden\" id=\"overlay\" hidden=\"hidden\"><div class=\"overlay-card\"><div class=\"overlay-title\" id=\"overlay-title\">Rendering</div><div class=\"overlay-detail mono\" id=\"overlay-detail\">...</div><div class=\"progress\"><div class=\"progress-fill\" id=\"overlay-bar\"></div></div><button class=\"btn overlay-cancel\" id=\"overlay-cancel\" type=\"button\">Cancel</button></div></div><div class=\"toast mono is-hidden\" id=\"toast\" hidden=\"hidden\"></div></main>",
+          "html": "<main class=\"dx-shader-root\" data-dx-route=\"/\" data-dx-template=\"dx-shader\"><header class=\"topbar\"><div class=\"brand\"><img class=\"brand-mark\" src=\"/favicon.svg\" alt=\"Shader Logo\"><span class=\"brand-name\">Shader</span></div><div class=\"topbar-center\"><div class=\"segmented\" id=\"dx-shader-aspect-control\" role=\"group\" aria-label=\"Canvas aspect ratio\"></div></div><div class=\"topbar-actions\"><button class=\"btn btn-primary\" id=\"btn-random\" title=\"Randomize everything (R)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"3\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.4\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"10.6\" cy=\"5.4\" r=\"1.25\" fill=\"currentColor\"></circle><circle cx=\"5.4\" cy=\"10.6\" r=\"1.25\" fill=\"currentColor\"></circle></svg>Randomize</button><div class=\"topbar-divider\"></div><button class=\"btn\" id=\"btn-export-png\" title=\"Save still image (S)\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"13\" height=\"13\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><circle cx=\"5.5\" cy=\"5.5\" r=\"1.5\" fill=\"currentColor\"></circle><path d=\"M2 12 L6 8 L9 11 L11.5 8.5 L14 11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>Image</button><button class=\"btn\" id=\"btn-export-video\" title=\"Record looping video\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"3.5\" width=\"9\" height=\"9\" rx=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></rect><path d=\"M10.5 7 L14.5 4.5 V11.5 L10.5 9\" fill=\"currentColor\"></path></svg>Video</button><button class=\"btn\" id=\"btn-export-gif\" title=\"Render seamless looping GIF\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M13.5 8 a5.5 5.5 0 1 1 -1.6 -3.9\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path><path d=\"M13.8 1.6 V4.4 H11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"></path></svg>GIF</button><button class=\"btn\" id=\"btn-set\" title=\"Generate a consistent set of variations\" type=\"button\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><rect x=\"1.5\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"1.5\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"1.5\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect><rect x=\"9\" y=\"9\" width=\"5.5\" height=\"5.5\" rx=\"1.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"></rect></svg>Set</button><div class=\"topbar-divider\"></div></div></header><div class=\"app\"><section class=\"stage\" id=\"stage\"><div class=\"shader-loader\" data-loader-mode=\"auto\" data-loader-state=\"preparing\" id=\"shader-boot-loader\" role=\"status\" aria-live=\"polite\"><div class=\"shader-loader-panel\"><div class=\"shader-loader-copy\"><span class=\"shader-loader-title\">Preparing shader engine</span><span class=\"shader-loader-detail\" id=\"shader-boot-status\">Initializing rendering engine</span></div><button class=\"shader-loader-action\" hidden=\"hidden\" id=\"shader-boot-start\" type=\"button\">Start shader</button><div class=\"shader-loader-shimmer\" aria-hidden=\"true\"></div></div></div><div class=\"canvas-frame\" id=\"canvas-frame\"><div class=\"canvas-shell\" id=\"canvas-shell\"><div class=\"shader-static-fallback\" id=\"shader-static-fallback\" aria-hidden=\"true\"><span class=\"shader-static-title\">Shader</span><span class=\"shader-static-detail\">Safe shader preview</span></div></div></div><div class=\"stage-meta\"><div class=\"meta-left\"><button class=\"icon-btn\" id=\"btn-play\" title=\"Play / pause (Space)\" type=\"button\"><svg id=\"icon-pause\" viewBox=\"0 0 14 14\"><rect x=\"2.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect><rect x=\"8.5\" y=\"2\" width=\"3\" height=\"10\" rx=\"1\" fill=\"currentColor\"></rect></svg><svg id=\"icon-play\" viewBox=\"0 0 14 14\"><path d=\"M3.5 2 L12 7 L3.5 12 Z\" fill=\"currentColor\"></path></svg></button><span class=\"meta-item mono\" id=\"meta-mode\">...</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-seed\">seed 0000</span></div><div class=\"meta-right\"><span class=\"meta-item mono dim\" id=\"meta-loop\">4.0s loop</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-res\">0x0</span><span class=\"meta-sep\"></span><span class=\"meta-item mono dim\" id=\"meta-fps\">60 fps</span></div></div></section><aside class=\"rail\" id=\"rail\"></aside></div><div class=\"overlay is-hidden\" id=\"overlay\" hidden=\"hidden\"><div class=\"overlay-card\"><div class=\"overlay-title\" id=\"overlay-title\">Rendering</div><div class=\"overlay-detail mono\" id=\"overlay-detail\">...</div><div class=\"progress\"><div class=\"progress-fill\" id=\"overlay-bar\"></div></div><button class=\"btn overlay-cancel\" id=\"overlay-cancel\" type=\"button\">Cancel</button></div></div><div class=\"toast mono is-hidden\" id=\"toast\" hidden=\"hidden\"></div></main>",
           "text": "",
           "child_node_count": 4,
           "child_element_indices": [
@@ -7772,7 +7955,7 @@
     "layout_count": 1,
     "template_count": 0,
     "packet_sections": 5,
-    "fallback_bytes": 6139,
+    "fallback_bytes": 6156,
     "packet_bytes": 33997,
     "roundtrip_matches": true
   },

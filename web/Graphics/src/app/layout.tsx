@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { AgentCursorProvider } from "@/components/agent-cursor-provider";
 import Script from "next/script";
 import "./globals.css";
 
@@ -16,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Graphics",
   description: "Embedded design surface for DX Code.",
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({
@@ -32,6 +33,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col" suppressHydrationWarning>
         <Script src="/editor-shell-bridge.js" strategy="afterInteractive" />
+        <AgentCursorProvider />
         {children}
       </body>
     </html>

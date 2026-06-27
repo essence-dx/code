@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AgentCursorProvider } from "@/components/agent-cursor-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Presentations",
   description: "A free presentation workspace for creating and managing decks.",
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({
@@ -31,6 +32,7 @@ export default function RootLayout({
     >
       <body suppressHydrationWarning className="flex min-h-full flex-col">
         <TooltipProvider>{children}</TooltipProvider>
+        <AgentCursorProvider />
       </body>
     </html>
   );

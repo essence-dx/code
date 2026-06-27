@@ -1,7 +1,7 @@
 {
   "schema": "dx.build.graph",
   "format": 1,
-  "generatedAt": "2026-06-20T11:15:15.159485100+00:00",
+  "generatedAt": "2026-06-26T14:29:20.820883300+00:00",
   "projectRoot": "G:/Dx/code/web/Shader",
   "receiptPath": "G:/Dx/code/web/Shader/.dx/receipts/graph/latest.json",
   "names": {
@@ -367,19 +367,19 @@
         "full_pipeline_parity": false
       },
       {
-        "id": "image-placeholder-asset:.dx/www/output/.dx/build-cache/image-placeholders/public/favicon-95cdf2c6b75c0830.placeholder.svg",
+        "id": "image-placeholder-asset:.dx/www/output/.dx/build-cache/image-placeholders/public/favicon-b0698a08bf67b748.placeholder.svg",
         "kind": "image-placeholder-asset",
-        "path": ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-95cdf2c6b75c0830.placeholder.svg",
+        "path": ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-b0698a08bf67b748.placeholder.svg",
         "contract": "dx.build.graph",
         "source_image": "public/favicon.svg",
         "source_asset": "public-asset:public/favicon.svg",
         "placeholder_kind": "svg-placeholder-data-url",
         "source": "dx-source-owned-svg-placeholder",
-        "width": 64,
-        "height": 64,
-        "data_url_bytes": 286,
-        "hash": "95cdf2c6b75c0830",
-        "bytes": 165,
+        "width": 1024,
+        "height": 1024,
+        "data_url_bytes": 294,
+        "hash": "b0698a08bf67b748",
+        "bytes": 173,
         "node_modules_required": false,
         "lifecycle_scripts_executed": false,
         "source_owned_contract": true,
@@ -440,6 +440,34 @@
         "encoding_emitted": false,
         "blur_placeholder_emitted": false,
         "full_pipeline_parity": false
+      },
+      {
+        "id": "public-asset:public/agent-cursor.js",
+        "kind": "public-asset",
+        "path": "public/agent-cursor.js",
+        "output": ".dx/www/output/public/agent-cursor-7cbbde833ae1eff0.js",
+        "contract": "dx.build.graph",
+        "hash": "7cbbde833ae1eff0",
+        "bytes": 11677,
+        "node_modules_required": false,
+        "lifecycle_scripts_executed": false,
+        "source_owned_contract": true,
+        "external_runtime_required": false,
+        "external_runtime_executed": false
+      },
+      {
+        "id": "public-asset:public/canvas-export.js",
+        "kind": "public-asset",
+        "path": "public/canvas-export.js",
+        "output": ".dx/www/output/public/canvas-export-b2b11c06ceed2815.js",
+        "contract": "dx.build.graph",
+        "hash": "b2b11c06ceed2815",
+        "bytes": 6413,
+        "node_modules_required": false,
+        "lifecycle_scripts_executed": false,
+        "source_owned_contract": true,
+        "external_runtime_required": false,
+        "external_runtime_executed": false
       },
       {
         "id": "public-asset:public/dx-shader/LICENSE",
@@ -718,10 +746,10 @@
         "id": "public-asset:public/dx-shader/js/engine.js",
         "kind": "public-asset",
         "path": "public/dx-shader/js/engine.js",
-        "output": ".dx/www/output/public/dx-shader/js/engine-8e864300ea122eda.js",
+        "output": ".dx/www/output/public/dx-shader/js/engine-bbefe060f04a225c.js",
         "contract": "dx.build.graph",
-        "hash": "8e864300ea122eda",
-        "bytes": 13868,
+        "hash": "bbefe060f04a225c",
+        "bytes": 14508,
         "node_modules_required": false,
         "lifecycle_scripts_executed": false,
         "source_owned_contract": true,
@@ -816,10 +844,10 @@
         "id": "public-asset:public/dx-shader/js/shaders.js",
         "kind": "public-asset",
         "path": "public/dx-shader/js/shaders.js",
-        "output": ".dx/www/output/public/dx-shader/js/shaders-95fed2a63310b197.js",
+        "output": ".dx/www/output/public/dx-shader/js/shaders-2b3a6f9492f531c2.js",
         "contract": "dx.build.graph",
-        "hash": "95fed2a63310b197",
-        "bytes": 16850,
+        "hash": "2b3a6f9492f531c2",
+        "bytes": 17273,
         "node_modules_required": false,
         "lifecycle_scripts_executed": false,
         "source_owned_contract": true,
@@ -886,10 +914,10 @@
         "id": "public-asset:public/favicon.svg",
         "kind": "public-asset",
         "path": "public/favicon.svg",
-        "output": ".dx/www/output/public/favicon-c592869c9c233ec1.svg",
+        "output": ".dx/www/output/public/favicon-41e6192dfae92ec1.svg",
         "contract": "dx.build.graph",
-        "hash": "c592869c9c233ec1",
-        "bytes": 259,
+        "hash": "41e6192dfae92ec1",
+        "bytes": 1072,
         "node_modules_required": false,
         "lifecycle_scripts_executed": false,
         "source_owned_contract": true,
@@ -898,9 +926,9 @@
         "image_metadata": {
           "format": "svg",
           "mime_type": "image/svg+xml",
-          "width": 64,
-          "height": 64,
-          "dimension_source": "svg-viewbox",
+          "width": 1024,
+          "height": 1024,
+          "dimension_source": "svg-root-attributes",
           "status": "metadata-read",
           "optimization": {
             "status": "metadata-plus-svg-placeholder",
@@ -911,14 +939,14 @@
             "blur_placeholder_emitted": false,
             "placeholder": {
               "kind": "svg-placeholder-data-url",
-              "data_url": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2264%22%20height%3D%2264%22%20viewBox%3D%220%200%2064%2064%22%20preserveAspectRatio%3D%22none%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f3f4f6%22%2F%3E%3C%2Fsvg%3E",
-              "width": 64,
-              "height": 64,
-              "bytes": 286,
+              "data_url": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221024%22%20height%3D%221024%22%20viewBox%3D%220%200%201024%201024%22%20preserveAspectRatio%3D%22none%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f3f4f6%22%2F%3E%3C%2Fsvg%3E",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 294,
               "source": "dx-source-owned-svg-placeholder",
-              "output": ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-95cdf2c6b75c0830.placeholder.svg",
-              "hash": "95cdf2c6b75c0830",
-              "artifact_bytes": 165
+              "output": ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-b0698a08bf67b748.placeholder.svg",
+              "hash": "b0698a08bf67b748",
+              "artifact_bytes": 173
             },
             "boundary": "metadata-plus-svg-placeholder-no-resize-or-encoding",
             "informed_by": [
@@ -1062,12 +1090,12 @@
         "external_runtime_executed": false
       },
       {
-        "id": "route-shell-chunk:.dx/www/output/.dx/build-cache/source-routes/root/route-shell-035b876024f65746.mjs",
+        "id": "route-shell-chunk:.dx/www/output/.dx/build-cache/source-routes/root/route-shell-9b3651610ca917aa.mjs",
         "kind": "route-shell-chunk",
-        "path": ".dx/www/output/.dx/build-cache/source-routes/root/route-shell-035b876024f65746.mjs",
+        "path": ".dx/www/output/.dx/build-cache/source-routes/root/route-shell-9b3651610ca917aa.mjs",
         "route": "/",
         "contract": "dx.www.moduleGraph",
-        "fallback_hash": "035b876024f65746",
+        "fallback_hash": "9b3651610ca917aa",
         "node_modules_required": false
       },
       {
@@ -1098,14 +1126,14 @@
         "external_runtime_executed": false
       },
       {
-        "id": "source-module-chunk:.dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-dca6383637c76cd8.mjs",
+        "id": "source-module-chunk:.dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-49eb7925527ddf1a.mjs",
         "kind": "source-module-chunk",
-        "path": ".dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-dca6383637c76cd8.mjs",
+        "path": ".dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-49eb7925527ddf1a.mjs",
         "source_path": "app/page.tsx",
         "route": "/",
         "source_kind": "tsx",
         "contract": "dx.www.moduleGraph",
-        "hash": "dca6383637c76cd8",
+        "hash": "49eb7925527ddf1a",
         "browser_executable": true,
         "source_transformed": false,
         "transform_kind": "metadata-only",
@@ -1246,7 +1274,7 @@
         "path": "app/page.tsx",
         "route": "/",
         "contract": "dx.www.moduleGraph",
-        "hash": "dca6383637c76cd8",
+        "hash": "49eb7925527ddf1a",
         "parser_backend": "oxc-parser",
         "ecmascript_analysis": {
           "schema": "dx.ecmascript.analysis",
@@ -1463,10 +1491,10 @@
       },
       {
         "from": "public-asset:public/favicon.svg",
-        "to": "image-placeholder-asset:.dx/www/output/.dx/build-cache/image-placeholders/public/favicon-95cdf2c6b75c0830.placeholder.svg",
+        "to": "image-placeholder-asset:.dx/www/output/.dx/build-cache/image-placeholders/public/favicon-b0698a08bf67b748.placeholder.svg",
         "kind": "emits-placeholder",
         "source_image": "public/favicon.svg",
-        "output": ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-95cdf2c6b75c0830.placeholder.svg",
+        "output": ".dx/www/output/.dx/build-cache/image-placeholders/public/favicon-b0698a08bf67b748.placeholder.svg",
         "placeholder_kind": "svg-placeholder-data-url",
         "node_modules_required": false,
         "lifecycle_scripts_executed": false,
@@ -1516,7 +1544,7 @@
         "full_pipeline_parity": false
       },
       {
-        "from": "route-shell-chunk:.dx/www/output/.dx/build-cache/source-routes/root/route-shell-035b876024f65746.mjs",
+        "from": "route-shell-chunk:.dx/www/output/.dx/build-cache/source-routes/root/route-shell-9b3651610ca917aa.mjs",
         "to": "server-data-route:.dx/www/output/source-routes/root/server-data.json",
         "kind": "links-server-data",
         "route": "/",
@@ -1529,12 +1557,12 @@
         "external_runtime_executed": false
       },
       {
-        "from": "route-shell-chunk:.dx/www/output/.dx/build-cache/source-routes/root/route-shell-035b876024f65746.mjs",
-        "to": "source-module-chunk:.dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-dca6383637c76cd8.mjs",
+        "from": "route-shell-chunk:.dx/www/output/.dx/build-cache/source-routes/root/route-shell-9b3651610ca917aa.mjs",
+        "to": "source-module-chunk:.dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-49eb7925527ddf1a.mjs",
         "kind": "links-entry-module"
       },
       {
-        "from": "source-module-chunk:.dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-dca6383637c76cd8.mjs",
+        "from": "source-module-chunk:.dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-49eb7925527ddf1a.mjs",
         "to": "source-module-chunk:.dx/www/output/.dx/build-cache/source-routes/root/modules/components-icons-icon-tsx-8db49bf807790749.mjs",
         "kind": "imports-source-module",
         "specifier": "../components/icons/icon",
@@ -1542,7 +1570,7 @@
       },
       {
         "from": "tsx-route:app/page.tsx",
-        "to": "route-shell-chunk:.dx/www/output/.dx/build-cache/source-routes/root/route-shell-035b876024f65746.mjs",
+        "to": "route-shell-chunk:.dx/www/output/.dx/build-cache/source-routes/root/route-shell-9b3651610ca917aa.mjs",
         "kind": "emits"
       },
       {
@@ -1560,7 +1588,7 @@
       },
       {
         "from": "tsx-route:app/page.tsx",
-        "to": "source-module-chunk:.dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-dca6383637c76cd8.mjs",
+        "to": "source-module-chunk:.dx/www/output/.dx/build-cache/source-routes/root/modules/app-page-tsx-49eb7925527ddf1a.mjs",
         "kind": "imports-source-module"
       }
     ]

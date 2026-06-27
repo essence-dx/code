@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AgentCursorProvider } from "@/components/agent-cursor-provider";
 import { DesktopProofAutopilot } from "@/features/settings/components/desktop-proof-autopilot";
 import "./globals.css";
 
@@ -17,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Video",
   description: "Local-first browser and desktop media editor.",
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({
@@ -36,6 +37,7 @@ export default function RootLayout({
       >
         <TooltipProvider delayDuration={250}>
           <DesktopProofAutopilot />
+          <AgentCursorProvider />
           {children}
         </TooltipProvider>
       </body>

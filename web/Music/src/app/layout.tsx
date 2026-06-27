@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { NativeViewportInsets } from "@/features/system/native-viewport-insets";
 import { PwaServiceWorker } from "@/features/system/pwa-service-worker";
 import { OfflineStatusBanner } from "@/features/suno/offline-status-banner";
+import { AgentCursorProvider } from "@/components/agent-cursor-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     "A private AI music studio for writing, editing, organizing, and sharing songs.",
   icons: {
     apple: "/icon.svg",
-    icon: "/favicon.ico",
+    icon: "/favicon.svg",
   },
   manifest: "/manifest.webmanifest",
 };
@@ -63,6 +64,7 @@ export default function RootLayout({
         </TooltipProvider>
         <PwaServiceWorker />
         <Toaster theme="dark" richColors />
+        <AgentCursorProvider />
       </body>
     </html>
   );

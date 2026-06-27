@@ -13,6 +13,7 @@ var Engine = (function () {
   var dirty = true;
   var loopT = 0;            // seconds into current loop
   var lastTick = 0;
+  var currentConfigKey = "";
   var fps = 60, fpsAcc = 0, fpsN = 0, fpsCb = null;
   var contextCb = null;
   var getParams = null;     // injected: () => P
@@ -22,7 +23,7 @@ var Engine = (function () {
     antialias: false,
     preserveDrawingBuffer: false,
     powerPreference: "default",
-    failIfMajorPerformanceCaveat: false
+    failIfMajorPerformanceCaveat: true
   };
 
   var UNIFORM_NAMES = (
@@ -99,19 +100,33 @@ var Engine = (function () {
   }
 
   function buildPipeline() {
-    uniforms = {};
-    resetUniformCache();
-    program = gl.createProgram();
+    var P = getParams ? getParams() : { mode:0, modeB:0, synthOn:false, genomeOn:false };
+    var configKey = P.mode + "_" + P.modeB + "_" + (P.synthOn?1:0) + "_" + (P.genomeOn?1:0);
+    if (configKey === currentConfigKey && program) return;
+    currentConfigKey = configKey;
+
+    var prefix = "#version 300 es\n" +
+      "#define u_mode " + P.mode + "\n" +
+      "#define u_modeB " + (P.modeB||0) + "\n" +
+      "#define u_synth " + (P.synthOn?1:0) + "\n" +
+      "#define u_genome " + (P.genomeOn?1:0) + "\n";
+
+    var newProgram = gl.createProgram();
     var vertexShader = compile(gl.VERTEX_SHADER, VERT_SRC);
-    var fragmentShader = compile(gl.FRAGMENT_SHADER, FRAG_SRC);
-    gl.attachShader(program, vertexShader);
-    gl.attachShader(program, fragmentShader);
-    gl.linkProgram(program);
+    var fragmentShader = compile(gl.FRAGMENT_SHADER, prefix + FRAG_SRC);
+    gl.attachShader(newProgram, vertexShader);
+    gl.attachShader(newProgram, fragmentShader);
+    gl.linkProgram(newProgram);
     gl.deleteShader(vertexShader);
     gl.deleteShader(fragmentShader);
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-      throw new Error("Program link error:\n" + gl.getProgramInfoLog(program));
+    if (!gl.getProgramParameter(newProgram, gl.LINK_STATUS)) {
+      throw new Error("Program link error:\n" + gl.getProgramInfoLog(newProgram));
     }
+    
+    if (program) gl.deleteProgram(program);
+    program = newProgram;
+    uniforms = {};
+    resetUniformCache();
     gl.useProgram(program);
 
     var buf = gl.createBuffer();
@@ -201,7 +216,6 @@ var Engine = (function () {
     gl.uniform1f(uniforms.u_phase, phase);
 
     uploadUniform1f("u_seed", P.seed);
-    uploadUniform1i("u_mode", P.mode);
 
     uploadUniform3fv("u_c1", hexToRgb01(P.c1));
     uploadUniform3fv("u_c2", hexToRgb01(P.c2));
@@ -235,13 +249,10 @@ var Engine = (function () {
 
     uploadUniform1f("u_travel", P.travel);
 
-    uploadUniform1i("u_synth", P.synthOn ? 1 : 0);
-    uploadUniform1i("u_modeB", P.modeB | 0);
     uploadUniform1i("u_mixOp", P.mixOp | 0);
     uploadUniform1f("u_blend", P.blend);
 
     var g = P.genes || [0,0,0,0, 0,0,0,0, 0,0,0,0];
-    uploadUniform1i("u_genome", P.genomeOn ? 1 : 0);
     uploadUniform4f("u_g1", g[0], g[1], g[2], g[3]);
     uploadUniform4f("u_g2", g[4], g[5], g[6], g[7]);
     uploadUniform4f("u_g3", g[8], g[9], g[10], g[11]);
@@ -250,6 +261,10 @@ var Engine = (function () {
   function renderAt(phase, P) {
     if (!initialized || observeContextLoss()) return false;
     P = P || getParams();
+    var configKey = P.mode + "_" + P.modeB + "_" + (P.synthOn?1:0) + "_" + (P.genomeOn?1:0);
+    if (configKey !== currentConfigKey) {
+        buildPipeline();
+    }
     pushUniforms(P, phase);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
     dirty = false;

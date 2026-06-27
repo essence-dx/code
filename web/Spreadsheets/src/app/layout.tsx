@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { AgentCursorProvider } from "@/components/agent-cursor-provider";
 import { AppProviders } from "@/components/app-providers";
 import "./globals.css";
 
@@ -16,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Spreadsheets",
   description: "A free, browser-first spreadsheet workspace.",
-  icons: { icon: "/favicon.ico" },
+  icons: { icon: "/favicon.svg" },
 };
 
 export default function RootLayout({
@@ -32,6 +33,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col" suppressHydrationWarning>
         <AppProviders>{children}</AppProviders>
+        <AgentCursorProvider />
       </body>
     </html>
   );

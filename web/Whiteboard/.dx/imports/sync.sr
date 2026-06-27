@@ -1,11 +1,11 @@
 tool="dx imports"
 command="sync"
 passed=true
-source_hash="blake3:370b5e32b04b7df0e361deef306a8ee4c6886fbfa4a190c514f69556350f665d"
-entry_count=50
-public_barrel_entry_count=24
-used_symbol_count=27
-typed_entry_count=48
+source_hash="blake3:9934975391230548b51ab63f21f19b9d91cc46b451bd28b442457ad5039acb8f"
+entry_count=51
+public_barrel_entry_count=25
+used_symbol_count=28
+typed_entry_count=49
 untyped_entry_count=2
 skipped_entry_count=0
 scan_roots=["components", "composables", "utils"]

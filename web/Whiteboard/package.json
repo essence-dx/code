@@ -7,6 +7,15 @@
   "scripts": {
     "dev": "dx dev",
     "build": "dx build",
-    "check": "dx check"
+    "check": "dx check",
+    "agent-demo": "node server/agent-cursor-example.js"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@types/ws": "^8.18.1",
+    "typescript": "5.5",
+    "ws": "^8.21.0"
   }
 }

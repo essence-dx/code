@@ -24,7 +24,7 @@ launch-zed:
 run: ensure-build-headroom
     @echo "Running Dx with fast incremental G-drive build settings..."
     @echo "Building the dx binary (release)"
-    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "12" } else { $env:CARGO_BUILD_JOBS }; $incremental = if ([string]::IsNullOrWhiteSpace($env:CARGO_INCREMENTAL)) { "1" } else { $env:CARGO_INCREMENTAL }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = $incremental; Write-Host "Using Cargo config: locked Cargo.lock, $jobs job(s), G:/Dx/code/target, rust-lld linker, no debug info, incremental=$incremental"; cargo build --release --locked -p zed --bin dx-code
+    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "4" } else { $env:CARGO_BUILD_JOBS }; $incremental = if ([string]::IsNullOrWhiteSpace($env:CARGO_INCREMENTAL)) { "1" } else { $env:CARGO_INCREMENTAL }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = $incremental; Write-Host "Using Cargo config: locked Cargo.lock, $jobs job(s), G:/Dx/code/target, rust-lld linker, no debug info, incremental=$incremental"; cargo build --release --locked -p zed --bin dx-code
     @echo "Build complete! Copying binary to bin folder..."
     @New-Item -ItemType Directory -Force -Path G:\Dx\bin | Out-Null
     @Copy-Item "{{build_target_dir}}/release/dx-code.exe" G:\Dx\bin\dx-code.exe -Force
@@ -51,14 +51,14 @@ run-cranelift: ensure-build-headroom
 # Continue interrupted build
 continue: ensure-build-headroom
     @echo "Continuing interrupted build..."
-    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "12" } else { $env:CARGO_BUILD_JOBS }; $incremental = if ([string]::IsNullOrWhiteSpace($env:CARGO_INCREMENTAL)) { "1" } else { $env:CARGO_INCREMENTAL }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = $incremental; cargo build --locked -p zed --bin dx-code
+    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "4" } else { $env:CARGO_BUILD_JOBS }; $incremental = if ([string]::IsNullOrWhiteSpace($env:CARGO_INCREMENTAL)) { "1" } else { $env:CARGO_INCREMENTAL }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = $incremental; cargo build --locked -p zed --bin dx-code
     @echo "Build complete! Running Dx..."
     @just launch-zed
 
 # Build only (no run)
 build: ensure-build-headroom
     @echo "Building Dx with balanced G-drive settings (release)..."
-    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "12" } else { $env:CARGO_BUILD_JOBS }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = "1"; cargo build --release --locked -p zed --bin dx-code
+    @$jobs = if ([string]::IsNullOrWhiteSpace($env:CARGO_BUILD_JOBS)) { "4" } else { $env:CARGO_BUILD_JOBS }; $env:CARGO_BUILD_JOBS = $jobs; $env:CARGO_INCREMENTAL = "1"; cargo build --release --locked -p zed --bin dx-code
 
 # Check code without building
 check:
@@ -103,7 +103,7 @@ show-memory-guide:
     @echo "  CPU: Ryzen 5 5600G, 6 cores / 8 logical processors"
     @echo "  RAM: 24 GB installed"
     @echo "  Build output: G:/Dx/code/target"
-    @echo "  Cargo workers: 6 by default, override with CARGO_BUILD_JOBS"
+    @echo "  Cargo workers: 4 by default, override with CARGO_BUILD_JOBS"
     @echo "  Runnable build preflight: at least 18 GB free on G:"
     @echo "  Runnable build mode: CARGO_INCREMENTAL=1 for faster local UI iteration"
     @echo "  Full zed + cli build: just run-full"

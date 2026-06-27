@@ -3,7 +3,7 @@
   "version": 2,
   "generated_by": "dx imports sync",
   "project": "G:/Dx/code/web/Whiteboard",
-  "source_hash": "blake3:370b5e32b04b7df0e361deef306a8ee4c6886fbfa4a190c514f69556350f665d",
+  "source_hash": "blake3:9934975391230548b51ab63f21f19b9d91cc46b451bd28b442457ad5039acb8f",
   "policy": "generated-import-maps-no-runtime-magic",
   "used_only": true,
   "scan_roots": [
@@ -27,11 +27,32 @@
     "import_map": ".dx/imports/import-map.json",
     "declarations": ".dx/imports/imports.d.ts"
   },
-  "entry_count": 50,
-  "used_symbol_count": 27,
-  "typed_entry_count": 48,
+  "entry_count": 51,
+  "used_symbol_count": 28,
+  "typed_entry_count": 49,
   "untyped_entry_count": 2,
   "entries": [
+    {
+      "kind": "component",
+      "name": "AgentCursorOverlay",
+      "source": "components/whiteboard/agent-cursor.tsx",
+      "import_path": "@/components/whiteboard/agent-cursor",
+      "barrel_export": "./whiteboard/agent-cursor",
+      "exports": [
+        "AgentCursorOverlay",
+        "AgentCursorOverlayProps"
+      ],
+      "default_export_name": null,
+      "used_exports": [
+        "AgentCursorOverlay"
+      ],
+      "unused_exports": [
+        "AgentCursorOverlayProps"
+      ],
+      "type_exports": [
+        "AgentCursorOverlayProps"
+      ]
+    },
     {
       "kind": "component",
       "name": "ArrangePanel",
@@ -925,6 +946,7 @@
     }
   ],
   "public_barrel_entries": [
+    "components/whiteboard/agent-cursor.tsx",
     "components/whiteboard/arrange-panel.tsx",
     "components/whiteboard/canvas-stage.tsx",
     "components/whiteboard/connector-info.tsx",
@@ -978,6 +1000,7 @@
   ],
   "skipped_entries": [],
   "component_exports": [
+    "./whiteboard/agent-cursor",
     "./whiteboard/arrange-panel",
     "./whiteboard/canvas-stage",
     "./whiteboard/connector-info",
@@ -1004,6 +1027,27 @@
     "./icons/icon"
   ],
   "components": [
+    {
+      "kind": "component",
+      "name": "AgentCursorOverlay",
+      "source": "components/whiteboard/agent-cursor.tsx",
+      "importPath": "@/components/whiteboard/agent-cursor",
+      "barrelExport": "./whiteboard/agent-cursor",
+      "exports": [
+        "AgentCursorOverlay",
+        "AgentCursorOverlayProps"
+      ],
+      "defaultExportName": null,
+      "usedExports": [
+        "AgentCursorOverlay"
+      ],
+      "unusedExports": [
+        "AgentCursorOverlayProps"
+      ],
+      "typeExports": [
+        "AgentCursorOverlayProps"
+      ]
+    },
     {
       "kind": "component",
       "name": "ArrangePanel",
