@@ -10,8 +10,7 @@ use language_model::{
     LanguageModelCompletionEvent, LanguageModelId, LanguageModelName, LanguageModelProvider,
     LanguageModelProviderId, LanguageModelProviderName, LanguageModelProviderState,
     LanguageModelRequest, LanguageModelToolChoice, LanguageModelToolSchemaFormat,
-    LanguageModelToolUse, LanguageModelToolResultContent, MessageContent, RateLimiter, Role,
-    StopReason, TokenUsage, env_var, NARA_ROUTER_PROVIDER_ID, NARA_ROUTER_PROVIDER_NAME,
+    RateLimiter, env_var, NARA_ROUTER_PROVIDER_ID, NARA_ROUTER_PROVIDER_NAME,
 };
 use menu;
 use open_ai::{
@@ -150,7 +149,7 @@ impl LanguageModelProvider for NaraRouterLanguageModelProvider {
     }
 
     fn default_model(&self, cx: &App) -> Option<Arc<dyn LanguageModel>> {
-        self.settings(cx)
+        Self::settings(cx)
             .available_models
             .first()
             .map(|model| self.create_language_model(model.clone()))
@@ -161,7 +160,7 @@ impl LanguageModelProvider for NaraRouterLanguageModelProvider {
     }
 
     fn provided_models(&self, cx: &App) -> Vec<Arc<dyn LanguageModel>> {
-        self.settings(cx)
+        Self::settings(cx)
             .available_models
             .iter()
             .map(|model| self.create_language_model(model.clone()))
@@ -228,9 +227,10 @@ impl NaraRouterLanguageModel {
                     provider: NARA_ROUTER_PROVIDER_NAME,
                 });
             };
+            let provider_name = NARA_ROUTER_PROVIDER_NAME;
             let request = stream_completion(
                 http_client.as_ref(),
-                NARA_ROUTER_PROVIDER_NAME.0.as_ref(),
+                provider_name.0.as_ref(),
                 &api_url,
                 &api_key,
                 request,
@@ -270,9 +270,10 @@ impl NaraRouterLanguageModel {
                     provider: NARA_ROUTER_PROVIDER_NAME,
                 });
             };
+            let provider_name = NARA_ROUTER_PROVIDER_NAME;
             let request = stream_response(
                 http_client.as_ref(),
-                NARA_ROUTER_PROVIDER_NAME.0.as_ref(),
+                provider_name.0.as_ref(),
                 &api_url,
                 &api_key,
                 request,

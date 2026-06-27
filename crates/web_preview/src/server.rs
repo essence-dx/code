@@ -341,7 +341,7 @@ async fn handle_agent_cursor_ws(socket: WebSocket, tx: broadcast::Sender<String>
     let conn_id = WS_CONN_ID.fetch_add(1, Ordering::Relaxed);
     let active = WS_ACTIVE_CONNECTIONS.fetch_add(1, Ordering::Relaxed) + 1;
 
-    if active > MAX_WS_CONNECTIONS {
+    if active as usize > MAX_WS_CONNECTIONS {
         warn!(conn_id, active, "dropping connection — too many concurrent connections");
         WS_ACTIVE_CONNECTIONS.fetch_sub(1, Ordering::Relaxed);
         return;
@@ -539,7 +539,7 @@ fn placeholder_html(tool: &str) -> String {
   </div>
 </body>
 </html>"#,
-        tool, safe = safe
+        safe = safe
     )
 }
 

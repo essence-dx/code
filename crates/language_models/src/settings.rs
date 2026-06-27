@@ -7,7 +7,7 @@ use crate::provider::{
     anthropic, anthropic::AnthropicSettings, anthropic_compatible::AnthropicCompatibleSettings,
     bedrock, bedrock::AmazonBedrockSettings, cloud::ZedDotDevSettings, deepseek::DeepSeekSettings,
     google::GoogleSettings, llama_cpp::LlamaCppSettings, lmstudio::LmStudioSettings, mistral,
-    mistral::MistralSettings, nara_router, nara_router::NaraRouterSettings, ollama::OllamaSettings,
+    mistral::MistralSettings, nara_router::NaraRouterSettings, ollama::OllamaSettings,
     open_ai::OpenAiSettings, open_ai_compatible::OpenAiCompatibleSettings, open_router,
     open_router::OpenRouterSettings, opencode, opencode::OpenCodeSettings, resolve_custom_headers,
     vercel_ai_gateway::VercelAiGatewaySettings, x_ai::XAiSettings,
