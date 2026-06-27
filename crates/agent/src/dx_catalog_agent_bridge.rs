@@ -43,6 +43,7 @@ pub(crate) const DX_CATALOG_PROVIDER_SETTINGS_REGISTRATION_SCHEMA: &str =
 #[derive(Clone, Debug, Default)]
 pub struct DxCatalogAgentBridge {
     models: HashMap<String, CatalogModelPresentation>,
+    #[allow(dead_code)]
     provider_groups: Vec<CatalogProviderModelGroup>,
     route_candidates: HashMap<String, Vec<String>>,
     execution_plans: HashMap<String, CatalogExecutionSummary>,
@@ -55,6 +56,7 @@ struct CatalogModelPresentation {
 }
 
 #[derive(Clone, Debug)]
+#[allow(dead_code)]
 struct CatalogProviderModelGroup {
     provider_identifiers: HashSet<String>,
     name: String,
@@ -134,6 +136,7 @@ impl DxCatalogAgentBridge {
         ))
     }
 
+    #[allow(dead_code)]
     pub fn append_catalog_provider_groups(
         &self,
         model_groups: &mut IndexMap<AgentModelGroupName, Vec<AgentModelInfo>>,

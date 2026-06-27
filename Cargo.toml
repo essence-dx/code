@@ -1023,7 +1023,7 @@ debug = "limited"
 lto = "thin"
 codegen-units = 1
 
-[profile.release.package.git-ui]
+[profile.release.package.git_ui]
 codegen-units = 16
 
 [profile.release.package]
