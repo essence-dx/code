@@ -62,6 +62,21 @@ pub fn init(cx: &mut App) {
         web_preview_view::WebPreviewView::register(workspace, window, cx);
         
         workspace.register_action(move |workspace, action: &OpenWebPreview, window, cx| {
+            let mut should_close = false;
+            if let Some(active_pane) = workspace.active_pane(window, cx) {
+                if let Some(active_item) = active_pane.read(cx).active_item() {
+                    if active_item.downcast::<web_preview_view::WebPreviewView>().is_none() {
+                        should_close = true;
+                    }
+                }
+            }
+            if should_close {
+                window.dispatch_action(
+                    Box::new(workspace::CloseActiveItem { save_intent: None }),
+                    cx,
+                );
+            }
+
             let url = server::local_preview_url(&action.project).unwrap_or_else(|| {
                 let port =
                     cx.global::<agent_ui::agent_thread_www_preview::WebPreviewServerPort>().0;
