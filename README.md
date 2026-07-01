@@ -93,7 +93,7 @@ git lfs track "extensions/dx-icon/**"
 git lfs track "assets/icons/**"
 git lfs track "web/Video/public/ffmpeg/ffmpeg-core.wasm"
 
-curl -s https://api.github.com/repos/millercarla211-ctrl/midday | grep '"size"'
+curl -s https://api.github.com/repos/essence-dx/code | grep '"size"'
 git ls-files | wc -l
 ```
 
